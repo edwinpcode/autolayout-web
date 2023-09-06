@@ -1,0 +1,111 @@
+{
+    "status": "1",
+    "message": "success",
+    "data": [
+        {
+            "title": "title",
+            "type": "pie",
+            "subtitle": "subtitle",
+            "yTitle": "yTitle",
+            "threeD": false,
+            "pecentage": false,
+            "series":  {
+                "name": "Browsers",
+                "colorByPoint": true,
+                "data": [
+                    {
+                    "name": "Chrome",
+                    "y": 63.06,
+                    "drilldown": "Chrome",
+                    "color": "#DF73FF"
+                    },
+                    {
+                    "name": "Safari",
+                    "y": 19.84,
+                    "drilldown": "Safari",
+                    "color": "#8d8cdf"
+                    },
+                    {
+                    "name": "Firefox",
+                    "y": 30,
+                    "drilldown": "Firefox",
+                    "color": "#f4c2c2"
+                    },
+                    {
+                    "name": "Edge",
+                    "y": 80,
+                    "drilldown": "Edge",
+                    "color": "#40e0d0"
+                    }
+                ]
+            },
+            "drilldown": {
+                "breadcrumbs": {
+                    "position": {
+                    "align": "right"
+                    }
+                },
+                "series": [
+                    {
+                        "name": "Chrome",
+                        "id": "Chrome",
+                        "data": [
+                            {
+                            "name": "Chrome A",
+                            "y": 70,
+                            "drilldown": "Chrome A"
+                            },
+                            {
+                            "name": "Chrome B",
+                            "y": 30,
+                            "drilldown": "Chrome B"
+                            }
+                        ]
+                    },{
+                        "name": "Chrome A",
+                        "id": "Chrome A",
+                        "data": [
+                            {
+                            "name": "Chrome AA",
+                            "y": 20,
+                            "drilldown": "Chrome AA"
+                            },
+                            {
+                            "name": "Chrome AB",
+                            "y": 30,
+                            "drilldown": "Chrome AB"
+                            }
+                        ]
+                    }, {
+                        "name": "Chrome AA",
+                        "id": "Chrome AA",
+                        "data": [
+                            {
+                            "name": "Chrome AAA",
+                            "y": 10
+                            },
+                            {
+                            "name": "Chrome AAB",
+                            "y": 60
+                            }
+                        ]
+                    }, {
+                        "name": "Chrome B",
+                        "id": "Chrome B",
+                        "data": [
+                            {
+                            "name": "Chrome BA",
+                            "y": 10
+                            },
+                            {
+                            "name": "Chrome BB",
+                            "y": 40
+                            }
+                        ]
+                    }
+                ]
+            }
+              
+        }
+    ]
+}

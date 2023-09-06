@@ -1,0 +1,466 @@
+{
+  "status": "1",
+  "message": "Get Structure Table Success",
+  "data": {
+    "caption": "Pengajuan Kredit",
+    "canSelectAll": true,
+    "header": [
+      {
+        "label": "Action",
+        "accessor": "action_button",
+        "type": "button",
+        "item": [
+          {
+            "id": "111",
+            "label": "detail",
+            "property": {
+              "active": true,
+              "order": "1",
+              "isRedirect": "1",
+              "needConfirm": "0",
+              "url": {
+                "path": "/getDetail",
+                "param": ["menu_id", "ap_regno"]
+              }
+            }
+          },
+          {
+            "id": "112",
+            "label": "Approve",
+            "property": {
+              "active": true,
+              "order": "1",
+              "isRedirect": "1",
+              "needConfirm": "0",
+              "url": {
+                "path": "/getDetail",
+                "param": ["x", "customertype_id"]
+              }
+            }
+          },
+          {
+            "id": "113",
+            "label": "reject",
+            "property": {
+              "active": true,
+              "order": "1",
+              "isRedirect": "1",
+              "needConfirm": "0",
+              "url": {
+                "path": "/getDetail",
+                "param": ["appnumber", "customertype_id"]
+              }
+            }
+          },
+          {
+            "id": "114",
+            "label": "cancel",
+            "property": {
+              "active": true,
+              "order": "1",
+              "isRedirect": "1",
+              "needConfirm": "0",
+              "url": {
+                "path": "/getDetail",
+                "param": ["appnumber", "customertype_id"]
+              }
+            }
+          },
+          {
+            "id": "115",
+            "label": "reverse",
+            "property": {
+              "active": true,
+              "order": "1",
+              "isRedirect": "1",
+              "needConfirm": "0",
+              "url": {
+                "path": "/getDetail",
+                "param": ["appnumber", "customertype_id"]
+              }
+            }
+          }
+        ]
+      },
+      {
+        "label": "ActSelect ",
+        "accessor": "action_select",
+        "type": "select",
+        "item": [
+          {
+            "id": "117",
+            "label": "approve",
+            "property": {
+              "active": true,
+              "order": "1"
+            }
+          },
+          {
+            "id": "118",
+            "label": "reject",
+            "property": {
+              "active": true,
+              "order": "1"
+            }
+          },
+          {
+            "id": "119",
+            "label": "cancel",
+            "property": {
+              "active": true,
+              "order": "1"
+            }
+          },
+          {
+            "id": "120",
+            "label": "reverse",
+            "property": {
+              "active": true,
+              "order": "1"
+            }
+          },
+          {
+            "id": "121",
+            "label": "hold",
+            "property": {
+              "active": true,
+              "order": "1"
+            }
+          }
+        ]
+      },
+      {
+        "label": "Approve Radio",
+        "accessor": "approve_radio",
+        "type": "radio",
+        "item": [
+          {
+            "id": "122",
+            "label": "approve",
+            "property": {
+              "active": true,
+              "order": "1",
+              "isRedirect": "1",
+              "needConfirm": "0",
+              "url": {
+                "path": "/getDetail",
+                "param": ["appnumber", "customertype_id"]
+              }
+            }
+          }
+        ]
+      },
+      {
+        "label": "RjctRadio ",
+        "accessor": "reject_radio",
+        "type": "radio",
+        "item": [
+          {
+            "id": "123",
+            "label": "reject",
+            "property": {
+              "active": true,
+              "order": "1",
+              "isRedirect": "1",
+              "needConfirm": "0",
+              "url": {
+                "path": "/getDetail",
+                "param": ["appnumber", "customertype_id"]
+              }
+            }
+          }
+        ]
+      },
+      {
+        "label": "CnclRadio ",
+        "accessor": "cancel_radio",
+        "type": "radio",
+        "item": [
+          {
+            "id": "124",
+            "label": "cancel",
+            "property": {
+              "active": true,
+              "order": "1",
+              "isRedirect": "1",
+              "needConfirm": "0",
+              "url": {
+                "path": "/getDetail",
+                "param": ["appnumber", "customertype_id"]
+              }
+            }
+          }
+        ]
+      },
+      {
+        "label": "RvrsRadio ",
+        "accessor": "reverse_radio",
+        "type": "radio",
+        "item": [
+          {
+            "id": "125",
+            "label": "reverse",
+            "property": {
+              "active": true,
+              "order": "1",
+              "isRedirect": "1",
+              "needConfirm": "0",
+              "url": {
+                "path": "/getDetail",
+                "param": ["appnumber", "customertype_id"]
+              }
+            }
+          }
+        ]
+      },
+      {
+        "label": "HoldRadio ",
+        "accessor": "hold_radio",
+        "type": "radio",
+        "item": [
+          {
+            "id": "116",
+            "label": "hold",
+            "property": {
+              "active": true,
+              "order": "1",
+              "isRedirect": "1",
+              "needConfirm": "0",
+              "url": {
+                "path": "/getDetail",
+                "param": ["appnumber", "customertype_id"]
+              }
+            }
+          }
+        ]
+      },
+      {
+        "label": "Nomor Aplikasi",
+        "accessor": "header008",
+        "type": "text"
+      },
+      {
+        "label": "Kode Tipe Nasabah",
+        "accessor": "header009",
+        "type": "text"
+      },
+      {
+        "label": "Tipe Nasabah",
+        "accessor": "header010",
+        "type": "text"
+      },
+      {
+        "label": "Nama Nasabah",
+        "accessor": "header011",
+        "type": "text"
+      },
+      {
+        "label": "Nomor KTP",
+        "accessor": "header012",
+        "type": "text"
+      },
+      {
+        "label": "Tipe Identitas",
+        "accessor": "header013",
+        "type": "text"
+      },
+      {
+        "label": "ID Produk",
+        "accessor": "header014",
+        "type": "text"
+      },
+      {
+        "label": "Nama Produk",
+        "accessor": "header015",
+        "type": "text"
+      },
+      {
+        "label": "Plafon",
+        "accessor": "header016",
+        "type": "text"
+      },
+      {
+        "label": "ID Track",
+        "accessor": "header017",
+        "type": "text"
+      },
+      {
+        "label": "Nama Track",
+        "accessor": "header018",
+        "type": "text"
+      },
+      {
+        "label": "Judul",
+        "accessor": "header019",
+        "type": "text"
+      }
+    ],
+    "topAction": [
+      {
+        "id": "110",
+        "label": "filter",
+        "type": "buttonModal",
+        "property": {
+          "icon": "fal-fa-filter",
+          "className": "btn btn-sm btn-info",
+          "dataTarget": "filterModal",
+          "active": "1",
+          "isRedirect": "0",
+          "needConfirm": "0",
+          "contents": [
+            {
+              "id": "filter_1",
+              "label": "Nomor Aplikasi",
+              "type": "text",
+              "data": []
+            },
+            {
+              "id": "filter_2",
+              "label": "Tanggal Pengajuan",
+              "type": "dateRange",
+              "data": []
+            },
+            {
+              "id": "filter_3",
+              "label": "Tanggal Input",
+              "type": "date",
+              "data": []
+            },
+            {
+              "id": "filter_4",
+              "label": "Marketing",
+              "type": "dropdown",
+              "data": [
+                {
+                  "id": "WND",
+                  "label": "WINDY"
+                },
+                {
+                  "id": "WND",
+                  "label": "WINDY"
+                },
+                {
+                  "id": "WND",
+                  "label": "WINDY"
+                },
+                {
+                  "id": "WND",
+                  "label": "WINDY"
+                }
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "id": "111",
+        "label": "input data",
+        "type": "button",
+        "property": {
+          "icon": "fal fa-plus",
+          "className": "btn btn-sm btn-info",
+          "dataTarget": " ",
+          "active": "1",
+          "isRedirect": "1",
+          "needConfirm": "0",
+          "url": {
+            "path": "/form",
+            "param": ["ap_regno"]
+          },
+          "item": {}
+        }
+      },
+      {
+        "id": "112",
+        "label": "export",
+        "type": "buttonDropDown",
+        "property": {
+          "icon": "fal fa-download",
+          "className": "btn btn-sm btn-info",
+          "dataTarget": " ",
+          "active": "1",
+          "isRedirect": "1",
+          "needConfirm": "0",
+          "url": {
+            "path": "/getDetail",
+            "param": ["ap_regno"]
+          },
+          "item": {
+            "label": "Excel",
+            "url": {
+              "url": "/getDetail",
+              "param": ["ap_regno"]
+            }
+          }
+        }
+      }
+    ],
+    "bottomAction": [
+      {
+        "id": "bottom001",
+        "label": "Approve",
+        "property": {
+          "active": "1",
+          "order": "1",
+          "isRedirect": "1",
+          "url": {
+            "path": "/getDetail",
+            "param": ["appnumber", "customertype_id"]
+          }
+        }
+      },
+      {
+        "id": "bottom002",
+        "label": "Reject",
+        "property": {
+          "active": "1",
+          "order": "1",
+          "isRedirect": "1",
+          "url": {
+            "path": "/getDetail",
+            "param": ["appnumber", "customertype_id"]
+          }
+        }
+      },
+      {
+        "id": "bottom003",
+        "label": "Cancel",
+        "property": {
+          "active": "1",
+          "order": "1",
+          "isRedirect": "1",
+          "url": {
+            "path": "/getDetail",
+            "param": ["appnumber", "customertype_id"]
+          }
+        }
+      },
+      {
+        "id": "bottom004",
+        "label": "Reverse",
+        "property": {
+          "active": "1",
+          "order": "1",
+          "isRedirect": "1",
+          "url": {
+            "path": "/getDetail",
+            "param": ["appnumber", "customertype_id"]
+          }
+        }
+      },
+      {
+        "id": "bottom005",
+        "label": "Hold",
+        "property": {
+          "active": "1",
+          "order": "1",
+          "isRedirect": "1",
+          "url": {
+            "path": "/getDetail",
+            "param": ["appnumber", "customertype_id"]
+          }
+        }
+      }
+    ]
+  }
+}

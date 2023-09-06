@@ -1,0 +1,8 @@
+{
+  "status": "1",
+  "message": "Get Form Success",
+  "data": [
+    { "dataId": "1", "dataDesc": "Terkait" },
+    { "dataId": "2", "dataDesc": "Tidak Terkait" }
+  ]
+}

@@ -1,0 +1,30 @@
+{
+  "status": "1",
+  "message": "Get Data Dashbord Count Success",
+  "content": [
+    {
+      "label": "PENGAJUAN AWAL",
+      "value": "12",
+      "class": "bg-info",
+      "icon": "fa fa-paper-plane"
+    },
+    {
+      "label": "PENGAJUAN AWAL",
+      "value": "12",
+      "class": "bg-info",
+      "icon": "fa fa-paper-plane"
+    },
+    {
+      "label": "PENGAJUAN AWAL",
+      "value": "12",
+      "class": "bg-info",
+      "icon": "fa fa-paper-plane"
+    },
+    {
+      "label": "PENGAJUAN AWAL",
+      "value": "12",
+      "class": "bg-info",
+      "icon": "fa fa-paper-plane"
+    }
+  ]
+}

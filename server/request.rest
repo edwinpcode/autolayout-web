@@ -1,0 +1,91 @@
+POST http://localhost:4001/setdashboardvalue
+Content-Type: application/json
+
+{
+    "content": [
+        {
+            "userId": "AO_100",
+            "track": "2.0",
+            "description": "Pengajuan Awal",
+            "total": "270",
+            "menuId": "002",
+            "class": "bg-info",
+            "icon": "fal fa-id-card"
+        },
+        {
+            "userId": "AO_100",
+            "track": "2.0",
+            "description": "Pengajuan Awal",
+            "total": "286",
+            "menuId": "003003",
+            "class": "bg-info",
+            "icon": "fal fa-id-card"
+        },
+        {
+            "userId": "AO_100",
+            "track": "4.0",
+            "description": "Verifikasi Data Calon Debitur",
+            "total": "195",
+            "menuId": "004001",
+            "class": "bg-warning",
+            "icon": "fal fa-id-card"
+        },
+        {
+            "userId": "AO_100",
+            "track": "4.1",
+            "description": "OTS Usaha & Jaminan",
+            "total": "39",
+            "menuId": "004002",
+            "class": "bg-primary",
+            "icon": "fal fa-id-card"
+        },
+        {
+            "userId": "AO_100",
+            "track": "5.0",
+            "description": "Input Analisa Kredit",
+            "total": "26",
+            "menuId": "005001",
+            "class": "bg-warning",
+            "icon": "fal fa-analytics"
+        },
+        {
+            "userId": "AO_100",
+            "track": "7.0",
+            "description": "Konfirmasi Nasabah",
+            "total": "13",
+            "menuId": "007",
+            "class": "bg-info",
+            "icon": "fal fa-id-card"
+        },
+        {
+            "userId": "AO_100",
+            "track": "8.0",
+            "description": "Pencairan",
+            "total": "273",
+            "menuId": "008",
+            "class": "bg-success",
+            "icon": "fal fa-id-card"
+        }
+    ]
+}
+
+
+# POST http://localhost:4001/setDashboard
+# Content-Type: application/json
+
+# {
+#     "content": [
+#         {
+#           "y": "100",
+#           "sliced": "true"
+#         },
+#         {
+#           "y": "33",
+#           "sliced": "true"
+#         },
+#         {
+#           "y": "93",
+#           "sliced": "true"
+#         }
+#     ]
+# }

@@ -1,0 +1,6 @@
+.whitespace-nowrap {
+  white-space: nowrap;
+}
+.active .bs-stepper-circle {
+  background-color: #17a2b8;
+}

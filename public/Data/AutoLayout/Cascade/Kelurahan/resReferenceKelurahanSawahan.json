@@ -1,0 +1,12 @@
+{
+  "status": "1",
+  "message": "Get Reference Success",
+  "data": [
+    { "dataId": "11139250525205", "dataDesc": "Sawahan" },
+    { "dataId": "11139250525206", "dataDesc": "Petemon" },
+    { "dataId": "11139250525207", "dataDesc": "Kupang" },
+    { "dataId": "11139250525208", "dataDesc": "Banyu" },
+    { "dataId": "11139250525209", "dataDesc": "Putat" },
+    { "dataId": "11139250525210", "dataDesc": "Pakis" }
+  ]
+}

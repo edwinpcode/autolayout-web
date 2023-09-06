@@ -1,0 +1,23 @@
+{
+    "status": "1",
+    "message": "Get toolbox",
+    "data": [
+        {        
+            "label": "Start Event",
+            "type": "startEvent",
+            "icon": "fal fa-circle"
+        }, {
+            "label": "Business Process",
+            "type": "businessProcess",
+            "icon": "fal fa-square"
+        }, {
+            "label": "Gateway",
+            "type": "gateway",
+            "icon": "fal fa-diamond"
+        },{
+            "label": "End Event",
+            "type": "endEvent",
+            "icon": "fal fa-circle"
+        } 
+    ]
+  }

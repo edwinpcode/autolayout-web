@@ -1,0 +1,26 @@
+{
+  "status": "1",
+  "message": "Get Form Success",
+  "data": [
+    {
+      "dataDesc": "IDCD0001_003",
+      "dataId": "Mas Budi"
+    },
+    {
+      "dataDesc": "IDCD0001_008",
+      "dataId": "Yogyakarta"
+    },
+    {
+      "dataDesc": "IDCD0001_009",
+      "dataId": "1996-01-29"
+    },
+    {
+      "dataDesc": "IDCD0001_010",
+      "dataId": "26"
+    },
+    {
+      "dataDesc": "IDCD0001_013",
+      "dataId": "M"
+    }
+  ]
+}

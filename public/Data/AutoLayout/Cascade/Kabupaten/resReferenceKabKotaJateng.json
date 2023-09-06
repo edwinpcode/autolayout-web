@@ -1,0 +1,130 @@
+{
+  "status": "1",
+  "message": "Get Reference Success",
+  "data": [
+    {
+      "dataId": "10081",
+      "dataDesc": "Kabupaten Banjarnegara"
+    },
+    {
+      "dataId": "10082",
+      "dataDesc": "Kabupaten Banyumas"
+    },
+    {
+      "dataId": "10083",
+      "dataDesc": "Kabupaten Batang"
+    },
+    {
+      "dataId": "10084",
+      "dataDesc": "Kabupaten Blora"
+    },
+    {
+      "dataId": "10085",
+      "dataDesc": "Kabupaten Boyolali"
+    },
+    {
+      "dataId": "10086",
+      "dataDesc": "Kabupaten Brebes"
+    },
+    {
+      "dataId": "10087",
+      "dataDesc": "Kabupaten Cilacap"
+    },
+    {
+      "dataId": "10088",
+      "dataDesc": "Kabupaten Demak"
+    },
+    {
+      "dataId": "10089",
+      "dataDesc": "Kabupaten Grobogan"
+    },
+    {
+      "dataId": "10090",
+      "dataDesc": "Kabupaten Jepara"
+    },
+    {
+      "dataId": "10091",
+      "dataDesc": "Kabupaten Karanganyar"
+    },
+    {
+      "dataId": "10092",
+      "dataDesc": "Kabupaten Kebumen"
+    },
+    {
+      "dataId": "10093",
+      "dataDesc": "Kabupaten Kendal"
+    },
+    {
+      "dataId": "10094",
+      "dataDesc": "Kabupaten Klaten"
+    },
+    {
+      "dataId": "10095",
+      "dataDesc": "Kabupaten Kudus"
+    },
+    {
+      "dataId": "10096",
+      "dataDesc": "Kabupaten Magelang"
+    },
+    {
+      "dataId": "10097",
+      "dataDesc": "Kabupaten Pati"
+    },
+    {
+      "dataId": "10098",
+      "dataDesc": "Kabupaten Pekalongan"
+    },
+    {
+      "dataId": "10099",
+      "dataDesc": "Kabupaten Pemalang"
+    },
+    {
+      "dataId": "10100",
+      "dataDesc": "Kabupaten Purbalingga"
+    },
+    {
+      "dataId": "10101",
+      "dataDesc": "Kabupaten Purworejo"
+    },
+    {
+      "dataId": "10102",
+      "dataDesc": "Kabupaten Rembang"
+    },
+    {
+      "dataId": "10103",
+      "dataDesc": "Kabupaten Salatiga"
+    },
+    {
+      "dataId": "10104",
+      "dataDesc": "Kabupaten Semarang"
+    },
+    {
+      "dataId": "10105",
+      "dataDesc": "Kabupaten Sragen"
+    },
+    {
+      "dataId": "10106",
+      "dataDesc": "Kabupaten Sukoharjo"
+    },
+    {
+      "dataId": "10107",
+      "dataDesc": "Kabupaten Surakarta"
+    },
+    {
+      "dataId": "10108",
+      "dataDesc": "Kabupaten Tegal"
+    },
+    {
+      "dataId": "10109",
+      "dataDesc": "Kabupaten Temanggung"
+    },
+    {
+      "dataId": "10110",
+      "dataDesc": "Kabupaten Wonogiri"
+    },
+    {
+      "dataId": "10111",
+      "dataDesc": "Kabupaten Wonosobo"
+    }
+  ]
+}

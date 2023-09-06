@@ -1,0 +1,13 @@
+{
+  "status": "1",
+  "message": "Get Form Success",
+  "data": [
+    { "dataId": "BUD", "dataDesc": "BUDHA" },
+    { "dataId": "HIN", "dataDesc": "HINDU" },
+    { "dataId": "ISL", "dataDesc": "ISLAM" },
+    { "dataId": "KAT", "dataDesc": "KATHOLIK" },
+    { "dataId": "KHC", "dataDesc": "KONG HU CHU" },
+    { "dataId": "KRS", "dataDesc": "KRISTEN" },
+    { "dataId": "OTH", "dataDesc": "LAINNYA" }
+  ]
+}

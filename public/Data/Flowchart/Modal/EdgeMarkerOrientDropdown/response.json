@@ -1,0 +1,13 @@
+{
+    "status": "1",
+    "message": "get marker orient",
+    "data": [
+        {
+            "label": "Default",
+            "value": "auto"
+        }, {
+            "label": "Reverse",
+            "value": "auto-start-reverse"
+        }
+    ]
+}

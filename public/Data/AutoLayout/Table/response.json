@@ -1,0 +1,37 @@
+{
+  "status": "1",
+  "message": "Get table success",
+  "data": {
+    "total": "100",
+    "header": [
+      {
+        "label": "Nama",
+        "accessor": "name",
+        "type": "text"
+      },
+      {
+        "label": "Umur",
+        "accessor": "age",
+        "type": "text"
+      }
+    ],
+    "list": [
+      { "name": "haecal", "age": 20 },
+      { "name": "haecal", "age": 20 },
+      { "name": "haecal", "age": 20 },
+      { "name": "haecal", "age": 20 },
+      { "name": "haecal", "age": 20 },
+      { "name": "haecal", "age": 20 },
+      { "name": "haecal", "age": 20 },
+      { "name": "haecal", "age": 20 },
+      { "name": "haecal", "age": 20 },
+      { "name": "haecal", "age": 20 },
+      { "name": "haecal", "age": 20 },
+      { "name": "haecal", "age": 20 },
+      { "name": "haecal", "age": 20 },
+      { "name": "haecal", "age": 20 },
+      { "name": "haecal", "age": 20 },
+      { "name": "haecal", "age": 20 }
+    ]
+  }
+}

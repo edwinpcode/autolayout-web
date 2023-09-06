@@ -1,0 +1,26 @@
+{
+  "name": "Browsers",
+  "colorByPoint": true,
+  "data": [
+    { 
+      "name": "Chrome",
+      "y": 63.06,
+      "drilldown": "Chrome"
+    },
+    {
+      "name": "Safari",
+      "y": 19.84,
+      "drilldown": "Safari"
+    },
+    {
+      "name": "Firefox",
+      "y": 30,
+      "drilldown": "Firefox"
+    },
+    {
+      "name": "Edge",
+      "y": 80,
+      "drilldown": "Edge"
+    }
+  ]
+}

@@ -1,0 +1,11 @@
+{
+  "userId": "1",
+  "menuId": "00101",
+  "moduleId": "LOS",
+  "roleId": "WINDY_001",
+  "filtering": [{ "id": "", "value": "" }],
+  "pagination": {
+    "pageIndex": 1,
+    "perPage": 10
+  }
+}

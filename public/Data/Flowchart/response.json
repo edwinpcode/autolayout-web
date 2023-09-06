@@ -1,0 +1,20 @@
+{
+  "status": "1",
+  "message": "Get Flowchart data Success",
+  "data": {
+    "flowchart": {
+      "id": 1,
+      "name": "FLOW DATA",
+      "node": [
+          { "id": "1", "position": { "x": 0, "y": 0 }, "data": { "label": "Input" }, "type": "input" },
+          { "id": "2", "position": { "x": 0, "y": 100 }, "data": { "label": "Output" }, "type": "businessProcess" },
+          { "id": "3", "position": { "x": 0, "y": 200 }, "data": { "label": "Exit" }, "type": "output" },
+          { "id": "4", "position": { "x": 200, "y": 200 }, "data": { "label": "Pencairan" }, "type": "businessProcess" },
+          { "id": "5", "position": { "x": 200, "y": 100 }, "data": { "label": "Gateway" }, "type": "gateway" }
+      ],
+      "edge": [
+        { "id": "e1-2", "source": "1", "target": "2", "label": "garis", "markerStart": { "type": "arrow"} }
+      ]
+    }
+  }
+}

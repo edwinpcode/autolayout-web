@@ -1,0 +1,11 @@
+{
+  "data": [
+    { "name": "Pie" },
+    { "name": "Donut" },
+    { "name": "Semi Circle" },
+    { "name": "Bar" },
+    { "name": "Column" },
+    { "name": "Area" },
+    { "name": "Line" }
+  ]
+}

@@ -1,0 +1,77 @@
+{
+  "status": 1,
+  "message": "Sukses",
+  "userId": "admin",
+  "fullname": "administrator",
+  "photoProfile": "../Upload/files/profile/default/photoprofile.png",
+  "branchId": "000",
+  "branchName": "KANTOR PUSAT",
+  "activeModule": {
+    "id": "60",
+    "desc": "DIGILEND"
+  },
+  "activeRole": {
+    "id": "00",
+    "desc": "Administrator"
+  },
+  "data": {
+    "module": [
+      {
+        "id": "60",
+        "icon": "fal fa-user",
+        "name": "DIGILEND",
+        "role": [
+          {
+            "groupId": "00",
+            "icon": "fal fa-user",
+            "groupName": "Administrator",
+            "totalTaskList": "0"
+          }
+        ],
+        "totalTaskList": "0"
+      },
+      {
+        "id": "69",
+        "icon": "fal fa-user",
+        "name": "Parameter Setup DIGILEND",
+        "role": [
+          {
+            "groupId": "00",
+            "icon": "fal fa-user",
+            "groupName": "Administrator",
+            "totalTaskList": "0"
+          }
+        ],
+        "totalTaskList": "0"
+      },
+      {
+        "id": "70",
+        "icon": "fal fa-user",
+        "name": "CRMS",
+        "role": [],
+        "totalTaskList": "0"
+      },
+      {
+        "id": "79",
+        "icon": "fal fa-user",
+        "name": "Parameter Setup CRMS",
+        "role": [],
+        "totalTaskList": "0"
+      },
+      {
+        "id": "80",
+        "icon": "fal fa-user",
+        "name": "Collection System",
+        "role": [],
+        "totalTaskList": "0"
+      },
+      {
+        "id": "89",
+        "icon": "fal fa-user",
+        "name": "Parameter Setup Collection System",
+        "role": [],
+        "totalTaskList": "0"
+      }
+    ]
+  }
+}

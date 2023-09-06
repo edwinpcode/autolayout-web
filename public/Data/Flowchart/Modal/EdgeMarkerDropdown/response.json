@@ -1,0 +1,16 @@
+{
+    "status": "1",
+    "message": "get marker type",
+    "data": [
+        {
+            "label": "Default",
+            "value": "default"
+        }, {
+            "label": "Arrow",
+            "value": "arrow"
+        }, {
+            "label": "Arrow Closed",
+            "value": "arrowclosed"
+        }
+    ]
+}

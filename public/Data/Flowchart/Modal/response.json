@@ -1,0 +1,223 @@
+{
+    "status": "1",
+    "message": "get Modal",
+    "data": [
+      {
+        "name": "label",
+        "label": "Label",
+        "type": "text",
+        "maxLength": "16",
+        "isMandatory": "1",
+        "rule": "",
+        "isReadOnly": "0",
+        "reference": "",
+        "width": 4,
+        "isMultiple": "0",
+        "isActive": "1"
+      },
+      {
+        "name": "description",
+        "label": "Description",
+        "type": "text",
+        "maxLength": "32",
+        "isMandatory": "0",
+        "rule": "",
+        "isReadOnly": "0",
+        "reference": "",
+        "width": 4,
+        "isMultiple": "0",
+        "isActive": "1"
+      },
+      {
+        "id": "3",
+        "name": "type",
+        "label": "Node Type",
+        "type": "dropdown",
+        "maxLength": "16",
+        "isMandatory": "1",
+        "rule": "",
+        "isReadOnly": "0",
+        "data": [
+          {
+            "value": "startEvent",
+            "label": "Start Event"
+          },
+          {
+            "value": "businessProcess",
+            "label": "Business Process"
+          },
+          {
+            "value": "gateway",
+            "label": "Gateway"
+          },
+          {
+            "value": "endEvent",
+            "label": "End Event"
+          }
+        ],
+        "reference": {
+          "referenceName": "nodeDropdown",
+          "paramParent": [],
+          "paramChild": []
+        },
+        "width": 4,
+        "isMultiple": "0",
+        "isActive": "1"
+      }, {
+        "name": "type",
+        "label": "Type",
+        "type": "dropdown",
+        "maxLength": "16",
+        "isMandatory": "1",
+        "rule": "",
+        "isReadOnly": "0",
+        "data": [
+          {
+            "label": "Default",
+            "value": "default"
+          },
+          {
+            "label": "Straight",
+            "value": "straight"
+          },
+          {
+            "label": "Step",
+            "value": "step"
+          },
+          {
+            "label": "Smooth Step",
+            "value": "smoothstep"
+          },
+          {
+            "label": "Simple Bezier",
+            "value": "simplebezier"
+          }
+        ],
+        "reference": {
+          "referenceName": "edgeDropdown",
+          "paramParent": [],
+          "paramChild": []
+        },
+        "width": 4,
+        "isMultiple": "0",
+        "isActive": "1"
+      },
+      {
+        "id": "3",
+        "name": "markerOrient",
+        "label": "Marker Orient",
+        "type": "dropdown",
+        "maxLength": "16",
+        "isMandatory": "1",
+        "rule": "",
+        "isReadOnly": "0",
+        "data": [
+          {
+            "label": "Default",
+            "value": "auto"
+          },
+          {
+            "label": "Reverse",
+            "value": "auto-start-reverse"
+          }
+        ],
+        "reference": {
+          "referenceName": "edgeOrientDropdown",
+          "paramParent": [],
+          "paramChild": []
+        },
+        "width": 4,
+        "isMultiple": "0",
+        "isActive": "1"
+      },
+      {
+        "name": "markerStart",
+        "label": "Marker Start - Select Orient -> Reverse",
+        "type": "dropdown",
+        "maxLength": "16",
+        "isMandatory": "1",
+        "rule": "",
+        "isReadOnly": "0",
+        "data": [
+          {
+            "label": "None",
+            "value": "none"
+          },
+          {
+            "label": "Arrow",
+            "value": "arrow"
+          },
+          {
+            "label": "Arrow Closed",
+            "value": "arrowclosed"
+          }
+        ],
+        "reference": {
+          "referenceName": "edgeMarkerDropdown",
+          "paramParent": [],
+          "paramChild": []
+        },
+        "width": 4,
+        "isMultiple": "0",
+        "isActive": "1"
+      },
+      {
+        "name": "markerEnd",
+        "label": "Marker End - Select Orient -> Default",
+        "type": "dropdown",
+        "maxLength": "16",
+        "isMandatory": "1",
+        "rule": "",
+        "isReadOnly": "0",
+        "data": [
+          {
+            "label": "None",
+            "value": "none"
+          },
+          {
+            "label": "Arrow",
+            "value": "arrow"
+          },
+          {
+            "label": "Arrow Closed",
+            "value": "arrowclosed"
+          }
+        ],
+        "reference": {
+          "referenceName": "edgeMarkerDropdown",
+          "paramParent": [],
+          "paramChild": []
+        },
+        "width": 4,
+        "isMultiple": "0",
+        "isActive": "1"
+      },
+      {
+        "name": "animated",
+        "label": "Marker Animated",
+        "type": "dropdown",
+        "maxLength": "16",
+        "isMandatory": "1",
+        "rule": "",
+        "isReadOnly": "0",
+        "data": [
+          {
+            "label": "False",
+            "value": "false"
+          },
+          {
+            "label": "True",
+            "value": "true"
+          }
+        ],
+        "reference": {
+          "referenceName": "edgeAnimatedDropdown",
+          "paramParent": [],
+          "paramChild": []
+        },
+        "width": 4,
+        "isMultiple": "0",
+        "isActive": "1"
+      }
+    ]
+  }

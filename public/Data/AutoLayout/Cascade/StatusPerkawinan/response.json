@@ -1,0 +1,10 @@
+{
+  "status": "1",
+  "message": "Get Form Success",
+  "data": [
+    { "dataId": "1", "dataDesc": "Kawin" },
+    { "dataId": "2", "dataDesc": "Belum Kawin" },
+    { "dataId": "3", "dataDesc": "Janda" },
+    { "dataId": "4", "dataDesc": "Duda" }
+  ]
+}

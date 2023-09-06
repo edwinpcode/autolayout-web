@@ -1,0 +1,26 @@
+{
+  "ap_regno": "1903491",
+  "data": [
+    {
+      "panelId": "IDCD0001",
+      "field": [
+        {
+          "fieldId": "IDCD0001_001",
+          "fieldValue": "000061002022"
+        },
+        {
+          "fieldId": "IDCD0001_004",
+          "fieldValue": "AAA|#|BBBB"
+        },
+        {
+          "fieldId": "IDCD0001_017",
+          "fieldValue": "HENNY"
+        }
+      ]
+    }
+  ],
+  "formId": "IDCD1001",
+  "actionId": "1",
+  "tc": "4.0",
+  "userid": "AO_100"
+}

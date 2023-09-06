@@ -1,0 +1,146 @@
+{
+  "status": "1",
+  "message": "Get Form Success",
+  "listField": [
+    {
+      "fieldId": "PA000001_021",
+      "fieldLabel": "Pie Chart",
+      "fieldType": "chart",
+      "width": "12",
+      "valueList": [
+        {
+          "title": "REPORT PRODUCT",
+          "subtitle": "Subtitle",
+          "type": "pie",
+          "yTitle": "Jumlah",
+          "threeD": "False",
+          "percentage": "False",
+          "stacking": "False",
+          "series": [
+            {
+              "name": "PENGAJUAN PER PRODUCT",
+              "colorByPoint": "True",
+              "seriesId": "FCHT001_1_001",
+              "data": [
+                {
+                  "name": "KI KENDARAAN USAHA",
+                  "y": "15",
+                  "drilldown": "KIKU",
+                  "color": "#66CD2A"
+                },
+                {
+                  "name": "KI KUR MIKRO",
+                  "y": "4",
+                  "drilldown": "KIKURM",
+                  "color": "#E274A6"
+                },
+                {
+                  "name": "KI KUR SUPER MIKRO",
+                  "y": "15",
+                  "drilldown": "KIKURSM",
+                  "color": "#0DB4C3"
+                },
+                {
+                  "name": "KI MIKRO",
+                  "y": "20",
+                  "drilldown": "KIM",
+                  "color": "#EBFF4D"
+                },
+                {
+                  "name": "KI PAPEDA",
+                  "y": "1",
+                  "drilldown": "KIP",
+                  "color": "#424CC2"
+                },
+                {
+                  "name": "KKR ABDI BHAKTI",
+                  "y": "8",
+                  "drilldown": "KKRAB",
+                  "color": "#CD1C9E"
+                },
+                {
+                  "name": "KKR KENDARAAN",
+                  "y": "4",
+                  "drilldown": "KKRK",
+                  "color": "#93A789"
+                },
+                {
+                  "name": "KKR KENDARAAN FLAT",
+                  "y": "2",
+                  "drilldown": "KKRKF",
+                  "color": "#2E57C3"
+                },
+                {
+                  "name": "KKR PURNA BHAKTI INTERN",
+                  "y": "4",
+                  "drilldown": "KKRPBI",
+                  "color": "#74AFC0"
+                },
+                {
+                  "name": "KKS PEGAWAI SIAGA",
+                  "y": "7",
+                  "drilldown": "KKSPS",
+                  "color": "#C5089C"
+                },
+                {
+                  "name": "KKS PRAPURNA BHAKTI",
+                  "y": "5",
+                  "drilldown": "KKSPPB",
+                  "color": "#2BBF9F"
+                },
+                {
+                  "name": "KKS PURNA BHAKTI (PGW PENSIUNAN)",
+                  "y": "9",
+                  "drilldown": "KKSPB",
+                  "color": "#E4F274"
+                },
+                {
+                  "name": "KKS WIRA BHAKTI (PGW EKSTERN)",
+                  "y": "29",
+                  "drilldown": "KKSWB",
+                  "color": "#45F077"
+                },
+                {
+                  "name": "KMK KUR MIKRO",
+                  "y": "6",
+                  "drilldown": "KMKKURM",
+                  "color": "#8C8F4D"
+                },
+                {
+                  "name": "KMK KUR SUPER MIKRO",
+                  "y": "15",
+                  "drilldown": "KMKKURSM",
+                  "color": "#A8F990"
+                },
+                {
+                  "name": "KMK MIKRO",
+                  "y": "7",
+                  "drilldown": "KMKM",
+                  "color": "#36E1CD"
+                },
+                {
+                  "name": "KMK PAPEDA",
+                  "y": "2",
+                  "drilldown": "KMKP",
+                  "color": "#4E9839"
+                },
+                {
+                  "name": "PINJAMAN USAHA MIKRO",
+                  "y": "6",
+                  "drilldown": "PUM",
+                  "color": "#B2837C"
+                },
+                {
+                  "name": "PINJAMAN USAHA MIKRO MAMA PAPUA",
+                  "y": "3",
+                  "drilldown": "PUMMMP",
+                  "color": "#E53BA4"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

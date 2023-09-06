@@ -1,0 +1,23 @@
+{
+    "status": "1",
+    "message": "get Node dropdown",
+    "data": [
+        { 
+            "dataId": "IN",
+            "value": "input",
+            "dataDesc": "Start Event"
+        }, { 
+            "dataId": "BP",
+            "value": "businessProcess",
+            "dataDesc": "Business Process"
+        }, { 
+            "dataId": "GT",
+            "value": "gateway",
+            "dataDesc": "Gateway"
+        }, { 
+            "dataId": "OUT",
+            "value": "output",
+            "dataDesc": "End Event"
+        }
+    ]
+}

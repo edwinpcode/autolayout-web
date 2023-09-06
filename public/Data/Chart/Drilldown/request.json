@@ -1,0 +1,12 @@
+{
+    "referenceName": "seriesID",
+    "param": [
+        {
+            "seriesID": "12",
+            "name": "chrome",
+			"y": "1",
+			"drilldown": "chrome",
+			"color": "#FFFFF"
+        }
+    ]
+}

@@ -1,0 +1,15 @@
+{
+  "status": "1",
+  "message": "Login Success",
+  "data": {
+    "userId": "admin",
+    "fullName": "Muhamad Windy Sulistiyo",
+    "photoProfile": "",
+    "branchId": "001",
+    "branchName": "KC Salatiga",
+    "accessToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6IjA4MTc3MTMwNzgiLCJuYmYiOjE2NjIwNzUzMzUsImV4cCI6MTY2MjY4MDEzNSwiaWF0IjoxNjYyMDc1MzM1fQ.UPMOdr5hmHHaMGePovDSCgYQ7VX7J5c_ig39GB_4Z4g",
+    "tokenType": "bearer",
+    "expiredIn": "2022-09-08T23:35:35.1364921Z",
+    "sessionTimeOut": "15"
+  }
+}

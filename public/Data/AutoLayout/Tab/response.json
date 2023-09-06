@@ -1,0 +1,43 @@
+{
+  "status": 200,
+  "data": {
+    "response": {
+      "status": "1",
+      "message": "Get Tab Success",
+      "data": [
+        {
+          "id": "FRM001",
+          "label": "Fasilitas Kredit"
+        },
+        {
+          "id": "FRM002",
+          "label": "Nasabah"
+        },
+        {
+          "id": "FRM003",
+          "label": "Fasilitas Kredit"
+        },
+        {
+          "id": "FRM004",
+          "label": "Nasabah"
+        },
+        {
+          "id": "FRM005",
+          "label": "Jaminan"
+        },
+        {
+          "id": "FRM006",
+          "label": "Usaha"
+        },
+        {
+          "id": "FRM007",
+          "label": "Verifikasi Nasabah"
+        },
+        {
+          "id": "FRM008",
+          "label": "Dokumen"
+        }
+      ]
+    }
+  }
+}

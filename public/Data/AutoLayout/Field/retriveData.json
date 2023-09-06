@@ -1,0 +1,1679 @@
+{
+  "status": "1",
+  "message": "Get Form Success",
+  "panel": [
+    {
+      "formId": "IDCD0001",
+      "PanelName": "NASABAH",
+      "tableName": "APP_CUSTOMER",
+      "dataField": [
+        {
+          "fieldId": "IDCD0001_001",
+          "fieldName": "AP_REGNO",
+          "fieldValue": "000061002022",
+          "fieldValueList": [],
+          "setProperty": []
+        },
+        {
+          "fieldId": "IDCD0001_002",
+          "fieldName": "CUSTTYPE",
+          "fieldValue": "",
+          "fieldValueList": [
+            {
+              "dataId": "NULL",
+              "dataDesc": " -- pilih -- ",
+              "selected": "false"
+            },
+            { "dataId": "01", "dataDesc": "Individu", "selected": "true" },
+            { "dataId": "02", "dataDesc": "Badan Usaha", "selected": "false" }
+          ],
+          "setProperty": []
+        },
+        {
+          "fieldId": "IDCD0001_003",
+          "fieldName": "CUSTNAME",
+          "fieldValue": "WINDT TES 234",
+          "fieldValueList": [],
+          "setProperty": []
+        },
+        {
+          "fieldId": "IDCD0001_004",
+          "fieldName": "IDNUMBER",
+          "fieldValue": "AAA|#|BBBB",
+          "fieldValueList": [],
+          "setProperty": []
+        },
+        {
+          "fieldId": "IDCD0001_005",
+          "fieldName": "MARITAL_STATUS",
+          "fieldValue": "",
+          "fieldValueList": [
+            {
+              "dataId": "NULL",
+              "dataDesc": " -- pilih -- ",
+              "selected": "false"
+            },
+            { "dataId": "1", "dataDesc": "Kawin", "selected": "false" },
+            { "dataId": "2", "dataDesc": "Belum Kawin", "selected": "false" },
+            { "dataId": "3", "dataDesc": "Janda", "selected": "true" },
+            { "dataId": "4", "dataDesc": "Duda", "selected": "false" }
+          ],
+          "setProperty": []
+        },
+        {
+          "fieldId": "IDCD0001_006",
+          "fieldName": "RELIGION",
+          "fieldValue": "",
+          "fieldValueList": [
+            {
+              "dataId": "NULL",
+              "dataDesc": " -- pilih -- ",
+              "selected": "false"
+            },
+            { "dataId": "BUD", "dataDesc": "BUDHA", "selected": "false" },
+            { "dataId": "HIN", "dataDesc": "HINDU", "selected": "true" },
+            { "dataId": "ISL", "dataDesc": "ISLAM", "selected": "false" },
+            { "dataId": "KAT", "dataDesc": "KATHOLIK", "selected": "false" },
+            { "dataId": "KHC", "dataDesc": "KONG HU CHU", "selected": "false" },
+            { "dataId": "KRS", "dataDesc": "KRISTEN", "selected": "false" },
+            { "dataId": "OTH", "dataDesc": "LAINNYA", "selected": "false" }
+          ],
+          "setProperty": []
+        },
+        {
+          "fieldId": "IDCD0001_007",
+          "fieldName": "NPWP",
+          "fieldValue": "6461631613166",
+          "fieldValueList": [],
+          "setProperty": []
+        },
+        {
+          "fieldId": "IDCD0001_008",
+          "fieldName": "BORNPLACE",
+          "fieldValue": "JAKARTA",
+          "fieldValueList": [],
+          "setProperty": []
+        },
+        {
+          "fieldId": "IDCD0001_009",
+          "fieldName": "BORNDATE",
+          "fieldValue": "03-01-1995",
+          "fieldValueList": [],
+          "setProperty": []
+        },
+        {
+          "fieldId": "IDCD0001_010",
+          "fieldName": "AGE",
+          "fieldValue": "27",
+          "fieldValueList": [],
+          "setProperty": []
+        },
+        {
+          "fieldId": "IDCD0001_011",
+          "fieldName": "JOB",
+          "fieldValue": "",
+          "fieldValueList": [
+            {
+              "dataId": "NULL",
+              "dataDesc": " -- pilih -- ",
+              "selected": "false"
+            },
+            { "dataId": "AD", "dataDesc": "Anggota DPRD", "selected": "false" },
+            { "dataId": "AKNTN", "dataDesc": "Akuntan", "selected": "false" },
+            { "dataId": "ASNG", "dataDesc": "ASN - Guru", "selected": "false" },
+            {
+              "dataId": "ASNNG",
+              "dataDesc": "ASN - Non Guru",
+              "selected": "false"
+            },
+            {
+              "dataId": "ASNV",
+              "dataDesc": "ASN - Vertikal (PKS)",
+              "selected": "false"
+            },
+            {
+              "dataId": "ASNVN",
+              "dataDesc": "ASN - Vertikal (Non PKS)",
+              "selected": "false"
+            },
+            {
+              "dataId": "BUMN",
+              "dataDesc": "BUMN/BUMD (PKS)",
+              "selected": "false"
+            },
+            {
+              "dataId": "BUMNM",
+              "dataDesc": "BUMN/BUMD (Non PKS)",
+              "selected": "false"
+            },
+            { "dataId": "CASN", "dataDesc": "CSAN", "selected": "false" },
+            { "dataId": "CPNS", "dataDesc": "CPNS", "selected": "false" },
+            { "dataId": "DKTR", "dataDesc": "Dokter", "selected": "false" },
+            { "dataId": "DLL", "dataDesc": "Lainnya", "selected": "false" },
+            {
+              "dataId": "IRT",
+              "dataDesc": "Ibu Rumah Tangga",
+              "selected": "false"
+            },
+            {
+              "dataId": "KS",
+              "dataDesc": "Karyawan Swasta",
+              "selected": "false"
+            },
+            {
+              "dataId": "LPD",
+              "dataDesc": "Pegawai/Pengurus LPD",
+              "selected": "false"
+            },
+            {
+              "dataId": "MHS",
+              "dataDesc": "Pelajar/Mahasiswa",
+              "selected": "false"
+            },
+            { "dataId": "NTRS", "dataDesc": "Notaris", "selected": "false" },
+            { "dataId": "PGCR", "dataDesc": "Pengacara", "selected": "false" },
+            { "dataId": "PGSH", "dataDesc": "Pengusaha", "selected": "false" },
+            { "dataId": "PNS", "dataDesc": "PNS", "selected": "false" },
+            {
+              "dataId": "PPNS",
+              "dataDesc": "Pensiunan PNS",
+              "selected": "false"
+            },
+            { "dataId": "PPPK", "dataDesc": "PPPK", "selected": "false" },
+            {
+              "dataId": "PROF",
+              "dataDesc": "Profesional",
+              "selected": "false"
+            },
+            {
+              "dataId": "SWASTA",
+              "dataDesc": "Swasta (PKS)",
+              "selected": "true"
+            },
+            {
+              "dataId": "SWST",
+              "dataDesc": "Pegawai Tetap Hotel/Instansi Swasta",
+              "selected": "false"
+            },
+            {
+              "dataId": "TP",
+              "dataDesc": "TNI/POLRI (PKS)",
+              "selected": "false"
+            },
+            {
+              "dataId": "TPN",
+              "dataDesc": "ASN - TNI/POLRI (Non PKS)",
+              "selected": "false"
+            }
+          ],
+          "setProperty": []
+        },
+        {
+          "fieldId": "IDCD0001_012",
+          "fieldName": "EDUCATION",
+          "fieldValue": "",
+          "fieldValueList": [
+            {
+              "dataId": "NULL",
+              "dataDesc": " -- pilih -- ",
+              "selected": "false"
+            },
+            { "dataId": "1", "dataDesc": "S2", "selected": "false" },
+            { "dataId": "2", "dataDesc": "S1", "selected": "false" },
+            { "dataId": "3", "dataDesc": "DIPLOMA", "selected": "false" },
+            { "dataId": "4", "dataDesc": "SLTA", "selected": "true" },
+            { "dataId": "5", "dataDesc": "SLTP", "selected": "false" },
+            { "dataId": "6", "dataDesc": "SD", "selected": "false" },
+            { "dataId": "7", "dataDesc": "S3", "selected": "false" }
+          ],
+          "setProperty": []
+        },
+        {
+          "fieldId": "IDCD0001_013",
+          "fieldName": "GENDER",
+          "fieldValue": "",
+          "fieldValueList": [
+            { "dataId": "F", "dataDesc": "Perempuan", "selected": "true" },
+            { "dataId": "M", "dataDesc": "Laki-laki", "selected": "false" }
+          ],
+          "setProperty": []
+        },
+        {
+          "fieldId": "IDCD0001_014",
+          "fieldName": "NO_HP",
+          "fieldValue": "0824848455",
+          "fieldValueList": [],
+          "setProperty": []
+        },
+        {
+          "fieldId": "IDCD0001_015",
+          "fieldName": "EMAIL",
+          "fieldValue": "EMAIL1@GMAILCOM",
+          "fieldValueList": [],
+          "setProperty": []
+        },
+        {
+          "fieldId": "IDCD0001_016",
+          "fieldName": "NOKK",
+          "fieldValue": "6868",
+          "fieldValueList": [],
+          "setProperty": []
+        },
+        {
+          "fieldId": "IDCD0001_017",
+          "fieldName": "MOTHER_MAIDEN_NAME",
+          "fieldValue": "HENNY",
+          "fieldValueList": [],
+          "setProperty": []
+        },
+        {
+          "fieldId": "IDCD0001_018",
+          "fieldName": "ID_ADDRESS",
+          "fieldValue": "Dsn. Karang, RT.2 RW.2, Desa Ujung-Ujung, Kec. Pabelan",
+          "fieldValueList": [],
+          "setProperty": []
+        },
+        {
+          "fieldId": "IDCD0001_019",
+          "fieldName": "ID_RT",
+          "fieldValue": "",
+          "fieldValueList": [],
+          "setProperty": []
+        },
+        {
+          "fieldId": "IDCD0001_020",
+          "fieldName": "ID_RW",
+          "fieldValue": "334",
+          "fieldValueList": [],
+          "setProperty": []
+        },
+        {
+          "fieldId": "IDCD0001_021",
+          "fieldName": "ID_PROVINCE",
+          "fieldValue": "",
+          "fieldValueList": [
+            {
+              "dataId": "NULL",
+              "dataDesc": " -- pilih -- ",
+              "selected": "false"
+            },
+            {
+              "dataId": "01",
+              "dataDesc": "Provinsi Bali",
+              "selected": "false"
+            },
+            {
+              "dataId": "02",
+              "dataDesc": "Provinsi Bangka Belitung",
+              "selected": "false"
+            },
+            {
+              "dataId": "03",
+              "dataDesc": "Provinsi Banten",
+              "selected": "true"
+            },
+            {
+              "dataId": "04",
+              "dataDesc": "Provinsi Bengkulu",
+              "selected": "false"
+            },
+            {
+              "dataId": "05",
+              "dataDesc": "Provinsi DI Yogyakarta",
+              "selected": "false"
+            },
+            {
+              "dataId": "06",
+              "dataDesc": "Provinsi DKI Jakarta",
+              "selected": "false"
+            },
+            {
+              "dataId": "07",
+              "dataDesc": "Provinsi Gorontalo",
+              "selected": "false"
+            },
+            {
+              "dataId": "08",
+              "dataDesc": "Provinsi Jambi",
+              "selected": "false"
+            },
+            {
+              "dataId": "09",
+              "dataDesc": "Provinsi Jawa Barat",
+              "selected": "false"
+            },
+            {
+              "dataId": "10",
+              "dataDesc": "Provinsi Jawa Tengah",
+              "selected": "false"
+            },
+            {
+              "dataId": "11",
+              "dataDesc": "Provinsi Jawa Timur",
+              "selected": "false"
+            },
+            {
+              "dataId": "12",
+              "dataDesc": "Provinsi Kalimantan Barat",
+              "selected": "false"
+            },
+            {
+              "dataId": "13",
+              "dataDesc": "Provinsi Kalimantan Selatan",
+              "selected": "false"
+            },
+            {
+              "dataId": "14",
+              "dataDesc": "Provinsi Kalimantan Tengah",
+              "selected": "false"
+            },
+            {
+              "dataId": "15",
+              "dataDesc": "Provinsi Kalimantan Timur",
+              "selected": "false"
+            },
+            {
+              "dataId": "16",
+              "dataDesc": "Provinsi Kalimantan Utara",
+              "selected": "false"
+            },
+            {
+              "dataId": "17",
+              "dataDesc": "Provinsi Kepulauan Riau",
+              "selected": "false"
+            },
+            {
+              "dataId": "18",
+              "dataDesc": "Provinsi Lampung",
+              "selected": "false"
+            },
+            {
+              "dataId": "19",
+              "dataDesc": "Provinsi Maluku",
+              "selected": "false"
+            },
+            {
+              "dataId": "20",
+              "dataDesc": "Provinsi Maluku Utara",
+              "selected": "false"
+            },
+            {
+              "dataId": "21",
+              "dataDesc": "Provinsi Nanggroe Aceh Darussalam (NAD)",
+              "selected": "false"
+            },
+            {
+              "dataId": "22",
+              "dataDesc": "Provinsi Nusa Tenggara Barat (NTB)",
+              "selected": "false"
+            },
+            {
+              "dataId": "23",
+              "dataDesc": "Provinsi Nusa Tenggara Timur (NTT)",
+              "selected": "false"
+            },
+            {
+              "dataId": "24",
+              "dataDesc": "Provinsi Papua",
+              "selected": "false"
+            },
+            {
+              "dataId": "25",
+              "dataDesc": "Provinsi Papua Barat",
+              "selected": "false"
+            },
+            {
+              "dataId": "26",
+              "dataDesc": "Provinsi Riau",
+              "selected": "false"
+            },
+            {
+              "dataId": "27",
+              "dataDesc": "Provinsi Sulawesi Barat",
+              "selected": "false"
+            },
+            {
+              "dataId": "28",
+              "dataDesc": "Provinsi Sulawesi Selatan",
+              "selected": "false"
+            },
+            {
+              "dataId": "29",
+              "dataDesc": "Provinsi Sulawesi Tengah",
+              "selected": "false"
+            },
+            {
+              "dataId": "30",
+              "dataDesc": "Provinsi Sulawesi Tenggara",
+              "selected": "false"
+            },
+            {
+              "dataId": "31",
+              "dataDesc": "Provinsi Sulawesi Utara",
+              "selected": "false"
+            },
+            {
+              "dataId": "32",
+              "dataDesc": "Provinsi Sumatera Barat",
+              "selected": "false"
+            },
+            {
+              "dataId": "33",
+              "dataDesc": "Provinsi Sumatera Selatan",
+              "selected": "false"
+            },
+            {
+              "dataId": "34",
+              "dataDesc": "Provinsi Sumatera Utara",
+              "selected": "false"
+            },
+            {
+              "dataId": "99",
+              "dataDesc": "Luar Indonesia",
+              "selected": "false"
+            }
+          ],
+          "setProperty": []
+        },
+        {
+          "fieldId": "IDCD0001_022",
+          "fieldName": "ID_CITY",
+          "fieldValue": "",
+          "fieldValueList": [
+            {
+              "dataId": "NULL",
+              "dataDesc": " -- pilih -- ",
+              "selected": "false"
+            },
+            {
+              "dataId": "03017",
+              "dataDesc": "Kabupaten Cilegon",
+              "selected": "false"
+            },
+            {
+              "dataId": "03018",
+              "dataDesc": "Kabupaten Lebak",
+              "selected": "true"
+            },
+            {
+              "dataId": "03019",
+              "dataDesc": "Kabupaten Pandeglang",
+              "selected": "false"
+            },
+            {
+              "dataId": "03020",
+              "dataDesc": "Kabupaten Serang",
+              "selected": "false"
+            },
+            {
+              "dataId": "03021",
+              "dataDesc": "Kabupaten Tangerang",
+              "selected": "false"
+            },
+            {
+              "dataId": "03022",
+              "dataDesc": "Kabupaten Tangerang Selatan",
+              "selected": "false"
+            }
+          ],
+          "setProperty": []
+        },
+        {
+          "fieldId": "IDCD0001_023",
+          "fieldName": "ID_KECAMATAN",
+          "fieldValue": "",
+          "fieldValueList": [
+            {
+              "dataId": "NULL",
+              "dataDesc": " -- pilih -- ",
+              "selected": "false"
+            },
+            {
+              "dataId": "030180113",
+              "dataDesc": "Kecamatan Banjarsari",
+              "selected": "false"
+            },
+            {
+              "dataId": "030180114",
+              "dataDesc": "Kecamatan Bayah",
+              "selected": "false"
+            },
+            {
+              "dataId": "030180115",
+              "dataDesc": "Kecamatan Bojongmanik",
+              "selected": "false"
+            },
+            {
+              "dataId": "030180116",
+              "dataDesc": "Kecamatan Cibadak",
+              "selected": "true"
+            },
+            {
+              "dataId": "030180117",
+              "dataDesc": "Kecamatan Cibeber",
+              "selected": "false"
+            },
+            {
+              "dataId": "030180118",
+              "dataDesc": "Kecamatan Cigemblong",
+              "selected": "false"
+            },
+            {
+              "dataId": "030180119",
+              "dataDesc": "Kecamatan Cihara",
+              "selected": "false"
+            },
+            {
+              "dataId": "030180120",
+              "dataDesc": "Kecamatan Cijaku",
+              "selected": "false"
+            },
+            {
+              "dataId": "030180121",
+              "dataDesc": "Kecamatan Cikulur",
+              "selected": "false"
+            },
+            {
+              "dataId": "030180122",
+              "dataDesc": "Kecamatan Cileles",
+              "selected": "false"
+            },
+            {
+              "dataId": "030180123",
+              "dataDesc": "Kecamatan Cilograng",
+              "selected": "false"
+            },
+            {
+              "dataId": "030180124",
+              "dataDesc": "Kecamatan Cimarga",
+              "selected": "false"
+            },
+            {
+              "dataId": "030180125",
+              "dataDesc": "Kecamatan Cipanas",
+              "selected": "false"
+            },
+            {
+              "dataId": "030180126",
+              "dataDesc": "Kecamatan Cirinten",
+              "selected": "false"
+            },
+            {
+              "dataId": "030180127",
+              "dataDesc": "Kecamatan Curugbitung",
+              "selected": "false"
+            },
+            {
+              "dataId": "030180128",
+              "dataDesc": "Kecamatan Gunung Kencana",
+              "selected": "false"
+            },
+            {
+              "dataId": "030180129",
+              "dataDesc": "Kecamatan Kalanganyar",
+              "selected": "false"
+            },
+            {
+              "dataId": "030180130",
+              "dataDesc": "Kecamatan Lebakgedong",
+              "selected": "false"
+            },
+            {
+              "dataId": "030180131",
+              "dataDesc": "Kecamatan Leuwidamar",
+              "selected": "false"
+            },
+            {
+              "dataId": "030180132",
+              "dataDesc": "Kecamatan Maja",
+              "selected": "false"
+            },
+            {
+              "dataId": "030180133",
+              "dataDesc": "Kecamatan Malingping",
+              "selected": "false"
+            },
+            {
+              "dataId": "030180134",
+              "dataDesc": "Kecamatan Muncang",
+              "selected": "false"
+            },
+            {
+              "dataId": "030180135",
+              "dataDesc": "Kecamatan Panggarangan",
+              "selected": "false"
+            },
+            {
+              "dataId": "030180136",
+              "dataDesc": "Kecamatan Rangkasbitung",
+              "selected": "false"
+            },
+            {
+              "dataId": "030180137",
+              "dataDesc": "Kecamatan Sajira",
+              "selected": "false"
+            },
+            {
+              "dataId": "030180138",
+              "dataDesc": "Kecamatan Sobang",
+              "selected": "false"
+            },
+            {
+              "dataId": "030180139",
+              "dataDesc": "Kecamatan Wanasalam",
+              "selected": "false"
+            },
+            {
+              "dataId": "030180140",
+              "dataDesc": "Kecamatan Warunggunung",
+              "selected": "false"
+            }
+          ],
+          "setProperty": []
+        },
+        {
+          "fieldId": "IDCD0001_024",
+          "fieldName": "ID_KELURAHAN",
+          "fieldValue": "",
+          "fieldValueList": [
+            {
+              "dataId": "NULL",
+              "dataDesc": " -- pilih -- ",
+              "selected": "false"
+            },
+            {
+              "dataId": "03018011606068",
+              "dataDesc": "Kelurahan Asem",
+              "selected": "false"
+            },
+            {
+              "dataId": "03018011606069",
+              "dataDesc": "Kelurahan Asem Margaluyu",
+              "selected": "false"
+            },
+            {
+              "dataId": "03018011606070",
+              "dataDesc": "Kelurahan Bojongcae",
+              "selected": "false"
+            },
+            {
+              "dataId": "03018011606071",
+              "dataDesc": "Kelurahan Bojongleles",
+              "selected": "true"
+            },
+            {
+              "dataId": "03018011606072",
+              "dataDesc": "Kelurahan Cibadak",
+              "selected": "false"
+            },
+            {
+              "dataId": "03018011606073",
+              "dataDesc": "Kelurahan Cimenteng Jaya",
+              "selected": "false"
+            },
+            {
+              "dataId": "03018011606074",
+              "dataDesc": "Kelurahan Cisangu",
+              "selected": "false"
+            },
+            {
+              "dataId": "03018011605994",
+              "dataDesc": "Kelurahan Kaduagung Barat",
+              "selected": "false"
+            },
+            {
+              "dataId": "03018011605995",
+              "dataDesc": "Kelurahan Kaduagung Tengah",
+              "selected": "false"
+            },
+            {
+              "dataId": "03018011605996",
+              "dataDesc": "Kelurahan Kaduagung Timur",
+              "selected": "false"
+            },
+            {
+              "dataId": "03018011606075",
+              "dataDesc": "Kelurahan Malabar",
+              "selected": "false"
+            },
+            {
+              "dataId": "03018011606076",
+              "dataDesc": "Kelurahan Mekar Agung",
+              "selected": "false"
+            },
+            {
+              "dataId": "03018011606077",
+              "dataDesc": "Kelurahan Panancangan",
+              "selected": "false"
+            },
+            {
+              "dataId": "03018011606078",
+              "dataDesc": "Kelurahan Pasar Keong",
+              "selected": "false"
+            },
+            {
+              "dataId": "03018011606079",
+              "dataDesc": "Kelurahan Tambakbaya",
+              "selected": "false"
+            }
+          ],
+          "setProperty": []
+        },
+        {
+          "fieldId": "IDCD0001_025",
+          "fieldName": "ID_ZIPCODE",
+          "fieldValue": "42357",
+          "fieldValueList": [],
+          "setProperty": []
+        },
+        {
+          "fieldId": "IDCD0001_026",
+          "fieldName": "DOMICILY_ADDRESS",
+          "fieldValue": "sdfsdfsdfsdf",
+          "fieldValueList": [],
+          "setProperty": []
+        },
+        {
+          "fieldId": "IDCD0001_027",
+          "fieldName": "DOMICILY_RT",
+          "fieldValue": "777",
+          "fieldValueList": [],
+          "setProperty": []
+        },
+        {
+          "fieldId": "IDCD0001_028",
+          "fieldName": "DOMICILY_RW",
+          "fieldValue": "777",
+          "fieldValueList": [],
+          "setProperty": []
+        },
+        {
+          "fieldId": "IDCD0001_029",
+          "fieldName": "DOMICILY_PROVINCE",
+          "fieldValue": "",
+          "fieldValueList": [
+            {
+              "dataId": "NULL",
+              "dataDesc": " -- pilih -- ",
+              "selected": "false"
+            },
+            {
+              "dataId": "01",
+              "dataDesc": "Provinsi Bali",
+              "selected": "false"
+            },
+            {
+              "dataId": "02",
+              "dataDesc": "Provinsi Bangka Belitung",
+              "selected": "false"
+            },
+            {
+              "dataId": "03",
+              "dataDesc": "Provinsi Banten",
+              "selected": "false"
+            },
+            {
+              "dataId": "04",
+              "dataDesc": "Provinsi Bengkulu",
+              "selected": "false"
+            },
+            {
+              "dataId": "05",
+              "dataDesc": "Provinsi DI Yogyakarta",
+              "selected": "true"
+            },
+            {
+              "dataId": "06",
+              "dataDesc": "Provinsi DKI Jakarta",
+              "selected": "false"
+            },
+            {
+              "dataId": "07",
+              "dataDesc": "Provinsi Gorontalo",
+              "selected": "false"
+            },
+            {
+              "dataId": "08",
+              "dataDesc": "Provinsi Jambi",
+              "selected": "false"
+            },
+            {
+              "dataId": "09",
+              "dataDesc": "Provinsi Jawa Barat",
+              "selected": "false"
+            },
+            {
+              "dataId": "10",
+              "dataDesc": "Provinsi Jawa Tengah",
+              "selected": "false"
+            },
+            {
+              "dataId": "11",
+              "dataDesc": "Provinsi Jawa Timur",
+              "selected": "false"
+            },
+            {
+              "dataId": "12",
+              "dataDesc": "Provinsi Kalimantan Barat",
+              "selected": "false"
+            },
+            {
+              "dataId": "13",
+              "dataDesc": "Provinsi Kalimantan Selatan",
+              "selected": "false"
+            },
+            {
+              "dataId": "14",
+              "dataDesc": "Provinsi Kalimantan Tengah",
+              "selected": "false"
+            },
+            {
+              "dataId": "15",
+              "dataDesc": "Provinsi Kalimantan Timur",
+              "selected": "false"
+            },
+            {
+              "dataId": "16",
+              "dataDesc": "Provinsi Kalimantan Utara",
+              "selected": "false"
+            },
+            {
+              "dataId": "17",
+              "dataDesc": "Provinsi Kepulauan Riau",
+              "selected": "false"
+            },
+            {
+              "dataId": "18",
+              "dataDesc": "Provinsi Lampung",
+              "selected": "false"
+            },
+            {
+              "dataId": "19",
+              "dataDesc": "Provinsi Maluku",
+              "selected": "false"
+            },
+            {
+              "dataId": "20",
+              "dataDesc": "Provinsi Maluku Utara",
+              "selected": "false"
+            },
+            {
+              "dataId": "21",
+              "dataDesc": "Provinsi Nanggroe Aceh Darussalam (NAD)",
+              "selected": "false"
+            },
+            {
+              "dataId": "22",
+              "dataDesc": "Provinsi Nusa Tenggara Barat (NTB)",
+              "selected": "false"
+            },
+            {
+              "dataId": "23",
+              "dataDesc": "Provinsi Nusa Tenggara Timur (NTT)",
+              "selected": "false"
+            },
+            {
+              "dataId": "24",
+              "dataDesc": "Provinsi Papua",
+              "selected": "false"
+            },
+            {
+              "dataId": "25",
+              "dataDesc": "Provinsi Papua Barat",
+              "selected": "false"
+            },
+            {
+              "dataId": "26",
+              "dataDesc": "Provinsi Riau",
+              "selected": "false"
+            },
+            {
+              "dataId": "27",
+              "dataDesc": "Provinsi Sulawesi Barat",
+              "selected": "false"
+            },
+            {
+              "dataId": "28",
+              "dataDesc": "Provinsi Sulawesi Selatan",
+              "selected": "false"
+            },
+            {
+              "dataId": "29",
+              "dataDesc": "Provinsi Sulawesi Tengah",
+              "selected": "false"
+            },
+            {
+              "dataId": "30",
+              "dataDesc": "Provinsi Sulawesi Tenggara",
+              "selected": "false"
+            },
+            {
+              "dataId": "31",
+              "dataDesc": "Provinsi Sulawesi Utara",
+              "selected": "false"
+            },
+            {
+              "dataId": "32",
+              "dataDesc": "Provinsi Sumatera Barat",
+              "selected": "false"
+            },
+            {
+              "dataId": "33",
+              "dataDesc": "Provinsi Sumatera Selatan",
+              "selected": "false"
+            },
+            {
+              "dataId": "34",
+              "dataDesc": "Provinsi Sumatera Utara",
+              "selected": "false"
+            },
+            {
+              "dataId": "99",
+              "dataDesc": "Luar Indonesia",
+              "selected": "false"
+            }
+          ],
+          "setProperty": []
+        },
+        {
+          "fieldId": "IDCD0001_030",
+          "fieldName": "DOMICILY_CITY",
+          "fieldValue": "",
+          "fieldValueList": [
+            {
+              "dataId": "NULL",
+              "dataDesc": " -- pilih -- ",
+              "selected": "false"
+            },
+            {
+              "dataId": "05033",
+              "dataDesc": "Kabupaten Bantul",
+              "selected": "false"
+            },
+            {
+              "dataId": "05034",
+              "dataDesc": "Kabupaten Gunung Kidul",
+              "selected": "false"
+            },
+            {
+              "dataId": "05035",
+              "dataDesc": "Kabupaten Kulon Progo",
+              "selected": "false"
+            },
+            {
+              "dataId": "05036",
+              "dataDesc": "Kabupaten Sleman",
+              "selected": "true"
+            },
+            {
+              "dataId": "05037",
+              "dataDesc": "Kota Yogyakarta",
+              "selected": "false"
+            }
+          ],
+          "setProperty": []
+        },
+        {
+          "fieldId": "IDCD0001_031",
+          "fieldName": "DOMICILY_KECAMATAN",
+          "fieldValue": "",
+          "fieldValueList": [
+            {
+              "dataId": "NULL",
+              "dataDesc": " -- pilih -- ",
+              "selected": "false"
+            },
+            {
+              "dataId": "050360417",
+              "dataDesc": "Kecamatan Berbah",
+              "selected": "false"
+            },
+            {
+              "dataId": "050360418",
+              "dataDesc": "Kecamatan Cangkringan",
+              "selected": "false"
+            },
+            {
+              "dataId": "050360419",
+              "dataDesc": "Kecamatan Depok",
+              "selected": "false"
+            },
+            {
+              "dataId": "050360420",
+              "dataDesc": "Kecamatan Gamping",
+              "selected": "false"
+            },
+            {
+              "dataId": "050360421",
+              "dataDesc": "Kecamatan Godean",
+              "selected": "true"
+            },
+            {
+              "dataId": "050360422",
+              "dataDesc": "Kecamatan Kalasan",
+              "selected": "false"
+            },
+            {
+              "dataId": "050360423",
+              "dataDesc": "Kecamatan Minggir",
+              "selected": "false"
+            },
+            {
+              "dataId": "050360424",
+              "dataDesc": "Kecamatan Mlati",
+              "selected": "false"
+            },
+            {
+              "dataId": "050360425",
+              "dataDesc": "Kecamatan Moyudan",
+              "selected": "false"
+            },
+            {
+              "dataId": "050360426",
+              "dataDesc": "Kecamatan Ngaglik",
+              "selected": "false"
+            },
+            {
+              "dataId": "050360427",
+              "dataDesc": "Kecamatan Ngemplak",
+              "selected": "false"
+            },
+            {
+              "dataId": "050360428",
+              "dataDesc": "Kecamatan Pakem",
+              "selected": "false"
+            },
+            {
+              "dataId": "050360429",
+              "dataDesc": "Kecamatan Prambanan",
+              "selected": "false"
+            },
+            {
+              "dataId": "050360430",
+              "dataDesc": "Kecamatan Seyegan",
+              "selected": "false"
+            },
+            {
+              "dataId": "050360431",
+              "dataDesc": "Kecamatan Sleman",
+              "selected": "false"
+            },
+            {
+              "dataId": "050360432",
+              "dataDesc": "Kecamatan Tempel",
+              "selected": "false"
+            },
+            {
+              "dataId": "050360433",
+              "dataDesc": "Kecamatan Turi",
+              "selected": "false"
+            }
+          ],
+          "setProperty": []
+        },
+        {
+          "fieldId": "IDCD0001_032",
+          "fieldName": "DOMICILY_KELURAHAN",
+          "fieldValue": "",
+          "fieldValueList": [
+            {
+              "dataId": "NULL",
+              "dataDesc": " -- pilih -- ",
+              "selected": "false"
+            },
+            {
+              "dataId": "05036042107854",
+              "dataDesc": "Kelurahan Sidoagung",
+              "selected": "false"
+            },
+            {
+              "dataId": "05036042107855",
+              "dataDesc": "Kelurahan Sidoarum",
+              "selected": "false"
+            },
+            {
+              "dataId": "05036042107856",
+              "dataDesc": "Kelurahan Sidokarto",
+              "selected": "true"
+            },
+            {
+              "dataId": "05036042107857",
+              "dataDesc": "Kelurahan Sidoluhur",
+              "selected": "false"
+            },
+            {
+              "dataId": "05036042107858",
+              "dataDesc": "Kelurahan Sidomoyo",
+              "selected": "false"
+            },
+            {
+              "dataId": "05036042107859",
+              "dataDesc": "Kelurahan Sidomulyo",
+              "selected": "false"
+            },
+            {
+              "dataId": "05036042107860",
+              "dataDesc": "Kelurahan Sidorejo",
+              "selected": "false"
+            }
+          ],
+          "setProperty": []
+        },
+        {
+          "fieldId": "IDCD0001_033",
+          "fieldName": "DOMICILY_ZIPCODE",
+          "fieldValue": "55264",
+          "fieldValueList": [],
+          "setProperty": []
+        },
+        {
+          "fieldId": "IDCD0001_034",
+          "fieldName": "STATUS_RUMAHTINGGAL",
+          "fieldValue": "",
+          "fieldValueList": [
+            {
+              "dataId": "NULL",
+              "dataDesc": " -- pilih -- ",
+              "selected": "false"
+            },
+            { "dataId": "1", "dataDesc": "Milik Sendiri", "selected": "false" },
+            {
+              "dataId": "2",
+              "dataDesc": "Milik Keluarga",
+              "selected": "false"
+            },
+            { "dataId": "3", "dataDesc": "Sewa/Kontrak", "selected": "false" },
+            { "dataId": "4", "dataDesc": "Rumah Dinas", "selected": "true" }
+          ],
+          "setProperty": []
+        },
+        {
+          "fieldId": "IDCD0001_035",
+          "fieldName": "LAMATINGGAL",
+          "fieldValue": "0",
+          "fieldValueList": [],
+          "setProperty": []
+        },
+        {
+          "fieldId": "IDCD0001_036",
+          "fieldName": "JUMLAH_TANGGUNGAN",
+          "fieldValue": "9",
+          "fieldValueList": [],
+          "setProperty": []
+        },
+        {
+          "fieldId": "IDCD0001_037",
+          "fieldName": "PIHAK_TERKAIT",
+          "fieldValue": "",
+          "fieldValueList": [
+            {
+              "dataId": "NULL",
+              "dataDesc": " -- pilih -- ",
+              "selected": "false"
+            },
+            { "dataId": "1", "dataDesc": "Terkait", "selected": "true" },
+            { "dataId": "2", "dataDesc": "Tidak Terkait", "selected": "false" }
+          ],
+          "setProperty": []
+        },
+        {
+          "fieldId": "IDCD0001_040",
+          "fieldName": "NO_TELP",
+          "fieldValue": "",
+          "fieldValueList": [],
+          "setProperty": []
+        }
+      ]
+    },
+    {
+      "formId": "IDCD0002",
+      "PanelName": "PASANGAN",
+      "tableName": "APP_SPOUSE",
+      "dataField": [
+        {
+          "fieldId": "IDCD0002_001",
+          "fieldName": "AP_REGNO",
+          "fieldValue": "000061002022",
+          "fieldValueList": [],
+          "setProperty": []
+        },
+        {
+          "fieldId": "IDCD0002_002",
+          "fieldName": "SPOUSE_NAME",
+          "fieldValue": "PASANGAN",
+          "fieldValueList": [],
+          "setProperty": [{ "isHide": "0" }]
+        },
+        {
+          "fieldId": "IDCD0002_003",
+          "fieldName": "SPOUSE_IDNUMBER",
+          "fieldValue": "5454646616161777",
+          "fieldValueList": [],
+          "setProperty": [{ "isHide": "0" }]
+        },
+        {
+          "fieldId": "IDCD0002_004",
+          "fieldName": "SPOUSE_NPWP",
+          "fieldValue": "646464554549499",
+          "fieldValueList": [],
+          "setProperty": [{ "isHide": "0" }]
+        },
+        {
+          "fieldId": "IDCD0002_005",
+          "fieldName": "SPOUSE_BORNPLACE",
+          "fieldValue": "JAKARTA",
+          "fieldValueList": [],
+          "setProperty": []
+        },
+        {
+          "fieldId": "IDCD0002_006",
+          "fieldName": "SPOUSE_BORNDATE",
+          "fieldValue": "03-01-2005",
+          "fieldValueList": [],
+          "setProperty": []
+        },
+        {
+          "fieldId": "IDCD0002_007",
+          "fieldName": "SPOUSE_RELIGION",
+          "fieldValue": "",
+          "fieldValueList": [
+            {
+              "dataId": "NULL",
+              "dataDesc": " -- pilih -- ",
+              "selected": "false"
+            },
+            { "dataId": "BUD", "dataDesc": "BUDHA", "selected": "false" },
+            { "dataId": "HIN", "dataDesc": "HINDU", "selected": "true" },
+            { "dataId": "ISL", "dataDesc": "ISLAM", "selected": "false" },
+            { "dataId": "KAT", "dataDesc": "KATHOLIK", "selected": "false" },
+            { "dataId": "KHC", "dataDesc": "KONG HU CHU", "selected": "false" },
+            { "dataId": "KRS", "dataDesc": "KRISTEN", "selected": "false" },
+            { "dataId": "OTH", "dataDesc": "LAINNYA", "selected": "false" }
+          ],
+          "setProperty": []
+        },
+        {
+          "fieldId": "IDCD0002_008",
+          "fieldName": "SPOUSE_JOB",
+          "fieldValue": "Anggota DPRD",
+          "fieldValueList": [],
+          "setProperty": []
+        },
+        {
+          "fieldId": "IDCD0002_009",
+          "fieldName": "SPOUSE_HP",
+          "fieldValue": "08424245455",
+          "fieldValueList": [],
+          "setProperty": []
+        },
+        {
+          "fieldId": "IDCD0002_010",
+          "fieldName": "SPOUSE_TELP",
+          "fieldValue": "021548848  hgh",
+          "fieldValueList": [],
+          "setProperty": []
+        },
+        {
+          "fieldId": "IDCD0002_011",
+          "fieldName": "SPOUSE_ADDRESS",
+          "fieldValue": "ALAMAT",
+          "fieldValueList": [],
+          "setProperty": []
+        },
+        {
+          "fieldId": "IDCD0002_012",
+          "fieldName": "SPOUSE_RT",
+          "fieldValue": "01",
+          "fieldValueList": [],
+          "setProperty": []
+        },
+        {
+          "fieldId": "IDCD0002_013",
+          "fieldName": "SPOUSE_RW",
+          "fieldValue": "02",
+          "fieldValueList": [],
+          "setProperty": []
+        },
+        {
+          "fieldId": "IDCD0002_014",
+          "fieldName": "SPOUSE_PROVINSI",
+          "fieldValue": "",
+          "fieldValueList": [
+            {
+              "dataId": "NULL",
+              "dataDesc": " -- pilih -- ",
+              "selected": "false"
+            },
+            {
+              "dataId": "01",
+              "dataDesc": "Provinsi Bali",
+              "selected": "false"
+            },
+            {
+              "dataId": "02",
+              "dataDesc": "Provinsi Bangka Belitung",
+              "selected": "false"
+            },
+            {
+              "dataId": "03",
+              "dataDesc": "Provinsi Banten",
+              "selected": "false"
+            },
+            {
+              "dataId": "04",
+              "dataDesc": "Provinsi Bengkulu",
+              "selected": "false"
+            },
+            {
+              "dataId": "05",
+              "dataDesc": "Provinsi DI Yogyakarta",
+              "selected": "true"
+            },
+            {
+              "dataId": "06",
+              "dataDesc": "Provinsi DKI Jakarta",
+              "selected": "false"
+            },
+            {
+              "dataId": "07",
+              "dataDesc": "Provinsi Gorontalo",
+              "selected": "false"
+            },
+            {
+              "dataId": "08",
+              "dataDesc": "Provinsi Jambi",
+              "selected": "false"
+            },
+            {
+              "dataId": "09",
+              "dataDesc": "Provinsi Jawa Barat",
+              "selected": "false"
+            },
+            {
+              "dataId": "10",
+              "dataDesc": "Provinsi Jawa Tengah",
+              "selected": "false"
+            },
+            {
+              "dataId": "11",
+              "dataDesc": "Provinsi Jawa Timur",
+              "selected": "false"
+            },
+            {
+              "dataId": "12",
+              "dataDesc": "Provinsi Kalimantan Barat",
+              "selected": "false"
+            },
+            {
+              "dataId": "13",
+              "dataDesc": "Provinsi Kalimantan Selatan",
+              "selected": "false"
+            },
+            {
+              "dataId": "14",
+              "dataDesc": "Provinsi Kalimantan Tengah",
+              "selected": "false"
+            },
+            {
+              "dataId": "15",
+              "dataDesc": "Provinsi Kalimantan Timur",
+              "selected": "false"
+            },
+            {
+              "dataId": "16",
+              "dataDesc": "Provinsi Kalimantan Utara",
+              "selected": "false"
+            },
+            {
+              "dataId": "17",
+              "dataDesc": "Provinsi Kepulauan Riau",
+              "selected": "false"
+            },
+            {
+              "dataId": "18",
+              "dataDesc": "Provinsi Lampung",
+              "selected": "false"
+            },
+            {
+              "dataId": "19",
+              "dataDesc": "Provinsi Maluku",
+              "selected": "false"
+            },
+            {
+              "dataId": "20",
+              "dataDesc": "Provinsi Maluku Utara",
+              "selected": "false"
+            },
+            {
+              "dataId": "21",
+              "dataDesc": "Provinsi Nanggroe Aceh Darussalam (NAD)",
+              "selected": "false"
+            },
+            {
+              "dataId": "22",
+              "dataDesc": "Provinsi Nusa Tenggara Barat (NTB)",
+              "selected": "false"
+            },
+            {
+              "dataId": "23",
+              "dataDesc": "Provinsi Nusa Tenggara Timur (NTT)",
+              "selected": "false"
+            },
+            {
+              "dataId": "24",
+              "dataDesc": "Provinsi Papua",
+              "selected": "false"
+            },
+            {
+              "dataId": "25",
+              "dataDesc": "Provinsi Papua Barat",
+              "selected": "false"
+            },
+            {
+              "dataId": "26",
+              "dataDesc": "Provinsi Riau",
+              "selected": "false"
+            },
+            {
+              "dataId": "27",
+              "dataDesc": "Provinsi Sulawesi Barat",
+              "selected": "false"
+            },
+            {
+              "dataId": "28",
+              "dataDesc": "Provinsi Sulawesi Selatan",
+              "selected": "false"
+            },
+            {
+              "dataId": "29",
+              "dataDesc": "Provinsi Sulawesi Tengah",
+              "selected": "false"
+            },
+            {
+              "dataId": "30",
+              "dataDesc": "Provinsi Sulawesi Tenggara",
+              "selected": "false"
+            },
+            {
+              "dataId": "31",
+              "dataDesc": "Provinsi Sulawesi Utara",
+              "selected": "false"
+            },
+            {
+              "dataId": "32",
+              "dataDesc": "Provinsi Sumatera Barat",
+              "selected": "false"
+            },
+            {
+              "dataId": "33",
+              "dataDesc": "Provinsi Sumatera Selatan",
+              "selected": "false"
+            },
+            {
+              "dataId": "34",
+              "dataDesc": "Provinsi Sumatera Utara",
+              "selected": "false"
+            },
+            {
+              "dataId": "99",
+              "dataDesc": "Luar Indonesia",
+              "selected": "false"
+            }
+          ],
+          "setProperty": []
+        },
+        {
+          "fieldId": "IDCD0002_015",
+          "fieldName": "SPOUSE_KABUPATEN",
+          "fieldValue": "",
+          "fieldValueList": [
+            {
+              "dataId": "NULL",
+              "dataDesc": " -- pilih -- ",
+              "selected": "false"
+            },
+            {
+              "dataId": "05033",
+              "dataDesc": "Kabupaten Bantul",
+              "selected": "false"
+            },
+            {
+              "dataId": "05034",
+              "dataDesc": "Kabupaten Gunung Kidul",
+              "selected": "false"
+            },
+            {
+              "dataId": "05035",
+              "dataDesc": "Kabupaten Kulon Progo",
+              "selected": "false"
+            },
+            {
+              "dataId": "05036",
+              "dataDesc": "Kabupaten Sleman",
+              "selected": "false"
+            },
+            {
+              "dataId": "05037",
+              "dataDesc": "Kota Yogyakarta",
+              "selected": "true"
+            }
+          ],
+          "setProperty": []
+        },
+        {
+          "fieldId": "IDCD0002_016",
+          "fieldName": "SPOUSE_KECAMATAN",
+          "fieldValue": "",
+          "fieldValueList": [
+            {
+              "dataId": "NULL",
+              "dataDesc": " -- pilih -- ",
+              "selected": "false"
+            },
+            {
+              "dataId": "050370434",
+              "dataDesc": "Kecamatan Danurejan",
+              "selected": "false"
+            },
+            {
+              "dataId": "050370435",
+              "dataDesc": "Kecamatan Gedong Tengen",
+              "selected": "true"
+            },
+            {
+              "dataId": "050370436",
+              "dataDesc": "Kecamatan Gondokusuman",
+              "selected": "false"
+            },
+            {
+              "dataId": "050370437",
+              "dataDesc": "Kecamatan Gondomanan",
+              "selected": "false"
+            },
+            {
+              "dataId": "050370438",
+              "dataDesc": "Kecamatan Jetis",
+              "selected": "false"
+            },
+            {
+              "dataId": "050370439",
+              "dataDesc": "Kecamatan Kotagede",
+              "selected": "false"
+            },
+            {
+              "dataId": "050370440",
+              "dataDesc": "Kecamatan Kraton",
+              "selected": "false"
+            },
+            {
+              "dataId": "050370441",
+              "dataDesc": "Kecamatan Mantrijeron",
+              "selected": "false"
+            },
+            {
+              "dataId": "050370442",
+              "dataDesc": "Kecamatan Mergangsan",
+              "selected": "false"
+            },
+            {
+              "dataId": "050370443",
+              "dataDesc": "Kecamatan Ngampilan",
+              "selected": "false"
+            },
+            {
+              "dataId": "050370444",
+              "dataDesc": "Kecamatan Pakualaman",
+              "selected": "false"
+            },
+            {
+              "dataId": "050370445",
+              "dataDesc": "Kecamatan Tegalrejo",
+              "selected": "false"
+            },
+            {
+              "dataId": "050370446",
+              "dataDesc": "Kecamatan Umbulharjo",
+              "selected": "false"
+            },
+            {
+              "dataId": "050370447",
+              "dataDesc": "Kecamatan Wirobrajan",
+              "selected": "false"
+            }
+          ],
+          "setProperty": []
+        },
+        {
+          "fieldId": "IDCD0002_017",
+          "fieldName": "SPOUSE_KELURAHAN",
+          "fieldValue": "",
+          "fieldValueList": [
+            {
+              "dataId": "NULL",
+              "dataDesc": " -- pilih -- ",
+              "selected": "false"
+            },
+            {
+              "dataId": "05037043508216",
+              "dataDesc": "Kelurahan Pringgokusuman",
+              "selected": "true"
+            },
+            {
+              "dataId": "05037043508215",
+              "dataDesc": "Kelurahan Sosromenduran",
+              "selected": "false"
+            }
+          ],
+          "setProperty": []
+        },
+        {
+          "fieldId": "IDCD0002_018",
+          "fieldName": "SPOUSE_KODEPOS",
+          "fieldValue": "55272",
+          "fieldValueList": [],
+          "setProperty": []
+        }
+      ]
+    }
+  ]
+}

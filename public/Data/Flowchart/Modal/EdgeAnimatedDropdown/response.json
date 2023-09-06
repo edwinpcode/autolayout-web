@@ -1,0 +1,14 @@
+{
+    "status": "1",
+    "message": "Get Edge Type",
+    "data": [
+        {
+          "label": "False",
+          "value": "false"
+        },
+        {
+          "label": "True",
+          "value": "true"
+        }
+    ]
+}

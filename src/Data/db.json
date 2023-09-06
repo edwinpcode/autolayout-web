@@ -1,0 +1,3281 @@
+{
+  "structure": {
+    "status": "1",
+    "message": "Get Structure Table Success",
+    "caption ": "Pengajuan Kredit",
+    "canSelectAll": true,
+    "header": [
+      {
+        "label": "Action Anchor",
+        "accessor": "action_anchor",
+        "type": "anchor",
+        "item": [
+          {
+            "id": "111",
+            "label": "Detail",
+            "property": {
+              "active": true,
+              "order": 1,
+              "isRedirect": true,
+              "needConfirm": false,
+              "url": {
+                "path": "/form",
+                "param": [
+                  "menuId",
+                  "ap_regno"
+                ]
+              }
+            }
+          }
+        ]
+      },
+      {
+        "label": "Action",
+        "accessor": "action_button",
+        "type": "button",
+        "item": [
+          {
+            "id": "111",
+            "label": "Detail",
+            "property": {
+              "active": true,
+              "order": 1,
+              "isRedirect": true,
+              "needConfirm": false,
+              "url": {
+                "path": "/form",
+                "param": [
+                  "appnumber",
+                  "customertype_id"
+                ]
+              }
+            }
+          },
+          {
+            "id": "",
+            "label": "Approve",
+            "property": {
+              "active": true,
+              "order": 1,
+              "isRedirect": true,
+              "needConfirm": false,
+              "url": {
+                "path": "/getDetail",
+                "param": [
+                  "appnumber",
+                  "customertype_id"
+                ]
+              }
+            }
+          },
+          {
+            "id": "",
+            "label": "Reject",
+            "property": {
+              "active": true,
+              "order": 1,
+              "isRedirect": true,
+              "needConfirm": false,
+              "url": {
+                "path": "/getDetail",
+                "param": [
+                  "appnumber",
+                  "customertype_id"
+                ]
+              }
+            }
+          },
+          {
+            "id": "",
+            "label": "Cancel",
+            "property": {
+              "active": true,
+              "order": 1,
+              "isRedirect": true,
+              "needConfirm": false,
+              "url": {
+                "path": "/getDetail",
+                "param": [
+                  "appnumber",
+                  "customertype_id"
+                ]
+              }
+            }
+          },
+          {
+            "id": "",
+            "label": "Reverse",
+            "property": {
+              "active": true,
+              "order": 1,
+              "isRedirect": false,
+              "needConfirm": true,
+              "url": {
+                "path": "/getDetail",
+                "param": [
+                  "appnumber",
+                  "customertype_id"
+                ]
+              }
+            }
+          },
+          {
+            "id": "",
+            "label": "Hold",
+            "property": {
+              "active": true,
+              "order": 1,
+              "isRedirect": false,
+              "needConfirm": true,
+              "url": {
+                "path": "/getDetail",
+                "param": [
+                  "appnumber",
+                  "customertype_id"
+                ]
+              }
+            }
+          }
+        ]
+      },
+      {
+        "label": "Action Select",
+        "accessor": "action_select",
+        "type": "select",
+        "item": [
+          {
+            "id": "aprv",
+            "label": "approve",
+            "property": {
+              "active": true,
+              "order": 3
+            }
+          },
+          {
+            "id": "rjct",
+            "label": "reject",
+            "property": {
+              "active": true,
+              "order": 2
+            }
+          },
+          {
+            "id": "cncl",
+            "label": "cancel",
+            "property": {
+              "active": false,
+              "order": 1
+            }
+          },
+          {
+            "id": "rvrs",
+            "label": "reverse",
+            "property": {
+              "active": true,
+              "order": 5
+            }
+          },
+          {
+            "id": "hld",
+            "label": "hold",
+            "property": {
+              "active": true,
+              "order": 1
+            }
+          }
+        ]
+      },
+      {
+        "label": "Approve Radio",
+        "accessor": "approve_radio",
+        "type": "radio",
+        "item": [
+          {
+            "id": "111",
+            "label": "Approve",
+            "property": {
+              "active": true,
+              "order": 1,
+              "isRedirect": true,
+              "needConfirm": false,
+              "url": {
+                "path": "/getDetail",
+                "param": [
+                  "appnumber",
+                  "customertype_id"
+                ]
+              }
+            }
+          }
+        ]
+      },
+      {
+        "label": "Reject Radio",
+        "accessor": "reject_radio",
+        "type": "radio",
+        "item": [
+          {
+            "id": "111",
+            "label": "Reject",
+            "property": {
+              "active": true,
+              "order": 1,
+              "isRedirect": true,
+              "needConfirm": false,
+              "url": {
+                "path": "/getDetail",
+                "param": [
+                  "appnumber",
+                  "customertype_id"
+                ]
+              }
+            }
+          }
+        ]
+      },
+      {
+        "label": "Cancel Radio",
+        "accessor": "cancel_radio",
+        "type": "radio",
+        "item": [
+          {
+            "id": "111",
+            "label": "Cancel",
+            "property": {
+              "active": true,
+              "order": 1,
+              "isRedirect": true,
+              "needConfirm": false,
+              "url": {
+                "path": "/getDetail",
+                "param": [
+                  "appnumber",
+                  "customertype_id"
+                ]
+              }
+            }
+          }
+        ]
+      },
+      {
+        "label": "Reverse Radio",
+        "accessor": "reverse_radio",
+        "type": "radio",
+        "item": [
+          {
+            "id": "111",
+            "label": "Reverse",
+            "property": {
+              "active": true,
+              "order": 1,
+              "isRedirect": true,
+              "needConfirm": false,
+              "url": {
+                "path": "/getDetail",
+                "param": [
+                  "appnumber",
+                  "customertype_id"
+                ]
+              }
+            }
+          }
+        ]
+      },
+      {
+        "label": "Hold Radio",
+        "accessor": "hold_radio",
+        "type": "radio",
+        "item": [
+          {
+            "id": "111",
+            "label": "Hold",
+            "property": {
+              "active": true,
+              "order": 1,
+              "isRedirect": true,
+              "needConfirm": false,
+              "url": {
+                "path": "/getDetail",
+                "param": [
+                  "appnumber",
+                  "customertype_id"
+                ]
+              }
+            }
+          }
+        ]
+      },
+      {
+        "label": "Nomor Aplikasi",
+        "accessor": "ap_regno"
+      },
+      {
+        "label": "Kode Tipe Nasabah",
+        "accessor": "customertype_id"
+      },
+      {
+        "label": "Tipe Nasabah",
+        "accessor": "customertype_desc"
+      },
+      {
+        "label": "Nama Nasabah",
+        "accessor": "customername"
+      },
+      {
+        "label": "Nomor KTP",
+        "accessor": "customerdocument_id"
+      },
+      {
+        "label": "Tipe Identitas",
+        "accessor": "customerdocument_type"
+      },
+      {
+        "label": "ID Produk",
+        "accessor": "product_id"
+      },
+      {
+        "label": "Nama Produk",
+        "accessor": "product_desc"
+      },
+      {
+        "label": "Plafon",
+        "accessor": "plafon"
+      },
+      {
+        "label": "ID Track",
+        "accessor": "track_id"
+      },
+      {
+        "label": "Nama Track",
+        "accessor": "track_name"
+      },
+      {
+        "label": "Judul",
+        "accessor": "last_track_date"
+      }
+    ],
+    "topAction": [
+      {
+        "id": "110",
+        "label": "Filter",
+        "type": "buttonModal",
+        "property": {
+          "icon": "fal fa-filter",
+          "className": "btn btn-sm btn-info",
+          "dataTarget": "filterModal",
+          "active": true,
+          "isRedirect": false,
+          "needConfirm": false,
+          "contents": [
+            {
+              "id": "filter_1",
+              "label": "Nomor Aplikasi",
+              "type": "text",
+              "data": []
+            },
+            {
+              "id": "filter_2",
+              "label": "Tanggal Pengajuan",
+              "type": "dateRange"
+            },
+            {
+              "id": "filter_3",
+              "label": "Tanggal Input",
+              "type": "date"
+            },
+            {
+              "id": "filter_4",
+              "label": "Marketing",
+              "type": "dropdown",
+              "data": [
+                {
+                  "id": "ALP",
+                  "label": "ALPON"
+                },
+                {
+                  "id": "WND",
+                  "label": "WINDY"
+                },
+                {
+                  "id": "BMO",
+                  "label": "BIMO"
+                },
+                {
+                  "id": "FBR",
+                  "label": "FEBRI"
+                }
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "id": "111",
+        "label": "Input Data",
+        "type": "button",
+        "property": {
+          "icon": "fal fa-plus",
+          "className": "btn btn-sm btn-info",
+          "active": true,
+          "isRedirect": true,
+          "needConfirm": false,
+          "url": {
+            "path": "/form",
+            "param": [
+              "ap_regno"
+            ]
+          }
+        }
+      },
+      {
+        "id": "112",
+        "label": "Export",
+        "type": "buttonDropdown",
+        "property": {
+          "icon": "fal fa-download",
+          "className": "btn btn-sm btn-info",
+          "active": true,
+          "order": 1,
+          "isRedirect": true,
+          "needConfirm": false,
+          "url": {
+            "path": "/getDetail",
+            "param": [
+              "ap_regno"
+            ]
+          },
+          "item": [
+            {
+              "label": "Excel",
+              "url": {
+                "path": "/getDetail",
+                "param": [
+                  "ap_regno"
+                ]
+              }
+            }
+          ]
+        }
+      }
+    ],
+    "bottomAction": [
+      {
+        "id": "",
+        "label": "Approve",
+        "property": {
+          "active": true,
+          "order": 1,
+          "isRedirect": true,
+          "url": {
+            "path": "/getDetail",
+            "param": [
+              "appnumber",
+              "customertype_id"
+            ]
+          }
+        }
+      },
+      {
+        "id": "",
+        "label": "Reject",
+        "property": {
+          "active": true,
+          "position": "before",
+          "order": 1,
+          "isRedirect": true,
+          "url": {
+            "path": "/getDetail",
+            "param": [
+              "appnumber",
+              "customertype_id"
+            ]
+          }
+        }
+      },
+      {
+        "id": "",
+        "label": "Cancel",
+        "property": {
+          "active": true,
+          "order": 1,
+          "isRedirect": true,
+          "url": {
+            "path": "/getDetail",
+            "param": [
+              "appnumber",
+              "customertype_id"
+            ]
+          }
+        }
+      },
+      {
+        "id": "",
+        "label": "Reverse",
+        "property": {
+          "active": true,
+          "order": 1,
+          "isRedirect": true,
+          "url": {
+            "path": "/getDetail",
+            "param": [
+              "appnumber",
+              "customertype_id"
+            ]
+          }
+        }
+      },
+      {
+        "id": "",
+        "label": "Hold",
+        "property": {
+          "active": true,
+          "order": 1,
+          "isRedirect": true,
+          "url": {
+            "path": "/getDetail",
+            "param": [
+              "appnumber",
+              "customertype_id"
+            ]
+          }
+        }
+      }
+    ]
+  },
+  "list": [
+    {
+      "ap_regno": "005559992022",
+      "customertype_id": "01",
+      "customertype_desc": "INDIVIDU",
+      "customername": "Budi Santoso Slot 303",
+      "customerdocument_id": "1111111111111113",
+      "customerdocument_type": "KTP",
+      "product_id": "",
+      "product_desc": "",
+      "plafon": "",
+      "track_id": "2.0",
+      "track_name": "2.0 - Pengajuan Awal",
+      "last_track_date": "5/27/2022 1:17:34 AM"
+    },
+    {
+      "ap_regno": "005559992023",
+      "customertype_id": "01",
+      "customertype_desc": "INDIVIDU",
+      "customername": "Muhamad Windy Sulistiyo",
+      "customerdocument_id": "1111111111111113",
+      "customerdocument_type": "KTP",
+      "product_id": "",
+      "product_desc": "",
+      "plafon": "",
+      "track_id": "2.0",
+      "track_name": "2.0 - Pengajuan Awal",
+      "last_track_date": "5/27/2022 1:17:34 AM"
+    },
+    {
+      "ap_regno": "005559992024",
+      "customertype_id": "01",
+      "customertype_desc": "INDIVIDU",
+      "customername": "Bimo Widya Laksono",
+      "customerdocument_id": "1111111111111113",
+      "customerdocument_type": "KTP",
+      "product_id": "",
+      "product_desc": "",
+      "plafon": "",
+      "track_id": "2.0",
+      "track_name": "2.0 - Pengajuan Awal",
+      "last_track_date": "5/27/2022 1:17:34 AM"
+    },
+    {
+      "ap_regno": "005559992025",
+      "customertype_id": "01",
+      "customertype_desc": "INDIVIDU",
+      "customername": "Antonius Febri Nurcahyanto",
+      "customerdocument_id": "1111111111111113",
+      "customerdocument_type": "KTP",
+      "product_id": "",
+      "product_desc": "",
+      "plafon": "",
+      "track_id": "2.0",
+      "track_name": "2.0 - Pengajuan Awal",
+      "last_track_date": "5/27/2022 1:17:34 AM"
+    },
+    {
+      "ap_regno": "005559992026",
+      "customertype_id": "01",
+      "customertype_desc": "INDIVIDU",
+      "customername": "Alfon Yahya Leonardo",
+      "customerdocument_id": "1111111111111113",
+      "customerdocument_type": "KTP",
+      "product_id": "",
+      "product_desc": "",
+      "plafon": "",
+      "track_id": "2.0",
+      "track_name": "2.0 - Pengajuan Awal",
+      "last_track_date": "5/27/2022 1:17:34 AM"
+    },
+    {
+      "ap_regno": "005559992027",
+      "customertype_id": "01",
+      "customertype_desc": "INDIVIDU",
+      "customername": "Ferdi Sambo",
+      "customerdocument_id": "1111111111111113",
+      "customerdocument_type": "KTP",
+      "product_id": "",
+      "product_desc": "",
+      "plafon": "",
+      "track_id": "2.0",
+      "track_name": "2.0 - Pengajuan Awal",
+      "last_track_date": "5/27/2022 1:17:34 AM"
+    },
+    {
+      "ap_regno": "005559992028",
+      "customertype_id": "01",
+      "customertype_desc": "INDIVIDU",
+      "customername": "Richard Lee",
+      "customerdocument_id": "1111111111111113",
+      "customerdocument_type": "KTP",
+      "product_id": "",
+      "product_desc": "",
+      "plafon": "",
+      "track_id": "2.0",
+      "track_name": "2.0 - Pengajuan Awal",
+      "last_track_date": "5/27/2022 1:17:34 AM"
+    },
+    {
+      "ap_regno": "005559992029",
+      "customertype_id": "01",
+      "customertype_desc": "INDIVIDU",
+      "customername": "Habib Jindan",
+      "customerdocument_id": "1111111111111113",
+      "customerdocument_type": "KTP",
+      "product_id": "",
+      "product_desc": "",
+      "plafon": "",
+      "track_id": "2.0",
+      "track_name": "2.0 - Pengajuan Awal",
+      "last_track_date": "5/27/2022 1:17:34 AM"
+    },
+    {
+      "ap_regno": "005559992030",
+      "customertype_id": "01",
+      "customertype_desc": "INDIVIDU",
+      "customername": "Gus Syamsudin Hoo Tenan",
+      "customerdocument_id": "1111111111111113",
+      "customerdocument_type": "KTP",
+      "product_id": "",
+      "product_desc": "",
+      "plafon": "",
+      "track_id": "2.0",
+      "track_name": "2.0 - Pengajuan Awal",
+      "last_track_date": "5/27/2022 1:17:34 AM"
+    },
+    {
+      "ap_regno": "005559992031",
+      "customertype_id": "01",
+      "customertype_desc": "INDIVIDU",
+      "customername": "Pesulap Merah",
+      "customerdocument_id": "1111111111111113",
+      "customerdocument_type": "KTP",
+      "product_id": "",
+      "product_desc": "",
+      "plafon": "",
+      "track_id": "2.0",
+      "track_name": "2.0 - Pengajuan Awal",
+      "last_track_date": "5/27/2022 1:17:34 AM"
+    },
+    {
+      "ap_regno": "005559992032",
+      "customertype_id": "01",
+      "customertype_desc": "INDIVIDU",
+      "customername": "Brigadir Joshua",
+      "customerdocument_id": "1111111111111113",
+      "customerdocument_type": "KTP",
+      "product_id": "",
+      "product_desc": "",
+      "plafon": "",
+      "track_id": "2.0",
+      "track_name": "2.0 - Pengajuan Awal",
+      "last_track_date": "5/27/2022 1:17:34 AM"
+    }
+  ],
+  "flowchart": [
+    {
+      "id": "1",
+      "name": "Flowchart 1",
+      "descrtiption": "desc",
+      "nodes": [
+        {
+          "id": "1",
+          "position": {
+            "x": 78.05217391304348,
+            "y": 11.478260869565219
+          },
+          "data": {
+            "label": "Start",
+            "trackCode": "134",
+            "sideMenu": "Menu"
+          },
+          "type": "input",
+          "width": 150,
+          "height": 40,
+          "selected": false,
+          "positionAbsolute": {
+            "x": 78.05217391304348,
+            "y": 11.478260869565219
+          },
+          "dragging": false
+        },
+        {
+          "id": "2",
+          "position": {
+            "x": 0,
+            "y": 100
+          },
+          "data": {
+            "label": "Output"
+          },
+          "type": "businessProcess",
+          "width": 52,
+          "height": 31
+        },
+        {
+          "id": "3",
+          "position": {
+            "x": 0,
+            "y": 200
+          },
+          "data": {
+            "label": "Exit"
+          },
+          "type": "output",
+          "width": 150,
+          "height": 40
+        },
+        {
+          "id": "4",
+          "position": {
+            "x": 200,
+            "y": 200
+          },
+          "data": {
+            "label": "Pencairan"
+          },
+          "type": "businessProcess",
+          "width": 68,
+          "height": 31
+        },
+        {
+          "id": "5",
+          "position": {
+            "x": 291.0608695652174,
+            "y": 130.6086956521739
+          },
+          "data": {
+            "label": "Gateway"
+          },
+          "type": "gateway",
+          "width": 75,
+          "height": 75,
+          "selected": false,
+          "positionAbsolute": {
+            "x": 291.0608695652174,
+            "y": 130.6086956521739
+          },
+          "dragging": false
+        }
+      ],
+      "edges": [
+        {
+          "id": "e1-2",
+          "source": "1",
+          "target": "2",
+          "label": "garis",
+          "markerStart": {
+            "type": "arrow"
+          },
+          "markderEnd": {
+            "type": "arrow",
+            "orient": "auto"
+          }
+        },
+        {
+          "type": "smoothstep",
+          "source": "2",
+          "sourceHandle": "a",
+          "target": "5",
+          "targetHandle": null,
+          "id": "reactflow__edge-2a-5"
+        }
+      ]
+    },
+    {
+      "name": "",
+      "description": "",
+      "nodes": [
+        {
+          "id": "dndnode_0",
+          "type": "startEvent",
+          "position": {
+            "x": 203.5,
+            "y": 85
+          },
+          "data": {
+            "label": "startEvent"
+          },
+          "width": 70,
+          "height": 70,
+          "selected": true,
+          "dragging": false
+        }
+      ],
+      "edges": [],
+      "id": "2"
+    },
+    {
+      "id": "3"
+    },
+    {
+      "id": "4",
+      "name": "",
+      "description": "",
+      "nodes": [
+        {
+          "id": "dndnode_0",
+          "type": "startEvent",
+          "position": {
+            "x": 142,
+            "y": 22
+          },
+          "data": {
+            "label": "asdadssadas"
+          },
+          "width": 87,
+          "height": 87,
+          "selected": true,
+          "positionAbsolute": {
+            "x": 142,
+            "y": 22
+          },
+          "dragging": false
+        },
+        {
+          "id": "dndnode_1",
+          "type": "gateway",
+          "position": {
+            "x": 272.5,
+            "y": 116.75
+          },
+          "data": {
+            "label": "gateway"
+          },
+          "width": 51,
+          "height": 47,
+          "selected": false,
+          "positionAbsolute": {
+            "x": 272.5,
+            "y": 116.75
+          },
+          "dragging": false
+        }
+      ],
+      "edges": [
+        {
+          "type": "smoothstep",
+          "source": "dndnode_0",
+          "sourceHandle": "a",
+          "target": "dndnode_1",
+          "targetHandle": null,
+          "id": "reactflow__edge-dndnode_0a-dndnode_1"
+        }
+      ]
+    },
+    {
+      "name": "",
+      "description": "",
+      "nodes": [
+        {
+          "id": "dndnode_0",
+          "type": "startEvent",
+          "position": {
+            "x": 150.234375,
+            "y": 54
+          },
+          "data": {
+            "label": "startEvent"
+          },
+          "width": 70,
+          "height": 70,
+          "selected": false,
+          "positionAbsolute": {
+            "x": 150.234375,
+            "y": 54
+          },
+          "dragging": false
+        },
+        {
+          "id": "dndnode_1",
+          "type": "gateway",
+          "position": {
+            "x": 96.1015625,
+            "y": 165.75
+          },
+          "data": {
+            "label": "gateway"
+          },
+          "width": 73,
+          "height": 73
+        }
+      ],
+      "edges": [
+        {
+          "type": "smoothstep",
+          "source": "dndnode_0",
+          "sourceHandle": "a",
+          "target": "dndnode_1",
+          "targetHandle": null,
+          "id": "reactflow__edge-dndnode_0a-dndnode_1"
+        }
+      ],
+      "id": "5"
+    },
+    {
+      "name": "",
+      "description": "",
+      "node": [
+        {
+          "id": "dndnode_0",
+          "type": "startEvent",
+          "position": {
+            "x": 194.25,
+            "y": 116.015625
+          },
+          "data": {
+            "label": "startEvent"
+          },
+          "width": 70,
+          "height": 70,
+          "selected": false,
+          "positionAbsolute": {
+            "x": 194.25,
+            "y": 116.015625
+          },
+          "dragging": false
+        },
+        {
+          "id": "dndnode_1",
+          "type": "businessProcess",
+          "position": {
+            "x": 360.625,
+            "y": 184.5234375
+          },
+          "data": {
+            "label": "businessProcess"
+          },
+          "width": 106,
+          "height": 31,
+          "selected": false,
+          "dragging": false
+        },
+        {
+          "id": "dndnode_2",
+          "type": "endEvent",
+          "position": {
+            "x": 197.125,
+            "y": 251.5234375
+          },
+          "data": {
+            "label": "",
+            "id": "",
+            "type": "",
+            "description": "",
+            "animated": false,
+            "trackCode": "",
+            "sideMenu": ""
+          },
+          "width": 12,
+          "height": 12,
+          "selected": true,
+          "dragging": false
+        }
+      ],
+      "edge": [],
+      "id": "9"
+    }
+  ],
+  "flowchartModalNode": {
+    "status": "1",
+    "message": "get Modal Node",
+    "data": [
+      {
+        "name": "label",
+        "label": "Label",
+        "type": "textbox",
+        "maxLength": "32",
+        "isMandatory": "1",
+        "rule": "",
+        "isReadOnly": "0",
+        "reference": "",
+        "width": 4,
+        "isMultiple": "0",
+        "isActive": "1"
+      },
+      {
+        "name": "trackCode",
+        "label": "Track Code",
+        "type": "textbox",
+        "maxLength": "32",
+        "isMandatory": "0",
+        "rule": "",
+        "isReadOnly": "0",
+        "reference": "",
+        "width": 4,
+        "isMultiple": "0",
+        "isActive": "1"
+      },
+      {
+        "id": "3",
+        "name": "sideMenu",
+        "label": "Side Menu",
+        "type": "dropdown",
+        "maxLength": "16",
+        "isMandatory": "1",
+        "rule": "",
+        "isReadOnly": "0",
+        "data": [],
+        "reference": {
+          "name": "sideMenuDropdown",
+          "parent": [],
+          "child": []
+        },
+        "width": 4,
+        "isMultiple": "0",
+        "isActive": "1"
+      }
+    ]
+  },
+  "flowchartModalEdge": {
+    "status": "1",
+    "message": "get Modal Edge",
+    "data": [
+      {
+        "name": "label",
+        "label": "Label",
+        "type": "textbox",
+        "maxLength": "16",
+        "isMandatory": "1",
+        "rule": "",
+        "isReadOnly": "0",
+        "reference": "",
+        "width": 4,
+        "isMultiple": "0",
+        "isActive": "1"
+      },
+      {
+        "name": "type",
+        "label": "Type",
+        "type": "dropdown",
+        "maxLength": "16",
+        "isMandatory": "1",
+        "rule": "",
+        "isReadOnly": "0",
+        "data": [
+          {
+            "label": "Default",
+            "value": "default"
+          },
+          {
+            "label": "Straight",
+            "value": "straight"
+          },
+          {
+            "label": "Step",
+            "value": "step"
+          },
+          {
+            "label": "Smooth Step",
+            "value": "smoothstep"
+          },
+          {
+            "label": "Simple Bezier",
+            "value": "simplebezier"
+          }
+        ],
+        "reference": {
+          "referenceName": "edgeDropdown",
+          "paramParent": [],
+          "paramChild": []
+        },
+        "width": 4,
+        "isMultiple": "0",
+        "isActive": "1"
+      },
+      {
+        "id": "3",
+        "name": "markerOrient",
+        "label": "Marker Orient",
+        "type": "dropdown",
+        "maxLength": "16",
+        "isMandatory": "1",
+        "rule": "",
+        "isReadOnly": "0",
+        "data": [
+          {
+            "label": "Default",
+            "value": "auto"
+          },
+          {
+            "label": "Reverse",
+            "value": "auto-start-reverse"
+          }
+        ],
+        "reference": {
+          "referenceName": "edgeOrientDropdown",
+          "paramParent": [],
+          "paramChild": []
+        },
+        "width": 4,
+        "isMultiple": "0",
+        "isActive": "1"
+      },
+      {
+        "name": "markerStart",
+        "label": "Marker Start - Select Orient -> Reverse",
+        "type": "dropdown",
+        "maxLength": "16",
+        "isMandatory": "1",
+        "rule": "",
+        "isReadOnly": "0",
+        "data": [
+          {
+            "label": "None",
+            "value": "none"
+          },
+          {
+            "label": "Arrow",
+            "value": "arrow"
+          },
+          {
+            "label": "Arrow Closed",
+            "value": "arrowclosed"
+          }
+        ],
+        "reference": {
+          "referenceName": "edgeMarkerDropdown",
+          "paramParent": [],
+          "paramChild": []
+        },
+        "width": 4,
+        "isMultiple": "0",
+        "isActive": "1"
+      },
+      {
+        "name": "markerEnd",
+        "label": "Marker End - Select Orient -> Default",
+        "type": "dropdown",
+        "maxLength": "16",
+        "isMandatory": "1",
+        "rule": "",
+        "isReadOnly": "0",
+        "data": [
+          {
+            "label": "None",
+            "value": "none"
+          },
+          {
+            "label": "Arrow",
+            "value": "arrow"
+          },
+          {
+            "label": "Arrow Closed",
+            "value": "arrowclosed"
+          }
+        ],
+        "reference": {
+          "referenceName": "edgeMarkerDropdown",
+          "paramParent": [],
+          "paramChild": []
+        },
+        "width": 4,
+        "isMultiple": "0",
+        "isActive": "1"
+      },
+      {
+        "name": "animated",
+        "label": "Edge Animated",
+        "type": "dropdown",
+        "maxLength": "16",
+        "isMandatory": "1",
+        "rule": "",
+        "isReadOnly": "0",
+        "data": [
+          {
+            "label": "False",
+            "value": "false"
+          },
+          {
+            "label": "True",
+            "value": "true"
+          }
+        ],
+        "reference": {
+          "referenceName": "edgeAnimatedDropdown",
+          "paramParent": [],
+          "paramChild": []
+        },
+        "width": 4,
+        "isMultiple": "0",
+        "isActive": "1"
+      }
+    ]
+  },
+  "flowchartToolbox": {
+    "status": "1",
+    "message": "get Modal Node",
+    "toolbox": [
+      {
+        "label": "Start Event",
+        "value": "startEvent",
+        "icon": "fas fa-circle text-primary"
+      },
+      {
+        "label": "Business Process",
+        "value": "businessProcess",
+        "icon": "fas fa-square text-info"
+      },
+      {
+        "label": "Gateway",
+        "value": "gateway",
+        "icon": "fas fa-diamond text-warning"
+      },
+      {
+        "label": "End Event",
+        "value": "endEvent",
+        "icon": "fas fa-circle text-success"
+      }
+    ]
+  },
+  "nodeDropdown": {
+    "status": "1",
+    "message": "get Node dropdown",
+    "data": [
+      {
+        "dataId": "IN",
+        "value": "input",
+        "dataDesc": "Start Event"
+      },
+      {
+        "dataId": "BP",
+        "value": "businessProcess",
+        "dataDesc": "Business Process"
+      },
+      {
+        "dataId": "GT",
+        "value": "gateway",
+        "dataDesc": "Gateway"
+      },
+      {
+        "dataId": "OUT",
+        "value": "output",
+        "dataDesc": "End Event"
+      }
+    ]
+  },
+  "edgeDropdown": {
+    "status": "1",
+    "message": "Get Edge Type",
+    "data": [
+      {
+        "label": "Default",
+        "value": "default"
+      },
+      {
+        "label": "Straight",
+        "value": "straight"
+      },
+      {
+        "label": "Step",
+        "value": "step"
+      },
+      {
+        "label": "Smooth Step",
+        "value": "smoothstep"
+      },
+      {
+        "label": "Simple Bezier",
+        "value": "simplebezier"
+      }
+    ]
+  },
+  "edgeMarkerDropdown": {
+    "status": "1",
+    "message": "get marker type",
+    "data": [
+      {
+        "label": "Default",
+        "value": "default"
+      },
+      {
+        "label": "Arrow",
+        "value": "arrow"
+      },
+      {
+        "label": "Arrow Closed",
+        "value": "arrowclosed"
+      }
+    ]
+  },
+  "edgeOrientDropdown": {
+    "status": "1",
+    "message": "get marker orient",
+    "data": [
+      {
+        "label": "Default",
+        "value": "auto"
+      },
+      {
+        "label": "Reverse",
+        "value": "auto-start-reverse"
+      }
+    ]
+  },
+  "edgeAnimatedDropdown": {
+    "status": "1",
+    "message": "Get Edge Type",
+    "data": [
+      {
+        "label": "False",
+        "value": "false"
+      },
+      {
+        "label": "True",
+        "value": "true"
+      }
+    ]
+  },
+  "chart": {
+    "status": "1",
+    "message": "success",
+    "data": [
+      {
+        "title": "title",
+        "type": "pie",
+        "subTitle": "subtitle",
+        "yTitle": "yTitle",
+        "threeD": false,
+        "pecentage": false,
+        "series":  {
+          "name": "Browsers",
+          "colorByPoint": true,
+          "data": [
+            {
+              "name": "Chrome",
+              "y": 63.06
+            }, {
+              "name": "Safari",
+              "y": 19.84
+            }, {
+              "name": "Firefox",
+              "y": 30
+            }, {
+              "name": "Edge",
+              "y": 80
+            }
+          ]
+        }
+      }, {
+        "title": "title2",
+        "type": "bar",
+        "subTitle": "subtitle",
+        "yTitle": "yTitle",
+        "threeD": false,
+        "pecentage": true,
+        "series":  {
+            "name": "Browsers",
+            "colorByPoint": true,
+            "data": [
+                {
+                "name": "Chrome",
+                "y": 63.06,
+                "drilldown": "Chrome"
+                },
+                {
+                "name": "Safari",
+                "y": 19.84,
+                "drilldown": "Safari"
+                },
+                {
+                "name": "Firefox",
+                "y": 30,
+                "drilldown": "Firefox"
+                },
+                {
+                "name": "Edge",
+                "y": 80,
+                "drilldown": "Edge"
+                }
+            ]
+        }
+    }
+    ]
+  },
+  "report": {
+    "status": "1",
+    "message": "Get Form Success",
+    "caption": "Chart & Summary",
+    "panel": [
+      {
+        "caption": "CHART",
+        "form": "CHT001",
+        "listField": [
+          {
+            "fieldId": "CHT001_1",
+            "fieldLabel": "Pie Chart",
+            "fieldType": "chart",
+            "width": "12",
+            "valueList": [
+                {
+                    "title": "REPORT PRODUCT",
+                    "subtitle": "Subtitle",
+                    "type": "pie",
+                    "yTitle": "Jumlah",
+                    "threeD": "False",
+                    "percentage": "False",
+                    "stacking": "False",
+                    "series": [
+                        {
+                            "name": "PENGAJUAN PER PRODUCT",
+                            "colorByPoint": "True",
+                            "seriesId": "CHT001_1_001",
+                            "data": [
+                                {
+                                    "name": "KI KENDARAAN USAHA",
+                                    "y": "10",
+                                    "drilldown": "KIKU",
+                                    "color": "#9EEF95"
+                                },
+                                {
+                                    "name": "KI KUR MIKRO",
+                                    "y": "2",
+                                    "drilldown": "KIKURM",
+                                    "color": "#2485A2"
+                                },
+                                {
+                                    "name": "KI KUR SUPER MIKRO",
+                                    "y": "5",
+                                    "drilldown": "KIKURSM",
+                                    "color": "#1A6768"
+                                },
+                                {
+                                    "name": "KI MIKRO",
+                                    "y": "3",
+                                    "drilldown": "KIM",
+                                    "color": "#D310FB"
+                                },
+                                {
+                                    "name": "KI PAPEDA",
+                                    "y": "1",
+                                    "drilldown": "KIP",
+                                    "color": "#ADA16E"
+                                },
+                                {
+                                    "name": "KKR ABDI BHAKTI",
+                                    "y": "8",
+                                    "drilldown": "KKRAB",
+                                    "color": "#8091A6"
+                                },
+                                {
+                                    "name": "KKR KENDARAAN",
+                                    "y": "4",
+                                    "drilldown": "KKRK",
+                                    "color": "#055626"
+                                },
+                                {
+                                    "name": "KKR KENDARAAN FLAT",
+                                    "y": "2",
+                                    "drilldown": "KKRKF",
+                                    "color": "#71FEB6"
+                                },
+                                {
+                                    "name": "KKR PURNA BHAKTI INTERN",
+                                    "y": "4",
+                                    "drilldown": "KKRPBI",
+                                    "color": "#6AE7DA"
+                                },
+                                {
+                                    "name": "KKS PEGAWAI SIAGA",
+                                    "y": "6",
+                                    "drilldown": "KKSPS",
+                                    "color": "#228BBF"
+                                },
+                                {
+                                    "name": "KKS PRAPURNA BHAKTI",
+                                    "y": "4",
+                                    "drilldown": "KKSPPB",
+                                    "color": "#E286A7"
+                                },
+                                {
+                                    "name": "KKS PURNA BHAKTI (PGW PENSIUNAN)",
+                                    "y": "9",
+                                    "drilldown": "KKSPB",
+                                    "color": "#98B0D4"
+                                },
+                                {
+                                    "name": "KKS WIRA BHAKTI (PGW EKSTERN)",
+                                    "y": "26",
+                                    "drilldown": "KKSWB",
+                                    "color": "#CCBDA8"
+                                },
+                                {
+                                    "name": "KMK KUR MIKRO",
+                                    "y": "5",
+                                    "drilldown": "KMKKURM",
+                                    "color": "#965A35"
+                                },
+                                {
+                                    "name": "KMK KUR SUPER MIKRO",
+                                    "y": "14",
+                                    "drilldown": "KMKKURSM",
+                                    "color": "#52147F"
+                                },
+                                {
+                                    "name": "KMK MIKRO",
+                                    "y": "7",
+                                    "drilldown": "KMKM",
+                                    "color": "#7B7445"
+                                },
+                                {
+                                    "name": "KMK PAPEDA",
+                                    "y": "2",
+                                    "drilldown": "KMKP",
+                                    "color": "#41488C"
+                                },
+                                {
+                                    "name": "PINJAMAN USAHA MIKRO",
+                                    "y": "5",
+                                    "drilldown": "PUM",
+                                    "color": "#D2E06A"
+                                },
+                                {
+                                    "name": "PINJAMAN USAHA MIKRO MAMA PAPUA",
+                                    "y": "3",
+                                    "drilldown": "PUMMMP",
+                                    "color": "#4E6D5C"
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "fieldId": "CHT001_2",
+            "fieldLabel": "Bar Chart",
+            "fieldType": "chart",
+            "width": "12",
+            "valueList": [
+                {
+                    "title": "REPORT PRODUCT",
+                    "subtitle": "Subtitle",
+                    "type": "bar",
+                    "yTitle": "Jumlah",
+                    "threeD": "False",
+                    "percentage": "False",
+                    "stacking": "True",
+                    "series": [
+                        {
+                            "name": "PENGAJUAN PER PRODUCT",
+                            "color": "red",
+                            "colorByPoint": "False",
+                            "seriesId": "CHT001_2_001",
+                            "data": [
+                                {
+                                    "name": "KI KENDARAAN USAHA",
+                                    "y": "10",
+                                    "drilldown": "KIKU",
+                                    "color": "#B57CE3"
+                                },
+                                {
+                                    "name": "KI KUR MIKRO",
+                                    "y": "2",
+                                    "drilldown": "KIKURM",
+                                    "color": "#9BFE66"
+                                },
+                                {
+                                    "name": "KI KUR SUPER MIKRO",
+                                    "y": "5",
+                                    "drilldown": "KIKURSM",
+                                    "color": "#565D30"
+                                },
+                                {
+                                    "name": "KI MIKRO",
+                                    "y": "3",
+                                    "drilldown": "KIM",
+                                    "color": "#4139F2"
+                                },
+                                {
+                                    "name": "KI PAPEDA",
+                                    "y": "1",
+                                    "drilldown": "KIP",
+                                    "color": "#69E1A9"
+                                },
+                                {
+                                    "name": "KKR ABDI BHAKTI",
+                                    "y": "8",
+                                    "drilldown": "KKRAB",
+                                    "color": "#1C5B20"
+                                },
+                                {
+                                    "name": "KKR KENDARAAN",
+                                    "y": "4",
+                                    "drilldown": "KKRK",
+                                    "color": "#404537"
+                                },
+                                {
+                                    "name": "KKR KENDARAAN FLAT",
+                                    "y": "2",
+                                    "drilldown": "KKRKF",
+                                    "color": "#7A4A89"
+                                },
+                                {
+                                    "name": "KKR PURNA BHAKTI INTERN",
+                                    "y": "4",
+                                    "drilldown": "KKRPBI",
+                                    "color": "#DE8080"
+                                },
+                                {
+                                    "name": "KKS PEGAWAI SIAGA",
+                                    "y": "6",
+                                    "drilldown": "KKSPS",
+                                    "color": "#E42920"
+                                },
+                                {
+                                    "name": "KKS PRAPURNA BHAKTI",
+                                    "y": "4",
+                                    "drilldown": "KKSPPB",
+                                    "color": "#F08B7F"
+                                },
+                                {
+                                    "name": "KKS PURNA BHAKTI (PGW PENSIUNAN)",
+                                    "y": "9",
+                                    "drilldown": "KKSPB",
+                                    "color": "#D81549"
+                                },
+                                {
+                                    "name": "KKS WIRA BHAKTI (PGW EKSTERN)",
+                                    "y": "26",
+                                    "drilldown": "KKSWB",
+                                    "color": "#D8EC01"
+                                },
+                                {
+                                    "name": "KMK KUR MIKRO",
+                                    "y": "5",
+                                    "drilldown": "KMKKURM",
+                                    "color": "#6DA630"
+                                },
+                                {
+                                    "name": "KMK KUR SUPER MIKRO",
+                                    "y": "14",
+                                    "drilldown": "KMKKURSM",
+                                    "color": "#B4254B"
+                                },
+                                {
+                                    "name": "KMK MIKRO",
+                                    "y": "7",
+                                    "drilldown": "KMKM",
+                                    "color": "#FBD6BE"
+                                },
+                                {
+                                    "name": "KMK PAPEDA",
+                                    "y": "2",
+                                    "drilldown": "KMKP",
+                                    "color": "#6BF9DB"
+                                },
+                                {
+                                    "name": "PINJAMAN USAHA MIKRO",
+                                    "y": "5",
+                                    "drilldown": "PUM",
+                                    "color": "#D685B0"
+                                },
+                                {
+                                    "name": "PINJAMAN USAHA MIKRO MAMA PAPUA",
+                                    "y": "3",
+                                    "drilldown": "PUMMMP",
+                                    "color": "#070809"
+                                }
+                            ]
+                        },
+                        {
+                            "name": "SUMMARY PENCAIRAN PER PRODUCT ",
+                            "colorByPoint": "False",
+                            "color": "blue",
+                            "seriesId": "CHT001_2_002",
+                            "data": [
+                                {
+                                    "name": "KI KENDARAAN USAHA",
+                                    "drilldown": "KIKU",
+                                    "y": "0",
+                                    "color": ""
+                                },
+                                {
+                                    "name": "KI KUR MIKRO",
+                                    "drilldown": "KIKURM",
+                                    "y": "0",
+                                    "color": ""
+                                },
+                                {
+                                    "name": "KI KUR SUPER MIKRO",
+                                    "drilldown": "KIKURSM",
+                                    "y": "0",
+                                    "color": ""
+                                },
+                                {
+                                    "name": "KI MIKRO",
+                                    "drilldown": "KIM",
+                                    "y": "0",
+                                    "color": ""
+                                },
+                                {
+                                    "name": "KI PAPEDA",
+                                    "drilldown": "KIP",
+                                    "y": "0",
+                                    "color": ""
+                                },
+                                {
+                                    "name": "KKR ABDI BHAKTI",
+                                    "drilldown": "KKRAB",
+                                    "y": "0",
+                                    "color": ""
+                                },
+                                {
+                                    "name": "KKR KENDARAAN",
+                                    "drilldown": "KKRK",
+                                    "y": "1",
+                                    "color": "#BE180F"
+                                },
+                                {
+                                    "name": "KKR KENDARAAN FLAT",
+                                    "drilldown": "KKRKF",
+                                    "y": "0",
+                                    "color": ""
+                                },
+                                {
+                                    "name": "KKR PURNA BHAKTI INTERN",
+                                    "drilldown": "KKRPBI",
+                                    "y": "0",
+                                    "color": ""
+                                },
+                                {
+                                    "name": "KKS PURNA BHAKTI (PGW PENSIUNAN)",
+                                    "drilldown": "KKSPB",
+                                    "y": "0",
+                                    "color": ""
+                                },
+                                {
+                                    "name": "KKS PRAPURNA BHAKTI",
+                                    "drilldown": "KKSPPB",
+                                    "y": "0",
+                                    "color": ""
+                                },
+                                {
+                                    "name": "KKS PEGAWAI SIAGA",
+                                    "drilldown": "KKSPS",
+                                    "y": "0",
+                                    "color": ""
+                                },
+                                {
+                                    "name": "KKS WIRA BHAKTI (PGW EKSTERN)",
+                                    "drilldown": "KKSWB",
+                                    "y": "2",
+                                    "color": "#A69E80"
+                                },
+                                {
+                                    "name": "KMK KUR MIKRO",
+                                    "drilldown": "KMKKURM",
+                                    "y": "0",
+                                    "color": ""
+                                },
+                                {
+                                    "name": "KMK KUR SUPER MIKRO",
+                                    "drilldown": "KMKKURSM",
+                                    "y": "1",
+                                    "color": "#70AA79"
+                                },
+                                {
+                                    "name": "KMK MIKRO",
+                                    "drilldown": "KMKM",
+                                    "y": "0",
+                                    "color": ""
+                                },
+                                {
+                                    "name": "KMK PAPEDA",
+                                    "drilldown": "KMKP",
+                                    "y": "0",
+                                    "color": ""
+                                },
+                                {
+                                    "name": "PINJAMAN USAHA MIKRO",
+                                    "drilldown": "PUM",
+                                    "y": "0",
+                                    "color": ""
+                                },
+                                {
+                                    "name": "PINJAMAN USAHA MIKRO MAMA PAPUA",
+                                    "drilldown": "PUMMMP",
+                                    "y": "0",
+                                    "color": ""
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "fieldId": "CHT001_3",
+            "fieldLabel": "Donut Chart",
+            "fieldType": "chart",
+            "width": "12",
+            "valueList": [
+                {
+                    "title": "REPORT PRODUCT",
+                    "subtitle": "Subtitle",
+                    "type": "donut",
+                    "yTitle": "Jumlah",
+                    "threeD": "False",
+                    "percentage": "False",
+                    "stacking": "False",
+                    "series": [
+                        {
+                            "name": "PENGAJUAN PER PRODUCT",
+                            "colorByPoint": "True",
+                            "seriesId": "CHT001_3_001",
+                            "data": [
+                                {
+                                    "name": "KI KENDARAAN USAHA",
+                                    "y": "10",
+                                    "drilldown": "KIKU",
+                                    "color": "#C96C3A"
+                                },
+                                {
+                                    "name": "KI KUR MIKRO",
+                                    "y": "2",
+                                    "drilldown": "KIKURM",
+                                    "color": "#3BE856"
+                                },
+                                {
+                                    "name": "KI KUR SUPER MIKRO",
+                                    "y": "5",
+                                    "drilldown": "KIKURSM",
+                                    "color": "#1550CD"
+                                },
+                                {
+                                    "name": "KI MIKRO",
+                                    "y": "3",
+                                    "drilldown": "KIM",
+                                    "color": "#D708BB"
+                                },
+                                {
+                                    "name": "KI PAPEDA",
+                                    "y": "1",
+                                    "drilldown": "KIP",
+                                    "color": "#DD8723"
+                                },
+                                {
+                                    "name": "KKR ABDI BHAKTI",
+                                    "y": "8",
+                                    "drilldown": "KKRAB",
+                                    "color": "#EA3CB1"
+                                },
+                                {
+                                    "name": "KKR KENDARAAN",
+                                    "y": "4",
+                                    "drilldown": "KKRK",
+                                    "color": "#3B03E7"
+                                },
+                                {
+                                    "name": "KKR KENDARAAN FLAT",
+                                    "y": "2",
+                                    "drilldown": "KKRKF",
+                                    "color": "#814D34"
+                                },
+                                {
+                                    "name": "KKR PURNA BHAKTI INTERN",
+                                    "y": "4",
+                                    "drilldown": "KKRPBI",
+                                    "color": "#8CA135"
+                                },
+                                {
+                                    "name": "KKS PEGAWAI SIAGA",
+                                    "y": "6",
+                                    "drilldown": "KKSPS",
+                                    "color": "#24EB6A"
+                                },
+                                {
+                                    "name": "KKS PRAPURNA BHAKTI",
+                                    "y": "4",
+                                    "drilldown": "KKSPPB",
+                                    "color": "#A77448"
+                                },
+                                {
+                                    "name": "KKS PURNA BHAKTI (PGW PENSIUNAN)",
+                                    "y": "9",
+                                    "drilldown": "KKSPB",
+                                    "color": "#4202A8"
+                                },
+                                {
+                                    "name": "KKS WIRA BHAKTI (PGW EKSTERN)",
+                                    "y": "26",
+                                    "drilldown": "KKSWB",
+                                    "color": "#AC5A4B"
+                                },
+                                {
+                                    "name": "KMK KUR MIKRO",
+                                    "y": "5",
+                                    "drilldown": "KMKKURM",
+                                    "color": "#CF0945"
+                                },
+                                {
+                                    "name": "KMK KUR SUPER MIKRO",
+                                    "y": "14",
+                                    "drilldown": "KMKKURSM",
+                                    "color": "#AEE12F"
+                                },
+                                {
+                                    "name": "KMK MIKRO",
+                                    "y": "7",
+                                    "drilldown": "KMKM",
+                                    "color": "#C58F60"
+                                },
+                                {
+                                    "name": "KMK PAPEDA",
+                                    "y": "2",
+                                    "drilldown": "KMKP",
+                                    "color": "#4BD47B"
+                                },
+                                {
+                                    "name": "PINJAMAN USAHA MIKRO",
+                                    "y": "5",
+                                    "drilldown": "PUM",
+                                    "color": "#63AC72"
+                                },
+                                {
+                                    "name": "PINJAMAN USAHA MIKRO MAMA PAPUA",
+                                    "y": "3",
+                                    "drilldown": "PUMMMP",
+                                    "color": "#F31925"
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "fieldId": "CHT001_4",
+            "fieldLabel": "Semi Circle Chart",
+            "fieldType": "chart",
+            "width": "12",
+            "valueList": [
+                {
+                    "title": "REPORT PRODUCT",
+                    "subtitle": "Subtitle",
+                    "type": "semiCircle",
+                    "yTitle": "Jumlah",
+                    "threeD": "False",
+                    "percentage": "False",
+                    "stacking": "False",
+                    "series": [
+                        {
+                            "name": "PENGAJUAN PER PRODUCT",
+                            "colorByPoint": "True",
+                            "seriesId": "CHT001_4_001",
+                            "data": [
+                                {
+                                    "name": "KI KENDARAAN USAHA",
+                                    "y": "10",
+                                    "drilldown": "KIKU",
+                                    "color": "#D6D75A"
+                                },
+                                {
+                                    "name": "KI KUR MIKRO",
+                                    "y": "2",
+                                    "drilldown": "KIKURM",
+                                    "color": "#73BE83"
+                                },
+                                {
+                                    "name": "KI KUR SUPER MIKRO",
+                                    "y": "5",
+                                    "drilldown": "KIKURSM",
+                                    "color": "#6F8FB0"
+                                },
+                                {
+                                    "name": "KI MIKRO",
+                                    "y": "3",
+                                    "drilldown": "KIM",
+                                    "color": "#D027F0"
+                                },
+                                {
+                                    "name": "KI PAPEDA",
+                                    "y": "1",
+                                    "drilldown": "KIP",
+                                    "color": "#CB3E34"
+                                },
+                                {
+                                    "name": "KKR ABDI BHAKTI",
+                                    "y": "8",
+                                    "drilldown": "KKRAB",
+                                    "color": "#AFE6D4"
+                                },
+                                {
+                                    "name": "KKR KENDARAAN",
+                                    "y": "4",
+                                    "drilldown": "KKRK",
+                                    "color": "#12035E"
+                                },
+                                {
+                                    "name": "KKR KENDARAAN FLAT",
+                                    "y": "2",
+                                    "drilldown": "KKRKF",
+                                    "color": "#3DF7E3"
+                                },
+                                {
+                                    "name": "KKR PURNA BHAKTI INTERN",
+                                    "y": "4",
+                                    "drilldown": "KKRPBI",
+                                    "color": "#722983"
+                                },
+                                {
+                                    "name": "KKS PEGAWAI SIAGA",
+                                    "y": "6",
+                                    "drilldown": "KKSPS",
+                                    "color": "#192357"
+                                },
+                                {
+                                    "name": "KKS PRAPURNA BHAKTI",
+                                    "y": "4",
+                                    "drilldown": "KKSPPB",
+                                    "color": "#695EEE"
+                                },
+                                {
+                                    "name": "KKS PURNA BHAKTI (PGW PENSIUNAN)",
+                                    "y": "9",
+                                    "drilldown": "KKSPB",
+                                    "color": "#C794C6"
+                                },
+                                {
+                                    "name": "KKS WIRA BHAKTI (PGW EKSTERN)",
+                                    "y": "26",
+                                    "drilldown": "KKSWB",
+                                    "color": "#A208FE"
+                                },
+                                {
+                                    "name": "KMK KUR MIKRO",
+                                    "y": "5",
+                                    "drilldown": "KMKKURM",
+                                    "color": "#95A3C2"
+                                },
+                                {
+                                    "name": "KMK KUR SUPER MIKRO",
+                                    "y": "14",
+                                    "drilldown": "KMKKURSM",
+                                    "color": "#9E3157"
+                                },
+                                {
+                                    "name": "KMK MIKRO",
+                                    "y": "7",
+                                    "drilldown": "KMKM",
+                                    "color": "#42022C"
+                                },
+                                {
+                                    "name": "KMK PAPEDA",
+                                    "y": "2",
+                                    "drilldown": "KMKP",
+                                    "color": "#A47B50"
+                                },
+                                {
+                                    "name": "PINJAMAN USAHA MIKRO",
+                                    "y": "5",
+                                    "drilldown": "PUM",
+                                    "color": "#981281"
+                                },
+                                {
+                                    "name": "PINJAMAN USAHA MIKRO MAMA PAPUA",
+                                    "y": "3",
+                                    "drilldown": "PUMMMP",
+                                    "color": "#81AC36"
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "fieldId": "CHT001_5",
+            "fieldLabel": "Column",
+            "fieldType": "chart",
+            "width": "12",
+            "valueList": [
+                {
+                    "title": "REPORT PRODUCT",
+                    "subtitle": "Subtitle",
+                    "type": "column",
+                    "yTitle": "Jumlah",
+                    "threeD": "False",
+                    "percentage": "False",
+                    "stacking": "False",
+                    "series": [
+                        {
+                            "name": "PENGAJUAN PER PRODUCT",
+                            "colorByPoint": "True",
+                            "seriesId": "CHT001_5_001",
+                            "data": [
+                                {
+                                    "name": "KI KENDARAAN USAHA",
+                                    "y": "10",
+                                    "drilldown": "KIKU",
+                                    "color": "#AC498F"
+                                },
+                                {
+                                    "name": "KI KUR MIKRO",
+                                    "y": "2",
+                                    "drilldown": "KIKURM",
+                                    "color": "#843768"
+                                },
+                                {
+                                    "name": "KI KUR SUPER MIKRO",
+                                    "y": "5",
+                                    "drilldown": "KIKURSM",
+                                    "color": "#19E68E"
+                                },
+                                {
+                                    "name": "KI MIKRO",
+                                    "y": "3",
+                                    "drilldown": "KIM",
+                                    "color": "#411F26"
+                                },
+                                {
+                                    "name": "KI PAPEDA",
+                                    "y": "1",
+                                    "drilldown": "KIP",
+                                    "color": "#460B9D"
+                                },
+                                {
+                                    "name": "KKR ABDI BHAKTI",
+                                    "y": "8",
+                                    "drilldown": "KKRAB",
+                                    "color": "#484375"
+                                },
+                                {
+                                    "name": "KKR KENDARAAN",
+                                    "y": "4",
+                                    "drilldown": "KKRK",
+                                    "color": "#FF1176"
+                                },
+                                {
+                                    "name": "KKR KENDARAAN FLAT",
+                                    "y": "2",
+                                    "drilldown": "KKRKF",
+                                    "color": "#C52DB9"
+                                },
+                                {
+                                    "name": "KKR PURNA BHAKTI INTERN",
+                                    "y": "4",
+                                    "drilldown": "KKRPBI",
+                                    "color": "#A12E4E"
+                                },
+                                {
+                                    "name": "KKS PEGAWAI SIAGA",
+                                    "y": "6",
+                                    "drilldown": "KKSPS",
+                                    "color": "#DF660C"
+                                },
+                                {
+                                    "name": "KKS PRAPURNA BHAKTI",
+                                    "y": "4",
+                                    "drilldown": "KKSPPB",
+                                    "color": "#88E9E9"
+                                },
+                                {
+                                    "name": "KKS PURNA BHAKTI (PGW PENSIUNAN)",
+                                    "y": "9",
+                                    "drilldown": "KKSPB",
+                                    "color": "#29DC53"
+                                },
+                                {
+                                    "name": "KKS WIRA BHAKTI (PGW EKSTERN)",
+                                    "y": "26",
+                                    "drilldown": "KKSWB",
+                                    "color": "#5164D8"
+                                },
+                                {
+                                    "name": "KMK KUR MIKRO",
+                                    "y": "5",
+                                    "drilldown": "KMKKURM",
+                                    "color": "#CD3F9E"
+                                },
+                                {
+                                    "name": "KMK KUR SUPER MIKRO",
+                                    "y": "14",
+                                    "drilldown": "KMKKURSM",
+                                    "color": "#A70AA7"
+                                },
+                                {
+                                    "name": "KMK MIKRO",
+                                    "y": "7",
+                                    "drilldown": "KMKM",
+                                    "color": "#A2203C"
+                                },
+                                {
+                                    "name": "KMK PAPEDA",
+                                    "y": "2",
+                                    "drilldown": "KMKP",
+                                    "color": "#0BB086"
+                                },
+                                {
+                                    "name": "PINJAMAN USAHA MIKRO",
+                                    "y": "5",
+                                    "drilldown": "PUM",
+                                    "color": "#0F29BB"
+                                },
+                                {
+                                    "name": "PINJAMAN USAHA MIKRO MAMA PAPUA",
+                                    "y": "3",
+                                    "drilldown": "PUMMMP",
+                                    "color": "#FAD874"
+                                }
+                            ]
+                        },
+                        {
+                            "name": "SUMMARY PENCAIRAN PER PRODUCT",
+                            "colorByPoint": "True",
+                            "seriesId": "CHT001_5_002",
+                            "data": [
+                                {
+                                    "name": "KI KENDARAAN USAHA",
+                                    "drilldown": "KIKU",
+                                    "y": "0",
+                                    "color": ""
+                                },
+                                {
+                                    "name": "KI KUR MIKRO",
+                                    "drilldown": "KIKURM",
+                                    "y": "0",
+                                    "color": ""
+                                },
+                                {
+                                    "name": "KI KUR SUPER MIKRO",
+                                    "drilldown": "KIKURSM",
+                                    "y": "0",
+                                    "color": ""
+                                },
+                                {
+                                    "name": "KI MIKRO",
+                                    "drilldown": "KIM",
+                                    "y": "0",
+                                    "color": ""
+                                },
+                                {
+                                    "name": "KI PAPEDA",
+                                    "drilldown": "KIP",
+                                    "y": "0",
+                                    "color": ""
+                                },
+                                {
+                                    "name": "KKR ABDI BHAKTI",
+                                    "drilldown": "KKRAB",
+                                    "y": "0",
+                                    "color": ""
+                                },
+                                {
+                                    "name": "KKR KENDARAAN",
+                                    "drilldown": "KKRK",
+                                    "y": "1",
+                                    "color": "#CBC41D"
+                                },
+                                {
+                                    "name": "KKR KENDARAAN FLAT",
+                                    "drilldown": "KKRKF",
+                                    "y": "0",
+                                    "color": ""
+                                },
+                                {
+                                    "name": "KKR PURNA BHAKTI INTERN",
+                                    "drilldown": "KKRPBI",
+                                    "y": "0",
+                                    "color": ""
+                                },
+                                {
+                                    "name": "KKS PURNA BHAKTI (PGW PENSIUNAN)",
+                                    "drilldown": "KKSPB",
+                                    "y": "0",
+                                    "color": ""
+                                },
+                                {
+                                    "name": "KKS PRAPURNA BHAKTI",
+                                    "drilldown": "KKSPPB",
+                                    "y": "0",
+                                    "color": ""
+                                },
+                                {
+                                    "name": "KKS PEGAWAI SIAGA",
+                                    "drilldown": "KKSPS",
+                                    "y": "0",
+                                    "color": ""
+                                },
+                                {
+                                    "name": "KKS WIRA BHAKTI (PGW EKSTERN)",
+                                    "drilldown": "KKSWB",
+                                    "y": "2",
+                                    "color": "#C7B0B4"
+                                },
+                                {
+                                    "name": "KMK KUR MIKRO",
+                                    "drilldown": "KMKKURM",
+                                    "y": "0",
+                                    "color": ""
+                                },
+                                {
+                                    "name": "KMK KUR SUPER MIKRO",
+                                    "drilldown": "KMKKURSM",
+                                    "y": "1",
+                                    "color": "#290AE4"
+                                },
+                                {
+                                    "name": "KMK MIKRO",
+                                    "drilldown": "KMKM",
+                                    "y": "0",
+                                    "color": ""
+                                },
+                                {
+                                    "name": "KMK PAPEDA",
+                                    "drilldown": "KMKP",
+                                    "y": "0",
+                                    "color": ""
+                                },
+                                {
+                                    "name": "PINJAMAN USAHA MIKRO",
+                                    "drilldown": "PUM",
+                                    "y": "0",
+                                    "color": ""
+                                },
+                                {
+                                    "name": "PINJAMAN USAHA MIKRO MAMA PAPUA",
+                                    "drilldown": "PUMMMP",
+                                    "y": "0",
+                                    "color": ""
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "fieldId": "CHT001_6",
+            "fieldLabel": "Area",
+            "fieldType": "chart",
+            "width": "6",
+            "valueList": [
+                {
+                    "title": "REPORT PRODUCT",
+                    "subtitle": "Subtitle",
+                    "type": "area",
+                    "yTitle": "Jumlah",
+                    "threeD": "False",
+                    "percentage": "False",
+                    "stacking": "True",
+                    "series": [
+                        {
+                            "name": "SUMMARY PENCAIRAN PER PRODUCT",
+                            "colorByPoint": "True",
+                            "color": "blue",
+                            "seriesId": "CHT001_6_001",
+                            "data": [
+                                {
+                                    "name": "KI KENDARAAN USAHA",
+                                    "y": "10",
+                                    "drilldown": "KIKU",
+                                    "color": "#7CFB82"
+                                },
+                                {
+                                    "name": "KI KUR MIKRO",
+                                    "y": "2",
+                                    "drilldown": "KIKURM",
+                                    "color": "#72E325"
+                                },
+                                {
+                                    "name": "KI KUR SUPER MIKRO",
+                                    "y": "5",
+                                    "drilldown": "KIKURSM",
+                                    "color": "#CC4A25"
+                                },
+                                {
+                                    "name": "KI MIKRO",
+                                    "y": "3",
+                                    "drilldown": "KIM",
+                                    "color": "#D9A579"
+                                },
+                                {
+                                    "name": "KI PAPEDA",
+                                    "y": "1",
+                                    "drilldown": "KIP",
+                                    "color": "#2E9C5E"
+                                },
+                                {
+                                    "name": "KKR ABDI BHAKTI",
+                                    "y": "8",
+                                    "drilldown": "KKRAB",
+                                    "color": "#D8AE67"
+                                },
+                                {
+                                    "name": "KKR KENDARAAN",
+                                    "y": "4",
+                                    "drilldown": "KKRK",
+                                    "color": "#233EE1"
+                                },
+                                {
+                                    "name": "KKR KENDARAAN FLAT",
+                                    "y": "2",
+                                    "drilldown": "KKRKF",
+                                    "color": "#B5B984"
+                                },
+                                {
+                                    "name": "KKR PURNA BHAKTI INTERN",
+                                    "y": "4",
+                                    "drilldown": "KKRPBI",
+                                    "color": "#96A481"
+                                },
+                                {
+                                    "name": "KKS PEGAWAI SIAGA",
+                                    "y": "6",
+                                    "drilldown": "KKSPS",
+                                    "color": "#499383"
+                                },
+                                {
+                                    "name": "KKS PRAPURNA BHAKTI",
+                                    "y": "4",
+                                    "drilldown": "KKSPPB",
+                                    "color": "#27DECA"
+                                },
+                                {
+                                    "name": "KKS PURNA BHAKTI (PGW PENSIUNAN)",
+                                    "y": "9",
+                                    "drilldown": "KKSPB",
+                                    "color": "#13EA83"
+                                },
+                                {
+                                    "name": "KKS WIRA BHAKTI (PGW EKSTERN)",
+                                    "y": "26",
+                                    "drilldown": "KKSWB",
+                                    "color": "#217EA6"
+                                },
+                                {
+                                    "name": "KMK KUR MIKRO",
+                                    "y": "5",
+                                    "drilldown": "KMKKURM",
+                                    "color": "#2A1828"
+                                },
+                                {
+                                    "name": "KMK KUR SUPER MIKRO",
+                                    "y": "14",
+                                    "drilldown": "KMKKURSM",
+                                    "color": "#99F525"
+                                },
+                                {
+                                    "name": "KMK MIKRO",
+                                    "y": "7",
+                                    "drilldown": "KMKM",
+                                    "color": "#D8B016"
+                                },
+                                {
+                                    "name": "KMK PAPEDA",
+                                    "y": "2",
+                                    "drilldown": "KMKP",
+                                    "color": "#163AB7"
+                                },
+                                {
+                                    "name": "PINJAMAN USAHA MIKRO",
+                                    "y": "5",
+                                    "drilldown": "PUM",
+                                    "color": "#CBDD64"
+                                },
+                                {
+                                    "name": "PINJAMAN USAHA MIKRO MAMA PAPUA",
+                                    "y": "3",
+                                    "drilldown": "PUMMMP",
+                                    "color": "#F78462"
+                                }
+                            ]
+                        },
+                        {
+                            "name": "PENGAJUAN PER PRODUCT",
+                            "colorByPoint": "True",
+                            "seriesId": "CHT001_6_002",
+                            "color": "green",
+                            "data": [
+                                {
+                                    "name": "KI KENDARAAN USAHA",
+                                    "drilldown": "KIKU",
+                                    "y": "0",
+                                    "color": ""
+                                },
+                                {
+                                    "name": "KI KUR MIKRO",
+                                    "drilldown": "KIKURM",
+                                    "y": "0",
+                                    "color": ""
+                                },
+                                {
+                                    "name": "KI KUR SUPER MIKRO",
+                                    "drilldown": "KIKURSM",
+                                    "y": "0",
+                                    "color": ""
+                                },
+                                {
+                                    "name": "KI MIKRO",
+                                    "drilldown": "KIM",
+                                    "y": "0",
+                                    "color": ""
+                                },
+                                {
+                                    "name": "KI PAPEDA",
+                                    "drilldown": "KIP",
+                                    "y": "0",
+                                    "color": ""
+                                },
+                                {
+                                    "name": "KKR ABDI BHAKTI",
+                                    "drilldown": "KKRAB",
+                                    "y": "0",
+                                    "color": ""
+                                },
+                                {
+                                    "name": "KKR KENDARAAN",
+                                    "drilldown": "KKRK",
+                                    "y": "1",
+                                    "color": "#01D661"
+                                },
+                                {
+                                    "name": "KKR KENDARAAN FLAT",
+                                    "drilldown": "KKRKF",
+                                    "y": "0",
+                                    "color": ""
+                                },
+                                {
+                                    "name": "KKR PURNA BHAKTI INTERN",
+                                    "drilldown": "KKRPBI",
+                                    "y": "0",
+                                    "color": ""
+                                },
+                                {
+                                    "name": "KKS PURNA BHAKTI (PGW PENSIUNAN)",
+                                    "drilldown": "KKSPB",
+                                    "y": "0",
+                                    "color": ""
+                                },
+                                {
+                                    "name": "KKS PRAPURNA BHAKTI",
+                                    "drilldown": "KKSPPB",
+                                    "y": "0",
+                                    "color": ""
+                                },
+                                {
+                                    "name": "KKS PEGAWAI SIAGA",
+                                    "drilldown": "KKSPS",
+                                    "y": "0",
+                                    "color": ""
+                                },
+                                {
+                                    "name": "KKS WIRA BHAKTI (PGW EKSTERN)",
+                                    "drilldown": "KKSWB",
+                                    "y": "2",
+                                    "color": "#1985DF"
+                                },
+                                {
+                                    "name": "KMK KUR MIKRO",
+                                    "drilldown": "KMKKURM",
+                                    "y": "0",
+                                    "color": ""
+                                },
+                                {
+                                    "name": "KMK KUR SUPER MIKRO",
+                                    "drilldown": "KMKKURSM",
+                                    "y": "1",
+                                    "color": "#F3D968"
+                                },
+                                {
+                                    "name": "KMK MIKRO",
+                                    "drilldown": "KMKM",
+                                    "y": "0",
+                                    "color": ""
+                                },
+                                {
+                                    "name": "KMK PAPEDA",
+                                    "drilldown": "KMKP",
+                                    "y": "0",
+                                    "color": ""
+                                },
+                                {
+                                    "name": "PINJAMAN USAHA MIKRO",
+                                    "drilldown": "PUM",
+                                    "y": "0",
+                                    "color": ""
+                                },
+                                {
+                                    "name": "PINJAMAN USAHA MIKRO MAMA PAPUA",
+                                    "drilldown": "PUMMMP",
+                                    "y": "0",
+                                    "color": ""
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "fieldId": "CHT001_7",
+            "fieldLabel": "Line",
+            "fieldType": "chart",
+            "width": "6",
+            "valueList": [
+                {
+                    "title": "REPORT PRODUCT",
+                    "subtitle": "Subtitle",
+                    "type": "line",
+                    "yTitle": "Jumlah",
+                    "threeD": "False",
+                    "percentage": "False",
+                    "stacking": "True",
+                    "series": [
+                        {
+                            "name": "PENGAJUAN PER PRODUCT",
+                            "colorByPoint": "True",
+                            "seriesId": "CHT001_7_001",
+                            "data": [
+                                {
+                                    "name": "KI KENDARAAN USAHA",
+                                    "y": "10",
+                                    "drilldown": "KIKU",
+                                    "color": "#A6D4F7"
+                                },
+                                {
+                                    "name": "KI KUR MIKRO",
+                                    "y": "2",
+                                    "drilldown": "KIKURM",
+                                    "color": "#4ECEBF"
+                                },
+                                {
+                                    "name": "KI KUR SUPER MIKRO",
+                                    "y": "5",
+                                    "drilldown": "KIKURSM",
+                                    "color": "#0A10BB"
+                                },
+                                {
+                                    "name": "KI MIKRO",
+                                    "y": "3",
+                                    "drilldown": "KIM",
+                                    "color": "#DA4AB3"
+                                },
+                                {
+                                    "name": "KI PAPEDA",
+                                    "y": "1",
+                                    "drilldown": "KIP",
+                                    "color": "#0E2213"
+                                },
+                                {
+                                    "name": "KKR ABDI BHAKTI",
+                                    "y": "8",
+                                    "drilldown": "KKRAB",
+                                    "color": "#C8FEA0"
+                                },
+                                {
+                                    "name": "KKR KENDARAAN",
+                                    "y": "4",
+                                    "drilldown": "KKRK",
+                                    "color": "#C9B0F7"
+                                },
+                                {
+                                    "name": "KKR KENDARAAN FLAT",
+                                    "y": "2",
+                                    "drilldown": "KKRKF",
+                                    "color": "#104218"
+                                },
+                                {
+                                    "name": "KKR PURNA BHAKTI INTERN",
+                                    "y": "4",
+                                    "drilldown": "KKRPBI",
+                                    "color": "#FE5D88"
+                                },
+                                {
+                                    "name": "KKS PEGAWAI SIAGA",
+                                    "y": "6",
+                                    "drilldown": "KKSPS",
+                                    "color": "#14C985"
+                                },
+                                {
+                                    "name": "KKS PRAPURNA BHAKTI",
+                                    "y": "4",
+                                    "drilldown": "KKSPPB",
+                                    "color": "#117EF7"
+                                },
+                                {
+                                    "name": "KKS PURNA BHAKTI (PGW PENSIUNAN)",
+                                    "y": "9",
+                                    "drilldown": "KKSPB",
+                                    "color": "#B2A8E3"
+                                },
+                                {
+                                    "name": "KKS WIRA BHAKTI (PGW EKSTERN)",
+                                    "y": "26",
+                                    "drilldown": "KKSWB",
+                                    "color": "#281BF1"
+                                },
+                                {
+                                    "name": "KMK KUR MIKRO",
+                                    "y": "5",
+                                    "drilldown": "KMKKURM",
+                                    "color": "#09D3ED"
+                                },
+                                {
+                                    "name": "KMK KUR SUPER MIKRO",
+                                    "y": "14",
+                                    "drilldown": "KMKKURSM",
+                                    "color": "#5CC7A8"
+                                },
+                                {
+                                    "name": "KMK MIKRO",
+                                    "y": "7",
+                                    "drilldown": "KMKM",
+                                    "color": "#AA6132"
+                                },
+                                {
+                                    "name": "KMK PAPEDA",
+                                    "y": "2",
+                                    "drilldown": "KMKP",
+                                    "color": "#1B4B39"
+                                },
+                                {
+                                    "name": "PINJAMAN USAHA MIKRO",
+                                    "y": "5",
+                                    "drilldown": "PUM",
+                                    "color": "#0E401C"
+                                },
+                                {
+                                    "name": "PINJAMAN USAHA MIKRO MAMA PAPUA",
+                                    "y": "3",
+                                    "drilldown": "PUMMMP",
+                                    "color": "#D78C14"
+                                }
+                            ]
+                        },
+                        {
+                            "name": "PENGAJUAN PER PRODUCT",
+                            "colorByPoint": "True",
+                            "seriesId": "CHT001_7_002",
+                            "data": [
+                                {
+                                    "name": "KI KENDARAAN USAHA",
+                                    "drilldown": "KIKU",
+                                    "y": "0",
+                                    "color": ""
+                                },
+                                {
+                                    "name": "KI KUR MIKRO",
+                                    "drilldown": "KIKURM",
+                                    "y": "0",
+                                    "color": ""
+                                },
+                                {
+                                    "name": "KI KUR SUPER MIKRO",
+                                    "drilldown": "KIKURSM",
+                                    "y": "0",
+                                    "color": ""
+                                },
+                                {
+                                    "name": "KI MIKRO",
+                                    "drilldown": "KIM",
+                                    "y": "0",
+                                    "color": ""
+                                },
+                                {
+                                    "name": "KI PAPEDA",
+                                    "drilldown": "KIP",
+                                    "y": "0",
+                                    "color": ""
+                                },
+                                {
+                                    "name": "KKR ABDI BHAKTI",
+                                    "drilldown": "KKRAB",
+                                    "y": "0",
+                                    "color": ""
+                                },
+                                {
+                                    "name": "KKR KENDARAAN",
+                                    "drilldown": "KKRK",
+                                    "y": "1",
+                                    "color": "#4A0065"
+                                },
+                                {
+                                    "name": "KKR KENDARAAN FLAT",
+                                    "drilldown": "KKRKF",
+                                    "y": "0",
+                                    "color": ""
+                                },
+                                {
+                                    "name": "KKR PURNA BHAKTI INTERN",
+                                    "drilldown": "KKRPBI",
+                                    "y": "0",
+                                    "color": ""
+                                },
+                                {
+                                    "name": "KKS PURNA BHAKTI (PGW PENSIUNAN)",
+                                    "drilldown": "KKSPB",
+                                    "y": "0",
+                                    "color": ""
+                                },
+                                {
+                                    "name": "KKS PRAPURNA BHAKTI",
+                                    "drilldown": "KKSPPB",
+                                    "y": "0",
+                                    "color": ""
+                                },
+                                {
+                                    "name": "KKS PEGAWAI SIAGA",
+                                    "drilldown": "KKSPS",
+                                    "y": "0",
+                                    "color": ""
+                                },
+                                {
+                                    "name": "KKS WIRA BHAKTI (PGW EKSTERN)",
+                                    "drilldown": "KKSWB",
+                                    "y": "2",
+                                    "color": "#198D5C"
+                                },
+                                {
+                                    "name": "KMK KUR MIKRO",
+                                    "drilldown": "KMKKURM",
+                                    "y": "0",
+                                    "color": ""
+                                },
+                                {
+                                    "name": "KMK KUR SUPER MIKRO",
+                                    "drilldown": "KMKKURSM",
+                                    "y": "1",
+                                    "color": "#2B072A"
+                                },
+                                {
+                                    "name": "KMK MIKRO",
+                                    "drilldown": "KMKM",
+                                    "y": "0",
+                                    "color": ""
+                                },
+                                {
+                                    "name": "KMK PAPEDA",
+                                    "drilldown": "KMKP",
+                                    "y": "0",
+                                    "color": ""
+                                },
+                                {
+                                    "name": "PINJAMAN USAHA MIKRO",
+                                    "drilldown": "PUM",
+                                    "y": "0",
+                                    "color": ""
+                                },
+                                {
+                                    "name": "PINJAMAN USAHA MIKRO MAMA PAPUA",
+                                    "drilldown": "PUMMMP",
+                                    "y": "0",
+                                    "color": ""
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+          },
+          {
+            "fieldId": "CHT001_8",
+            "fieldLabel": "Line",
+            "fieldType" : "chart",
+            "width": "6",
+            "valueList": [
+              {
+                "title": "browser",
+                "subtitle": "Subtitle",
+                "type": "bar",
+                "yTitle": "yTitle",
+                "threeD": "False",
+                "percentage": "True",
+                "stacking": "True",
+                "series": [
+                  {
+                      "name": "Browsers",
+                      "colorByPoint": true,
+                      "data": [
+                          {
+                              "name": "Chrome",
+                              "y": "61.04",
+                              "drilldown": "Chrome"
+                          },
+                          {
+                              "name": "Safari",
+                              "y": "9.47",
+                              "drilldown": "Safari"
+                          },
+                          {
+                              "name": "Edge",
+                              "y": "9.32",
+                              "drilldown": "Edge"
+                          },
+                          {
+                              "name": "Firefox",
+                              "y": "8.15",
+                              "drilldown": "Firefox"
+                          },
+                          {
+                              "name": "Other",
+                              "y": "11.02",
+                              "drilldown": "null"
+                          }
+                      ]
+                  }
+                ]
+              }
+            ]
+          }, {
+            "fieldId": "CHT001_9",
+            "fieldLabel": "Column",
+            "fieldType" : "chart",
+            "width": "6",
+            "valueList": [
+              {
+                "title": "browser",
+                "subtitle": "Subtitle",
+                "type": "column",
+                "yTitle": "yTitle",
+                "threeD": "False",
+                "percentage": "True",
+                "stacking": "True",
+                "series": [
+                  {
+                    "name": "Browsers3",
+                    "colorByPoint": "False",
+                    "color": "blue",
+                    "seriesId": "CHT001_9_001",
+                    "data": [
+                      {
+                        "name": "Chrome1",
+                        "y": "30.06",
+                        "drilldown": "Chrome1"
+                      },
+                      {
+                        "name": "Safari",
+                        "y": "20.84"
+                      },
+                      {
+                        "name": "Firefox",
+                        "y": "40"
+                      },
+                      {
+                        "name": "Edge",
+                        "y": "60"
+                      }
+                    ]
+                  }, 
+                  {
+                    "name": "Browsers4",
+                    "colorByPoint": "False",
+                    "seriesId": "CHT001_9_002",
+                    "color": "red",
+                    "data": [
+                      {
+                        "name": "Chrome1",
+                        "y": "63.06"
+                      },
+                      {
+                        "name": "Safari",
+                        "y": "19.84"
+                      },
+                      {
+                        "name": "Firefox",
+                        "y": "30"
+                      },
+                      {
+                        "name": "Edge",
+                        "y": "80"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "drilldown": [
+    {
+      "name": "Chrome1",
+      "id": "Chrome1",
+      "data": [
+        {
+          "name": "Chrome A",
+          "y": "70",
+          "drilldown": "Chrome A"
+        },
+        {
+          "name": "Chrome B",
+          "y": "30",
+          "drilldown": "Chrome B"
+        }
+      ]
+    },
+    {
+      "name": "Chrome A",
+      "id": "Chrome A",
+      "data": [
+        {
+          "name": "Chrome AA",
+          "y": "20",
+          "drilldown": "Chrome AA"
+        },
+        {
+          "name": "Chrome AB",
+          "y": "30",
+          "drilldown": "Chrome AB"
+        }
+      ]
+    },
+    {
+      "name": "Chrome AA",
+      "id": "Chrome AA",
+      "data": [
+        {
+          "name": "Chrome AAA",
+          "y": 10
+        },
+        {
+          "name": "Chrome AAB",
+          "y": 60
+        }
+      ]
+    },
+    {
+      "name": "Chrome B",
+      "id": "Chrome B",
+      "data": [
+        {
+          "name": "Chrome BA",
+          "y": 10
+        },
+        {
+          "name": "Chrome BB",
+          "y": 40
+        }
+      ]
+    },
+    {
+      "name": "Chrome",
+      "id": "Chrome",
+      "data": [
+          {
+              "name": "v97.0",
+              "y": "36.89"            
+          },
+          {
+              "name": "v96.0",
+              "y": "18.16"
+          },
+          {
+              "name": "v95.0",
+              "y": "0.54"
+          },
+          {
+            "name": "v94.0",
+            "y": "0.7"            
+          },
+          {
+            "name": "v93.0",
+            "y": "0.8"
+          },
+          {
+            "name": "v92.0",
+            "y": "0.41"
+          },
+          {
+            "name": "v91.0",
+            "y": "0.31"
+          },
+          {
+            "name": "v90.0",
+            "y": "0.13"
+          },
+          {
+            "name": "v89.0",
+            "y": "0.14"
+          },
+          {
+            "name": "v88.0",
+            "y": "0.1"
+          },
+          {
+            "name": "v87.0",
+            "y": "0.35"
+          },
+          {
+            "name": "v86.0",
+            "y": "0.17"
+          },
+          {
+            "name": "v85.0",
+            "y": "0.18"
+          },
+          {
+            "name": "v84.0",
+            "y": "0.17"
+          },
+          {
+            "name": "v83.0",
+            "y": "0.21"
+          },
+          {
+            "name": "v81.0",
+            "y": "0.1"
+          },
+          {
+            "name": "v80.0",
+            "y": "0.16"
+          },
+          {
+            "name": "v79.0",
+            "y": "0.43"
+          },
+          {
+            "name": "v78.0",
+            "y": "0.11"
+          },
+          {
+            "name": "v76.0",
+            "y": "0.16"
+          },
+          {
+            "name": "v75.0",
+            "y": "0.15"
+          },
+          {
+            "name": "v72.0",
+            "y": "0.14"
+          },
+          {
+            "name": "v70.0",
+            "y": "0.11"
+          },
+          {
+            "name": "v69.0",
+            "y": "0.13"
+          },
+          {
+            "name": "v56.0",
+            "y": "0.12"
+          },
+          {
+            "name": "v49.0",
+            "y": "0.17"
+          }
+      ]
+  },
+  {
+      "name": "Safari",
+      "id": "Safari",
+      "data": [
+          {
+            "name": "v15.3",
+              "y": "0.1"
+          },
+          {
+            "name": "v15.2",
+              "y": "2.01"
+          },
+          {
+            "name": "v15.1",
+              "y": "2.29"
+          },
+          {
+            "name": "v15.0",
+              "y": "0.49"
+          },
+          {
+            "name": "v14.1",
+              "y": "2.48"
+          },
+          {
+            "name": "v14.0",
+              "y": "0.64"
+          },
+          {
+            "name": "v13.1",
+              "y": "1.17"
+          },
+          {
+            "name": "v13.0",
+              "y": "0.13"
+          },
+          {
+            "name": "v12.1",
+              "y": "0.16"
+          }
+      ]
+  },
+  {
+      "name": "Edge",
+      "id": "Edge",
+      "data": [
+          {
+            "name": "v97",
+              "y": "6.62"
+          },
+          {
+            "name": "v96",
+              "y": "2.55"
+          },
+          {
+            "name": "v95",
+              "y": "0.15"
+          }
+      ]
+  },
+  {
+      "name": "Firefox",
+      "id": "Firefox",
+      "data": [
+          {
+            "name": "v96.0",
+              "y": "4.17"
+          },
+          {
+            "name": "v95.0",
+              "y": "3.33"
+          },
+          {
+            "name": "v94.0",
+              "y": "0.11"
+          },
+          {
+            "name": "v91.0",
+              "y": "0.23"
+          },
+          {
+            "name": "v78.0",
+              "y": "0.16"
+          },
+          {
+            "name": "v52.0",
+              "y": "0.15"
+          }
+      ]
+  }
+  ]
+}

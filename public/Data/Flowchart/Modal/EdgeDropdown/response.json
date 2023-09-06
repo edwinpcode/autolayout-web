@@ -1,0 +1,26 @@
+{
+    "status": "1",
+    "message": "Get Edge Type",
+    "data": [
+        {
+          "label": "Default",
+          "value": "default"
+        },
+        {
+          "label": "Straight",
+          "value": "straight"
+        },
+        {
+          "label": "Step",
+          "value": "step"
+        },
+        {
+          "label": "Smooth Step",
+          "value": "smoothstep"
+        },
+        {
+          "label": "Simple Bezier",
+          "value": "simplebezier"
+        }
+      ]
+}

@@ -1,0 +1,12 @@
+{
+  "status": "1",
+  "message": "Get Reference Success",
+  "data": [
+    { "dataId": "11139251625199", "dataDesc": "Darmo" },
+    { "dataId": "11139251625200", "dataDesc": "Sawunggaling" },
+    { "dataId": "11139251625201", "dataDesc": "Wonokromo" },
+    { "dataId": "11139251625202", "dataDesc": "Jagir" },
+    { "dataId": "11139251625203", "dataDesc": "Ngagelrejo" },
+    { "dataId": "11139251625204", "dataDesc": "Ngagel" }
+  ]
+}

@@ -1,0 +1,78 @@
+{
+  "status": "1",
+  "message": "Get Form Success",
+  "data": [
+    { "dataId": "AD", "dataDesc": "Anggota DPRD" },
+    { "dataId": "AKNTN", "dataDesc": "Akuntan" },
+    { "dataId": "ASNG", "dataDesc": "ASN - Guru" },
+    {
+      "dataId": "ASNNG",
+      "dataDesc": "ASN - Non Guru"
+    },
+    {
+      "dataId": "ASNV",
+      "dataDesc": "ASN - Vertikal (PKS)"
+    },
+    {
+      "dataId": "ASNVN",
+      "dataDesc": "ASN - Vertikal (Non PKS)"
+    },
+    {
+      "dataId": "BUMN",
+      "dataDesc": "BUMN/BUMD (PKS)"
+    },
+    {
+      "dataId": "BUMNM",
+      "dataDesc": "BUMN/BUMD (Non PKS)"
+    },
+    { "dataId": "CASN", "dataDesc": "CSAN" },
+    { "dataId": "CPNS", "dataDesc": "CPNS" },
+    { "dataId": "DKTR", "dataDesc": "Dokter" },
+    { "dataId": "DLL", "dataDesc": "Lainnya" },
+    {
+      "dataId": "IRT",
+      "dataDesc": "Ibu Rumah Tangga"
+    },
+    {
+      "dataId": "KS",
+      "dataDesc": "Karyawan Swasta"
+    },
+    {
+      "dataId": "LPD",
+      "dataDesc": "Pegawai/Pengurus LPD"
+    },
+    {
+      "dataId": "MHS",
+      "dataDesc": "Pelajar/Mahasiswa"
+    },
+    { "dataId": "NTRS", "dataDesc": "Notaris" },
+    { "dataId": "PGCR", "dataDesc": "Pengacara" },
+    { "dataId": "PGSH", "dataDesc": "Pengusaha" },
+    { "dataId": "PNS", "dataDesc": "PNS" },
+    {
+      "dataId": "PPNS",
+      "dataDesc": "Pensiunan PNS"
+    },
+    { "dataId": "PPPK", "dataDesc": "PPPK" },
+    {
+      "dataId": "PROF",
+      "dataDesc": "Profesional"
+    },
+    {
+      "dataId": "SWASTA",
+      "dataDesc": "Swasta (PKS)"
+    },
+    {
+      "dataId": "SWST",
+      "dataDesc": "Pegawai Tetap Hotel/Instansi Swasta"
+    },
+    {
+      "dataId": "TP",
+      "dataDesc": "TNI/POLRI (PKS)"
+    },
+    {
+      "dataId": "TPN",
+      "dataDesc": "ASN - TNI/POLRI (Non PKS)"
+    }
+  ]
+}

@@ -1,0 +1,53 @@
+{
+  "status": "1",
+  "message": "Get Menu Success",
+  "data": [
+    {
+      "menuId": "0001",
+      "menuDesc": "Visit",
+      "icon": "fal fa-briefcase"
+    },
+    {
+      "menuId": "0002",
+      "menuDesc": "Kerabat",
+      "icon": "fal fa-users"
+    },
+    {
+      "menuId": "000FB",
+      "menuDesc": "Form Builder",
+      "icon": "fal fa-file-alt"
+    },
+    {
+      "menuId": "000TH",
+      "menuDesc": "Short Data Entry",
+      "icon": "fal fa-list"
+    },
+    {
+      "menuId": "00100",
+      "menuDesc": "Pengajuan Baru",
+      "icon": "fal fa-folder-plus"
+    },
+    {
+      "menuId": "005",
+      "menuDesc": "Analisa Kredit",
+      "icon": "fal fa-chart-bar",
+      "child": [
+        {
+          "menuId": "005001",
+          "menuDesc": "Input Analisa Kredit",
+          "icon": ""
+        },
+        {
+          "menuId": "005002",
+          "menuDesc": "Hasil Analisa Kredit (Scoring)",
+          "icon": ""
+        }
+      ]
+    },
+    {
+      "menuId": "0757",
+      "menuDesc": "Pengajuan Pinjaman",
+      "icon": "fal fa-donate"
+    }
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "status": "1",
+  "message": "Get Form Success",
+  "data": [
+    { "dataId": "1", "dataDesc": "Milik Sendiri" },
+    {
+      "dataId": "2",
+      "dataDesc": "Milik Keluarga"
+    },
+    { "dataId": "3", "dataDesc": "Sewa/Kontrak" },
+    { "dataId": "4", "dataDesc": "Rumah Dinas" }
+  ]
+}
