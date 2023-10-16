@@ -6,11 +6,12 @@ import { useDispatch, useSelector } from 'react-redux'
 import { setFormPanel } from '../../Store/Form/FormSlice'
 import { resetHiddenField } from '../../Store/HiddenElement/hiddenElementSlice'
 import { setTabId } from '../../Store/Menu/menuSlice'
-import { useLocation } from 'react-router-dom'
+import { useLocation, useParams } from 'react-router-dom'
 import { CheckBox, CheckBoxOutlineBlank } from '@mui/icons-material'
 
 export default function Tabw({ data, activeTabId, setActiveTabId, reset }) {
   const { state } = useLocation()
+  const { id } = useParams()
   const dispatch = useDispatch()
   const [value, setValue] = React.useState(0)
   const loading = useSelector((state) => state.loading.field)
@@ -39,8 +40,7 @@ export default function Tabw({ data, activeTabId, setActiveTabId, reset }) {
               key={item.id}
               id={item.id}
               style={{
-                display:
-                  index > 0 && state?.param.length === 0 ? 'none' : 'block',
+                display: index > 0 && !id ? 'none' : 'block',
                 color: loading ? 'GrayText' : '#17a2b8',
                 fontFamily: 'SourceSansPro',
                 textTransform: 'capitalize',

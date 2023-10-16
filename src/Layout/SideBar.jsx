@@ -34,7 +34,7 @@ function SideBar() {
   const [menu, setMenu] = useState()
   const [searchSidebarValue, setSearchSidebarValue] = useState('')
   const navigate = useNavigate()
-  const [searchParams, setSearchParams] = useSearchParams()
+  // const [searchParams, setSearchParams] = useSearchParams()
 
   useEffect(() => {
     if (activeModuleId && activeRoleId) {
@@ -84,10 +84,10 @@ function SideBar() {
     if (!hasChild) {
       const { menuDesc, menuId, trackId } = data
       // set active menu
-      setSearchParams({
-        menuId,
-        trackId,
-      })
+      // setSearchParams({
+      //   menuId,
+      //   trackId,
+      // })
       dispatch(setMenuSlice({ menuId, trackId, menuDesc }))
       dispatch(reset())
     }
@@ -128,11 +128,13 @@ function SideBar() {
                 <li className="nav-item" key={index} id={`treeview${index}`}>
                   {/* parent menu */}
                   <NavLink
-                    to={{
-                      pathname: `/${data.menuId}`,
-                      // search: `?menuId=${data.menuId}`,
-                    }}
-                    state={data.path !== '/' ? { param: [] } : state}
+                    // to={`${data.path}/${data.menuId}`}
+                    to={`${
+                      data.path == '/report'
+                        ? `${data.path}/${data.menuId}`
+                        : data.menuId
+                    }`}
+                    // state={data.path !== '/' ? { param: [] } : state}
                     onClick={() => handleMenuClick(data, `treeview${index}`)}
                     className={() => {
                       if (data.menuId === activeMenuId) {
@@ -164,10 +166,11 @@ function SideBar() {
                       {data.child.map((child, index) => (
                         <li className="nav-item" key={index}>
                           <NavLink
-                            to={{
-                              pathname: `${child.menuId}`,
-                              // search: `?menuId=${child.menuId}`,
-                            }}
+                            to={`${
+                              child.path == '/report'
+                                ? `${child.path}/${child.menuId}`
+                                : child.menuId
+                            }`}
                             onClick={() => handleMenuClick(child)}
                             className={() => {
                               if (child.menuId === activeMenuId) {

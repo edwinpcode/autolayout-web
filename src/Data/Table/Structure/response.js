@@ -16,7 +16,7 @@ export const structures = {
           isRedirect: '1',
           needConfirm: '0',
           url: {
-            path: '/form',
+            path: '/',
             param: ['SDE_002'],
           },
         },
@@ -113,7 +113,7 @@ export const structures = {
       isRedirect: '1',
       needConfirm: '0',
       url: {
-        path: '/form',
+        path: '/',
         param: [],
       },
     },

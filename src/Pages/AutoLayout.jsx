@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { useDispatch, useSelector } from 'react-redux'
-import { useLocation, useNavigate } from 'react-router-dom'
+import { useLocation, useNavigate, useParams } from 'react-router-dom'
 // components
 import Skeleton from '../Components/AutoLayout/Skeleton'
 import Tab from '../Components/AutoLayout/Tab'
@@ -18,7 +18,8 @@ import { CheckBox, CheckBoxOutlineBlank } from '@mui/icons-material'
 function AutoLayout() {
   const navigate = useNavigate()
   const dispatch = useDispatch()
-  const { state } = useLocation()
+  const { state, pathname } = useLocation()
+  const { id, value } = useParams()
   // prettier-ignore
   const { register, handleSubmit, formState: { errors }, setValue, getValues, resetField, watch, clearErrors, control, unregister } = useForm({ mode: 'onChange' })
   // state
@@ -64,8 +65,13 @@ function AutoLayout() {
     if (menu.activeMenuId === '') return navigate('/dashboard')
     // handle tab
     let param = ''
-    if (state && state.param && state.param.length) {
-      param = state.param[0].value
+    // if (state && state.param && state.param.length) {
+    //   param = state.param[0].value
+    // }
+    if (value) {
+      param = value
+    } else {
+      return
     }
     const payload = {
       menuId: menu.activeMenuId,
@@ -81,12 +87,17 @@ function AutoLayout() {
       dispatch(setTabId(res.data.data[0].id))
       setActiveTabId(res.data.data[0].id)
     })
-  }, [menu.activeMenuId])
+  }, [menu.activeMenuId, value])
 
   const reset = () => {
     let param = ''
-    if (state && state.param && state.param.length) {
-      param = state.param[0].value
+    // if (state && state.param && state.param.length) {
+    //   param = state.param[0].value
+    // }
+    if (value) {
+      param = value
+    } else {
+      return
     }
     const payload = {
       menuId: menu.activeMenuId,
@@ -106,39 +117,47 @@ function AutoLayout() {
 
   // handle get field
   useEffect(() => {
-    if (activeTabId !== '' && menu.activeMenuId !== '') {
+    if (activeTabId !== '' && menu.activeMenuId !== '' && id && value) {
       dispatch(setLoadingField(true))
       const payload = {
         tabId: activeTabId,
         tc: menu.activeTrackId,
         userId: user.id,
-        param: state?.param || [],
+        param: [
+          {
+            id,
+            value,
+          },
+        ],
       }
       // get field by payload
       getFieldByForm(payload)
     }
-  }, [activeTabId, menu.activeMenuId])
+  }, [activeTabId, menu.activeMenuId, id, value])
 
   return (
     <>
       {loadingSpin && <Loading />}
-      {!panelData || !tab ? (
+      {!id && !value ? (
+        <div></div>
+      ) : !panelData || !tab ? (
         <Skeleton />
       ) : (
         <div>
-          {state?.param?.length > 0 && (
-            <div className="info-box bg-danger">
-              <span className="info-box-icon">
-                <i className="far fa-bookmark"></i>
+          {/* {state?.param?.length > 0 && ( */}
+          <div className="info-box bg-danger">
+            <span className="info-box-icon">
+              <i className="far fa-bookmark"></i>
+            </span>
+            <div className="info-box-content">
+              <span className="info-box-number text-md">
+                {/* first list field value */}
+                {/* {state.param[0].value} */}
+                {value}
               </span>
-              <div className="info-box-content">
-                <span className="info-box-number text-md">
-                  {/* first list field value */}
-                  {state.param[0].value}
-                </span>
-              </div>
             </div>
-          )}
+          </div>
+          {/* )} */}
           <Tab
             reset={reset}
             data={tab}

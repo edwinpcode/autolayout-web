@@ -54,7 +54,7 @@ const InputTextboxWithButton = ({
       dispatch(setLoadingField(false))
       // nik baru (tidak ditemukan)
       if (res.data.status == '0') {
-        navigate('/form', { state: { param: [] } })
+        navigate('/', { state: { param: [] } })
         dispatch(setFormPanel(res.data.panel))
         dispatch(setFormAction(res.data.action))
         return window.Swal.fire('', res.data.message, 'warning')

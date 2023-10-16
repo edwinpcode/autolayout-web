@@ -13,6 +13,7 @@ function Header() {
   const userId = useSelector((state) => state.user.id)
   const activeModuleId = useSelector((state) => state.user.activeModule.id)
   const activeRoleId = useSelector((state) => state.user.activeRole.id)
+  const [photoProfile, setPhotoProfile] = useState()
 
   // loading
   const [loader, showLoader, hideLoader] = Load()
@@ -31,6 +32,11 @@ function Header() {
       window.location.replace('/login')
     })
   }
+
+  useEffect(() => {
+    const res = localStorage.getItem('photoProfile')
+    if (res) setPhotoProfile(res)
+  }, [])
 
   return (
     <>
@@ -128,7 +134,8 @@ function Header() {
           <li className="nav-item dropdown">
             <a className="nav-link" href="#" data-toggle="dropdown">
               <img
-                src="https://adminlte.io/themes/v3/dist/img/user2-160x160.jpg"
+                // src="https://adminlte.io/themes/v3/dist/img/user2-160x160.jpg"
+                src={photoProfile}
                 className="img-circle"
                 style={{ height: 35, position: 'relative', top: '-7px' }}
                 alt="User..."

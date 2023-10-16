@@ -4,6 +4,7 @@ import { handleGetListData, handleGetListStructure } from '../Utils/TableUtils'
 import { setCurrentPayload, setFilteringList } from '../Store/List/listSlice'
 import TableComponent from '../Components/Table/TableComponent'
 import { useParams } from 'react-router-dom'
+import AutoLayout from './AutoLayout'
 
 function TableList() {
   const { menuId } = useParams()
@@ -34,7 +35,6 @@ function TableList() {
   // get structure
   useEffect(() => {
     if (menu.activeMenuId !== '') {
-      console.log(menu)
       setPagination({ pageIndex: 0, pageSize: 10 })
       handleGetListStructure(user, menu, setStructures)
     }
@@ -77,6 +77,7 @@ function TableList() {
         setStructures={setStructures}
         setPagination={setPagination}
       />
+      <AutoLayout />
     </div>
   )
 }

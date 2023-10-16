@@ -1,11 +1,12 @@
 import { useDispatch, useSelector } from 'react-redux'
-import { useLocation } from 'react-router-dom'
+import { useLocation, useParams } from 'react-router-dom'
 import { axiosPost } from '../../Services/AutoLayoutService'
 import { setFormPanel } from '../../Store/Form/FormSlice'
 
 function ButtonForm({ fieldItem }) {
   const dispatch = useDispatch()
   const { state } = useLocation()
+  const { id, value } = useParams()
   // redux
   const menu = useSelector((state) => state.menu)
   const userId = useSelector((state) => state.user.id)
@@ -15,7 +16,7 @@ function ButtonForm({ fieldItem }) {
       tabId: [],
       tc: menu.activeTrackId,
       userId: userId,
-      param: state.param,
+      param: [{ id, value }],
     }
     // push tab id
     payload.tabId.push(menu.activeTabId)

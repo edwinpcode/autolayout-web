@@ -31,7 +31,7 @@ const AppRouter = () => {
         <Route element={<Home />}>
           <Route path="/" element={<TableList />} />
           <Route path="/:menuId" element={<TableList />} />
-          <Route path="/:menuId/:id/:param" element={<TableList />} />
+          <Route path="/:menuId/:id/:value" element={<TableList />} />
           <Route path="/form" element={<AutoLayout />} />
           {/* <Route path="/chart" element={<Chart />} /> */}
           <Route path="/profile" element={<Profile />} />
@@ -39,6 +39,7 @@ const AppRouter = () => {
           <Route path="/flowchart" element={<Flowchart />} />
           <Route path="/flowchart/:id" element={<Flowchart />} />
           <Route path="/report" element={<Report />} />
+          <Route path="/report/:menuId" element={<Report />} />
         </Route>
       </Route>
       <Route element={<PublicRoutes />}>

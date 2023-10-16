@@ -1,5 +1,5 @@
 import { useSelector, useDispatch } from 'react-redux'
-import { useLocation, useNavigate } from 'react-router-dom'
+import { useLocation, useNavigate, useParams } from 'react-router-dom'
 import {
   axiosPost,
   deleteData,
@@ -78,8 +78,9 @@ function ButtonAction({
   ...props
 }) {
   const navigate = useNavigate()
-  const { state } = useLocation()
+  const { state, pathname } = useLocation()
   const dispatch = useDispatch()
+  const { menuId, id, value } = useParams()
   // loading
   const [loader, showLoader, hideLoader] = Load()
   // redux
@@ -161,7 +162,7 @@ function ButtonAction({
   }
 
   const handleButtonClick = async (data) => {
-    showLoader()
+    // showLoader()
     // available action:
     // redirect, save, submit, cancel
     if (actionItem.isRedirect === '1') {
@@ -169,8 +170,8 @@ function ButtonAction({
       if (actionItem.url.param) {
         const param = handleParamValues(actionItem.url.param, getValues, info)
         Object.assign(payload, { param })
-        // console.log(param)
-        return navigate(actionItem?.url?.path, { state: payload })
+        // return navigate(actionItem?.url?.path, { state: payload })
+        navigate(`/${menuId}/${param[0].id}/${param[0].value}`)
       }
     }
 
@@ -215,7 +216,7 @@ function ButtonAction({
         window.Swal.fire('Berhasil', res.data.message, 'success')
         refreshGridData()
         if (res?.data?.key?.length) {
-          navigate('/form', { state: { param: res.data.key } })
+          navigate('/', { state: { param: res.data.key } })
         }
         if (res?.data?.field?.length) {
           res.data.field.forEach((field) => {
@@ -453,7 +454,7 @@ function ButtonAction({
         tabId: menu.activeTabId,
         tc: menu.activeTrackId,
         userId: user.id,
-        param: state.param,
+        param: [{ id, value }],
       }
       // get field by payload
       await getField(payload).then((res) => {
