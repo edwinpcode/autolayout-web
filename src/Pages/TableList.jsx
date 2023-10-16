@@ -3,8 +3,10 @@ import { useDispatch, useSelector } from 'react-redux'
 import { handleGetListData, handleGetListStructure } from '../Utils/TableUtils'
 import { setCurrentPayload, setFilteringList } from '../Store/List/listSlice'
 import TableComponent from '../Components/Table/TableComponent'
+import { useParams } from 'react-router-dom'
 
 function TableList() {
+  const { menuId } = useParams()
   const dispatch = useDispatch()
   // state
   const [dataQuery, setDataQuery] = useState()
@@ -32,14 +34,14 @@ function TableList() {
   // get structure
   useEffect(() => {
     if (menu.activeMenuId !== '') {
+      console.log(menu)
       setPagination({ pageIndex: 0, pageSize: 10 })
       handleGetListStructure(user, menu, setStructures)
     }
   }, [menu.activeMenuId])
 
-  // get data
-  useEffect(() => {
-    if (menu.activeMenuId !== '') {
+  const fetchData = async (menuId, pageIndex, pageSize) => {
+    try {
       const payload = {
         userId: user.id,
         menuId: menu.activeMenuId,
@@ -52,21 +54,30 @@ function TableList() {
         },
       }
       dispatch(setCurrentPayload(payload))
-      handleGetListData(payload, setDataQuery)
+      const res = handleGetListData(payload, setDataQuery)
+    } catch (error) {}
+  }
+
+  // get data
+  useEffect(() => {
+    if (menu.activeMenuId !== '') {
+      fetchData(menu.activeMenuId, pageIndex, pageSize)
     }
   }, [menu.activeMenuId, pageIndex, pageSize])
 
   return (
-    <TableComponent
-      dataQuery={dataQuery}
-      structures={structures}
-      columnVisibility={columnVisibility}
-      pageIndex={pageIndex}
-      pageSize={pageSize}
-      setDataQuery={setDataQuery}
-      setStructures={setStructures}
-      setPagination={setPagination}
-    />
+    <div>
+      <TableComponent
+        dataQuery={dataQuery}
+        structures={structures}
+        columnVisibility={columnVisibility}
+        pageIndex={pageIndex}
+        pageSize={pageSize}
+        setDataQuery={setDataQuery}
+        setStructures={setStructures}
+        setPagination={setPagination}
+      />
+    </div>
   )
 }
 

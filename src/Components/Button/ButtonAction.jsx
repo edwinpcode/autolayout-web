@@ -26,6 +26,7 @@ import { handleParamValues } from '../../Utils/ParamUtils'
 import { getFieldByFieldId } from '../../Utils/FieldReferenceUtils'
 import { setFormAction, setFormPanel } from '../../Store/Form/FormSlice'
 import { setLoadingField } from '../../Store/Loading/LoadingSlice'
+import { useEffect } from 'react'
 const openInNewTab = (url) => {
   window.open(url, '_blank', 'noreferrer')
 }
@@ -168,6 +169,7 @@ function ButtonAction({
       if (actionItem.url.param) {
         const param = handleParamValues(actionItem.url.param, getValues, info)
         Object.assign(payload, { param })
+        // console.log(param)
         return navigate(actionItem?.url?.path, { state: payload })
       }
     }
@@ -507,6 +509,23 @@ function ButtonAction({
 
   return (
     <>
+      {actionItem.type === 'button' && actionItem.path && (
+        <a
+          className={actionItem.className}
+          onClick={
+            handleSubmit
+              ? handleSubmit((data) =>
+                  confirmButtonClick(data, actionItem.alert)
+                )
+              : confirmButtonClick
+          }
+          {...props}
+          href={actionItem.path}
+        >
+          <i className={actionItem.icon}></i>
+          {actionItem.label}
+        </a>
+      )}
       {actionItem.type === 'button' && (
         <button
           className={actionItem.className}

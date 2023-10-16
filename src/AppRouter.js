@@ -30,6 +30,8 @@ const AppRouter = () => {
         <Route path="/preview" element={<PreviewDocument />} />
         <Route element={<Home />}>
           <Route path="/" element={<TableList />} />
+          <Route path="/:menuId" element={<TableList />} />
+          <Route path="/:menuId/:id/:param" element={<TableList />} />
           <Route path="/form" element={<AutoLayout />} />
           {/* <Route path="/chart" element={<Chart />} /> */}
           <Route path="/profile" element={<Profile />} />

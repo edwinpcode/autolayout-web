@@ -50,8 +50,16 @@ function Login() {
       .then((res) => {
         if (res.response.status == 1) {
           localStorage.setItem('token', res.response.accessToken)
+          localStorage.setItem('branchId', res.response.branchId)
+          localStorage.setItem('branchName', res.response.branchName)
+          localStorage.setItem('expiredIn', res.response.expiredIn)
+          localStorage.setItem('fullname', res.response.fullname)
+          localStorage.setItem('photoProfile', res.response.photoProfile)
+          localStorage.setItem('userId', res.response.userId)
+          localStorage.setItem('tokenType', res.response.tokenType)
           window.location = '/auth'
           dispatch(setUserId(res.response.userId))
+          // navigate('/auth')
         } else {
           setLoading(false)
           window.Swal.fire('Kesalahan', res.response.message, 'error')

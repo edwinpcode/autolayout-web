@@ -1,6 +1,12 @@
 import React, { useMemo, useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { NavLink, useLocation, useNavigate } from 'react-router-dom'
+import {
+  NavLink,
+  useLocation,
+  useNavigate,
+  useParams,
+  useSearchParams,
+} from 'react-router-dom'
 import { getMenu } from '../Services/MenuService'
 import { setMenuSlice } from '../Store/Menu/menuSlice'
 import { reset } from '../Store/List/listSlice'
@@ -16,6 +22,7 @@ const applicationNameTag = metaTagsArray.find((tag) => {
 const applicationName = applicationNameTag.getAttribute('content')
 
 function SideBar() {
+  const { menuId } = useParams()
   const dispatch = useDispatch()
   const { state } = useLocation()
   // redux state
@@ -27,6 +34,7 @@ function SideBar() {
   const [menu, setMenu] = useState()
   const [searchSidebarValue, setSearchSidebarValue] = useState('')
   const navigate = useNavigate()
+  const [searchParams, setSearchParams] = useSearchParams()
 
   useEffect(() => {
     if (activeModuleId && activeRoleId) {
@@ -76,6 +84,10 @@ function SideBar() {
     if (!hasChild) {
       const { menuDesc, menuId, trackId } = data
       // set active menu
+      setSearchParams({
+        menuId,
+        trackId,
+      })
       dispatch(setMenuSlice({ menuId, trackId, menuDesc }))
       dispatch(reset())
     }
@@ -116,7 +128,10 @@ function SideBar() {
                 <li className="nav-item" key={index} id={`treeview${index}`}>
                   {/* parent menu */}
                   <NavLink
-                    to={data.child ? '#' : data.path}
+                    to={{
+                      pathname: `/${data.menuId}`,
+                      // search: `?menuId=${data.menuId}`,
+                    }}
                     state={data.path !== '/' ? { param: [] } : state}
                     onClick={() => handleMenuClick(data, `treeview${index}`)}
                     className={() => {
@@ -149,7 +164,10 @@ function SideBar() {
                       {data.child.map((child, index) => (
                         <li className="nav-item" key={index}>
                           <NavLink
-                            to={child.path}
+                            to={{
+                              pathname: `${child.menuId}`,
+                              // search: `?menuId=${child.menuId}`,
+                            }}
                             onClick={() => handleMenuClick(child)}
                             className={() => {
                               if (child.menuId === activeMenuId) {
