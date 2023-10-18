@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import FullLoad from '../../../Pages/FullLoad'
 import { useDispatch, useSelector } from 'react-redux'
-import { useLocation, useNavigate } from 'react-router-dom'
+import { useLocation, useNavigate, useParams } from 'react-router-dom'
 import { getDataActionWithButton } from '../../../Services/AutoLayoutService'
 import { setFormAction, setFormPanel } from '../../../Store/Form/FormSlice'
 import { resetDropdown, setDropdown } from '../../../Store/Input/DropdownSlice'
@@ -29,6 +29,7 @@ const InputTextboxWithButton = ({
   ...props
 }) => {
   const { state } = useLocation()
+  const { menuId, id, value } = useParams()
   const dispatch = useDispatch()
   const navigate = useNavigate()
   // prettier-ignore
@@ -54,7 +55,7 @@ const InputTextboxWithButton = ({
       dispatch(setLoadingField(false))
       // nik baru (tidak ditemukan)
       if (res.data.status == '0') {
-        navigate('/', { state: { param: [] } })
+        navigate(`/${menuId}/${id}/${value}`, { state: { param: [] } })
         dispatch(setFormPanel(res.data.panel))
         dispatch(setFormAction(res.data.action))
         return window.Swal.fire('', res.data.message, 'warning')
@@ -67,7 +68,7 @@ const InputTextboxWithButton = ({
       }
       // nik dalam pengajuan
       if (res.data.status == '2') {
-        navigate('/')
+        navigate(`/${menuId}`)
         return window.Swal.fire('', res.data.message, 'warning')
       }
     })

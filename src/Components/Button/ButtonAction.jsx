@@ -219,7 +219,7 @@ function ButtonAction({
         window.Swal.fire('Berhasil', res.data.message, 'success')
         refreshGridData()
         if (res?.data?.key?.length) {
-          navigate(`/${menuId}`, { state: { param: res.data.key } })
+          // navigate(`/${menuId}`, { state: { param: res.data.key } })
         }
         if (res?.data?.field?.length) {
           res.data.field.forEach((field) => {
