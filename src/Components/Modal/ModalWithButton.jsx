@@ -15,6 +15,9 @@ function ModalWithButton({
   setFilterData,
   setDataQuery,
   loading,
+  pageSize = 10,
+  pageIndex = 0,
+  fetchData = () => {},
 }) {
   // prettier-ignore
   const { register, control, handleSubmit, formState: { errors }, setValue, resetField, getValues, watch, unregister, clearErrors } = useForm({ mode: 'onChange' })
@@ -304,6 +307,9 @@ function ModalWithButton({
                     setDataQuery={setDataQuery}
                     panelList={fieldList.panel || [{ listField: fieldList }]}
                     saveEndpoint="/savedatamodal"
+                    fetchData={fetchData}
+                    pageIndex={pageIndex}
+                    pageSize={pageSize}
                   />
                 ))}
                 {fieldList?.data?.ext === '.pdf' ? (

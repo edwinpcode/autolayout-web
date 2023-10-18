@@ -8,6 +8,9 @@ function TopAction({
   setDataQuery,
   gridItem,
   getValues,
+  pageIndex,
+  pageSize,
+  fetchData,
 }) {
   // state
   const [filterData, setFilterData] = useState([])
@@ -51,6 +54,9 @@ function TopAction({
             setDataQuery={setDataQuery}
             setFilterData={setFilterData}
             getValues={getValues}
+            pageIndex={pageIndex}
+            pageSize={pageSize}
+            fetchData={fetchData}
           />
         ))}
       </div>

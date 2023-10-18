@@ -2,7 +2,11 @@ import { useForm } from 'react-hook-form'
 import { condition } from '../../Data/Field/condition'
 import FieldType from '../AutoLayout/FieldType'
 
-function FieldConditionTester() {
+function FieldConditionTester({
+  pageIndex = 0,
+  pageSize = 10,
+  fetchData = () => {},
+}) {
   // prettier-ignore
   const { register, clearErrors, unregister, control, handleSubmit, setValue, resetField, getValues, watch, formState: { errors } } = useForm()
 
@@ -27,6 +31,9 @@ function FieldConditionTester() {
             getValues={getValues}
             watch={watch}
             errors={errors}
+            pageIndex={pageIndex}
+            pageSize={pageSize}
+            fetchData={fetchData}
           />
         ))}
       </div>

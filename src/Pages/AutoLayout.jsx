@@ -15,7 +15,7 @@ import { setTabId } from '../Store/Menu/menuSlice'
 import { setLoadingField } from '../Store/Loading/LoadingSlice'
 import { CheckBox, CheckBoxOutlineBlank } from '@mui/icons-material'
 
-function AutoLayout() {
+function AutoLayout({ className, fetchData, pageIndex, pageSize }) {
   const navigate = useNavigate()
   const dispatch = useDispatch()
   const { state, pathname } = useLocation()
@@ -136,7 +136,7 @@ function AutoLayout() {
   }, [activeTabId, menu.activeMenuId, id, value])
 
   return (
-    <>
+    <div className={`${className}`}>
       {loadingSpin && <Loading />}
       {!id && !value ? (
         <div></div>
@@ -180,6 +180,9 @@ function AutoLayout() {
               resetField={resetField}
               watch={watch}
               control={control}
+              pageIndex={pageIndex}
+              pageSize={pageSize}
+              fetchData={fetchData}
             />
             {!loading && panelData.length <= 0 && (
               <p className="text-center text-muted">Data kosong</p>
@@ -208,6 +211,9 @@ function AutoLayout() {
                       getValues={getValues}
                       setValue={setValue}
                       saveEndpoint="/savedata"
+                      pageIndex={pageIndex}
+                      pageSize={pageSize}
+                      fetchData={fetchData}
                     />
                   ))}
                 </div>
@@ -216,7 +222,7 @@ function AutoLayout() {
           )}
         </div>
       )}
-    </>
+    </div>
   )
 }
 

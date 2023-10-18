@@ -17,6 +17,7 @@ function TableComponent({
   setDataQuery,
   setStructures,
   setPagination,
+  fetchData,
 }) {
   const columnHelper = createColumnHelper()
   // state
@@ -24,12 +25,15 @@ function TableComponent({
 
   // handle structure
   const columns = useMemo(() => {
-    return handleStructureHeader(
+    return handleStructureHeader({
       structures,
       columnHelper,
       gridItem,
-      setDataQuery
-    )
+      setDataQuery,
+      fetchData,
+      pageIndex,
+      pageSize,
+    })
   }, [structures])
 
   // handle pagination
@@ -68,6 +72,9 @@ function TableComponent({
               setDataQuery={setDataQuery}
               gridItem={gridItem}
               getValues={getValues}
+              pageIndex={pageIndex}
+              pageSize={pageSize}
+              fetchData={fetchData}
             />
           )}
           <div className="table-responsive">

@@ -17,6 +17,9 @@ function Tester({
   defaultValue = 10000,
   rule = 'numericAbsolute',
   hide = false,
+  pageIndex,
+  pageSize,
+  fetchData,
 }) {
   const {
     handleSubmit,
@@ -64,6 +67,9 @@ function Tester({
             panelAction={panelItem.action || []}
             panelList={panelCondition.panel}
             getValues={getValues}
+            pageIndex={pageIndex}
+            pageSize={pageSize}
+            fetchData={fetchData}
           >
             <>
               {panelItem.listField.map((fieldItem) => (
@@ -81,6 +87,9 @@ function Tester({
                       errors={errors}
                       watch={watch}
                       unregister={unregister}
+                      pageIndex={pageIndex}
+                      pageSize={pageSize}
+                      fetchData={fetchData}
                     />
                   )}
                 </React.Fragment>

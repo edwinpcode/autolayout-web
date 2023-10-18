@@ -75,6 +75,9 @@ function ButtonAction({
   setFilterData,
   info,
   resetTab,
+  pageIndex,
+  pageSize,
+  fetchData,
   ...props
 }) {
   const navigate = useNavigate()
@@ -216,7 +219,7 @@ function ButtonAction({
         window.Swal.fire('Berhasil', res.data.message, 'success')
         refreshGridData()
         if (res?.data?.key?.length) {
-          navigate('/', { state: { param: res.data.key } })
+          navigate(`/${menuId}`, { state: { param: res.data.key } })
         }
         if (res?.data?.field?.length) {
           res.data.field.forEach((field) => {
@@ -286,13 +289,16 @@ function ButtonAction({
       updateStatus(payload).then((res) => {
         if (res.data.status != '1') {
           hideLoader()
-          return window.Swal.fire('', res.data.message, 'error')
+          if (res.data.message != '') {
+            return window.Swal.fire('Kesalahan', res.data.message, 'error')
+          }
+          return window.Swal.fire('Kesalahan', 'Something went wrong', 'error')
         }
         window.Swal.fire('Berhasil', res.data.message, 'success')
         window.$('.modal').modal('hide')
         hideLoader()
         if (res.data.isBackToInbox === '1') {
-          navigate('/')
+          navigate(`/${menuId}`)
         }
         refreshGridData()
       })
@@ -495,7 +501,7 @@ function ButtonAction({
       //   window.Swal.fire('Berhasil', res.data.message, 'success')
       // })
     }
-
+    fetchData(menuId, pageIndex, pageSize)
     hideLoader()
   }
 

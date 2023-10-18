@@ -133,13 +133,14 @@ function Header() {
           {/* Notifications Dropdown Menu */}
           <li className="nav-item dropdown">
             <a className="nav-link" href="#" data-toggle="dropdown">
-              <img
-                // src="https://adminlte.io/themes/v3/dist/img/user2-160x160.jpg"
-                src={photoProfile}
+              {/* <img
+                src="https://adminlte.io/themes/v3/dist/img/user2-160x160.jpg"
+                // src={photoProfile}
                 className="img-circle"
                 style={{ height: 35, position: 'relative', top: '-7px' }}
                 alt="User..."
-              />
+              /> */}
+              <i className="fas fa-user"></i>
             </a>
             <div className="dropdown-menu dropdown-menu-lg dropdown-menu-right">
               <div className="p-3">

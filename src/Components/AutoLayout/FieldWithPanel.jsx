@@ -18,6 +18,9 @@ function FieldWithPanel({
   watch,
   control,
   hasAction,
+  pageSize = 10,
+  pageIndex = 10,
+  fetchData = () => {},
 }) {
   const {
     register: registerPanel,
@@ -53,6 +56,9 @@ function FieldWithPanel({
           panelList={panelData}
           getValues={getValuesPanel}
           handleSubmit={handleSubmitPanel}
+          pageIndex={pageIndex}
+          pageSize={pageSize}
+          fetchData={fetchData}
         >
           {panelItem.listField.map((fieldItem) => (
             <React.Fragment key={fieldItem.id}>

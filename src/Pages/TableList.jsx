@@ -16,8 +16,9 @@ function TableList() {
     pageIndex: 0,
     pageSize: 10,
   })
+  const [count, setCount] = useState(0)
   // redux state
-  const menu = useSelector((state) => state.menu)
+  // const menu = useSelector((state) => state.menu)
   const user = useSelector((state) => state.user)
   const filtering = useSelector((state) => state.list.filtering)
 
@@ -34,17 +35,15 @@ function TableList() {
 
   // get structure
   useEffect(() => {
-    if (menu.activeMenuId !== '') {
-      setPagination({ pageIndex: 0, pageSize: 10 })
-      handleGetListStructure(user, menu, setStructures)
-    }
-  }, [menu.activeMenuId])
+    setPagination({ pageIndex: 0, pageSize: 10 })
+    handleGetListStructure(user, menuId, setStructures)
+  }, [menuId])
 
   const fetchData = async (menuId, pageIndex, pageSize) => {
     try {
       const payload = {
         userId: user.id,
-        menuId: menu.activeMenuId,
+        menuId: menuId,
         moduleId: user.activeModule.id,
         roleId: user.activeRole.id,
         filtering: filtering?.length ? filtering : [{ id: '', value: '' }],
@@ -60,10 +59,8 @@ function TableList() {
 
   // get data
   useEffect(() => {
-    if (menu.activeMenuId !== '') {
-      fetchData(menu.activeMenuId, pageIndex, pageSize)
-    }
-  }, [menu.activeMenuId, pageIndex, pageSize])
+    fetchData(menuId, pageIndex, pageSize)
+  }, [menuId, pageIndex, pageSize])
 
   return (
     <div>
@@ -76,8 +73,14 @@ function TableList() {
         setDataQuery={setDataQuery}
         setStructures={setStructures}
         setPagination={setPagination}
+        fetchData={fetchData}
       />
-      <AutoLayout />
+      <AutoLayout
+        className="mt-3"
+        fetchData={fetchData}
+        pageIndex={pageIndex}
+        pageSize={pageSize}
+      />
     </div>
   )
 }

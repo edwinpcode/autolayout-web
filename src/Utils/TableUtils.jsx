@@ -36,7 +36,15 @@ export const addRowSelectionColumn = (defaultColumn, columnHelper) => {
 }
 
 let values = []
-export const handleColumnType = (info, header, item, setDataQuery) => {
+export const handleColumnType = ({
+  info,
+  header,
+  item,
+  setDataQuery,
+  fetchData,
+  pageIndex,
+  pageSize,
+}) => {
   // hardcode
   const setActionSelectValue = (selectValue) => {
     const dataIsExist = values.filter(
@@ -103,6 +111,9 @@ export const handleColumnType = (info, header, item, setDataQuery) => {
               info={info}
               index={info.row.index}
               key={key}
+              fetchData={fetchData}
+              pageIndex={pageIndex}
+              pageSize={pageSize}
             />
           ))}
         </div>
@@ -120,6 +131,9 @@ export const handleColumnType = (info, header, item, setDataQuery) => {
                   info={info}
                   index={info.row.index}
                   key={key}
+                  fetchData={fetchData}
+                  pageSize={pageSize}
+                  pageIndex={pageIndex}
                 />
               )
           )}
@@ -159,12 +173,15 @@ export const handleColumnType = (info, header, item, setDataQuery) => {
   }
 }
 
-export const handleStructureHeader = (
+export const handleStructureHeader = ({
   structures,
   columnHelper,
   item,
-  setDataQuery
-) => {
+  setDataQuery,
+  fetchData,
+  pageIndex,
+  pageSize,
+}) => {
   if (!structures.header) return []
   // for (let i = 0; i < structures.header.length; i++) {
   //   console.log(structures.header[i])
@@ -172,7 +189,16 @@ export const handleStructureHeader = (
   const defaultColumn = structures.header.map((header, index) =>
     columnHelper.accessor(header.accessor, {
       header: header.label,
-      cell: (info) => handleColumnType(info, header, item, setDataQuery),
+      cell: (info) =>
+        handleColumnType({
+          info,
+          header,
+          item,
+          setDataQuery,
+          fetchData,
+          pageSize,
+          pageIndex,
+        }),
       type: header.type,
     })
   )
@@ -204,10 +230,10 @@ export const handleGetListData = (payload, setDataQuery) => {
   })
 }
 
-export const handleGetListStructure = (user, menu, setStructures) => {
+export const handleGetListStructure = (user, menuId, setStructures) => {
   const payload = {
     userId: user.id,
-    menuId: menu.activeMenuId,
+    menuId: menuId,
     moduleId: user.activeModule.id,
     roleId: user.activeRole.id,
   }

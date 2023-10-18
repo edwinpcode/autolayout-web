@@ -43,6 +43,9 @@ function FieldType({
   control,
   unregister,
   filter,
+  pageSize = 10,
+  pageIndex = 0,
+  fetchData = () => {},
 }) {
   return (
     <>
@@ -362,6 +365,9 @@ function FieldType({
           buttonItem={fieldItem}
           panelList={panel}
           getValues={getValues}
+          fetchData={fetchData}
+          pageIndex={pageIndex}
+          pageSize={pageSize}
         />
       )}
       {fieldItem.type === 'password' && (
@@ -382,6 +388,9 @@ function FieldType({
               buttonItem={fieldItem}
               panelList={panel}
               getValues={getValues}
+              fetchData={fetchData}
+              pageIndex={pageIndex}
+              pageSize={pageSize}
             />
           </div>
         </div>

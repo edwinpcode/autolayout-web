@@ -17,6 +17,9 @@ function ButtonType({
   info,
   index,
   resetTab,
+  pageSize = 10,
+  pageIndex = 0,
+  fetchData = () => {},
 }) {
   return (
     <>
@@ -35,6 +38,9 @@ function ButtonType({
           saveEndpoint={saveEndpoint}
           setFilterData={setFilterData}
           info={info}
+          pageIndex={pageIndex}
+          pageSize={pageSize}
+          fetchData={fetchData}
         />
       )}
       {buttonItem.type === 'buttonDropdown' && (
@@ -59,6 +65,9 @@ function ButtonType({
           buttonItem={buttonItem}
           info={info}
           index={index}
+          pageIndex={pageIndex}
+          pageSize={pageSize}
+          fetchData={fetchData}
         />
       )}
       {buttonItem.type === 'buttonOpenPanel' && (

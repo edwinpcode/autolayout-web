@@ -16,6 +16,9 @@ function Panel({
   getValues,
   handleSubmit,
   children,
+  pageSize,
+  pageIndex,
+  fetchData,
 }) {
   return (
     <div className={`col-md-${panelItem.width || '12'}`}>
@@ -48,6 +51,9 @@ function Panel({
                 getValues={getValues}
                 handleSubmit={handleSubmit}
                 saveEndpoint="/savedata"
+                pageIndex={pageIndex}
+                pageSize={pageSize}
+                fetchData={fetchData}
               />
             ))}
           </div>

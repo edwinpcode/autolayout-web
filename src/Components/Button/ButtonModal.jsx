@@ -18,6 +18,9 @@ function ButtonModal({
   setDataQuery,
   info,
   index,
+  pageIndex,
+  pageSize,
+  fetchData,
   ...props
 }) {
   // state
@@ -187,6 +190,9 @@ function ButtonModal({
         gridItem={gridItem}
         setDataQuery={setDataQuery}
         loading={loading}
+        pageIndex={pageIndex}
+        pageSize={pageSize}
+        fetchData={fetchData}
       />
     </>
   )

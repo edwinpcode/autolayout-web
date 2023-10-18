@@ -74,7 +74,7 @@ const fieldList = [
   },
 ]
 
-function FieldTester() {
+function FieldTester({ pageIndex = 0, pageSize = 10, fetchData = () => {} }) {
   const {
     register,
     handleSubmit,
@@ -107,6 +107,9 @@ function FieldTester() {
             errors={errors}
             watch={watch}
             control={control}
+            pageIndex={pageIndex}
+            pageSize={pageSize}
+            fetchData={fetchData}
           />
         ))}
       </div>
