@@ -136,14 +136,20 @@ function AutoLayout({ className, fetchData, pageIndex, pageSize }) {
   }, [activeTabId, menu.activeMenuId, id, value])
 
   return (
-    <div className={`${className}`}>
+    <div
+      className={`${className} overflow-y-auto bg-white col-md-10`}
+      style={{
+        height: '85vh',
+        // width: '100%',
+      }}
+    >
       {loadingSpin && <Loading />}
       {!id && !value ? (
         <div></div>
       ) : !panelData || !tab ? (
         <Skeleton />
       ) : (
-        <div>
+        <div className="overflow-auto h-100">
           {/* {state?.param?.length > 0 && ( */}
           <div className="info-box bg-danger">
             <span className="info-box-icon">

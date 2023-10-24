@@ -6,6 +6,7 @@ import SideBar from '../Layout/SideBar'
 import AuthStepperContent from '../Components/Stepper/AuthStepperContent'
 import BackTop from './BackTop'
 import Load from '../Pages/FullLoad'
+import Inbox from '../Components/Inbox'
 
 function Home() {
   const navigate = useNavigate()
@@ -34,8 +35,8 @@ function Home() {
     <div className="wrapper">
       <Header />
       <SideBar />
-      <div className="content-wrapper">
-        <div className="content-header pb-0">
+      <div className="content-wrapper flex-fill">
+        {/* <div className="content-header pb-0">
           <div className="container-fluid">
             <div className="row mb-2">
               <div className="col-sm-6">
@@ -43,11 +44,11 @@ function Home() {
               </div>
             </div>
           </div>
-        </div>
-        <section className="content">
+        </div> */}
+        <section className="content pt-3">
           <div className="container-fluid">
             <div className="card">
-              <div className="card-body" style={{ minHeight: '80vh' }}>
+              <div className="card-body" style={{ minHeight: '90vh' }}>
                 <Outlet />
               </div>
             </div>

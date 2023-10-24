@@ -14,6 +14,7 @@ function Header() {
   const activeModuleId = useSelector((state) => state.user.activeModule.id)
   const activeRoleId = useSelector((state) => state.user.activeRole.id)
   const [photoProfile, setPhotoProfile] = useState()
+  const menu = useSelector((state) => state.menu)
 
   // loading
   const [loader, showLoader, hideLoader] = Load()
@@ -53,6 +54,27 @@ function Header() {
               <i className="fas fa-bars"></i>
             </a>
           </li>
+          <li className="d-flex align-items-center">
+            <span className="text-bold">{menu.activeMenuDesc}</span>
+          </li>
+          {/* <li className="nav-item">
+            <Link
+              className="nav-link"
+              onClick={(e) => {
+                e.preventDefault()
+                dispatch(
+                  setMenuSlice({ menuId: null, trackId: null, menuDesc: null })
+                )
+                navigate('/dashboard')
+              }}
+            >
+              Dashboard
+            </Link>
+          </li> */}
+        </ul>
+
+        {/* Right navbar links */}
+        <ul className="navbar-nav ml-auto">
           <li className="nav-item">
             <Link
               className="nav-link"
@@ -67,10 +89,6 @@ function Header() {
               Dashboard
             </Link>
           </li>
-        </ul>
-
-        {/* Right navbar links */}
-        <ul className="navbar-nav ml-auto">
           <li className="nav-item dropdown">
             <a
               className="nav-link"

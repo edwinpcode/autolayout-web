@@ -38,7 +38,7 @@ function TopAction({
     <div className="mb-2 row">
       <div className="col-md-12">
         {filterDataLabel && (
-          <div className="callout callout-danger shadow-none">
+          <div className="callout callout-danger">
             <p>{filterDataLabel}</p>
           </div>
         )}

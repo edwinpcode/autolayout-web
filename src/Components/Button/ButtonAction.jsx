@@ -92,6 +92,8 @@ function ButtonAction({
   const hiddenField = useSelector((state) => state.hiddenElement.hiddenField)
   const currentListPayload = useSelector((state) => state.list.currentPayload)
   const lastFormPayload = useSelector((state) => state.form.lastPayload)
+  const filtering = useSelector((state) => state.list.filtering)
+
   // refresh grid data
   const refreshGridData = async ({
     withFiltering = false,
@@ -501,7 +503,7 @@ function ButtonAction({
       //   window.Swal.fire('Berhasil', res.data.message, 'success')
       // })
     }
-    fetchData(menuId, pageIndex, pageSize)
+    fetchData(menuId, pageIndex, pageSize, filtering)
     hideLoader()
   }
 

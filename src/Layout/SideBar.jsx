@@ -9,7 +9,7 @@ import {
 } from 'react-router-dom'
 import { getMenu } from '../Services/MenuService'
 import { setMenuSlice } from '../Store/Menu/menuSlice'
-import { reset } from '../Store/List/listSlice'
+import { reset, setFilteringList } from '../Store/List/listSlice'
 import { setMenuSidebarSlice } from '../Store/Menu/menuSidebarSlice'
 
 const metaTags = document.getElementsByTagName('meta')
@@ -88,6 +88,7 @@ function SideBar() {
       //   menuId,
       //   trackId,
       // })
+      dispatch(setFilteringList([]))
       dispatch(setMenuSlice({ menuId, trackId, menuDesc }))
       dispatch(reset())
     }
@@ -132,6 +133,8 @@ function SideBar() {
                     to={`${
                       data.path == '/report'
                         ? `${data.path}/${data.menuId}`
+                        : data.child
+                        ? '#'
                         : data.menuId
                     }`}
                     // state={data.path !== '/' ? { param: [] } : state}

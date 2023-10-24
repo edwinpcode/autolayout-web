@@ -59,6 +59,7 @@ function TableComponent({
     manualPagination: true,
     debugTable: false,
   })
+
   return (
     <>
       {!dataQuery ? (
