@@ -15,9 +15,10 @@ if (token) {
 
 const APIClient = axios.create({
   baseURL:
-    process.env.REACT_APP_ENV === 'LOCAL'
-      ? 'http://localhost:3000/Data'
-      : process.env.REACT_APP_API_END_POINT,
+    // process.env.REACT_APP_ENV === 'LOCAL'
+    // ? 'http://localhost:3000/Data'
+    // :
+    process.env.REACT_APP_API_END_POINT,
   headers: headers,
 })
 

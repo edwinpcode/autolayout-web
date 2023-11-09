@@ -1,8 +1,11 @@
 import { useEffect, useMemo, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { handleGetListData, handleGetListStructure } from '../Utils/TableUtils'
+import {
+  handleGetListData,
+  handleGetListStructure,
+  handleStructureHeader,
+} from '../Utils/TableUtils'
 import { setCurrentPayload, setFilteringList } from '../Store/List/listSlice'
-import TableComponent from '../Components/Table/TableComponent'
 import { useParams } from 'react-router-dom'
 import {
   createColumnHelper,
@@ -10,7 +13,6 @@ import {
   getCoreRowModel,
   useReactTable,
 } from '@tanstack/react-table'
-import { handleStructureHeader } from '../Utils/TableUtils'
 import classNames from 'classnames'
 import FullLoad from '../Pages/FullLoad'
 import TopAction from './Table/TopAction'
@@ -22,17 +24,58 @@ const Inbox = ({
   pageSize,
   setPagination,
   fetchData,
-  pagination,
-  columns,
   dataQuery,
   setDataQuery,
-  columnVisibility,
-  rowSelection,
-  setRowSelection,
   structures,
   setStructures,
+  className,
 }) => {
+  const columnHelper = createColumnHelper()
   const [loader, showLoader, hideLoader] = FullLoad()
+  const [filterData, setFilterData] = useState([])
+  const menu = useSelector((state) => state.menu)
+  const { menuId, id, value } = useParams()
+  const [open, setOpen] = useState(true)
+  const [selected, setSelected] = useState([])
+  const [rowSelection, setRowSelection] = useState({})
+
+  const columnVisibility = useMemo(
+    () => structures.headerVisibility,
+    [structures]
+  )
+
+  useEffect(() => {
+    if (selected.length) console.log(selected)
+  }, [selected])
+
+  const columns = useMemo(() => {
+    return handleStructureHeader({
+      structures,
+      columnHelper,
+      setDataQuery,
+      fetchData,
+      pageIndex,
+      pageSize,
+      setSelected,
+    })
+  }, [structures])
+
+  const filterDataLabel = useMemo(() => {
+    const searchCriteria = []
+    if (filterData) {
+      filterData.forEach(({ label, value }) => {
+        if (value !== '') searchCriteria.push(`${label} = ${value}`)
+      })
+      const res = searchCriteria.join(', ')
+      return res
+    }
+    return filterData
+  }, [filterData])
+
+  const pagination = useMemo(
+    () => ({ pageIndex, pageSize }),
+    [pageIndex, pageSize]
+  )
 
   const table = useReactTable({
     data: dataQuery?.rows ?? [],
@@ -51,113 +94,159 @@ const Inbox = ({
     debugTable: false,
   })
 
+  useEffect(() => {
+    if (id && value) {
+      setOpen(false)
+    } else {
+      setOpen(true)
+    }
+  }, [id, value])
+
+  useEffect(() => {
+    document.getElementById('body').classList.add('sidebar-collapse')
+    if (!open) {
+      document.getElementById('inboxCard').classList.add('collapsed-card')
+      document
+        .getElementById('collapseButton')
+        .classList.replace('fa-minus', 'fa-plus')
+      document.getElementById('inboxBody').classList.add('d-none')
+    } else {
+      document.getElementById('inboxCard').classList.remove('collapsed-card')
+      document
+        .getElementById('collapseButton')
+        .classList.replace('fa-plus', 'fa-minus')
+      document.getElementById('inboxBody').classList.remove('d-none')
+    }
+  }, [open])
+
   return (
-    <div
-      className={`col-md-2`}
-      style={{
-        height: '80vh',
-        // width: '25%',
-      }}
-    >
-      {loader}
-      {structures?.topAction?.length > 0 && (
-        <TopAction
-          structures={structures}
-          setStructures={setStructures}
-          setDataQuery={setDataQuery}
-          gridItem={gridItem}
-          getValues={getValues}
-          pageIndex={pageIndex}
-          pageSize={pageSize}
-          fetchData={fetchData}
-        />
-      )}
-      {dataQuery?.total > 10 && (
-        <section className="">
-          <div className="d-flex justify-content-between">
-            <div className="pr-2 text-sm">
-              Halaman {table.getState().pagination.pageIndex + 1} dari{' '}
-              {table.getPageCount()}
-            </div>
-            <select
-              className="form-control form-control-sm"
-              style={{ width: 120 }}
-              value={table.getState().pagination.pageSize}
-              onChange={(e) => {
-                table.setPageSize(Number(e.target.value))
-              }}
+    <div className={`${className}`}>
+      <div className="card card-primary" id="inboxCard">
+        <div className="card-header">
+          <span className="card-title">{menu.activeMenuDesc}</span>
+          <div className="card-tools">
+            <button
+              className="btn btn-tool"
+              onClick={() => setOpen((state) => !state)}
+              // data-card-widget="collapse"
             >
-              {[10, 25, 50, 75, 100].map((pageSize) => (
-                <option key={pageSize} value={pageSize}>
-                  Tampilkan {pageSize}
-                </option>
-              ))}
-            </select>
+              <i className="fas fa-minus" id="collapseButton"></i>
+            </button>
           </div>
-          <div className="d-flex justify-content-between mt-1">
-            <div
-              className={classNames('page-item w-100', {
-                disabled: !table.getCanPreviousPage(),
-              })}
-              onClick={() => table.previousPage()}
-            >
-              <button
-                type="button"
-                className="page-link w-100"
-                tabIndex="-1"
-                aria-disabled="true"
-              >
-                Sebelumnya
-              </button>
-            </div>
-            <div
-              className={classNames('page-item w-100', {
-                disabled: !table.getCanNextPage(),
-              })}
-              onClick={() => table.nextPage()}
-            >
-              <button type="button" className="page-link w-100">
-                Selanjutnya
-              </button>
-            </div>
-          </div>
-        </section>
-      )}
-      <div
-        className="mt-3"
-        style={{
-          height: '75%',
-        }}
-      >
-        <div className="overflow-auto h-100">
-          {table.getRowModel().rows.length <= 0 && (
-            <tr>
-              <td colSpan={100} className="text-center text-gray text-sm py-2">
-                Tidak ada data untuk ditampilkan
-              </td>
-            </tr>
+        </div>
+        <div className="card-body" id="inboxBody">
+          {structures?.topAction?.length > 0 && (
+            <TopAction
+              structures={structures}
+              setStructures={setStructures}
+              setDataQuery={setDataQuery}
+              gridItem={gridItem}
+              getValues={getValues}
+              pageIndex={pageIndex}
+              pageSize={pageSize}
+              fetchData={fetchData}
+              setFilterData={setFilterData}
+              filterData={filterData}
+              filterDataLabel={filterDataLabel}
+            />
           )}
-          {table.getRowModel().rows.map((row) => {
-            return (
-              <div key={row.id} className="border p-1">
-                {row.getVisibleCells().map((cell, index) => {
-                  return (
-                    <div
-                      key={index}
-                      className="flex-fill d-flex justify-content-evenly"
-                    >
-                      {flexRender(
-                        cell.column.columnDef.cell,
-                        cell.getContext()
-                      )}
-                    </div>
-                  )
-                })}
+          {dataQuery?.total > 10 && (
+            <section className="">
+              <div className="d-flex justify-content-between">
+                <div className="pr-2 text-sm">
+                  Halaman {table.getState().pagination.pageIndex + 1} dari{' '}
+                  {table.getPageCount()}
+                </div>
+                <select
+                  className="form-control form-control-sm"
+                  style={{ width: 120 }}
+                  value={table.getState().pagination.pageSize}
+                  onChange={(e) => {
+                    table.setPageSize(Number(e.target.value))
+                  }}
+                >
+                  {[10, 25, 50, 75, 100].map((pageSize) => (
+                    <option key={pageSize} value={pageSize}>
+                      Tampilkan {pageSize}
+                    </option>
+                  ))}
+                </select>
               </div>
-            )
-          })}
+              <div className="d-flex justify-content-between mt-1">
+                <div
+                  className={classNames('page-item w-100', {
+                    disabled: !table.getCanPreviousPage(),
+                  })}
+                  onClick={() => table.previousPage()}
+                >
+                  <button
+                    type="button"
+                    className="page-link w-100"
+                    tabIndex="-1"
+                    aria-disabled="true"
+                  >
+                    Sebelumnya
+                  </button>
+                </div>
+                <div
+                  className={classNames('page-item w-100', {
+                    disabled: !table.getCanNextPage(),
+                  })}
+                  onClick={() => table.nextPage()}
+                >
+                  <button type="button" className="page-link w-100">
+                    Selanjutnya
+                  </button>
+                </div>
+              </div>
+            </section>
+          )}
+          <div
+            className="mt-3"
+            style={{
+              height: filterDataLabel ? '50vh' : '60vh',
+            }}
+          >
+            <div className="overflow-auto h-100">
+              {table.getRowModel().rows.length <= 0 && (
+                <div>
+                  <div
+                    colSpan={100}
+                    className="text-center text-gray text-sm py-2"
+                  >
+                    Tidak ada data untuk ditampilkan
+                  </div>
+                </div>
+              )}
+              {table.getRowModel().rows.map((row, index) => {
+                return (
+                  <div
+                    key={index}
+                    className={`border ${
+                      id && row.original[id] == value ? 'bg-light' : ''
+                    }`}
+                  >
+                    {row.getVisibleCells().map((cell, index) => {
+                      return (
+                        <div
+                          key={index}
+                          className={`flex-fill d-flex justify-content-evenly p-1`}
+                        >
+                          {flexRender(
+                            cell.column.columnDef.cell,
+                            cell.getContext()
+                          )}
+                        </div>
+                      )
+                    })}
+                  </div>
+                )
+              })}
+            </div>
+          </div>
         </div>
       </div>
+      {loader}
     </div>
   )
 }

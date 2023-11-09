@@ -1,17 +1,17 @@
 export const handleFieldRule = (fieldItem) => {
   const rule = {
     required:
-      fieldItem.isMandatory === '1' && fieldItem.isReadOnly !== '1'
+      fieldItem?.isMandatory === '1' && fieldItem.isReadOnly !== '1'
         ? `${fieldItem.label} harus diisi`
         : false,
     pattern:
-      fieldItem.rule === 'email'
+      fieldItem?.rule === 'email'
         ? {
             value:
               /^(?=[^@]{2,}@)(?=[^\.]{2,}\.)([\w\.-]*[a-zA-Z0-9_]@(?=.{2,}\.[^.]*$)[\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z])$/,
             message: `${fieldItem.label} harus sesuai`,
           }
-        : fieldItem.rule === 'alphaonly'
+        : fieldItem?.rule === 'alphaonly'
         ? {
             value: /^[a-zA-Z/ /]*$/,
             message: `${fieldItem.label} harus huruf`,
@@ -20,7 +20,7 @@ export const handleFieldRule = (fieldItem) => {
     shouldUnregister: true,
   }
   // max length
-  if (fieldItem.maxLength && fieldItem.maxLength !== '') {
+  if (fieldItem?.maxLength && fieldItem.maxLength !== '') {
     Object.assign(rule, {
       maxLength: {
         value: +fieldItem.maxLength,
@@ -29,7 +29,7 @@ export const handleFieldRule = (fieldItem) => {
     })
   }
   // min length
-  if (fieldItem.minLength && fieldItem.minLength !== '') {
+  if (fieldItem?.minLength && fieldItem.minLength !== '') {
     Object.assign(rule, {
       minLength: {
         value: +fieldItem.minLength,
@@ -38,7 +38,7 @@ export const handleFieldRule = (fieldItem) => {
     })
   }
   // min value
-  if (fieldItem.minValue && fieldItem.minValue !== '') {
+  if (fieldItem?.minValue && fieldItem.minValue !== '') {
     Object.assign(rule, {
       min: {
         value: +fieldItem.minValue,
@@ -47,7 +47,7 @@ export const handleFieldRule = (fieldItem) => {
     })
   }
   // max value
-  if (fieldItem.maxValue && fieldItem.maxValue !== '') {
+  if (fieldItem?.maxValue && fieldItem.maxValue !== '') {
     Object.assign(rule, {
       max: {
         value: +fieldItem.maxValue,

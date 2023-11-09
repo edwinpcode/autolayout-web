@@ -7,8 +7,8 @@ const headers = {
 }
 
 const APILocal = axios.create({
-  baseURL: 'http://localhost:5000',
+  baseURL: 'http://localhost:3002',
   headers: headers,
 })
 
-export default APILocal;
+export default APILocal

@@ -37,11 +37,7 @@ function Modal({ code }) {
   const dispatch = useDispatch()
 
   // set form field
-  const {
-    register,
-    reset,
-    getValues,
-  } = useForm({})
+  const { register, reset, getValues, watch, setValue } = useForm({})
 
   // get dropdown field value from backend
   useEffect(() => {
@@ -163,10 +159,12 @@ function Modal({ code }) {
                         <InputCommon
                           label={field.label}
                           isMandatory={field.isMandatory}
-                          register={register(field.name)}
+                          register={register}
                           key={index}
                           parent={[]}
                           child={[]}
+                          watch={watch}
+                          setValue={setValue}
                         />
                       )
                     } else if (
@@ -177,10 +175,12 @@ function Modal({ code }) {
                         <InputCommon
                           label={field.label}
                           isMandatory={field.isMandatory}
-                          register={register(field.name)}
+                          register={register}
                           key={index}
                           parent={[]}
                           child={[]}
+                          watch={watch}
+                          setValue={setValue}
                         />
                       )
                     } else if (

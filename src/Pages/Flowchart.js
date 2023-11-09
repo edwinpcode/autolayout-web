@@ -150,15 +150,19 @@ const Flow = ({ flowchart }) => {
     setContextOpen(false)
   }
 
+  // useEffect(() => {
+  //   console.log(flowchart)
+  // }, [flowchart])
+
   // set id flowchart data on render
-  useEffect(() => {
-    flowchart.reference.parent?.forEach((parentId) => {
-      const parentValue = window.$('#' + parentId).val()
-      setId(parentValue)
-    })
-    window.addEventListener('click', OnCloseContextMenu)
-    return () => window.removeEventListener('click', OnCloseContextMenu)
-  }, [])
+  // useEffect(() => {
+  //   flowchart?.reference?.parent?.forEach((parentId) => {
+  //     const parentValue = window.$('#' + parentId).val()
+  //     setId(parentValue)
+  //   })
+  //   window.addEventListener('click', OnCloseContextMenu)
+  //   return () => window.removeEventListener('click', OnCloseContextMenu)
+  // }, [])
 
   // set input mode base on flowchart_id
   useEffect(() => {

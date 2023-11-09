@@ -1,5 +1,6 @@
 import axios from 'axios'
 import APIClient from './APIClient'
+import APILocal from './APILocal'
 
 export const retrieveData = (param) => {
   return APIClient.post('/retrivedata', JSON.stringify(param))
@@ -29,20 +30,16 @@ export const saveData = (actionId, param, url) => {
 }
 
 export const getTab = async ({ menuId, moduleId, param }) => {
-  const result =
-    process.env.REACT_APP_ENV === 'LOCAL'
-      ? ''
-      : await APIClient.post('/listtab', { menuId, moduleId, param })
-
+  const result = await APIClient.post('/listtab', { menuId, moduleId, param })
   return result
 }
 
 // haecal
 export const getField = async (payload) => {
-  const result =
-    process.env.REACT_APP_ENV === 'LOCAL'
-      ? ''
-      : await APIClient.post('/getfieldbyformname', payload)
+  if (process.env.REACT_APP_ENV == 'LOCAL') {
+    return await APILocal.get('http://localhost:3002/getfielfbyformname')
+  }
+  const result = await APIClient.post('/getfieldbyformname', payload)
   return result
 }
 
@@ -67,9 +64,9 @@ export const getTableForm = async (payload) => {
 
 export const getReference = async (payload) => {
   const result =
-    process.env.REACT_APP_ENV === 'LOCAL'
-      ? ''
-      : await APIClient.post('/getreference', payload)
+    // process.env.REACT_APP_ENV === 'LOCAL'
+    //   ? ''
+    await APIClient.post('/getreference', payload)
 
   return result
 }

@@ -1,646 +1,477 @@
 {
-  "structure": {
+  "menu": {
     "status": "1",
-    "message": "Get Structure Table Success",
-    "caption ": "Pengajuan Kredit",
-    "canSelectAll": true,
-    "header": [
+    "message": "Get Menu Success",
+    "data": [
       {
-        "label": "Action Anchor",
-        "accessor": "action_anchor",
-        "type": "anchor",
-        "item": [
+        "menuId": "00001",
+        "trackId": "",
+        "menuDesc": "Pengajuan",
+        "icon": "fal fa-id-card",
+        "path": "/",
+        "child": [
           {
-            "id": "111",
-            "label": "Detail",
-            "property": {
-              "active": true,
-              "order": 1,
-              "isRedirect": true,
-              "needConfirm": false,
-              "url": {
-                "path": "/",
-                "param": ["menuId", "ap_regno"]
-              }
-            }
+            "menuId": "00001_01",
+            "trackId": "1",
+            "menuDesc": "Individu",
+            "icon": "fal fa-id-card",
+            "path": "/"
           }
         ]
       },
       {
-        "label": "Action",
-        "accessor": "action_button",
-        "type": "button",
-        "item": [
+        "menuId": "00002",
+        "trackId": "2.2",
+        "menuDesc": "Verifikasi Data Calon Debitur",
+        "icon": "fal fa-list",
+        "path": "/"
+      },
+      {
+        "menuId": "00003",
+        "trackId": "3.1",
+        "menuDesc": "Input Analisa Kredit",
+        "icon": "fal fa-tasks",
+        "path": "/"
+      },
+      {
+        "menuId": "00014",
+        "trackId": "5",
+        "menuDesc": "Konfirmasi Nasabah",
+        "icon": "fal fa-handshake",
+        "path": "/"
+      },
+      {
+        "menuId": "00096",
+        "trackId": "",
+        "menuDesc": "Inquiry",
+        "icon": "fal fa-search",
+        "path": "/",
+        "child": [
           {
-            "id": "111",
-            "label": "Detail",
-            "property": {
-              "active": true,
-              "order": 1,
-              "isRedirect": true,
-              "needConfirm": false,
-              "url": {
-                "path": "/",
-                "param": ["appnumber", "customertype_id"]
-              }
-            }
+            "menuId": "00097",
+            "trackId": "0",
+            "menuDesc": "Inquiry Pengajuan",
+            "icon": "fal fa-search",
+            "path": "/"
           },
           {
-            "id": "",
-            "label": "Approve",
-            "property": {
-              "active": true,
-              "order": 1,
-              "isRedirect": true,
-              "needConfirm": false,
-              "url": {
-                "path": "/getDetail",
-                "param": ["appnumber", "customertype_id"]
-              }
-            }
+            "menuId": "00098",
+            "trackId": "8.2",
+            "menuDesc": "Cancel",
+            "icon": "fal fa-times",
+            "path": "/"
           },
           {
-            "id": "",
-            "label": "Reject",
-            "property": {
-              "active": true,
-              "order": 1,
-              "isRedirect": true,
-              "needConfirm": false,
-              "url": {
-                "path": "/getDetail",
-                "param": ["appnumber", "customertype_id"]
-              }
-            }
-          },
-          {
-            "id": "",
-            "label": "Cancel",
-            "property": {
-              "active": true,
-              "order": 1,
-              "isRedirect": true,
-              "needConfirm": false,
-              "url": {
-                "path": "/getDetail",
-                "param": ["appnumber", "customertype_id"]
-              }
-            }
-          },
-          {
-            "id": "",
-            "label": "Reverse",
-            "property": {
-              "active": true,
-              "order": 1,
-              "isRedirect": false,
-              "needConfirm": true,
-              "url": {
-                "path": "/getDetail",
-                "param": ["appnumber", "customertype_id"]
-              }
-            }
-          },
-          {
-            "id": "",
-            "label": "Hold",
-            "property": {
-              "active": true,
-              "order": 1,
-              "isRedirect": false,
-              "needConfirm": true,
-              "url": {
-                "path": "/getDetail",
-                "param": ["appnumber", "customertype_id"]
-              }
-            }
+            "menuId": "00099",
+            "trackId": "8.1",
+            "menuDesc": "Reject",
+            "icon": "fal fa-times",
+            "path": "/"
           }
         ]
       },
       {
-        "label": "Action Select",
-        "accessor": "action_select",
-        "type": "select",
-        "item": [
+        "menuId": "00100",
+        "trackId": "1.5",
+        "menuDesc": "Report",
+        "icon": "fal fa-file",
+        "path": "/",
+        "child": [
           {
-            "id": "aprv",
-            "label": "approve",
-            "property": {
-              "active": true,
-              "order": 3
-            }
+            "menuId": "00100_01",
+            "trackId": "1.5.1",
+            "menuDesc": "SLA Kredit",
+            "icon": "fal fa-file",
+            "path": "/report"
           },
           {
-            "id": "rjct",
-            "label": "reject",
-            "property": {
-              "active": true,
-              "order": 2
-            }
+            "menuId": "00100_02",
+            "trackId": "1.5.2",
+            "menuDesc": "Tidak Patuh SLA",
+            "icon": "fal fa-file",
+            "path": "/"
           },
           {
-            "id": "cncl",
-            "label": "cancel",
-            "property": {
-              "active": false,
-              "order": 1
-            }
+            "menuId": "00100_03",
+            "trackId": "1.5.3",
+            "menuDesc": "Pencapaian AO,Marketing",
+            "icon": "fal fa-file",
+            "path": "/"
           },
           {
-            "id": "rvrs",
-            "label": "reverse",
-            "property": {
-              "active": true,
-              "order": 5
-            }
+            "menuId": "00100_04",
+            "trackId": "1.5.4",
+            "menuDesc": "Laporan Per Produk",
+            "icon": "fal fa-file",
+            "path": "/"
           },
           {
-            "id": "hld",
-            "label": "hold",
-            "property": {
-              "active": true,
-              "order": 1
-            }
-          }
-        ]
-      },
-      {
-        "label": "Approve Radio",
-        "accessor": "approve_radio",
-        "type": "radio",
-        "item": [
-          {
-            "id": "111",
-            "label": "Approve",
-            "property": {
-              "active": true,
-              "order": 1,
-              "isRedirect": true,
-              "needConfirm": false,
-              "url": {
-                "path": "/getDetail",
-                "param": ["appnumber", "customertype_id"]
-              }
-            }
-          }
-        ]
-      },
-      {
-        "label": "Reject Radio",
-        "accessor": "reject_radio",
-        "type": "radio",
-        "item": [
-          {
-            "id": "111",
-            "label": "Reject",
-            "property": {
-              "active": true,
-              "order": 1,
-              "isRedirect": true,
-              "needConfirm": false,
-              "url": {
-                "path": "/getDetail",
-                "param": ["appnumber", "customertype_id"]
-              }
-            }
-          }
-        ]
-      },
-      {
-        "label": "Cancel Radio",
-        "accessor": "cancel_radio",
-        "type": "radio",
-        "item": [
-          {
-            "id": "111",
-            "label": "Cancel",
-            "property": {
-              "active": true,
-              "order": 1,
-              "isRedirect": true,
-              "needConfirm": false,
-              "url": {
-                "path": "/getDetail",
-                "param": ["appnumber", "customertype_id"]
-              }
-            }
-          }
-        ]
-      },
-      {
-        "label": "Reverse Radio",
-        "accessor": "reverse_radio",
-        "type": "radio",
-        "item": [
-          {
-            "id": "111",
-            "label": "Reverse",
-            "property": {
-              "active": true,
-              "order": 1,
-              "isRedirect": true,
-              "needConfirm": false,
-              "url": {
-                "path": "/getDetail",
-                "param": ["appnumber", "customertype_id"]
-              }
-            }
-          }
-        ]
-      },
-      {
-        "label": "Hold Radio",
-        "accessor": "hold_radio",
-        "type": "radio",
-        "item": [
-          {
-            "id": "111",
-            "label": "Hold",
-            "property": {
-              "active": true,
-              "order": 1,
-              "isRedirect": true,
-              "needConfirm": false,
-              "url": {
-                "path": "/getDetail",
-                "param": ["appnumber", "customertype_id"]
-              }
-            }
-          }
-        ]
-      },
-      {
-        "label": "Nomor Aplikasi",
-        "accessor": "ap_regno"
-      },
-      {
-        "label": "Kode Tipe Nasabah",
-        "accessor": "customertype_id"
-      },
-      {
-        "label": "Tipe Nasabah",
-        "accessor": "customertype_desc"
-      },
-      {
-        "label": "Nama Nasabah",
-        "accessor": "customername"
-      },
-      {
-        "label": "Nomor KTP",
-        "accessor": "customerdocument_id"
-      },
-      {
-        "label": "Tipe Identitas",
-        "accessor": "customerdocument_type"
-      },
-      {
-        "label": "ID Produk",
-        "accessor": "product_id"
-      },
-      {
-        "label": "Nama Produk",
-        "accessor": "product_desc"
-      },
-      {
-        "label": "Plafon",
-        "accessor": "plafon"
-      },
-      {
-        "label": "ID Track",
-        "accessor": "track_id"
-      },
-      {
-        "label": "Nama Track",
-        "accessor": "track_name"
-      },
-      {
-        "label": "Judul",
-        "accessor": "last_track_date"
-      }
-    ],
-    "topAction": [
-      {
-        "id": "110",
-        "label": "Filter",
-        "type": "buttonModal",
-        "property": {
-          "icon": "fal fa-filter",
-          "className": "btn btn-sm btn-info",
-          "dataTarget": "filterModal",
-          "active": true,
-          "isRedirect": false,
-          "needConfirm": false,
-          "contents": [
-            {
-              "id": "filter_1",
-              "label": "Nomor Aplikasi",
-              "type": "text",
-              "data": []
-            },
-            {
-              "id": "filter_2",
-              "label": "Tanggal Pengajuan",
-              "type": "dateRange"
-            },
-            {
-              "id": "filter_3",
-              "label": "Tanggal Input",
-              "type": "date"
-            },
-            {
-              "id": "filter_4",
-              "label": "Marketing",
-              "type": "dropdown",
-              "data": [
-                {
-                  "id": "ALP",
-                  "label": "ALPON"
-                },
-                {
-                  "id": "WND",
-                  "label": "WINDY"
-                },
-                {
-                  "id": "BMO",
-                  "label": "BIMO"
-                },
-                {
-                  "id": "FBR",
-                  "label": "FEBRI"
-                }
-              ]
-            }
-          ]
-        }
-      },
-      {
-        "id": "111",
-        "label": "Input Data",
-        "type": "button",
-        "property": {
-          "icon": "fal fa-plus",
-          "className": "btn btn-sm btn-info",
-          "active": true,
-          "isRedirect": true,
-          "needConfirm": false,
-          "url": {
-            "path": "/",
-            "param": ["ap_regno"]
-          }
-        }
-      },
-      {
-        "id": "112",
-        "label": "Export",
-        "type": "buttonDropdown",
-        "property": {
-          "icon": "fal fa-download",
-          "className": "btn btn-sm btn-info",
-          "active": true,
-          "order": 1,
-          "isRedirect": true,
-          "needConfirm": false,
-          "url": {
-            "path": "/getDetail",
-            "param": ["ap_regno"]
+            "menuId": "00100_05",
+            "trackId": "1.5.5",
+            "menuDesc": "Laporan Per Deviasi",
+            "icon": "fal fa-file",
+            "path": "/"
           },
-          "item": [
-            {
-              "label": "Excel",
-              "url": {
-                "path": "/getDetail",
-                "param": ["ap_regno"]
-              }
-            }
-          ]
-        }
-      }
-    ],
-    "bottomAction": [
-      {
-        "id": "",
-        "label": "Approve",
-        "property": {
-          "active": true,
-          "order": 1,
-          "isRedirect": true,
-          "url": {
-            "path": "/getDetail",
-            "param": ["appnumber", "customertype_id"]
+          {
+            "menuId": "00100_07",
+            "trackId": "1.5.7",
+            "menuDesc": "Laporan Pihak Terkait",
+            "icon": "fal fa-file",
+            "path": "/"
+          },
+          {
+            "menuId": "00100_09",
+            "trackId": "1.5.9",
+            "menuDesc": "Daftar Realisasi",
+            "icon": "fal fa-file",
+            "path": "/"
           }
-        }
+        ]
       },
       {
-        "id": "",
-        "label": "Reject",
-        "property": {
-          "active": true,
-          "position": "before",
-          "order": 1,
-          "isRedirect": true,
-          "url": {
-            "path": "/getDetail",
-            "param": ["appnumber", "customertype_id"]
-          }
-        }
-      },
-      {
-        "id": "",
-        "label": "Cancel",
-        "property": {
-          "active": true,
-          "order": 1,
-          "isRedirect": true,
-          "url": {
-            "path": "/getDetail",
-            "param": ["appnumber", "customertype_id"]
-          }
-        }
-      },
-      {
-        "id": "",
-        "label": "Reverse",
-        "property": {
-          "active": true,
-          "order": 1,
-          "isRedirect": true,
-          "url": {
-            "path": "/getDetail",
-            "param": ["appnumber", "customertype_id"]
-          }
-        }
-      },
-      {
-        "id": "",
-        "label": "Hold",
-        "property": {
-          "active": true,
-          "order": 1,
-          "isRedirect": true,
-          "url": {
-            "path": "/getDetail",
-            "param": ["appnumber", "customertype_id"]
-          }
-        }
+        "menuId": "00109",
+        "trackId": "3.0",
+        "menuDesc": "Flowchart",
+        "icon": "fal fa-file",
+        "path": "/flowchart"
       }
     ]
   },
-  "list": [
-    {
-      "ap_regno": "005559992022",
-      "customertype_id": "01",
-      "customertype_desc": "INDIVIDU",
-      "customername": "Budi Santoso Slot 303",
-      "customerdocument_id": "1111111111111113",
-      "customerdocument_type": "KTP",
-      "product_id": "",
-      "product_desc": "",
-      "plafon": "",
-      "track_id": "2.0",
-      "track_name": "2.0 - Pengajuan Awal",
-      "last_track_date": "5/27/2022 1:17:34 AM"
-    },
-    {
-      "ap_regno": "005559992023",
-      "customertype_id": "01",
-      "customertype_desc": "INDIVIDU",
-      "customername": "Muhamad Windy Sulistiyo",
-      "customerdocument_id": "1111111111111113",
-      "customerdocument_type": "KTP",
-      "product_id": "",
-      "product_desc": "",
-      "plafon": "",
-      "track_id": "2.0",
-      "track_name": "2.0 - Pengajuan Awal",
-      "last_track_date": "5/27/2022 1:17:34 AM"
-    },
-    {
-      "ap_regno": "005559992024",
-      "customertype_id": "01",
-      "customertype_desc": "INDIVIDU",
-      "customername": "Bimo Widya Laksono",
-      "customerdocument_id": "1111111111111113",
-      "customerdocument_type": "KTP",
-      "product_id": "",
-      "product_desc": "",
-      "plafon": "",
-      "track_id": "2.0",
-      "track_name": "2.0 - Pengajuan Awal",
-      "last_track_date": "5/27/2022 1:17:34 AM"
-    },
-    {
-      "ap_regno": "005559992025",
-      "customertype_id": "01",
-      "customertype_desc": "INDIVIDU",
-      "customername": "Antonius Febri Nurcahyanto",
-      "customerdocument_id": "1111111111111113",
-      "customerdocument_type": "KTP",
-      "product_id": "",
-      "product_desc": "",
-      "plafon": "",
-      "track_id": "2.0",
-      "track_name": "2.0 - Pengajuan Awal",
-      "last_track_date": "5/27/2022 1:17:34 AM"
-    },
-    {
-      "ap_regno": "005559992026",
-      "customertype_id": "01",
-      "customertype_desc": "INDIVIDU",
-      "customername": "Alfon Yahya Leonardo",
-      "customerdocument_id": "1111111111111113",
-      "customerdocument_type": "KTP",
-      "product_id": "",
-      "product_desc": "",
-      "plafon": "",
-      "track_id": "2.0",
-      "track_name": "2.0 - Pengajuan Awal",
-      "last_track_date": "5/27/2022 1:17:34 AM"
-    },
-    {
-      "ap_regno": "005559992027",
-      "customertype_id": "01",
-      "customertype_desc": "INDIVIDU",
-      "customername": "Ferdi Sambo",
-      "customerdocument_id": "1111111111111113",
-      "customerdocument_type": "KTP",
-      "product_id": "",
-      "product_desc": "",
-      "plafon": "",
-      "track_id": "2.0",
-      "track_name": "2.0 - Pengajuan Awal",
-      "last_track_date": "5/27/2022 1:17:34 AM"
-    },
-    {
-      "ap_regno": "005559992028",
-      "customertype_id": "01",
-      "customertype_desc": "INDIVIDU",
-      "customername": "Richard Lee",
-      "customerdocument_id": "1111111111111113",
-      "customerdocument_type": "KTP",
-      "product_id": "",
-      "product_desc": "",
-      "plafon": "",
-      "track_id": "2.0",
-      "track_name": "2.0 - Pengajuan Awal",
-      "last_track_date": "5/27/2022 1:17:34 AM"
-    },
-    {
-      "ap_regno": "005559992029",
-      "customertype_id": "01",
-      "customertype_desc": "INDIVIDU",
-      "customername": "Habib Jindan",
-      "customerdocument_id": "1111111111111113",
-      "customerdocument_type": "KTP",
-      "product_id": "",
-      "product_desc": "",
-      "plafon": "",
-      "track_id": "2.0",
-      "track_name": "2.0 - Pengajuan Awal",
-      "last_track_date": "5/27/2022 1:17:34 AM"
-    },
-    {
-      "ap_regno": "005559992030",
-      "customertype_id": "01",
-      "customertype_desc": "INDIVIDU",
-      "customername": "Gus Syamsudin Hoo Tenan",
-      "customerdocument_id": "1111111111111113",
-      "customerdocument_type": "KTP",
-      "product_id": "",
-      "product_desc": "",
-      "plafon": "",
-      "track_id": "2.0",
-      "track_name": "2.0 - Pengajuan Awal",
-      "last_track_date": "5/27/2022 1:17:34 AM"
-    },
-    {
-      "ap_regno": "005559992031",
-      "customertype_id": "01",
-      "customertype_desc": "INDIVIDU",
-      "customername": "Pesulap Merah",
-      "customerdocument_id": "1111111111111113",
-      "customerdocument_type": "KTP",
-      "product_id": "",
-      "product_desc": "",
-      "plafon": "",
-      "track_id": "2.0",
-      "track_name": "2.0 - Pengajuan Awal",
-      "last_track_date": "5/27/2022 1:17:34 AM"
-    },
-    {
-      "ap_regno": "005559992032",
-      "customertype_id": "01",
-      "customertype_desc": "INDIVIDU",
-      "customername": "Brigadir Joshua",
-      "customerdocument_id": "1111111111111113",
-      "customerdocument_type": "KTP",
-      "product_id": "",
-      "product_desc": "",
-      "plafon": "",
-      "track_id": "2.0",
-      "track_name": "2.0 - Pengajuan Awal",
-      "last_track_date": "5/27/2022 1:17:34 AM"
+  "structure": {
+    "status": "1",
+    "message": "Get Structure Table Success",
+    "data": {
+      "caption": "Verifikasi Data Calon Debitur",
+      "canSelectAll": false,
+      "header": [
+        {
+          "label": "Selected",
+          "accessor": "004001_000",
+          "type": "selectItem"
+        },
+        {
+          "label": "No",
+          "accessor": "004001_001",
+          "type": "text"
+        },
+        {
+          "label": "Nomor Identitas",
+          "accessor": "004001_002",
+          "type": "text"
+        },
+        {
+          "label": "Nama Debitur",
+          "accessor": "004001_003",
+          "type": "text"
+        },
+        {
+          "label": "Jenis Debitur",
+          "accessor": "004001_004",
+          "type": "text"
+        },
+        {
+          "label": "Tanggal Lahir / pendirian",
+          "accessor": "004001_005",
+          "type": "date"
+        },
+        {
+          "label": "Action",
+          "accessor": "action_button",
+          "type": "button",
+          "item": [
+            {
+              "id": "004001_001_btn",
+              "label": "Detail",
+              "active": "1",
+              "type": "button",
+              "order": "1",
+              "isRedirect": "1",
+              "needConfirm": "0",
+              "icon": "info-circle",
+              "className": "btn btn-sm btn-info",
+              "url": {
+                "path": "/form",
+                "param": ["004001_002"]
+              }
+            }
+          ]
+        }
+      ],
+      "topAction": [
+        {
+          "id": "00002_01",
+          "label": "Reject",
+          "type": "button",
+          "flagType": "",
+          "flagAction": "",
+          "icon": "fal fa-warning",
+          "className": "btn btn-sm btn-warning",
+          "dataTarget": "filterModal",
+          "active": "1",
+          "order": "",
+          "isRedirect": "0",
+          "needConfirm": "0",
+          "dataBackdrop": null,
+          "contents": {
+            "data": [
+              {
+                "id": "00002_01_01",
+                "label": "Nomor Identitas",
+                "type": "textbox",
+                "isLocation": "",
+                "data": []
+              },
+              {
+                "id": "00002_01_02",
+                "label": "Jenis Debitur",
+                "type": "dropdown",
+                "isLocation": "topAction",
+                "data": []
+              },
+              {
+                "id": "00002_01_03",
+                "label": "Nama Debitur",
+                "type": "textbox",
+                "isLocation": "",
+                "data": []
+              }
+            ],
+            "action": [
+              {
+                "actionId": "00002_Search",
+                "label": "Cari",
+                "icon": "fa fa-search",
+                "flagType": "search",
+                "flagAction": "searchVerivikasi",
+                "type": "button",
+                "className": "btn btn-sm btn-info",
+                "isRedirect": "0",
+                "needConfirm": "0",
+                "dataBackdrop": null,
+                "url": {
+                  "path": ""
+                }
+              }
+            ]
+          }
+        },
+        {
+          "id": "00002_01",
+          "label": "Cancel",
+          "type": "button",
+          "flagType": "",
+          "flagAction": "",
+          "icon": "fal fa-trash",
+          "className": "btn btn-sm btn-danger",
+          "dataTarget": "filterModal",
+          "active": "1",
+          "order": "",
+          "isRedirect": "0",
+          "needConfirm": "0",
+          "dataBackdrop": null,
+          "contents": {
+            "data": [
+              {
+                "id": "00002_01_01",
+                "label": "Nomor Identitas",
+                "type": "textbox",
+                "isLocation": "",
+                "data": []
+              },
+              {
+                "id": "00002_01_02",
+                "label": "Jenis Debitur",
+                "type": "dropdown",
+                "isLocation": "topAction",
+                "data": []
+              },
+              {
+                "id": "00002_01_03",
+                "label": "Nama Debitur",
+                "type": "textbox",
+                "isLocation": "",
+                "data": []
+              }
+            ],
+            "action": [
+              {
+                "actionId": "00002_Search",
+                "label": "Cari",
+                "icon": "fa fa-search",
+                "flagType": "search",
+                "flagAction": "searchVerivikasi",
+                "type": "button",
+                "className": "btn btn-sm btn-info",
+                "isRedirect": "0",
+                "needConfirm": "0",
+                "dataBackdrop": null,
+                "url": {
+                  "path": ""
+                }
+              }
+            ]
+          }
+        },
+        {
+          "id": "00002_01",
+          "label": "Filter",
+          "type": "buttonModal",
+          "flagType": "",
+          "flagAction": "",
+          "icon": "fal fa-filter",
+          "className": "btn btn-sm btn-info",
+          "dataTarget": "filterModal",
+          "active": "1",
+          "order": "",
+          "isRedirect": "0",
+          "needConfirm": "0",
+          "dataBackdrop": null,
+          "contents": {
+            "data": [
+              {
+                "id": "00002_01_01",
+                "label": "Nomor Identitas",
+                "type": "textbox",
+                "isLocation": "",
+                "data": []
+              },
+              {
+                "id": "00002_01_02",
+                "label": "Jenis Debitur",
+                "type": "dropdown",
+                "isLocation": "topAction",
+                "data": []
+              },
+              {
+                "id": "00002_01_03",
+                "label": "Nama Debitur",
+                "type": "textbox",
+                "isLocation": "",
+                "data": []
+              }
+            ],
+            "action": [
+              {
+                "actionId": "00002_Search",
+                "label": "Cari",
+                "icon": "fa fa-search",
+                "flagType": "search",
+                "flagAction": "searchVerivikasi",
+                "type": "button",
+                "className": "btn btn-sm btn-info",
+                "isRedirect": "0",
+                "needConfirm": "0",
+                "dataBackdrop": null,
+                "url": {
+                  "path": ""
+                }
+              }
+            ]
+          }
+        }
+      ],
+      "bottomAction": [],
+      "headerVisibility": {
+        "004001_001": null,
+        "004001_002": null,
+        "004001_003": null,
+        "004001_004": null,
+        "004001_005": null,
+        "004001_006": null
+      }
     }
-  ],
+  },
+  "listdata": {
+    "status": 1,
+    "message": "Success",
+    "data": {
+      "pageIndex": "1",
+      "perPage": "10",
+      "total": "95",
+      "list": [
+        {
+          "004001_001": "1",
+          "004001_002": "7171042708600001",
+          "004001_004": "INDIVIDU",
+          "004001_003": "ADRIAAN L GERUNGAN",
+          "004001_005": "8/27/1960 12:00:00 AM",
+          "004001_007": "9/11/2023 4:59:48 PM"
+        },
+        {
+          "004001_001": "2",
+          "004001_002": "7171044711680001",
+          "004001_004": "INDIVIDU",
+          "004001_003": "CHLARCE NOVA SAROINSONG",
+          "004001_005": "11/7/1968 12:00:00 AM",
+          "004001_007": "9/11/2023 3:45:50 PM"
+        },
+        {
+          "004001_001": "3",
+          "004001_002": "8778438734786632",
+          "004001_004": "INDIVIDU",
+          "004001_003": "HAIKAL",
+          "004001_005": "9/11/1998 12:00:00 AM",
+          "004001_007": "9/11/2023 3:16:53 PM"
+        },
+        {
+          "004001_001": "4",
+          "004001_002": "2368238788882663",
+          "004001_004": "INDIVIDU",
+          "004001_003": "Aska",
+          "004001_005": "10/3/1997 12:00:00 AM",
+          "004001_007": "9/11/2023 10:20:51 AM"
+        },
+        {
+          "004001_001": "5",
+          "004001_002": "7171036208680001",
+          "004001_004": "INDIVIDU",
+          "004001_003": "HENI HORMATI",
+          "004001_005": "8/22/1968 12:00:00 AM",
+          "004001_007": "9/5/2023 1:44:50 PM"
+        },
+        {
+          "004001_001": "6",
+          "004001_002": "7171052907500002",
+          "004001_004": "INDIVIDU",
+          "004001_003": "EVAPRODITUS TUWONGKESONG",
+          "004001_005": "7/29/1950 12:00:00 AM",
+          "004001_007": "9/5/2023 11:01:52 AM"
+        },
+        {
+          "004001_001": "7",
+          "004001_002": "6461581815488487",
+          "004001_004": "INDIVIDU",
+          "004001_003": "Yusril",
+          "004001_005": "9/4/1999 12:00:00 AM",
+          "004001_007": "9/4/2023 2:49:09 PM"
+        },
+        {
+          "004001_001": "8",
+          "004001_002": "7171035106660002",
+          "004001_004": "INDIVIDU",
+          "004001_003": "JENIETJE ILSFOLINA PONTOH",
+          "004001_005": "6/11/1966 12:00:00 AM",
+          "004001_007": "9/4/2023 2:44:07 PM"
+        },
+        {
+          "004001_001": "9",
+          "004001_002": "7171092501860001",
+          "004001_004": "INDIVIDU",
+          "004001_003": "JAIRUS DANIEL RONDONUWU",
+          "004001_005": "1/25/1986 12:00:00 AM",
+          "004001_007": "9/4/2023 2:26:14 PM"
+        },
+        {
+          "004001_001": "10",
+          "004001_002": "0888954985498854",
+          "004001_004": "INDIVIDU",
+          "004001_003": "kemal",
+          "004001_005": "8/3/2000 12:00:00 AM",
+          "004001_007": "9/2/2023 1:27:20 PM"
+        }
+      ]
+    }
+  },
   "flowchart": [
     {
       "id": "1",
@@ -3225,5 +3056,1260 @@
         }
       ]
     }
-  ]
+  ],
+  "getfielfbyformname": {
+    "status": "1",
+    "message": "Get Form Success",
+    "caption": "Data Debitur",
+    "action": [
+      {
+        "actionId": "VDCD10001_ACT001",
+        "label": "Simpan",
+        "type": "button",
+        "icon": "fal fa-right-to-bracket",
+        "className": "btn btn-sm btn-info",
+        "dataTarget": "",
+        "flagType": "save",
+        "flagAction": "SaveByNik",
+        "isRedirect": "0",
+        "needConfirm": "0",
+        "dataBackdrop": null,
+        "url": {
+          "param": ["VDCD10001_001_001"],
+          "path": ""
+        }
+      }
+    ],
+    "panel": [
+      {
+        "panelName": "Data Debitur",
+        "panelId": "VDCD10001_001",
+        "listField": [
+          {
+            "id": "VDCD10001_001_000",
+            "label": "Flowchart",
+            "type": "flowchart",
+            "maxLength": "16",
+            "minLength": "16",
+            "isMandatory": "1",
+            "rule": "",
+            "isReadOnly": "1",
+            "width": "6",
+            "isMultiple": "",
+            "fieldSave": "1",
+            "path": "",
+            "hide": "",
+            "value": "7171042708600001",
+            "reference": {
+              "parent": [],
+              "child": []
+            }
+          },
+          {
+            "id": "VDCD10001_001_001",
+            "label": "Nomor KTP",
+            "type": "textbox",
+            "maxLength": "16",
+            "minLength": "16",
+            "isMandatory": "1",
+            "rule": "",
+            "isReadOnly": "1",
+            "width": "6",
+            "isMultiple": "",
+            "fieldSave": "1",
+            "path": "",
+            "hide": "",
+            "flowchart": {},
+            "value": "7171042708600001",
+            "reference": {
+              "parent": [],
+              "child": []
+            }
+          },
+          {
+            "id": "VDCD10001_001_002",
+            "label": "Nama Lengkap",
+            "type": "textbox",
+            "maxLength": "100",
+            "minLength": "3",
+            "isMandatory": "1",
+            "rule": "alphaonly",
+            "isReadOnly": "0",
+            "width": "6",
+            "isMultiple": "",
+            "fieldSave": "1",
+            "path": "",
+            "hide": "",
+            "value": "ADRIAAN L GERUNGAN",
+            "reference": {
+              "parent": [],
+              "child": []
+            }
+          },
+          {
+            "id": "VDCD10001_001_003",
+            "label": "Nama Panggilan",
+            "type": "textbox",
+            "maxLength": "100",
+            "minLength": "3",
+            "isMandatory": "1",
+            "rule": "alphaonly",
+            "isReadOnly": "0",
+            "width": "6",
+            "isMultiple": "",
+            "fieldSave": "1",
+            "path": "",
+            "hide": "",
+            "value": "",
+            "reference": {
+              "parent": [],
+              "child": []
+            }
+          },
+          {
+            "id": "VDCD10001_001_004",
+            "label": "Tempat Lahir",
+            "type": "textbox",
+            "maxLength": "100",
+            "minLength": "3",
+            "isMandatory": "1",
+            "rule": "alphaonly",
+            "isReadOnly": "0",
+            "width": "6",
+            "isMultiple": "",
+            "fieldSave": "1",
+            "path": "",
+            "hide": "",
+            "value": "",
+            "reference": {
+              "parent": [],
+              "child": []
+            }
+          },
+          {
+            "id": "VDCD10001_001_005",
+            "label": "Tanggal Lahir",
+            "type": "date",
+            "maxLength": "20",
+            "minLength": "",
+            "isMandatory": "1",
+            "rule": "onlyPastDate",
+            "isReadOnly": "0",
+            "width": "6",
+            "isMultiple": "",
+            "fieldSave": "1",
+            "path": "",
+            "hide": "",
+            "value": "1960-08-27",
+            "view": "date",
+            "reference": {
+              "parent": [],
+              "child": ["VDCD10001_001_006", "VDCD10001_001_006_1"]
+            }
+          },
+          {
+            "id": "VDCD10001_001_006",
+            "label": "Umur",
+            "type": "textbox",
+            "maxLength": "20",
+            "minLength": "",
+            "isMandatory": "0",
+            "rule": "",
+            "isReadOnly": "1",
+            "width": "3",
+            "isMultiple": "",
+            "fieldSave": "1",
+            "path": "",
+            "hide": "",
+            "groupInput": {
+              "type": "string",
+              "position": "end",
+              "value": "Tahun"
+            },
+            "value": "63",
+            "reference": {
+              "parent": ["VDCD10001_001_005"],
+              "child": []
+            }
+          },
+          {
+            "id": "VDCD10001_001_006_1",
+            "label": "Bulan",
+            "type": "textbox",
+            "maxLength": "20",
+            "minLength": "",
+            "isMandatory": "0",
+            "rule": "",
+            "isReadOnly": "1",
+            "width": "3",
+            "isMultiple": "",
+            "fieldSave": "0",
+            "path": "",
+            "hide": "",
+            "groupInput": {
+              "type": "string",
+              "position": "end",
+              "value": "Bulan"
+            },
+            "value": "",
+            "reference": {
+              "parent": ["VDCD10001_001_005"],
+              "child": []
+            }
+          },
+          {
+            "id": "VDCD10001_001_007",
+            "label": "Jenis Kelamin",
+            "type": "radio",
+            "maxLength": "1",
+            "minLength": "",
+            "isMandatory": "1",
+            "rule": "",
+            "isReadOnly": "0",
+            "width": "6",
+            "isMultiple": "",
+            "fieldSave": "1",
+            "path": "",
+            "hide": "",
+            "condition": [],
+            "valueList": [
+              {
+                "dataId": "F",
+                "dataDesc": "Perempuan",
+                "selected": "false"
+              },
+              {
+                "dataId": "M",
+                "dataDesc": "Laki-laki",
+                "selected": "true"
+              }
+            ],
+            "reference": {
+              "parent": [],
+              "child": []
+            }
+          },
+          {
+            "id": "VDCD10001_001_008",
+            "label": "Status Perkawinan",
+            "type": "dropdown",
+            "maxLength": "1",
+            "minLength": "",
+            "isMandatory": "1",
+            "rule": "",
+            "isReadOnly": "0",
+            "width": "6",
+            "isMultiple": "",
+            "fieldSave": "1",
+            "path": "",
+            "hide": "",
+            "condition": [
+              {
+                "value": ["", "2", "3", "4"],
+                "setting": [
+                  {
+                    "id": "VDCD10001_002",
+                    "property": {
+                      "visible": "0",
+                      "isMandatory": "0"
+                    },
+                    "type": "panel"
+                  }
+                ]
+              },
+              {
+                "value": ["1"],
+                "setting": [
+                  {
+                    "id": "VDCD10001_002",
+                    "property": {
+                      "visible": "1",
+                      "isMandatory": "1"
+                    },
+                    "type": "panel"
+                  }
+                ]
+              }
+            ],
+            "valueList": [
+              {
+                "value": "1",
+                "label": "Kawin"
+              }
+            ],
+            "reference": {
+              "parent": [],
+              "child": []
+            }
+          },
+          {
+            "id": "VDCD10001_001_009",
+            "label": "Nama Gadis Ibu Kandung",
+            "type": "textbox",
+            "maxLength": "100",
+            "minLength": "3",
+            "isMandatory": "0",
+            "rule": "alphaonly",
+            "isReadOnly": "0",
+            "width": "6",
+            "isMultiple": "",
+            "fieldSave": "1",
+            "path": "",
+            "hide": "",
+            "value": "MARIA ALBERTINA NGAJOUW",
+            "reference": {
+              "parent": [],
+              "child": []
+            }
+          },
+          {
+            "id": "VDCD10001_001_010",
+            "label": "Alamat Sesuai KTP",
+            "type": "textarea",
+            "maxLength": "200",
+            "minLength": "3",
+            "isMandatory": "1",
+            "rule": "",
+            "isReadOnly": "0",
+            "width": "6",
+            "isMultiple": "",
+            "fieldSave": "1",
+            "path": "",
+            "hide": "",
+            "value": "",
+            "reference": {
+              "parent": [],
+              "child": []
+            }
+          },
+          {
+            "id": "VDCD10001_001_011",
+            "label": "Provinsi",
+            "type": "dropdown",
+            "maxLength": "100",
+            "minLength": "",
+            "isMandatory": "1",
+            "rule": "",
+            "isReadOnly": "0",
+            "width": "6",
+            "isMultiple": "",
+            "fieldSave": "1",
+            "path": "",
+            "hide": "",
+            "condition": [],
+            "valueList": [],
+            "reference": {
+              "parent": [],
+              "child": []
+            }
+          },
+          {
+            "id": "VDCD10001_001_012",
+            "label": "Kota/Kabupaten",
+            "type": "dropdown",
+            "maxLength": "100",
+            "minLength": "",
+            "isMandatory": "1",
+            "rule": "",
+            "isReadOnly": "0",
+            "width": "6",
+            "isMultiple": "",
+            "fieldSave": "1",
+            "path": "",
+            "hide": "",
+            "condition": [],
+            "valueList": [],
+            "reference": {
+              "parent": ["VDCD10001_001_011"],
+              "child": []
+            }
+          },
+          {
+            "id": "VDCD10001_001_013",
+            "label": "Kecamatan",
+            "type": "dropdown",
+            "maxLength": "100",
+            "minLength": "",
+            "isMandatory": "1",
+            "rule": "",
+            "isReadOnly": "0",
+            "width": "6",
+            "isMultiple": "",
+            "fieldSave": "1",
+            "path": "",
+            "hide": "",
+            "condition": [],
+            "valueList": [],
+            "reference": {
+              "parent": ["VDCD10001_001_012"],
+              "child": []
+            }
+          },
+          {
+            "id": "VDCD10001_001_014",
+            "label": "Desa/Kelurahan",
+            "type": "dropdown",
+            "maxLength": "100",
+            "minLength": "",
+            "isMandatory": "1",
+            "rule": "",
+            "isReadOnly": "0",
+            "width": "6",
+            "isMultiple": "",
+            "fieldSave": "1",
+            "path": "",
+            "hide": "",
+            "condition": [],
+            "valueList": [],
+            "reference": {
+              "parent": ["VDCD10001_001_013"],
+              "child": ["VDCD10001_001_015"]
+            }
+          },
+          {
+            "id": "VDCD10001_001_015",
+            "label": "Kode Pos",
+            "type": "textbox",
+            "maxLength": "20",
+            "minLength": "",
+            "isMandatory": "0",
+            "rule": "",
+            "isReadOnly": "1",
+            "width": "6",
+            "isMultiple": "",
+            "fieldSave": "1",
+            "path": "",
+            "hide": "",
+            "value": "",
+            "reference": {
+              "parent": ["VDCD10001_001_014"],
+              "child": []
+            }
+          },
+          {
+            "id": "VDCD10001_001_015_001",
+            "label": "Alamat domisili sesuai alamat KTP",
+            "type": "checkboxcopyvalue",
+            "maxLength": "20",
+            "minLength": "",
+            "isMandatory": "0",
+            "rule": "",
+            "isReadOnly": "0",
+            "width": "6",
+            "isMultiple": "",
+            "fieldSave": "1",
+            "path": "/getCheckBox",
+            "hide": "",
+            "reference": {
+              "parent": [
+                "VDCD10001_001_010",
+                "VDCD10001_001_011",
+                "VDCD10001_001_012",
+                "VDCD10001_001_013",
+                "VDCD10001_001_014",
+                "VDCD10001_001_015"
+              ],
+              "child": [
+                "VDCD10001_001_016",
+                "VDCD10001_001_017",
+                "VDCD10001_001_018",
+                "VDCD10001_001_019",
+                "VDCD10001_001_020",
+                "VDCD10001_001_021"
+              ]
+            }
+          },
+          {
+            "id": "VDCD10001_001_016",
+            "label": "Alamat Domisili",
+            "type": "textarea",
+            "maxLength": "200",
+            "minLength": "3",
+            "isMandatory": "1",
+            "rule": "",
+            "isReadOnly": "0",
+            "width": "6",
+            "isMultiple": "",
+            "fieldSave": "1",
+            "path": "",
+            "hide": "",
+            "value": "",
+            "reference": {
+              "parent": [],
+              "child": []
+            }
+          },
+          {
+            "id": "VDCD10001_001_017",
+            "label": "Provinsi",
+            "type": "dropdown",
+            "maxLength": "100",
+            "minLength": "",
+            "isMandatory": "1",
+            "rule": "",
+            "isReadOnly": "0",
+            "width": "6",
+            "isMultiple": "",
+            "fieldSave": "1",
+            "path": "",
+            "hide": "",
+            "condition": [],
+            "valueList": [],
+            "reference": {
+              "parent": [],
+              "child": []
+            }
+          },
+          {
+            "id": "VDCD10001_001_018",
+            "label": "Kota/Kabupaten",
+            "type": "dropdown",
+            "maxLength": "100",
+            "minLength": "",
+            "isMandatory": "1",
+            "rule": "",
+            "isReadOnly": "0",
+            "width": "6",
+            "isMultiple": "",
+            "fieldSave": "1",
+            "path": "",
+            "hide": "",
+            "condition": [],
+            "valueList": [],
+            "reference": {
+              "parent": ["VDCD10001_001_017"],
+              "child": []
+            }
+          },
+          {
+            "id": "VDCD10001_001_019",
+            "label": "Kecamatan",
+            "type": "dropdown",
+            "maxLength": "100",
+            "minLength": "",
+            "isMandatory": "1",
+            "rule": "",
+            "isReadOnly": "0",
+            "width": "6",
+            "isMultiple": "",
+            "fieldSave": "1",
+            "path": "",
+            "hide": "",
+            "condition": [],
+            "valueList": [],
+            "reference": {
+              "parent": ["VDCD10001_001_018"],
+              "child": []
+            }
+          },
+          {
+            "id": "VDCD10001_001_020",
+            "label": "Desa/Kelurahan",
+            "type": "dropdown",
+            "maxLength": "100",
+            "minLength": "",
+            "isMandatory": "1",
+            "rule": "",
+            "isReadOnly": "0",
+            "width": "6",
+            "isMultiple": "",
+            "fieldSave": "1",
+            "path": "",
+            "hide": "",
+            "condition": [],
+            "valueList": [],
+            "reference": {
+              "parent": ["VDCD10001_001_019"],
+              "child": ["VDCD10001_001_021"]
+            }
+          },
+          {
+            "id": "VDCD10001_001_021",
+            "label": "Kode Pos",
+            "type": "textbox",
+            "maxLength": "20",
+            "minLength": "",
+            "isMandatory": "0",
+            "rule": "",
+            "isReadOnly": "1",
+            "width": "6",
+            "isMultiple": "",
+            "fieldSave": "1",
+            "path": "",
+            "hide": "",
+            "value": "",
+            "reference": {
+              "parent": ["VDCD10001_001_020"],
+              "child": []
+            }
+          },
+          {
+            "id": "VDCD10001_001_022",
+            "label": "NPWP",
+            "type": "textbox",
+            "maxLength": "16",
+            "minLength": "15",
+            "isMandatory": "0",
+            "rule": "numericAbsolute",
+            "isReadOnly": "0",
+            "width": "6",
+            "isMultiple": "",
+            "fieldSave": "1",
+            "path": "",
+            "hide": "",
+            "value": "09.966.039.1.821.000",
+            "reference": {
+              "parent": [],
+              "child": []
+            }
+          },
+          {
+            "id": "VDCD10001_001_023",
+            "label": "Email",
+            "type": "textbox",
+            "maxLength": "100",
+            "minLength": "",
+            "isMandatory": "0",
+            "rule": "email",
+            "isReadOnly": "0",
+            "width": "6",
+            "isMultiple": "",
+            "fieldSave": "1",
+            "path": "",
+            "hide": "",
+            "value": "",
+            "reference": {
+              "parent": [],
+              "child": []
+            }
+          },
+          {
+            "id": "VDCD10001_001_024",
+            "label": "No Hp",
+            "type": "textbox",
+            "maxLength": "13",
+            "minLength": "1",
+            "isMandatory": "1",
+            "rule": "telephone",
+            "isReadOnly": "0",
+            "width": "6",
+            "isMultiple": "",
+            "fieldSave": "1",
+            "path": "",
+            "hide": "",
+            "value": "081356407567",
+            "reference": {
+              "parent": [],
+              "child": []
+            }
+          },
+          {
+            "id": "VDCD10001_001_025",
+            "label": "No Telp",
+            "type": "textbox",
+            "maxLength": "13",
+            "minLength": "10",
+            "isMandatory": "0",
+            "rule": "numericAbsolute",
+            "isReadOnly": "0",
+            "width": "6",
+            "isMultiple": "",
+            "fieldSave": "1",
+            "path": "",
+            "hide": "",
+            "value": "",
+            "reference": {
+              "parent": [],
+              "child": []
+            }
+          },
+          {
+            "id": "VDCD10001_001_026",
+            "label": "Pihak Terkait",
+            "type": "dropdown",
+            "maxLength": "1",
+            "minLength": "",
+            "isMandatory": "1",
+            "rule": "",
+            "isReadOnly": "0",
+            "width": "6",
+            "isMultiple": "",
+            "fieldSave": "1",
+            "path": "",
+            "hide": "",
+            "condition": [
+              {
+                "value": [""],
+                "setting": [
+                  {
+                    "id": "VDCD10001_001_027",
+                    "property": {
+                      "visible": "0",
+                      "isMandatory": "0"
+                    },
+                    "type": "field"
+                  },
+                  {
+                    "id": "VDCD10001_001_027",
+                    "property": {
+                      "visible": "0",
+                      "isMandatory": "0"
+                    },
+                    "type": "field"
+                  }
+                ]
+              },
+              {
+                "value": ["N"],
+                "setting": [
+                  {
+                    "id": "VDCD10001_001_027",
+                    "property": {
+                      "visible": "0",
+                      "isMandatory": "0"
+                    },
+                    "type": "field"
+                  },
+                  {
+                    "id": "VDCD10001_001_027",
+                    "property": {
+                      "visible": "0",
+                      "isMandatory": "0"
+                    },
+                    "type": "field"
+                  }
+                ]
+              },
+              {
+                "value": ["Y"],
+                "setting": [
+                  {
+                    "id": "VDCD10001_001_027",
+                    "property": {
+                      "visible": "1",
+                      "isMandatory": "1"
+                    },
+                    "type": "field"
+                  },
+                  {
+                    "id": "VDCD10001_001_027",
+                    "property": {
+                      "visible": "1",
+                      "isMandatory": "1"
+                    },
+                    "type": "field"
+                  }
+                ]
+              }
+            ],
+            "valueList": [
+              {
+                "value": "N",
+                "label": "Tidak"
+              }
+            ],
+            "reference": {
+              "parent": [],
+              "child": []
+            }
+          },
+          {
+            "id": "VDCD10001_001_027",
+            "label": "Hubungan Keterkaitan dengan Bank",
+            "type": "dropdown",
+            "maxLength": "1",
+            "minLength": "",
+            "isMandatory": "1",
+            "rule": "",
+            "isReadOnly": "0",
+            "width": "6",
+            "isMultiple": "",
+            "fieldSave": "1",
+            "path": "",
+            "hide": "",
+            "condition": [],
+            "valueList": [],
+            "reference": {
+              "parent": [],
+              "child": []
+            }
+          }
+        ],
+        "table": {}
+      },
+      {
+        "panelName": "Data Pasangan",
+        "panelId": "VDCD10001_002",
+        "listField": [
+          {
+            "id": "VDCD10001_002_032",
+            "label": "ID Pasangan",
+            "type": "textbox",
+            "maxLength": "200",
+            "minLength": "",
+            "isMandatory": "1",
+            "rule": "",
+            "isReadOnly": "1",
+            "width": "6",
+            "isMultiple": "",
+            "fieldSave": "1",
+            "path": "",
+            "hide": "1",
+            "value": "6E1FD496-F5FD-41BE-A39E-66FFA258A540",
+            "reference": {
+              "parent": [],
+              "child": []
+            }
+          },
+          {
+            "id": "VDCD10001_002_029",
+            "label": "Nomor KTP",
+            "type": "textbox",
+            "maxLength": "16",
+            "minLength": "",
+            "isMandatory": "1",
+            "rule": "numericAbsolute",
+            "isReadOnly": "0",
+            "width": "6",
+            "isMultiple": "",
+            "fieldSave": "1",
+            "path": "",
+            "hide": "",
+            "value": " 3545335676543565445",
+            "reference": {
+              "parent": [],
+              "child": []
+            }
+          },
+          {
+            "id": "VDCD10001_002_029_001",
+            "label": "Customer id",
+            "type": "textbox",
+            "maxLength": "16",
+            "minLength": "16",
+            "isMandatory": "1",
+            "rule": "numericAbsolute",
+            "isReadOnly": "1",
+            "width": "6",
+            "isMultiple": "",
+            "fieldSave": "1",
+            "path": "",
+            "hide": "1",
+            "value": "7171042708600001",
+            "reference": {
+              "parent": [],
+              "child": []
+            }
+          },
+          {
+            "id": "VDCD10001_002_030",
+            "label": "Nama Lengkap",
+            "type": "textbox",
+            "maxLength": "100",
+            "minLength": "3",
+            "isMandatory": "1",
+            "rule": "",
+            "isReadOnly": "0",
+            "width": "6",
+            "isMultiple": "",
+            "fieldSave": "1",
+            "path": "",
+            "hide": "",
+            "value": "erni",
+            "reference": {
+              "parent": [],
+              "child": []
+            }
+          },
+          {
+            "id": "VDCD10001_002_031",
+            "label": "Tanggal Lahir",
+            "type": "date",
+            "maxLength": "20",
+            "minLength": "",
+            "isMandatory": "1",
+            "rule": "onlyPastDate",
+            "isReadOnly": "0",
+            "width": "6",
+            "isMultiple": "",
+            "fieldSave": "1",
+            "path": "",
+            "hide": "",
+            "value": "1962-09-11",
+            "view": "date",
+            "reference": {
+              "parent": [],
+              "child": []
+            }
+          },
+          {
+            "id": "VDCD10001_002_033",
+            "label": "Pekerjaan",
+            "type": "dropdown",
+            "maxLength": "200",
+            "minLength": "",
+            "isMandatory": "1",
+            "rule": "",
+            "isReadOnly": "0",
+            "width": "6",
+            "isMultiple": "",
+            "fieldSave": "1",
+            "path": "",
+            "hide": "0",
+            "condition": [],
+            "valueList": [],
+            "reference": {
+              "parent": [],
+              "child": []
+            }
+          },
+          {
+            "id": "VDCD10001_002_034",
+            "label": "Jumlah Tanggungan Anak",
+            "type": "textbox",
+            "maxLength": "2",
+            "minLength": "1",
+            "isMandatory": "1",
+            "rule": "numeric",
+            "isReadOnly": "0",
+            "width": "6",
+            "isMultiple": "",
+            "fieldSave": "1",
+            "path": "",
+            "hide": "0",
+            "groupInput": {
+              "type": "string",
+              "position": "end",
+              "value": " Orang"
+            },
+            "value": "2",
+            "reference": {
+              "parent": [],
+              "child": []
+            }
+          },
+          {
+            "id": "VDCD10001_002_035",
+            "label": "Alamat Sesuai KTP",
+            "type": "textarea",
+            "maxLength": "100",
+            "minLength": "3",
+            "isMandatory": "1",
+            "rule": "",
+            "isReadOnly": "0",
+            "width": "6",
+            "isMultiple": "",
+            "fieldSave": "1",
+            "path": "",
+            "hide": "0",
+            "value": "",
+            "reference": {
+              "parent": [],
+              "child": []
+            }
+          },
+          {
+            "id": "VDCD10001_002_036",
+            "label": "Provinsi",
+            "type": "dropdown",
+            "maxLength": "200",
+            "minLength": "",
+            "isMandatory": "1",
+            "rule": "",
+            "isReadOnly": "0",
+            "width": "6",
+            "isMultiple": "",
+            "fieldSave": "1",
+            "path": "",
+            "hide": "0",
+            "condition": [],
+            "valueList": [],
+            "reference": {
+              "parent": [],
+              "child": []
+            }
+          },
+          {
+            "id": "VDCD10001_002_037",
+            "label": "Kota/Kabupaten",
+            "type": "dropdown",
+            "maxLength": "200",
+            "minLength": "",
+            "isMandatory": "1",
+            "rule": "",
+            "isReadOnly": "0",
+            "width": "6",
+            "isMultiple": "",
+            "fieldSave": "1",
+            "path": "",
+            "hide": "0",
+            "condition": [],
+            "valueList": [],
+            "reference": {
+              "parent": ["VDCD10001_002_036"],
+              "child": []
+            }
+          },
+          {
+            "id": "VDCD10001_002_038",
+            "label": "Kecamatan",
+            "type": "dropdown",
+            "maxLength": "200",
+            "minLength": "",
+            "isMandatory": "1",
+            "rule": "",
+            "isReadOnly": "0",
+            "width": "6",
+            "isMultiple": "",
+            "fieldSave": "1",
+            "path": "",
+            "hide": "0",
+            "condition": [],
+            "valueList": [],
+            "reference": {
+              "parent": ["VDCD10001_002_037"],
+              "child": []
+            }
+          },
+          {
+            "id": "VDCD10001_002_039",
+            "label": "Desa/Kelurahan",
+            "type": "dropdown",
+            "maxLength": "200",
+            "minLength": "",
+            "isMandatory": "1",
+            "rule": "",
+            "isReadOnly": "0",
+            "width": "6",
+            "isMultiple": "",
+            "fieldSave": "1",
+            "path": "",
+            "hide": "0",
+            "condition": [],
+            "valueList": [],
+            "reference": {
+              "parent": ["VDCD10001_002_038"],
+              "child": ["VDCD10001_002_040"]
+            }
+          },
+          {
+            "id": "VDCD10001_002_040",
+            "label": "Kode Pos",
+            "type": "textbox",
+            "maxLength": "200",
+            "minLength": "",
+            "isMandatory": "1",
+            "rule": "",
+            "isReadOnly": "1",
+            "width": "6",
+            "isMultiple": "",
+            "fieldSave": "1",
+            "path": "",
+            "hide": "0",
+            "value": "",
+            "reference": {
+              "parent": ["VDCD10001_002_039"],
+              "child": []
+            }
+          },
+          {
+            "id": "VDCD10001_002_041",
+            "label": "Alamat domisili sesuai alamat KTP",
+            "type": "checkboxcopyvalue",
+            "maxLength": "20",
+            "minLength": "",
+            "isMandatory": "0",
+            "rule": "",
+            "isReadOnly": "0",
+            "width": "6",
+            "isMultiple": "",
+            "fieldSave": "1",
+            "path": "/getCheckBox",
+            "hide": "0",
+            "reference": {
+              "parent": [
+                "VDCD10001_002_035",
+                "VDCD10001_002_036",
+                "VDCD10001_002_037",
+                "VDCD10001_002_038",
+                "VDCD10001_002_039",
+                "VDCD10001_002_040"
+              ]
+            }
+          },
+          {
+            "id": "VDCD10001_002_042",
+            "label": "Alamat Domisili",
+            "type": "textarea",
+            "maxLength": "100",
+            "minLength": "3",
+            "isMandatory": "1",
+            "rule": "",
+            "isReadOnly": "0",
+            "width": "6",
+            "isMultiple": "",
+            "fieldSave": "1",
+            "path": "",
+            "hide": "0",
+            "value": "",
+            "reference": {
+              "parent": [],
+              "child": []
+            }
+          },
+          {
+            "id": "VDCD10001_002_043",
+            "label": "Provinsi",
+            "type": "dropdown",
+            "maxLength": "200",
+            "minLength": "",
+            "isMandatory": "1",
+            "rule": "",
+            "isReadOnly": "0",
+            "width": "6",
+            "isMultiple": "",
+            "fieldSave": "1",
+            "path": "",
+            "hide": "0",
+            "condition": [],
+            "valueList": [],
+            "reference": {
+              "parent": [],
+              "child": []
+            }
+          },
+          {
+            "id": "VDCD10001_002_044",
+            "label": "Kota/Kabupaten",
+            "type": "dropdown",
+            "maxLength": "200",
+            "minLength": "",
+            "isMandatory": "1",
+            "rule": "",
+            "isReadOnly": "0",
+            "width": "6",
+            "isMultiple": "",
+            "fieldSave": "1",
+            "path": "",
+            "hide": "0",
+            "condition": [],
+            "valueList": [],
+            "reference": {
+              "parent": ["VDCD10001_002_043"],
+              "child": []
+            }
+          },
+          {
+            "id": "VDCD10001_002_045",
+            "label": "Kecamatan",
+            "type": "dropdown",
+            "maxLength": "200",
+            "minLength": "",
+            "isMandatory": "1",
+            "rule": "",
+            "isReadOnly": "0",
+            "width": "6",
+            "isMultiple": "",
+            "fieldSave": "1",
+            "path": "",
+            "hide": "0",
+            "condition": [],
+            "valueList": [],
+            "reference": {
+              "parent": ["VDCD10001_002_044"],
+              "child": []
+            }
+          },
+          {
+            "id": "VDCD10001_002_046",
+            "label": "Desa/Kelurahan",
+            "type": "dropdown",
+            "maxLength": "200",
+            "minLength": "",
+            "isMandatory": "1",
+            "rule": "",
+            "isReadOnly": "0",
+            "width": "6",
+            "isMultiple": "",
+            "fieldSave": "1",
+            "path": "",
+            "hide": "0",
+            "condition": [],
+            "valueList": [],
+            "reference": {
+              "parent": ["VDCD10001_002_045"],
+              "child": ["VDCD10001_002_047"]
+            }
+          },
+          {
+            "id": "VDCD10001_002_047",
+            "label": "Kode Pos",
+            "type": "textbox",
+            "maxLength": "200",
+            "minLength": "",
+            "isMandatory": "1",
+            "rule": "",
+            "isReadOnly": "1",
+            "width": "6",
+            "isMultiple": "",
+            "fieldSave": "1",
+            "path": "",
+            "hide": "0",
+            "value": "",
+            "reference": {
+              "parent": ["VDCD10001_002_046"],
+              "child": []
+            }
+          }
+        ],
+        "table": {}
+      },
+      {
+        "panelName": "Data Kerabat",
+        "panelId": "VDCD10001_G001",
+        "listField": [
+          {
+            "id": "VDCD10001_G001_001",
+            "label": "Nomor KTP",
+            "type": "textbox",
+            "maxLength": "100",
+            "minLength": "",
+            "isMandatory": "0",
+            "rule": "",
+            "isReadOnly": "1",
+            "width": "6",
+            "isMultiple": "",
+            "fieldSave": "0",
+            "path": "",
+            "hide": "",
+            "value": "7171042708600001",
+            "reference": {
+              "parent": [],
+              "child": []
+            }
+          },
+          {
+            "id": "VDCD10001_G001_002",
+            "label": "Data Kerabat",
+            "type": "grid",
+            "maxLength": "",
+            "minLength": "",
+            "isMandatory": "0",
+            "rule": "",
+            "isReadOnly": "0",
+            "width": "6",
+            "isMultiple": "",
+            "fieldSave": "0",
+            "path": "",
+            "hide": "",
+            "reference": {
+              "parent": ["VDCD10001_G001_001"],
+              "child": []
+            }
+          }
+        ],
+        "table": {}
+      }
+    ]
+  }
 }

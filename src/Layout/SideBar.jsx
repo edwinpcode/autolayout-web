@@ -91,6 +91,7 @@ function SideBar() {
       dispatch(setFilteringList([]))
       dispatch(setMenuSlice({ menuId, trackId, menuDesc }))
       dispatch(reset())
+      document.getElementById('body').classList.add('sidebar-collapse')
     }
     // console.log(treeviewId)
     if (treeviewId && hasChild) {
@@ -99,7 +100,10 @@ function SideBar() {
   }
 
   return (
-    <aside className="main-sidebar elevation-4 sidebar-light-danger">
+    <aside
+      className="main-sidebar elevation-4 sidebar-light-danger"
+      id={'sidebar'}
+    >
       <a href="/" className="brand-link">
         <img
           src="/images/logo_sidebar.png"

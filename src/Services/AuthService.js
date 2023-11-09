@@ -12,17 +12,19 @@ export const AuthLogin = async (userId, password) => {
   }
 
   const result =
-    process.env.REACT_APP_ENV === 'LOCAL'
-      ? 'res_login'
-      : await APIClient.post('/userlogin', param).then((res) => res.data)
+    // process.env.REACT_APP_ENV === 'LOCAL'
+    // ? 'res_login'
+    // :
+    await APIClient.post('/userlogin', param).then((res) => res.data)
 
   return result
 }
 
 export const GetAuthModule = async (userId) => {
-  return process.env.REACT_APP_ENV === 'LOCAL'
-    ? 'local'
-    : await APIClient.post('/user', { userId })
+  // return process.env.REACT_APP_ENV === 'LOCAL'
+  // ? 'local'
+  // :
+  return await APIClient.post('/user', { userId })
 }
 
 export function AuthLogout(userid, moduleId, groupId) {

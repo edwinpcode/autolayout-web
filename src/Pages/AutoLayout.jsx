@@ -137,7 +137,7 @@ function AutoLayout({ className, fetchData, pageIndex, pageSize }) {
 
   return (
     <div
-      className={`${className} overflow-y-auto bg-white col-md-10`}
+      className={`overflow-y-auto bg-white col-md-9`}
       style={{
         height: '85vh',
         // width: '100%',

@@ -9,6 +9,7 @@ import ButtonOpenPanel from '../Components/Button/ButtonOpenPanel'
 import ButtonType from '../Components/AutoLayout/ButtonType'
 import InputCheckbox from '../Components/AutoLayout/Input/InputCheckbox'
 import { handleParamValues } from './ParamUtils'
+import InputSelectItem from '../Components/AutoLayout/Input/InputSelectItem'
 
 export const addRowSelectionColumn = (defaultColumn, columnHelper) => {
   defaultColumn.unshift(
@@ -44,6 +45,7 @@ export const handleColumnType = ({
   fetchData,
   pageIndex,
   pageSize,
+  setSelected,
 }) => {
   // hardcode
   const setActionSelectValue = (selectValue) => {
@@ -70,6 +72,17 @@ export const handleColumnType = ({
         info={info}
         param={header.param || []}
         flag={header.flag}
+      />
+    )
+  }
+
+  // Select Item on Grid
+  if (header.type === 'selectItem') {
+    return (
+      <InputSelectItem
+        info={info}
+        param={header.param}
+        setSelected={setSelected}
       />
     )
   }
@@ -181,6 +194,7 @@ export const handleStructureHeader = ({
   fetchData,
   pageIndex,
   pageSize,
+  setSelected,
 }) => {
   if (!structures.header) return []
   // for (let i = 0; i < structures.header.length; i++) {
@@ -198,6 +212,7 @@ export const handleStructureHeader = ({
           fetchData,
           pageSize,
           pageIndex,
+          setSelected,
         }),
       type: header.type,
     })

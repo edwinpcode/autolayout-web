@@ -36,8 +36,8 @@ const AppRouter = () => {
           {/* <Route path="/chart" element={<Chart />} /> */}
           <Route path="/profile" element={<Profile />} />
           <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/flowchart" element={<Flowchart />} />
-          <Route path="/flowchart/:id" element={<Flowchart />} />
+          {/* <Route path="/flowchart" element={<Flowchart />} /> */}
+          {/* <Route path="/flowchart/:id" element={<Flowchart />} /> */}
           <Route path="/report" element={<Report />} />
           <Route path="/report/:menuId" element={<Report />} />
         </Route>

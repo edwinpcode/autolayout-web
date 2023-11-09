@@ -15,9 +15,10 @@ if (token) {
 
 const APIClientMobile = axios.create({
   baseURL:
-    process.env.REACT_APP_ENV === 'LOCAL'
-      ? 'http://localhost:3000/Data'
-      : process.env.REACT_APP_API_END_POINT_MOBILE,
+    // process.env.REACT_APP_ENV === 'LOCAL'
+    // ? 'http://localhost:3000/Data'
+    // :
+    process.env.REACT_APP_API_END_POINT_MOBILE,
   headers: headers,
 })
 

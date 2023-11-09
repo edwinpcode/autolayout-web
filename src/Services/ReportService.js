@@ -5,13 +5,14 @@ const env = 'PRODUCTION'
 
 // Get ALL Report
 export const getAllReport = async (param) => {
-  const result =
-    process.env.REACT_APP_ENV === env
-      ? APIClient.post('/getreport', JSON.stringify(param))
-      : await axios({
-          method: 'GET',
-          url: '//localhost:5000/report',
-        })
+  const result = APIClient.post('/getreport', param)
+  // const result =
+  //   process.env.REACT_APP_ENV === env
+  //     ? APIClient.post('/getreport', JSON.stringify(param))
+  //     : await axios({
+  //         method: 'GET',
+  //         url: '//localhost:5000/report',
+  //       })
   return result
 }
 
@@ -20,9 +21,10 @@ export const getAllReportForm = async (fieldId, level, path) => {
     menuId: fieldId,
     level: level,
   }
-  const result =
-    process.env.REACT_APP_ENV === env
-      ? APIClient.post(path, JSON.stringify(param))
-      : ''
+  const result = APIClient.post(path, param)
+  // const result =
+  //   process.env.REACT_APP_ENV === env
+  //     ? APIClient.post(path, JSON.stringify(param))
+  //     : ''
   return result
 }

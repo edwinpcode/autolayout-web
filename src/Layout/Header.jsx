@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { NavLink, Link, useNavigate } from 'react-router-dom'
+import { NavLink, Link, useNavigate, useParams } from 'react-router-dom'
 import { setMenuSlice } from '../Store/Menu/menuSlice'
 import { AuthLogout } from '../Services/AuthService'
 import Load from '../Pages/FullLoad'
@@ -9,6 +9,7 @@ function Header() {
   const dispatch = useDispatch()
   // redux state
   const userState = useSelector((state) => state.user)
+  const { menuId, id, value } = useParams()
   const userData = userState.data
   const userId = useSelector((state) => state.user.id)
   const activeModuleId = useSelector((state) => state.user.activeModule.id)
@@ -39,6 +40,11 @@ function Header() {
     if (res) setPhotoProfile(res)
   }, [])
 
+  const goBack = (e) => {
+    e.preventDefault()
+    navigate(`/${menuId}`)
+  }
+
   return (
     <>
       <nav className="main-header navbar navbar-expand navbar-white navbar-light text-sm">
@@ -54,9 +60,15 @@ function Header() {
               <i className="fas fa-bars"></i>
             </a>
           </li>
-          <li className="d-flex align-items-center">
-            <span className="text-bold">{menu.activeMenuDesc}</span>
+          <li className={`nav-item ${!id ? 'hidden' : ''}`}>
+            <Link className="nav-link" onClick={goBack}>
+              <i className="fa fa-arrow-left"></i>
+              <span>Back</span>
+            </Link>
           </li>
+          {/* <li className="d-flex align-items-center">
+            <span className="text-bold">{menu.activeMenuDesc}</span>
+          </li> */}
           {/* <li className="nav-item">
             <Link
               className="nav-link"

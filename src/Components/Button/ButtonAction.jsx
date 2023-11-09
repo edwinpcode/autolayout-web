@@ -175,8 +175,8 @@ function ButtonAction({
       if (actionItem.url.param) {
         const param = handleParamValues(actionItem.url.param, getValues, info)
         Object.assign(payload, { param })
-        // return navigate(actionItem?.url?.path, { state: payload })
         navigate(`/${menuId}/${param[0].id}/${param[0].value}`)
+        // return navigate(actionItem?.url?.path, { state: payload })
       }
     }
 

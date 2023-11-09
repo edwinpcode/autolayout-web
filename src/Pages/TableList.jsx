@@ -17,25 +17,16 @@ function TableList() {
   const [loader, showLoader, hideLoader] = FullLoad()
   const { menuId } = useParams()
   const dispatch = useDispatch()
-  const columnHelper = createColumnHelper()
+  const [structures, setStructures] = useState({})
+
   // state
   const [dataQuery, setDataQuery] = useState()
-  const [structures, setStructures] = useState({})
   const [{ pageIndex, pageSize }, setPagination] = useState({
     pageIndex: 0,
     pageSize: 10,
   })
-  const [count, setCount] = useState(0)
-  // redux state
-  // const menu = useSelector((state) => state.menu)
   const user = useSelector((state) => state.user)
   const filtering = useSelector((state) => state.list.filtering)
-
-  const columnVisibility = useMemo(
-    () => structures.headerVisibility,
-    [structures]
-  )
-  const [rowSelection, setRowSelection] = useState({})
 
   const fetchData = async (menuId, pageIndex, pageSize, filtering) => {
     try {
@@ -57,17 +48,6 @@ function TableList() {
     }
   }
 
-  const columns = useMemo(() => {
-    return handleStructureHeader({
-      structures,
-      columnHelper,
-      setDataQuery,
-      fetchData,
-      pageIndex,
-      pageSize,
-    })
-  }, [structures])
-
   const pagination = useMemo(
     () => ({ pageIndex, pageSize }),
     [pageIndex, pageSize]
@@ -84,13 +64,11 @@ function TableList() {
     if (menuId) {
       setPagination({ pageIndex: 0, pageSize: 10 })
       handleGetListStructure(user, menuId, setStructures)
-      console.log('structure')
     }
   }, [menuId])
 
   // get data
   useEffect(() => {
-    console.log('fetch')
     if (menuId) fetchData(menuId, pageIndex, pageSize, filtering)
   }, [menuId, pageIndex, pageSize, filtering])
 
@@ -98,30 +76,25 @@ function TableList() {
     <div>
       <div className="d-md-flex">
         <Inbox
+          className={'col-md-3'}
           pageIndex={pageIndex}
           pageSize={pageSize}
           fetchData={fetchData}
-          pagination={pagination}
           setPagination={setPagination}
-          columns={columns}
           dataQuery={dataQuery}
           setDataQuery={setDataQuery}
           structures={structures}
           setStructures={setStructures}
-          columnVisibility={columnVisibility}
-          rowSelection={rowSelection}
-          setRowSelection={setRowSelection}
         />
         {/* <TableComponent
           dataQuery={dataQuery}
-          structures={structures}
-          columnVisibility={columnVisibility}
           pageIndex={pageIndex}
           pageSize={pageSize}
           setDataQuery={setDataQuery}
-          setStructures={setStructures}
           setPagination={setPagination}
           fetchData={fetchData}
+          structures={structures}
+          setStructures={setStructures}
         /> */}
         <AutoLayout
           className="ml-md-3 mt-3 mt-md-0"

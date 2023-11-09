@@ -9,7 +9,6 @@ import TopAction from './TopAction'
 function TableComponent({
   dataQuery,
   structures,
-  columnVisibility,
   pageIndex,
   pageSize,
   gridItem,
@@ -22,6 +21,13 @@ function TableComponent({
   const columnHelper = createColumnHelper()
   // state
   const [rowSelection, setRowSelection] = useState({})
+  const [filterData, setFilterData] = useState([])
+  const [selected, setSelected] = useState([])
+
+  const columnVisibility = useMemo(
+    () => structures.headerVisibility,
+    [structures]
+  )
 
   // handle structure
   const columns = useMemo(() => {
@@ -33,8 +39,21 @@ function TableComponent({
       fetchData,
       pageIndex,
       pageSize,
+      setSelected,
     })
   }, [structures])
+
+  const filterDataLabel = useMemo(() => {
+    const searchCriteria = []
+    if (filterData) {
+      filterData.forEach(({ label, value }) => {
+        if (value !== '') searchCriteria.push(`${label} = ${value}`)
+      })
+      const res = searchCriteria.join(', ')
+      return res
+    }
+    return filterData
+  }, [filterData])
 
   // handle pagination
   const pagination = useMemo(
@@ -76,6 +95,9 @@ function TableComponent({
               pageIndex={pageIndex}
               pageSize={pageSize}
               fetchData={fetchData}
+              setFilterData={setFilterData}
+              filterData={filterData}
+              filterDataLabel={filterDataLabel}
             />
           )}
           <div className="table-responsive">
