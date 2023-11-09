@@ -59,7 +59,7 @@ export function getInbox(userid, tc) {
 
   return APIClient.post('/getInbox', JSON.stringify(param))
 }
-export function getDashboard(userId, moduleId, groupId) {
+export function getDashboard({ userId, moduleId, groupId }) {
   const param = {
     userId: userId,
     moduleId: moduleId,

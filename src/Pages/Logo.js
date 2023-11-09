@@ -4,7 +4,7 @@ function Logo() {
   return (
     <div>
       <img
-        src={process.env.PUBLIC_URL + '/images/logo_login.png'}
+        src={process.env.PUBLIC_URL + '/images/cloufina.svg'}
         alt="logo-login"
         className="mw-100"
       ></img>

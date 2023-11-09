@@ -106,7 +106,7 @@ function SideBar() {
     >
       <a href="/" className="brand-link">
         <img
-          src="/images/logo_sidebar.png"
+          src="/images/logo_favicon.svg"
           alt="App Logo"
           className="brand-image"
         />

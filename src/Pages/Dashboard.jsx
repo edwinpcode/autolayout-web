@@ -10,7 +10,7 @@ import FullLoad from './FullLoad'
 function Dashboard() {
   const dispatch = useDispatch()
   // state
-  const [dashboardBox, setDashboardBox] = useState()
+  const [dashboardBox, setDashboardBox] = useState([])
   const [loader, showLoader, hideLoader] = FullLoad()
 
   // redux
@@ -20,13 +20,24 @@ function Dashboard() {
   const moduleId = useSelector((state) => state.user.activeModule.id)
   const roleId = useSelector((state) => state.user.activeRole.id)
 
+  const fetch = async ({ activeModuleId, activeRoleId }) => {
+    try {
+      showLoader()
+      const res = await getDashboard({ userId, activeModuleId, activeRoleId })
+      if (res.data.status == '1') {
+        setDashboardBox(res.data.content)
+      } else {
+        throw new Error(res.data.message)
+      }
+    } catch (error) {
+      console.log(error.message)
+    } finally {
+      hideLoader()
+    }
+  }
+
   useEffect(() => {
-    if (activeModuleId && activeRoleId)
-      getDashboard(userId, activeModuleId, activeRoleId).then((response) => {
-        if (response.data.status === '1') {
-          setDashboardBox(response.data.content)
-        }
-      })
+    if (activeModuleId && activeRoleId) fetch({ activeModuleId, activeRoleId })
     hideLoader()
   }, [activeModuleId, activeRoleId])
 
@@ -53,7 +64,7 @@ function Dashboard() {
   return (
     <div>
       <h3>Dashboard</h3>
-      {!dashboardBox ? (
+      {/* {!dashboardBox ? (
         <SkeletonDashboard />
       ) : (
         <div className="row">
@@ -82,7 +93,33 @@ function Dashboard() {
             )
           })}
         </div>
-      )}
+      )} */}
+      <div className="row">
+        {dashboardBox.map((dashboardItem, index) => {
+          return (
+            <div className="col-lg-3 col-md-6 col-12" key={index}>
+              <div className={'small-box ' + dashboardItem.class}>
+                <div className="inner">
+                  <h3>{dashboardItem.total}</h3>
+                  <p>{dashboardItem.description}</p>
+                </div>
+                <div className="icon">
+                  <i className={dashboardItem.icon}></i>
+                </div>
+                <Link
+                  to={'/'}
+                  onClick={() => handleMenuClick(dashboardItem)}
+                  className="small-box-footer"
+                >
+                  {' '}
+                  Click here to see the list{' '}
+                  <i className="fas fa-arrow-circle-right"></i>
+                </Link>
+              </div>
+            </div>
+          )
+        })}
+      </div>
     </div>
   )
 }

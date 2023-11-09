@@ -78,15 +78,20 @@ function AutoLayout({ className, fetchData, pageIndex, pageSize }) {
       moduleId: user.activeModule.id,
       param: param,
     }
-    getTab(payload).then((res) => {
-      if (res.data.status != '1') {
-        return window.Swal.fire('Kesalahan', res.data.response, 'error')
-      }
-      setTab(res.data.data)
-      // by default, set active tab = first tab index
-      dispatch(setTabId(res.data.data[0].id))
-      setActiveTabId(res.data.data[0].id)
-    })
+    getTab(payload)
+      .then((res) => {
+        if (res.data.status != '1') {
+          return window.Swal.fire('Kesalahan', res.data.response, 'error')
+        }
+        setTab(res.data.data)
+        // by default, set active tab = first tab index
+        dispatch(setTabId(res.data.data[0].id))
+        setActiveTabId(res.data.data[0].id)
+      })
+      .catch((error) => {
+        // console.log(error)
+        window.Swal.fire('Error', error.message, 'error')
+      })
   }, [menu.activeMenuId, value])
 
   const reset = () => {
@@ -104,15 +109,20 @@ function AutoLayout({ className, fetchData, pageIndex, pageSize }) {
       moduleId: user.activeModule.id,
       param: param,
     }
-    getTab(payload).then((res) => {
-      if (res.data.status != '1') {
-        return window.Swal.fire('Kesalahan', res.data.response, 'error')
-      }
-      setTab(res.data.data)
-      // by default, set active tab = first tab index
-      // dispatch(setTabId(res.data.data[0].id))
-      // setActiveTabId(res.data.data[0].id)
-    })
+    getTab(payload)
+      .then((res) => {
+        if (res.data.status != '1') {
+          return window.Swal.fire('Kesalahan', res.data.response, 'error')
+        }
+        setTab(res.data.data)
+        // by default, set active tab = first tab index
+        // dispatch(setTabId(res.data.data[0].id))
+        // setActiveTabId(res.data.data[0].id)
+      })
+      .catch((error) => {
+        // console.log(error)
+        window.Swal.fire('Error', error.message, 'error')
+      })
   }
 
   // handle get field
