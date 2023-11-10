@@ -34,7 +34,7 @@ function SideBar() {
   const [menu, setMenu] = useState()
   const [searchSidebarValue, setSearchSidebarValue] = useState('')
   const navigate = useNavigate()
-  // const [searchParams, setSearchParams] = useSearchParams()
+  const [searchParams, setSearchParams] = useSearchParams()
 
   useEffect(() => {
     if (activeModuleId && activeRoleId) {
@@ -84,10 +84,10 @@ function SideBar() {
     if (!hasChild) {
       const { menuDesc, menuId, trackId } = data
       // set active menu
-      // setSearchParams({
-      //   menuId,
-      //   trackId,
-      // })
+      setSearchParams({
+        menuId,
+        trackId,
+      })
       dispatch(setFilteringList([]))
       dispatch(setMenuSlice({ menuId, trackId, menuDesc }))
       dispatch(reset())
@@ -136,14 +136,14 @@ function SideBar() {
                     // to={`${data.path}/${data.menuId}`}
                     to={`${
                       data.path == '/form'
-                        ? '/form'
+                        ? data.path
                         : data.path == '/report'
                         ? `${data.path}/${data.menuId}`
                         : data.child
                         ? '#'
                         : data.menuId
                     }`}
-                    // state={data.path !== '/' ? { param: [] } : state}
+                    state={data.path !== '/' ? { param: [] } : state}
                     onClick={() => handleMenuClick(data, `treeview${index}`)}
                     className={() => {
                       if (data.menuId === activeMenuId) {
@@ -177,7 +177,7 @@ function SideBar() {
                           <NavLink
                             to={`${
                               child.path == '/form'
-                                ? '/form'
+                                ? child.path
                                 : child.path == '/report'
                                 ? `${child.path}/${child.menuId}`
                                 : child.menuId

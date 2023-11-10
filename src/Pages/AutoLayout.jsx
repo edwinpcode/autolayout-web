@@ -65,14 +65,14 @@ function AutoLayout({ className, fetchData, pageIndex, pageSize }) {
     if (menu.activeMenuId === '') return navigate('/dashboard')
     // handle tab
     let param = ''
-    // if (state && state.param && state.param.length) {
-    //   param = state.param[0].value
-    // }
-    if (value) {
+    if (state && state.param && state.param.length) {
+      param = state.param[0].value
+    } else if (value) {
       param = value
-    } else {
-      return
     }
+    //  else {
+    //   return
+    // }
     const payload = {
       menuId: menu.activeMenuId,
       moduleId: user.activeModule.id,
@@ -127,18 +127,27 @@ function AutoLayout({ className, fetchData, pageIndex, pageSize }) {
 
   // handle get field
   useEffect(() => {
-    if (activeTabId !== '' && menu.activeMenuId !== '' && id && value) {
+    if (activeTabId !== '' && menu.activeMenuId !== '') {
       dispatch(setLoadingField(true))
-      const payload = {
+      let payload = {
         tabId: activeTabId,
         tc: menu.activeTrackId,
         userId: user.id,
-        param: [
-          {
-            id,
-            value,
-          },
-        ],
+        param: state?.param || [],
+      }
+      if (id && value) {
+        payload = {
+          ...payload,
+          param: [
+            {
+              id,
+              value,
+            },
+          ],
+        }
+      }
+      if (pathname != '/form' && !id && !value) {
+        return
       }
       // get field by payload
       getFieldByForm(payload)
@@ -147,14 +156,16 @@ function AutoLayout({ className, fetchData, pageIndex, pageSize }) {
 
   return (
     <div
-      className={`overflow-y-auto bg-white col-md-9`}
+      className={`overflow-y-auto bg-white ${
+        pathname == '/form' ? 'col-md-12' : 'col-md-9'
+      }`}
       style={{
         height: '85vh',
         // width: '100%',
       }}
     >
       {loadingSpin && <Loading />}
-      {!id && !value ? (
+      {!id && !value && pathname != '/form' ? (
         <div></div>
       ) : !panelData || !tab ? (
         <Skeleton />
