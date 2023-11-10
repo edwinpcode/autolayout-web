@@ -135,7 +135,9 @@ function SideBar() {
                   <NavLink
                     // to={`${data.path}/${data.menuId}`}
                     to={`${
-                      data.path == '/report'
+                      data.path == '/form'
+                        ? '/form'
+                        : data.path == '/report'
                         ? `${data.path}/${data.menuId}`
                         : data.child
                         ? '#'
@@ -174,7 +176,9 @@ function SideBar() {
                         <li className="nav-item" key={index}>
                           <NavLink
                             to={`${
-                              child.path == '/report'
+                              child.path == '/form'
+                                ? '/form'
+                                : child.path == '/report'
                                 ? `${child.path}/${child.menuId}`
                                 : child.menuId
                             }`}
