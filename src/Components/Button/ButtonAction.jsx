@@ -20,6 +20,7 @@ import { confirmSwal } from '../../Utils/SwalUtils'
 import CryptoJS from 'crypto-js'
 import {
   setFilteringList,
+  setGridFilter,
   triggerRefreshGrid,
 } from '../../Store/List/listSlice'
 import { handleParamValues } from '../../Utils/ParamUtils'
@@ -118,7 +119,7 @@ function ButtonAction({
           filtering.push({ label, value: value || '' })
         }
         // dispatch dipake nanti ketika filter pagination sudah fix
-        dispatch(setFilteringList(payload.filtering))
+        dispatch(setGridFilter(payload.filtering))
         setFilterData(filtering)
       }
       gridItem.reference.parent.forEach((parentId) => {
@@ -465,6 +466,7 @@ function ButtonAction({
     // home
     if (actionItem.flagType === 'home') {
       dispatch(setLoadingField(true))
+      dispatch(setGridFilter([]))
       dispatch(setFilteringList([]))
       dispatch(setFormPanel([]))
       dispatch(setFormAction([]))

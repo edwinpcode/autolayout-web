@@ -16,7 +16,8 @@ function TableGrid({ gridItem, activeTabId, watch, getValues }) {
   })
   // redux
   const activeTrackId = useSelector((state) => state.menu.activeTrackId)
-  const filtering = useSelector((state) => state.list.filtering)
+  // const filtering = useSelector((state) => state.list.filtering)
+  const gridFilter = useSelector((state) => state.list.gridFilter)
   const refreshDataGrid = useSelector((state) => state.list.refreshGrid)
   // watch
   const watchInputParam = watch(gridItem.reference.parent[0])
@@ -43,7 +44,7 @@ function TableGrid({ gridItem, activeTabId, watch, getValues }) {
     // console.log(1)
     const payload = {
       grid: gridItem.id,
-      // filtering: filtering,
+      filtering: gridFilter,
       tc: activeTrackId,
       param: handleParamValues(gridItem.reference.parent, getValues),
       pagination: {
@@ -57,7 +58,7 @@ function TableGrid({ gridItem, activeTabId, watch, getValues }) {
     pageSize,
     activeTabId,
     watchInputParam,
-    filtering,
+    gridFilter,
     refreshDataGrid,
   ])
 

@@ -2,6 +2,7 @@ import { createSlice } from '@reduxjs/toolkit'
 
 const initialState = {
   filtering: [],
+  gridFilter: [],
   currentPayload: {},
   refreshGrid: false,
 }
@@ -12,6 +13,9 @@ export const listSlice = createSlice({
   reducers: {
     setFilteringList: (state, action) => {
       state.filtering = action.payload
+    },
+    setGridFilter: (state, action) => {
+      state.gridFilter = action.payload
     },
     setCurrentPayload: (state, action) => {
       state.currentPayload = action.payload
@@ -27,6 +31,7 @@ export const listSlice = createSlice({
 
 export const {
   setFilteringList,
+  setGridFilter,
   setCurrentPayload,
   triggerRefreshGrid,
   reset,
