@@ -44,10 +44,6 @@ const Inbox = ({
     [structures]
   )
 
-  useEffect(() => {
-    if (selected.length) console.log(selected)
-  }, [selected])
-
   const columns = useMemo(() => {
     return handleStructureHeader({
       structures,
@@ -76,6 +72,10 @@ const Inbox = ({
     () => ({ pageIndex, pageSize }),
     [pageIndex, pageSize]
   )
+
+  useEffect(() => {
+    setSelected([])
+  }, [dataQuery])
 
   const table = useReactTable({
     data: dataQuery?.rows ?? [],
@@ -148,6 +148,7 @@ const Inbox = ({
               setFilterData={setFilterData}
               filterData={filterData}
               filterDataLabel={filterDataLabel}
+              selected={selected}
             />
           )}
           {dataQuery?.total > 10 && (
@@ -227,10 +228,18 @@ const Inbox = ({
                     }`}
                   >
                     {row.getVisibleCells().map((cell, index) => {
+                      let right = false
+                      if (cell.getContext().cell.id.includes('action')) {
+                        right = true
+                      }
                       return (
                         <div
                           key={index}
-                          className={`flex-fill d-flex justify-content-evenly p-1`}
+                          className={`flex-fill d-flex ${
+                            right
+                              ? 'justify-content-end'
+                              : 'justify-content-evenly'
+                          } p-1`}
                         >
                           {flexRender(
                             cell.column.columnDef.cell,

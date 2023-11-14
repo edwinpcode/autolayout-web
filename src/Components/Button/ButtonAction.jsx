@@ -78,6 +78,7 @@ function ButtonAction({
   pageIndex,
   pageSize,
   fetchData,
+  selected = [],
   ...props
 }) {
   const navigate = useNavigate()
@@ -124,6 +125,7 @@ function ButtonAction({
         const parentValue = document.getElementById(parentId).value
         payload.param.push({ id: parentId, value: parentValue })
       })
+      // console.log(3)
       await handleGetGridData(payload, setDataQuery)
     }
   }
@@ -166,7 +168,7 @@ function ButtonAction({
     return panelId
   }
 
-  const handleButtonClick = async (data) => {
+  const handleButtonClick = async ({ data, selected }) => {
     // showLoader()
     // available action:
     // redirect, save, submit, cancel
@@ -178,6 +180,14 @@ function ButtonAction({
         navigate(`/${menuId}/${param[0].id}/${param[0].value}`)
         // return navigate(actionItem?.url?.path, { state: payload })
       }
+    }
+    if (actionItem.flagType == 'multiSubmit') {
+      const payload = {
+        id: actionItem.param,
+        param: selected,
+        flagAction: actionItem.flagAction,
+      }
+      console.log(payload)
     }
 
     // save
@@ -509,10 +519,17 @@ function ButtonAction({
 
   const confirmButtonClick = (data, alert) => {
     // handle need confirm
+    // console.log(data, actionItem)
     if (actionItem?.needConfirm === '1') {
-      confirmSwal(handleButtonClick, data, actionItem?.label, alert)
+      confirmSwal({
+        action: handleButtonClick,
+        data: data,
+        label: actionItem?.label,
+        alert: alert,
+        selected: selected,
+      })
     } else {
-      handleButtonClick(data)
+      handleButtonClick({ data, selected })
     }
   }
 

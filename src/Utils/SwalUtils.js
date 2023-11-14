@@ -10,7 +10,7 @@ const handleTitleAlert = (label, alert) => {
   }
 }
 
-export const confirmSwal = (action, data, label, alert) => {
+export const confirmSwal = ({ action, data, label, alert, selected }) => {
   window.Swal.fire({
     title: 'Informasi',
     text: handleTitleAlert(label, alert),
@@ -21,7 +21,7 @@ export const confirmSwal = (action, data, label, alert) => {
     cancelButtonText: 'Batal',
   }).then((result) => {
     if (result.isConfirmed) {
-      action(data)
+      action({ data, selected })
     }
   })
 }

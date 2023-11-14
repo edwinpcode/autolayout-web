@@ -225,10 +225,10 @@ export const handleStructureHeader = ({
   return defaultColumn
 }
 
-export const handleGetListData = (payload, setDataQuery) => {
-  getListData(payload).then((res) => {
+export const handleGetListData = async (payload, setDataQuery) => {
+  try {
+    const res = await getListData(payload)
     if (res.data.status != '1') {
-      // return window.Swal.fire('Kesalahan', res.data.message, 'error')
       setDataQuery({
         rows: [],
         pageCount: 1,
@@ -242,7 +242,9 @@ export const handleGetListData = (payload, setDataQuery) => {
       ),
       total: parseInt(res.data.data.total),
     })
-  })
+  } catch (error) {
+    return window.Swal.fire('Error', error.message, 'error')
+  }
 }
 
 export const handleGetListStructure = (user, menuId, setStructures) => {

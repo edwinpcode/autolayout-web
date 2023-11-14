@@ -42,7 +42,7 @@ function TableList() {
         },
       }
       dispatch(setCurrentPayload(payload))
-      const res = handleGetListData(payload, setDataQuery)
+      await handleGetListData(payload, setDataQuery)
     } catch (error) {
       hideLoader()
     }

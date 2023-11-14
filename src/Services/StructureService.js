@@ -2,7 +2,7 @@ import axios from 'axios'
 import APIClient from './APIClient'
 
 export const getAllStructure = async (payload) => {
-  // return await APIClient.post('/liststructure', payload)
+  // return await axios.get('http://localhost:3002/structure')
   return process.env.REACT_APP_ENV === 'LOCAL'
     ? await axios.get('http://localhost:3002/structure')
     : await APIClient.post('/liststructure', payload)

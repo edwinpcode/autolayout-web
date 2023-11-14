@@ -14,6 +14,7 @@ function TopAction({
   filterData,
   setFilterData,
   filterDataLabel,
+  selected = [],
 }) {
   // state
   // const [filterData, setFilterData] = useState([])
@@ -60,6 +61,7 @@ function TopAction({
             pageIndex={pageIndex}
             pageSize={pageSize}
             fetchData={fetchData}
+            selected={selected}
           />
         ))}
       </div>

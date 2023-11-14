@@ -4,10 +4,17 @@ const InputSelectItem = ({ setSelected, param, item, info }) => {
   const [checked, setChecked] = useState(false)
 
   const handleClick = async () => {
+    // console.log(param)
     if (checked) {
+      setSelected((data) =>
+        data.filter((item) => item != info.row.original[param])
+      )
       setChecked(false)
     } else {
-      console.log(info.row.original)
+      setSelected((data) => {
+        data = [...data, info.row.original[param]]
+        return data
+      })
       setChecked(true)
     }
   }

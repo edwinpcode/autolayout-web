@@ -58,6 +58,7 @@ function ActionItemButton({
         const parentValue = window.$('#' + parentId).val()
         gridPayload.param.push({ id: parentId, value: parentValue })
       })
+      // console.log(2)
       await handleGetGridData(gridPayload, setDataQuery)
     }
 
@@ -122,7 +123,8 @@ function ActionItemButton({
   const confirmButtonClick = () => {
     // console.log(headerItem)
     // handle need confirm
-    if (headerItem?.needConfirm == '1') confirmSwal(handleButtonClick)
+    if (headerItem?.needConfirm == '1')
+      confirmSwal({ action: handleButtonClick })
     else handleButtonClick()
   }
 

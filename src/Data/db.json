@@ -147,7 +147,8 @@
         {
           "label": "Selected",
           "accessor": "004001_000",
-          "type": "selectItem"
+          "type": "selectItem",
+          "param": ["004001_002"]
         },
         {
           "label": "No",
@@ -202,65 +203,24 @@
           "id": "00002_01",
           "label": "Reject",
           "type": "button",
-          "flagType": "",
-          "flagAction": "",
+          "flagType": "multiSubmit",
+          "flagAction": "reject",
           "icon": "fal fa-warning",
           "className": "btn btn-sm btn-warning",
           "dataTarget": "filterModal",
           "active": "1",
           "order": "",
           "isRedirect": "0",
-          "needConfirm": "0",
+          "needConfirm": "1",
           "dataBackdrop": null,
-          "contents": {
-            "data": [
-              {
-                "id": "00002_01_01",
-                "label": "Nomor Identitas",
-                "type": "textbox",
-                "isLocation": "",
-                "data": []
-              },
-              {
-                "id": "00002_01_02",
-                "label": "Jenis Debitur",
-                "type": "dropdown",
-                "isLocation": "topAction",
-                "data": []
-              },
-              {
-                "id": "00002_01_03",
-                "label": "Nama Debitur",
-                "type": "textbox",
-                "isLocation": "",
-                "data": []
-              }
-            ],
-            "action": [
-              {
-                "actionId": "00002_Search",
-                "label": "Cari",
-                "icon": "fa fa-search",
-                "flagType": "search",
-                "flagAction": "searchVerivikasi",
-                "type": "button",
-                "className": "btn btn-sm btn-info",
-                "isRedirect": "0",
-                "needConfirm": "0",
-                "dataBackdrop": null,
-                "url": {
-                  "path": ""
-                }
-              }
-            ]
-          }
+          "param": ["004001_002"]
         },
         {
           "id": "00002_01",
           "label": "Cancel",
           "type": "button",
-          "flagType": "",
-          "flagAction": "",
+          "flagType": "multiSubmit",
+          "flagAction": "cancel",
           "icon": "fal fa-trash",
           "className": "btn btn-sm btn-danger",
           "dataTarget": "filterModal",
@@ -269,48 +229,7 @@
           "isRedirect": "0",
           "needConfirm": "0",
           "dataBackdrop": null,
-          "contents": {
-            "data": [
-              {
-                "id": "00002_01_01",
-                "label": "Nomor Identitas",
-                "type": "textbox",
-                "isLocation": "",
-                "data": []
-              },
-              {
-                "id": "00002_01_02",
-                "label": "Jenis Debitur",
-                "type": "dropdown",
-                "isLocation": "topAction",
-                "data": []
-              },
-              {
-                "id": "00002_01_03",
-                "label": "Nama Debitur",
-                "type": "textbox",
-                "isLocation": "",
-                "data": []
-              }
-            ],
-            "action": [
-              {
-                "actionId": "00002_Search",
-                "label": "Cari",
-                "icon": "fa fa-search",
-                "flagType": "search",
-                "flagAction": "searchVerivikasi",
-                "type": "button",
-                "className": "btn btn-sm btn-info",
-                "isRedirect": "0",
-                "needConfirm": "0",
-                "dataBackdrop": null,
-                "url": {
-                  "path": ""
-                }
-              }
-            ]
-          }
+          "param": ["004001_002"]
         },
         {
           "id": "00002_01",

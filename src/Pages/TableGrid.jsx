@@ -40,9 +40,10 @@ function TableGrid({ gridItem, activeTabId, watch, getValues }) {
 
   // get data
   useEffect(() => {
+    // console.log(1)
     const payload = {
       grid: gridItem.id,
-      filtering: filtering,
+      // filtering: filtering,
       tc: activeTrackId,
       param: handleParamValues(gridItem.reference.parent, getValues),
       pagination: {
