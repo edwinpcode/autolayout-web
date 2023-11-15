@@ -21,6 +21,7 @@ function FieldWithPanel({
   pageSize = 10,
   pageIndex = 10,
   fetchData = () => {},
+  gridItem,
 }) {
   const {
     register: registerPanel,
@@ -59,6 +60,7 @@ function FieldWithPanel({
           pageIndex={pageIndex}
           pageSize={pageSize}
           fetchData={fetchData}
+          gridItem={gridItem}
         >
           {panelItem.listField.map((fieldItem) => (
             <React.Fragment key={fieldItem.id}>
@@ -79,6 +81,7 @@ function FieldWithPanel({
                   watch={panelItem.action ? watchPanel : watch}
                   control={panelItem.action ? controlPanel : control}
                   unregister={panelItem.action ? unregisterPanel : unregister}
+                  gridItem={gridItem}
                 />
               )}
             </React.Fragment>

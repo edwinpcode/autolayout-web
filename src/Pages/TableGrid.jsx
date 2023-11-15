@@ -52,6 +52,7 @@ function TableGrid({ gridItem, activeTabId, watch, getValues }) {
         perPage: pageSize,
       },
     }
+    // console.log(1)
     handleGetGridData(payload, setDataQuery)
   }, [
     pageIndex,

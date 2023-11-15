@@ -1,11 +1,8 @@
 import React from 'react'
-import ActionItemButton from '../Components/Table/ActionItem/ActionItemButton'
 import IndeterminateCheckbox from '../Components/Table/IndeterminateCheckbox'
-import ButtonModal from '../Components/Button/ButtonModal'
 import { getGridData, getListData } from '../Services/ListService'
 import { getAllStructure, getGridStructure } from '../Services/StructureService'
 import { dateDisplay, datetimeDisplay, timeDisplay } from './DatetimeUtils'
-import ButtonOpenPanel from '../Components/Button/ButtonOpenPanel'
 import ButtonType from '../Components/AutoLayout/ButtonType'
 import InputCheckbox from '../Components/AutoLayout/Input/InputCheckbox'
 import { handleParamValues } from './ParamUtils'
@@ -46,6 +43,7 @@ export const handleColumnType = ({
   pageIndex,
   pageSize,
   setSelected,
+  gridItem,
 }) => {
   // hardcode
   const setActionSelectValue = (selectValue) => {
@@ -111,7 +109,7 @@ export const handleColumnType = ({
   }
   // BUTTON
   if (header.type === 'button') {
-    const gridItem = item
+    // const gridItem = item
     const buttonList = info.getValue()
     if (buttonList === undefined) {
       return (
@@ -195,6 +193,7 @@ export const handleStructureHeader = ({
   pageIndex,
   pageSize,
   setSelected,
+  gridItem,
 }) => {
   if (!structures.header) return []
   // for (let i = 0; i < structures.header.length; i++) {
@@ -213,6 +212,7 @@ export const handleStructureHeader = ({
           pageSize,
           pageIndex,
           setSelected,
+          gridItem,
         }),
       type: header.type,
     })

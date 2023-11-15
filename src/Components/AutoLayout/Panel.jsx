@@ -19,6 +19,7 @@ function Panel({
   pageSize,
   pageIndex,
   fetchData,
+  gridItem,
 }) {
   return (
     <div className={`col-md-${panelItem.width || '12'}`}>
@@ -29,6 +30,13 @@ function Panel({
         <div className="card-header">
           <h3 className="card-title">{name}</h3>
           <div className="card-tools m-0">
+            {/* <button
+              type="button"
+              className="btn btn-tool"
+              data-card-widget="maximize"
+            >
+              <i className="fas fa-expand"></i>
+            </button> */}
             <button
               type="button"
               className="btn btn-tool"
@@ -54,6 +62,7 @@ function Panel({
                 pageIndex={pageIndex}
                 pageSize={pageSize}
                 fetchData={fetchData}
+                gridItem={gridItem}
               />
             ))}
           </div>

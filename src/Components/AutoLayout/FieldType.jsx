@@ -46,6 +46,7 @@ function FieldType({
   pageSize = 10,
   pageIndex = 0,
   fetchData = () => {},
+  gridItem,
 }) {
   return (
     <>
@@ -368,6 +369,7 @@ function FieldType({
           fetchData={fetchData}
           pageIndex={pageIndex}
           pageSize={pageSize}
+          gridItem={gridItem}
         />
       )}
       {fieldItem.type === 'password' && (
@@ -391,6 +393,7 @@ function FieldType({
               fetchData={fetchData}
               pageIndex={pageIndex}
               pageSize={pageSize}
+              gridItem={gridItem}
             />
           </div>
         </div>

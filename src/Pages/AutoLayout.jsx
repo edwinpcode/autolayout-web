@@ -170,18 +170,34 @@ function AutoLayout({ className, fetchData, pageIndex, pageSize }) {
       ) : !panelData || !tab ? (
         <Skeleton />
       ) : (
-        <div className="overflow-auto h-100">
-          {/* {state?.param?.length > 0 && ( */}
-          <div className="info-box bg-danger">
-            <span className="info-box-icon">
-              <i className="far fa-bookmark"></i>
-            </span>
-            <div className="info-box-content">
-              <span className="info-box-number text-md">
-                {/* first list field value */}
-                {/* {state.param[0].value} */}
-                {value}
-              </span>
+        <div className="overflow-auto h-100 card card-danger">
+          <div className="card-header">
+            <div className="">
+              <h3 className="card-title">{value}</h3>
+              {/* <span className="info-box-icon">
+                <i className="far fa-bookmark"></i>
+              </span> */}
+              {/* <div className="info-box-content">
+                <span className="info-box-number text-md">
+                  {value}
+                </span>
+              </div> */}
+            </div>
+            <div className="card-tools">
+              <button
+                type="button"
+                className="btn btn-tool"
+                data-card-widget="maximize"
+              >
+                <i className="fas fa-expand"></i>
+              </button>
+              {/* <button
+                type="button"
+                className="btn btn-tool"
+                data-card-widget="collapse"
+              >
+                <i className="fas fa-minus"></i>
+              </button> */}
             </div>
           </div>
           {/* )} */}

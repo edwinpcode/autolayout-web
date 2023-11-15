@@ -33,6 +33,8 @@ function ButtonModal({
   const userId = useSelector((state) => state.user.id)
 
   const handleButtonClick = async (item) => {
+    // console.log('button: ', buttonItem)
+    console.log('grid : ', gridItem)
     // if has content (filter modal)
     if (item.contents?.data?.length >= 1) {
       setLoading(false)
@@ -63,7 +65,7 @@ function ButtonModal({
     // button proses modal
     if (item.flagAction === 'detailMenuFasilitas') {
       const payload = {
-        gridID: gridItem.id,
+        gridID: gridItem?.id || buttonItem?.id,
         flag: item.flagAction,
         param: [],
       }
@@ -128,7 +130,7 @@ function ButtonModal({
 
     if (item.flagType === 'detail') {
       const payload = {
-        gridId: gridItem.id,
+        gridId: gridItem?.id || buttonItem?.id,
         isNew: item.isNew == '1' ? '1' : '0',
         tc: menu.activeTrackId,
         userId: userId,
