@@ -1,79 +1,79 @@
-import { ErrorMessage } from '@hookform/error-message'
-import moment from 'moment'
-import React, { useEffect, useState } from 'react'
-import { useForm } from 'react-hook-form'
-import { useNavigate } from 'react-router-dom'
-import { AuthLogin } from '../Services/AuthService'
-import { encryptAES } from '../Utils/EncryptUtils'
-import Logo from './Logo'
-import { useDispatch } from 'react-redux'
-import { setUser, setUserId } from '../Store/User/userSlice'
+import { ErrorMessage } from "@hookform/error-message";
+import moment from "moment";
+import React, { useEffect, useState } from "react";
+import { useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
+import { AuthLogin } from "../Services/AuthService";
+import { encryptAES } from "../Utils/EncryptUtils";
+import Logo from "./Logo";
+import { useDispatch } from "react-redux";
+import { setUser, setUserId } from "../Store/User/userSlice";
 
-const metaTags = document.getElementsByTagName('meta')
-const metaTagsArray = Array.from(metaTags)
+const metaTags = document.getElementsByTagName("meta");
+const metaTagsArray = Array.from(metaTags);
 
 const applicationNameTag = metaTagsArray.find((tag) => {
-  return tag.getAttribute('name') === 'login-application-name'
-})
+  return tag.getAttribute("name") === "login-application-name";
+});
 
-const loginApplicationName = applicationNameTag.getAttribute('content')
+const loginApplicationName = applicationNameTag.getAttribute("content");
 
 function Login() {
   // load login
-  const [isLoading, setLoading] = useState(false)
+  const [isLoading, setLoading] = useState(false);
   // show hide password
-  const [passwordShown, setPasswordShown] = useState(false)
+  const [passwordShown, setPasswordShown] = useState(false);
   const togglePasswordVisiblity = () => {
-    setPasswordShown(passwordShown ? false : true)
-  }
+    setPasswordShown(passwordShown ? false : true);
+  };
 
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm({ mode: 'onChange' })
+  } = useForm({ mode: "onChange" });
 
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
   const getSecretKeyByDate = () => {
-    const currentDate = moment().locale('en')
-    const formattedDate = currentDate.format('dddYYYYMMDD')
-    return formattedDate + '00000'
-  }
+    const currentDate = moment().locale("en");
+    const formattedDate = currentDate.format("dddYYYYMMDD");
+    return formattedDate + "00000";
+  };
 
   const handleLogin = ({ userId, password }) => {
-    setLoading(true)
-    const secret = getSecretKeyByDate()
-    const encrypted = encryptAES(password, secret)
+    setLoading(true);
+    const secret = getSecretKeyByDate();
+    const encrypted = encryptAES(password, secret);
     AuthLogin(userId, encrypted)
       .then((res) => {
         if (res.response.status == 1) {
-          localStorage.setItem('token', res.response.accessToken)
-          localStorage.setItem('branchId', res.response.branchId)
-          localStorage.setItem('branchName', res.response.branchName)
-          localStorage.setItem('expiredIn', res.response.expiredIn)
-          localStorage.setItem('fullname', res.response.fullname)
-          localStorage.setItem('photoProfile', res.response.photoProfile)
-          localStorage.setItem('userId', res.response.userId)
-          localStorage.setItem('tokenType', res.response.tokenType)
-          window.location = '/auth'
-          dispatch(setUserId(res.response.userId))
+          localStorage.setItem("token", res.response.accessToken);
+          localStorage.setItem("branchId", res.response.branchId);
+          localStorage.setItem("branchName", res.response.branchName);
+          localStorage.setItem("expiredIn", res.response.expiredIn);
+          localStorage.setItem("fullname", res.response.fullname);
+          localStorage.setItem("photoProfile", res.response.photoProfile);
+          localStorage.setItem("userId", res.response.userId);
+          localStorage.setItem("tokenType", res.response.tokenType);
+          window.location = "/auth";
+          dispatch(setUserId(res.response.userId));
           // navigate('/auth')
         } else {
-          setLoading(false)
-          window.Swal.fire('Kesalahan', res.response.message, 'error')
+          setLoading(false);
+          window.Swal.fire("Kesalahan", res.response.message, "error");
         }
       })
       .catch((err) => {
-        setLoading(false)
+        setLoading(false);
         window.Swal.fire(
-          'Peringatan',
-          'Mohon maaf, sedang terjadi kendala koneksi pada sistem, silahkan coba kembali secara berkala',
-          'error'
-        )
-      })
-  }
+          "Peringatan",
+          "Mohon maaf, sedang terjadi kendala koneksi pada sistem, silahkan coba kembali secara berkala",
+          "error"
+        );
+      });
+  };
 
   return (
     <div className="login-page">
@@ -87,9 +87,7 @@ function Login() {
                 <b>{loginApplicationName}</b>
               </a>
             </div>
-            <p className="login-box-msg">
-              Silakan masuk untuk memulai aplikasi.
-            </p>
+            <p className="login-box-msg">Integrated Financing Force</p>
             <form onSubmit={handleSubmit(handleLogin)}>
               <div className="mb-3">
                 <div className="input-group">
@@ -97,8 +95,8 @@ function Login() {
                     type="text"
                     className="form-control"
                     placeholder="Nama Pengguna"
-                    {...register('userId', {
-                      required: 'User ID required',
+                    {...register("userId", {
+                      required: "User ID required",
                     })}
                     autoComplete="off"
                   />
@@ -117,11 +115,11 @@ function Login() {
               <div className="mb-3">
                 <div className="input-group">
                   <input
-                    type={passwordShown ? 'text' : 'password'}
+                    type={passwordShown ? "text" : "password"}
                     className="form-control"
                     placeholder="Kata Sandi"
-                    {...register('password', {
-                      required: 'Password required',
+                    {...register("password", {
+                      required: "Password required",
                     })}
                   />
                   <div className="input-group-append">
@@ -131,13 +129,13 @@ function Login() {
                           className="fas fa-lock"
                           onClick={togglePasswordVisiblity}
                         />
-                      )}{' '}
+                      )}{" "}
                       {passwordShown && (
                         <span
                           className="fas fa-unlock"
                           onClick={togglePasswordVisiblity}
                         />
-                      )}{' '}
+                      )}{" "}
                     </div>
                   </div>
                 </div>
@@ -171,7 +169,7 @@ function Login() {
         </div>
       </div>
     </div>
-  )
+  );
 }
 
-export default Login
+export default Login;
