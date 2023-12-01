@@ -2,7 +2,7 @@ import { createSlice } from '@reduxjs/toolkit'
 import jwtDecode from 'jwt-decode'
 
 let userId = ''
-const token = localStorage.getItem('token') || null
+const token = localStorage.getItem('accessToken') || null
 
 if (token) {
   try {

@@ -10,7 +10,7 @@ const sessionTime = 60000 * parseInt(process.env.REACT_APP_SESSION_TIME)
 
 function ProtectedRoutes() {
   const dispatch = useDispatch()
-  const hasToken = !!localStorage.getItem('token')
+  const hasToken = !!localStorage.getItem('accessToken')
   const [loader, showLoader, hideLoader] = FullLoad()
   // redux
   const user = useSelector((state) => state.user)
@@ -20,7 +20,7 @@ function ProtectedRoutes() {
       .then((res) => {
         // handle user not found
         if (res.data.status != '1') {
-          localStorage.removeItem('token')
+          localStorage.clear()
           return redirect('/login')
         }
         // set current user to redux
@@ -40,13 +40,12 @@ function ProtectedRoutes() {
         dispatch(setUserData(res.data))
       })
       .catch((e) => {
-        console.log(e)
         const token = e.response.data?.refreshToken
         if (token) {
-          localStorage.setItem('token', e.response.data.refreshToken)
+          localStorage.setItem('accessToken', e.response.data.refreshToken)
           window.location.reload()
         } else {
-          localStorage.removeItem('token')
+          localStorage.clear()
           window.location = '/login'
         }
       })
@@ -99,7 +98,7 @@ function ProtectedRoutes() {
                 if (res.data.response.status != '1') {
                   return window.Swal.fire('', res.data.response.msg, 'error')
                 }
-                localStorage.clear('token')
+                localStorage.clear()
                 window.location = '/login'
               }
             )

@@ -12,7 +12,7 @@ function Home() {
 
   const menu = useSelector((state) => state.menu)
 
-  const tokenLogout = localStorage.getItem('token')
+  const tokenLogout = localStorage.getItem('accessToken')
 
   // loading
   const [loader, showLoader, hideLoader] = Load()

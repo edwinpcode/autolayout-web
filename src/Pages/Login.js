@@ -49,7 +49,9 @@ function Login() {
     AuthLogin(userId, encrypted)
       .then((res) => {
         if (res.response.status == 1) {
-          localStorage.setItem('token', res.response.accessToken)
+          localStorage.setItem('accessToken', res.response.accessToken)
+          localStorage.setItem('refreshToken', res.response.refreshToken)
+          localStorage.setItem('userId', res.response.userId)
           window.location = '/auth'
           dispatch(setUserId(res.response.userId))
         } else {

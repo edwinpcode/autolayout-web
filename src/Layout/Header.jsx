@@ -27,7 +27,7 @@ function Header() {
         return window.Swal.fire('Kesalahan', res.data.message, 'error')
       }
       hideLoader()
-      localStorage.clear('token')
+      localStorage.clear()
       window.location.replace('/login')
     })
   }
