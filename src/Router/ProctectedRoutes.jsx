@@ -41,7 +41,7 @@ function ProtectedRoutes() {
       })
       .catch((e) => {
         console.log(e)
-        const token = e.response.data.refreshToken
+        const token = e.response.data?.refreshToken
         if (token) {
           localStorage.setItem('token', e.response.data.refreshToken)
           window.location.reload()
