@@ -1,5 +1,5 @@
 import axios from 'axios'
-import RefreshToken from './RefreshToken'
+import memoizedRefreshToken from './RefreshToken'
 
 const headers = {
   'Content-Type': 'application/json;charset=UTF-8',
@@ -48,7 +48,7 @@ APIClient.interceptors.response.use(
     if (error?.response?.status === 401 && !config?.sent) {
       config.sent = true
 
-      const result = RefreshToken()
+      const result = memoizedRefreshToken()
 
       if (result?.accessToken) {
         config.headers = {

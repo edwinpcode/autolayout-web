@@ -1,4 +1,5 @@
 import APIClient from './APIClient'
+import memoize from 'memoize'
 
 const RefreshToken = async () => {
   const accessToken = localStorage.getItem('accessToken')
@@ -12,4 +13,8 @@ const RefreshToken = async () => {
   localStorage.setItem('expiredIn', res.data.expiredIn)
 }
 
-export default RefreshToken
+const maxAge = 10000
+
+const memoizedRefreshToken = memoize(RefreshToken, { maxAge })
+
+export default memoizedRefreshToken
