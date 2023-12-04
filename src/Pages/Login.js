@@ -51,6 +51,7 @@ function Login() {
         if (res.response.status == 1) {
           localStorage.setItem('accessToken', res.response.accessToken)
           localStorage.setItem('refreshToken', res.response.refreshToken)
+          localStorage.setItem('expiredIn', res.response.expiredIn)
           localStorage.setItem('userId', res.response.userId)
           window.location = '/auth'
           dispatch(setUserId(res.response.userId))

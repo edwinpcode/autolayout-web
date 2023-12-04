@@ -94,7 +94,7 @@ const CheckboxCopyValue = ({
           checked={checked}
           onChange={(e) => handleChange(e.target.checked)}
         />
-        <label for={id} className="custom-control-label">
+        <label htmlFor={id} className="custom-control-label">
           {label}
         </label>
       </div>

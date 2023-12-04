@@ -17,10 +17,23 @@ const userId = localStorage.getItem('userId')
 //   })
 // }
 
-const APIClient = axios.create({
-  baseURL: 'https://los-bsg.clofaas.com/services',
-  headers: headers,
+// const APIClient = axios.create({
+//   baseURL: process.env.REACT_APP_API_END_POINT,
+//   headers: headers,
+// })
+
+export const APIPublic = axios.create({
+  baseURL: process.env.REACT_APP_API_END_POINT,
+  headers: {
+    // 'Content-Type': 'application/json;charset=UTF-8',
+    // 'Access-Control-Allow-Origin': '*',
+    Accept: 'application/json',
+  },
 })
+
+const APIClient = axios
+
+APIClient.defaults.baseURL = process.env.REACT_APP_API_END_POINT
 
 APIClient.interceptors.request.use(
   async (config) => {
@@ -32,6 +45,9 @@ APIClient.interceptors.request.use(
         ...config.headers,
         authorization: `Bearer ${accessToken}`,
         user: `${userId}`,
+        'Content-Type': 'application/json;charset=UTF-8',
+        'Access-Control-Allow-Origin': '*',
+        Accept: 'application/json',
       }
     }
 
@@ -48,8 +64,7 @@ APIClient.interceptors.response.use(
     if (error?.response?.status === 401 && !config?.sent) {
       config.sent = true
 
-      const result = memoizedRefreshToken()
-
+      const result = await memoizedRefreshToken()
       if (result?.accessToken) {
         config.headers = {
           ...config.headers,
@@ -57,9 +72,10 @@ APIClient.interceptors.response.use(
         }
       }
 
-      return axios(config)
+      return APIClient(config)
     }
     return Promise.reject(error)
   }
 )
+
 export default APIClient

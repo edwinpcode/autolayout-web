@@ -36,7 +36,7 @@ function InputCheckbox({ info, param, flag }) {
           className="custom-control-input"
           checked={isChecked}
         />
-        <label for="customCheckbox" class="custom-control-label"></label>
+        <label htmlFor="customCheckbox" class="custom-control-label"></label>
       </div>
     </div>
   )

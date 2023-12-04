@@ -42,7 +42,8 @@ function ProtectedRoutes() {
       .catch((e) => {
         const token = e.response.data?.refreshToken
         if (token) {
-          localStorage.setItem('accessToken', e.response.data.refreshToken)
+          localStorage.setItem('accessToken', e.response.data.accessToken)
+          localStorage.setItem('refreshToken', e.response.data.refreshToken)
           window.location.reload()
         } else {
           localStorage.clear()
