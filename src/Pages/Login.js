@@ -8,6 +8,12 @@ import { encryptAES } from '../Utils/EncryptUtils'
 import Logo from './Logo'
 import { useDispatch } from 'react-redux'
 import { setUser, setUserId } from '../Store/User/userSlice'
+import {
+  loadCaptchaEnginge,
+  LoadCanvasTemplate,
+  LoadCanvasTemplateNoReload,
+  validateCaptcha,
+} from 'react-simple-captcha'
 
 const metaTags = document.getElementsByTagName('meta')
 const metaTagsArray = Array.from(metaTags)
@@ -42,7 +48,10 @@ function Login() {
     return formattedDate + '00000'
   }
 
-  const handleLogin = ({ userId, password }) => {
+  const handleLogin = ({ userId, password, captcha }) => {
+    if (!validateCaptcha(captcha)) {
+      return window.Swal.fire('Error', 'Wrong captcha', 'error')
+    }
     setLoading(true)
     const secret = getSecretKeyByDate()
     const encrypted = encryptAES(password, secret)
@@ -68,6 +77,18 @@ function Login() {
           'error'
         )
       })
+  }
+
+  useEffect(() => {
+    loadCaptchaEnginge(6)
+  }, [])
+
+  const handleFailure = () => {
+    window.Swal.fire('Error', 'Wrong Captcha', 'error')
+  }
+
+  const handleSuccess = () => {
+    window.Swal.fire('Success', '', 'success')
   }
 
   return (
@@ -139,6 +160,25 @@ function Login() {
                 <ErrorMessage
                   errors={errors}
                   name="password"
+                  as={<span className="text-danger text-xs"></span>}
+                />
+              </div>
+              <LoadCanvasTemplate />
+              <div className="mb-3">
+                <div className="form-group">
+                  <input
+                    type="text"
+                    className="form-control"
+                    id="captcha"
+                    {...register('captcha', {
+                      required: 'Captcha Required',
+                    })}
+                    autoComplete="off"
+                  />
+                </div>
+                <ErrorMessage
+                  errors={errors}
+                  name="captcha"
                   as={<span className="text-danger text-xs"></span>}
                 />
               </div>
