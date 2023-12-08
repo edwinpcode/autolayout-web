@@ -1,6 +1,6 @@
 import { ErrorMessage } from '@hookform/error-message'
 import moment from 'moment'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useRef } from 'react'
 import { useForm } from 'react-hook-form'
 import { useNavigate } from 'react-router-dom'
 import { AuthLogin } from '../Services/AuthService'
@@ -32,6 +32,8 @@ function Login() {
   const togglePasswordVisiblity = () => {
     setPasswordShown(passwordShown ? false : true)
   }
+  const canvasRef = useRef(null)
+  const [compareCaptcha, setCompareCaptcha] = useState('')
 
   const navigate = useNavigate()
   const {
@@ -42,6 +44,51 @@ function Login() {
 
   const dispatch = useDispatch()
 
+  const listFont = [
+    'Georgia',
+    // 'Times New Roman',
+    // 'Arial',
+    // 'Verdana',
+    'Courier New',
+    // 'serif',
+    // 'sans-serif',
+  ]
+
+  const handleCanvas = () => {
+    var charsArray =
+      '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ@!#$%^&*'
+    var lengthOtp = 6
+    var captcha = []
+    for (var i = 0; i < lengthOtp; i++) {
+      //below code will not allow Repetition of Characters
+      var index = Math.floor(Math.random() * charsArray.length + 1) //get the next character from the array
+      if (captcha.indexOf(charsArray[index]) == -1)
+        captcha.push(charsArray[index])
+      else i--
+    }
+    const random = Math.floor(Math.random() * listFont.length)
+    const selectFont = listFont[random]
+    if (canvasRef.current) {
+      const ctx = canvasRef.current.getContext('2d')
+      const cap = captcha.join('')
+      ctx.font = `30px ${selectFont}`
+      ctx.strokeText(cap, 5, 30)
+      setCompareCaptcha(cap)
+    }
+  }
+
+  useEffect(() => {
+    handleCanvas()
+  }, [])
+
+  const resetCanvas = () => {
+    if (canvasRef.current) {
+      const context = canvasRef.current.getContext('2d')
+      context.clearRect(0, 0, canvasRef.current.width, canvasRef.current.height)
+      handleCanvas()
+    }
+  }
+
   const getSecretKeyByDate = () => {
     const currentDate = moment().locale('en')
     const formattedDate = currentDate.format('dddYYYYMMDD')
@@ -49,7 +96,11 @@ function Login() {
   }
 
   const handleLogin = ({ userId, password, captcha }) => {
-    if (!validateCaptcha(captcha)) {
+    // if (!validateCaptcha(captcha)) {
+    //   return window.Swal.fire('Error', 'Wrong captcha', 'error')
+    // }
+    if (captcha != compareCaptcha) {
+      resetCanvas()
       return window.Swal.fire('Error', 'Wrong captcha', 'error')
     }
     setLoading(true)
@@ -80,7 +131,7 @@ function Login() {
   }
 
   useEffect(() => {
-    loadCaptchaEnginge(6)
+    // loadCaptchaEnginge(6)
   }, [])
 
   const handleFailure = () => {
@@ -114,7 +165,11 @@ function Login() {
                     className="form-control"
                     placeholder="Nama Pengguna"
                     {...register('userId', {
-                      required: 'User ID required',
+                      required: 'Username required',
+                      minLength: {
+                        value: 4,
+                        message: 'Username length minimum 4',
+                      },
                     })}
                     autoComplete="off"
                   />
@@ -138,6 +193,10 @@ function Login() {
                     placeholder="Kata Sandi"
                     {...register('password', {
                       required: 'Password required',
+                      minLength: {
+                        value: 8,
+                        message: 'password length minimum 8',
+                      },
                     })}
                   />
                   <div className="input-group-append">
@@ -163,8 +222,22 @@ function Login() {
                   as={<span className="text-danger text-xs"></span>}
                 />
               </div>
-              <LoadCanvasTemplate />
-              <div className="mb-3">
+              {/* <LoadCanvasTemplate /> */}
+              <div className="d-flex">
+                <canvas
+                  ref={canvasRef}
+                  height={50}
+                  width={150}
+                  className="pr-3"
+                />
+                <button
+                  className="btn btn-sm btn-secondary"
+                  onClick={resetCanvas}
+                >
+                  Reload
+                </button>
+              </div>
+              <div className="mb-3 mt-3">
                 <div className="form-group">
                   <input
                     type="text"
