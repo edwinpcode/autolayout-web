@@ -37,6 +37,8 @@ function Login() {
 
   const navigate = useNavigate()
   const {
+    reset,
+    setValue,
     register,
     handleSubmit,
     formState: { errors },
@@ -82,6 +84,7 @@ function Login() {
   }, [])
 
   const resetCanvas = () => {
+    setValue('captcha', '')
     if (canvasRef.current) {
       const context = canvasRef.current.getContext('2d')
       context.clearRect(0, 0, canvasRef.current.width, canvasRef.current.height)
@@ -116,11 +119,13 @@ function Login() {
           window.location = '/auth'
           dispatch(setUserId(res.response.userId))
         } else {
+          resetCanvas()
           setLoading(false)
           window.Swal.fire('Kesalahan', res.response.message, 'error')
         }
       })
       .catch((err) => {
+        resetCanvas()
         setLoading(false)
         window.Swal.fire(
           'Peringatan',
