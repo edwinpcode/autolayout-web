@@ -16,10 +16,11 @@ function ProtectedRoutes() {
   const user = useSelector((state) => state.user)
 
   const getUser = async () => {
-    await GetUserById(user.id)
+    await GetUserById({ userId: user.id })
       .then((res) => {
         // handle user not found
-        if (res.data.status !== "1") {
+        if (res.data.status != "1") {
+          window.Swal.fire("Error", res.data.message, "error")
           localStorage.clear()
           return redirect("/login")
         }

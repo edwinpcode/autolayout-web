@@ -21,14 +21,19 @@ function Auth() {
       userId,
       moduleId: activeModuleId,
       groupId: activeRoleId,
-    }).then((response) => {
-      if (response.data.response.status == "1") {
-        // window.Swal.fire('Error', response.data.response.msg, 'error')
-        localStorage.clear()
-        navigate("/login")
-        hideLoader()
-      }
     })
+      .then((response) => {
+        if (response.data.response.status == "1") {
+          // window.Swal.fire('Error', response.data.response.msg, 'error')
+          localStorage.clear()
+          navigate("/login")
+          hideLoader()
+        }
+      })
+      .catch((e) => {
+        window.Swal.fire("Error", "Something went wrong", "error")
+      })
+      .finally(() => hideLoader())
   }
 
   return (

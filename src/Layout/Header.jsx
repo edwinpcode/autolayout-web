@@ -25,7 +25,7 @@ function Header() {
   const handleLogout = () => {
     showLoader()
     AuthLogout(userId, activeModuleId, activeRoleId).then((res) => {
-      if (res.data.response.status != "1") {
+      if (res.data.statusss != "1") {
         hideLoader()
         return window.Swal.fire("Kesalahan", res.data.message, "error")
       }
