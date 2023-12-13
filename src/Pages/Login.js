@@ -207,7 +207,7 @@ function Login() {
                           className="fas fa-lock"
                           onClick={togglePasswordVisiblity}
                         />
-                      )}{" "}
+                      )}
                       {passwordShown && (
                         <span
                           className="fas fa-unlock"

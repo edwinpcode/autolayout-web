@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import { NavLink, Link, useNavigate, useParams } from 'react-router-dom'
-import { setMenuSlice } from '../Store/Menu/menuSlice'
-import { AuthLogout } from '../Services/AuthService'
-import Load from '../Pages/FullLoad'
+import React, { useEffect, useState } from "react"
+import { useDispatch, useSelector } from "react-redux"
+import { NavLink, Link, useNavigate, useParams } from "react-router-dom"
+import { setMenuSlice } from "../Store/Menu/menuSlice"
+import { AuthLogout } from "../Services/AuthService"
+import Load from "../Pages/FullLoad"
 
 function Header() {
   const dispatch = useDispatch()
@@ -25,18 +25,18 @@ function Header() {
   const handleLogout = () => {
     showLoader()
     AuthLogout(userId, activeModuleId, activeRoleId).then((res) => {
-      if (res.data.response.status != '1') {
+      if (res.data.response.status != "1") {
         hideLoader()
-        return window.Swal.fire('Kesalahan', res.data.message, 'error')
+        return window.Swal.fire("Kesalahan", res.data.message, "error")
       }
       hideLoader()
-      localStorage.clear('token')
-      window.location.replace('/login')
+      localStorage.clear()
+      window.location.replace("/login")
     })
   }
 
   useEffect(() => {
-    const res = localStorage.getItem('photoProfile')
+    const res = localStorage.getItem("photoProfile")
     if (res) setPhotoProfile(res)
   }, [])
 
@@ -60,7 +60,7 @@ function Header() {
               <i className="fas fa-bars"></i>
             </a>
           </li>
-          <li className={`nav-item ${!id ? 'hidden' : ''}`}>
+          <li className={`nav-item ${!id ? "hidden" : ""}`}>
             <Link className="nav-link" onClick={goBack}>
               <i className="fa fa-arrow-left"></i>
               <span>Back</span>
@@ -93,9 +93,9 @@ function Header() {
               onClick={(e) => {
                 e.preventDefault()
                 dispatch(
-                  setMenuSlice({ menuId: null, trackId: null, menuDesc: null })
+                  setMenuSlice({ menuId: null, trackId: null, menuDesc: null }),
                 )
-                navigate('/dashboard')
+                navigate("/dashboard")
               }}
             >
               Dashboard

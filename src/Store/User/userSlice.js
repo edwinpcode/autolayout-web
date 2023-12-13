@@ -1,13 +1,13 @@
-import { createSlice } from '@reduxjs/toolkit'
-import jwtDecode from 'jwt-decode'
+import { createSlice } from "@reduxjs/toolkit"
+import jwtDecode from "jwt-decode"
 
-let userId = ''
-const token = localStorage.getItem('token') || null
+let userId = ""
+const token = localStorage.getItem("accessToken") || null
 
 if (token) {
   try {
     const decodedToken = jwtDecode(token)
-    userId = decodedToken.unique_name || ''
+    userId = decodedToken.unique_name || ""
   } catch (error) {
     console.log(error.message)
   }
@@ -16,19 +16,19 @@ if (token) {
 const initialState = {
   id: userId,
   activeModule: {
-    id: '',
-    desc: '',
+    id: "",
+    desc: "",
   },
   activeRole: {
-    id: '',
-    desc: '',
+    id: "",
+    desc: "",
   },
   data: {},
-  photoProfile: '',
+  photoProfile: "",
 }
 
 export const userSlice = createSlice({
-  name: 'user',
+  name: "user",
   initialState,
   reducers: {
     setUser: (state, action) => {

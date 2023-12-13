@@ -10,7 +10,7 @@ const sessionTime = 60000 * parseInt(process.env.REACT_APP_SESSION_TIME)
 
 function ProtectedRoutes() {
   const dispatch = useDispatch()
-  const hasToken = !!localStorage.getItem("token")
+  const hasToken = !!localStorage.getItem("accessToken")
   const [loader, showLoader, hideLoader] = FullLoad()
   // redux
   const user = useSelector((state) => state.user)
