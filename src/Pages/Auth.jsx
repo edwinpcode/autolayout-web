@@ -17,7 +17,11 @@ function Auth() {
 
   const handleLogout = () => {
     showLoader()
-    AuthLogout(userId, activeModuleId, activeRoleId).then((response) => {
+    AuthLogout({
+      userId,
+      moduleId: activeModuleId,
+      groupId: activeRoleId,
+    }).then((response) => {
       if (response.data.response.status == "1") {
         // window.Swal.fire('Error', response.data.response.msg, 'error')
         localStorage.clear()
