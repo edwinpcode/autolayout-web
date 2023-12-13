@@ -1,79 +1,147 @@
-import { ErrorMessage } from "@hookform/error-message";
-import moment from "moment";
-import React, { useEffect, useState } from "react";
-import { useForm } from "react-hook-form";
-import { useNavigate } from "react-router-dom";
-import { AuthLogin } from "../Services/AuthService";
-import { encryptAES } from "../Utils/EncryptUtils";
-import Logo from "./Logo";
-import { useDispatch } from "react-redux";
-import { setUser, setUserId } from "../Store/User/userSlice";
+import { ErrorMessage } from "@hookform/error-message"
+import moment from "moment"
+import React, { useEffect, useState, useRef } from "react"
+import { useForm } from "react-hook-form"
+import { useNavigate } from "react-router-dom"
+import { AuthLogin } from "../Services/AuthService"
+import { encryptAES } from "../Utils/EncryptUtils"
+import Logo from "./Logo"
+import { useDispatch } from "react-redux"
+import { setUser, setUserId } from "../Store/User/userSlice"
+// import {
+//   loadCaptchaEnginge,
+//   LoadCanvasTemplate,
+//   LoadCanvasTemplateNoReload,
+//   validateCaptcha,
+// } from 'react-simple-captcha'
 
-const metaTags = document.getElementsByTagName("meta");
-const metaTagsArray = Array.from(metaTags);
+const metaTags = document.getElementsByTagName("meta")
+const metaTagsArray = Array.from(metaTags)
 
 const applicationNameTag = metaTagsArray.find((tag) => {
-  return tag.getAttribute("name") === "login-application-name";
-});
+  return tag.getAttribute("name") === "login-application-name"
+})
 
-const loginApplicationName = applicationNameTag.getAttribute("content");
+const loginApplicationName = applicationNameTag.getAttribute("content")
 
 function Login() {
   // load login
-  const [isLoading, setLoading] = useState(false);
+  const [isLoading, setLoading] = useState(false)
   // show hide password
-  const [passwordShown, setPasswordShown] = useState(false);
+  const [passwordShown, setPasswordShown] = useState(false)
   const togglePasswordVisiblity = () => {
-    setPasswordShown(passwordShown ? false : true);
-  };
+    setPasswordShown(passwordShown ? false : true)
+  }
+  const canvasRef = useRef(null)
+  const [compareCaptcha, setCompareCaptcha] = useState("")
+  const [devMode, setDevMode] = useState(false)
 
-  const navigate = useNavigate();
+  const navigate = useNavigate()
   const {
+    reset,
+    setValue,
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm({ mode: "onChange" });
+  } = useForm({ mode: "onChange" })
 
-  const dispatch = useDispatch();
+  const dispatch = useDispatch()
+
+  const listFont = [
+    "Georgia",
+    // 'Times New Roman',
+    // 'Arial',
+    // 'Verdana',
+    "Courier New",
+    // 'serif',
+    // 'sans-serif',
+  ]
+
+  const handleCanvas = () => {
+    var charsArray =
+      "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ@!#$%^&*"
+    var lengthOtp = 6
+    var captcha = []
+    for (var i = 0; i < lengthOtp; i++) {
+      //below code will not allow Repetition of Characters
+      var index = Math.floor(Math.random() * charsArray.length + 1) //get the next character from the array
+      if (captcha.indexOf(charsArray[index]) == -1)
+        captcha.push(charsArray[index])
+      else i--
+    }
+    const random = Math.floor(Math.random() * listFont.length)
+    const selectFont = listFont[random]
+    if (canvasRef.current) {
+      const ctx = canvasRef.current.getContext("2d")
+      const cap = captcha.join("")
+      ctx.font = `30px ${selectFont}`
+      ctx.strokeText(cap, 5, 30)
+      setCompareCaptcha(cap)
+    }
+  }
+
+  useEffect(() => {
+    handleCanvas()
+    if (process.env.NODE_ENV === "development") {
+      setDevMode(true)
+    }
+  }, [])
+
+  const resetCanvas = () => {
+    setValue("captcha", "")
+    if (canvasRef.current) {
+      const context = canvasRef.current.getContext("2d")
+      context.clearRect(0, 0, canvasRef.current.width, canvasRef.current.height)
+      handleCanvas()
+    }
+  }
 
   const getSecretKeyByDate = () => {
-    const currentDate = moment().locale("en");
-    const formattedDate = currentDate.format("dddYYYYMMDD");
-    return formattedDate + "00000";
-  };
+    const currentDate = moment().locale("en")
+    const formattedDate = currentDate.format("dddYYYYMMDD")
+    return formattedDate + "00000"
+  }
 
-  const handleLogin = ({ userId, password }) => {
-    setLoading(true);
-    const secret = getSecretKeyByDate();
-    const encrypted = encryptAES(password, secret);
+  const handleLogin = ({ userId, password, captcha }) => {
+    // if (!validateCaptcha(captcha)) {
+    //   return window.Swal.fire('Error', 'Wrong captcha', 'error')
+    // }
+    if (captcha !== compareCaptcha && !devMode) {
+      resetCanvas()
+      return window.Swal.fire("Error", "Wrong captcha", "error")
+    }
+    setLoading(true)
+    const secret = getSecretKeyByDate()
+    const encrypted = encryptAES(password, secret)
     AuthLogin(userId, encrypted)
       .then((res) => {
-        if (res.response.status == 1) {
-          localStorage.setItem("token", res.response.accessToken);
-          localStorage.setItem("branchId", res.response.branchId);
-          localStorage.setItem("branchName", res.response.branchName);
-          localStorage.setItem("expiredIn", res.response.expiredIn);
-          localStorage.setItem("fullname", res.response.fullname);
-          localStorage.setItem("photoProfile", res.response.photoProfile);
-          localStorage.setItem("userId", res.response.userId);
-          localStorage.setItem("tokenType", res.response.tokenType);
-          window.location = "/auth";
-          dispatch(setUserId(res.response.userId));
-          // navigate('/auth')
+        if (res.response.status === "1") {
+          localStorage.setItem("accessToken", res.response.accessToken)
+          localStorage.setItem("refreshToken", res.response.refreshToken)
+          localStorage.setItem("expiredIn", res.response.expiredIn)
+          localStorage.setItem("userId", res.response.userId)
+          window.location = "/auth"
+          dispatch(setUserId(res.response.userId))
         } else {
-          setLoading(false);
-          window.Swal.fire("Kesalahan", res.response.message, "error");
+          resetCanvas()
+          setLoading(false)
+          window.Swal.fire("Kesalahan", res.response.message, "error")
         }
       })
       .catch((err) => {
-        setLoading(false);
+        resetCanvas()
+        setLoading(false)
         window.Swal.fire(
           "Peringatan",
           "Mohon maaf, sedang terjadi kendala koneksi pada sistem, silahkan coba kembali secara berkala",
-          "error"
-        );
-      });
-  };
+          "error",
+        )
+      })
+  }
+
+  useEffect(() => {
+    // loadCaptchaEnginge(6)
+  }, [])
 
   return (
     <div className="login-page">
@@ -87,7 +155,9 @@ function Login() {
                 <b>{loginApplicationName}</b>
               </a>
             </div>
-            <p className="login-box-msg">Integrated Financing Force</p>
+            <p className="login-box-msg">
+              Silakan masuk untuk memulai aplikasi.
+            </p>
             <form onSubmit={handleSubmit(handleLogin)}>
               <div className="mb-3">
                 <div className="input-group">
@@ -96,7 +166,11 @@ function Login() {
                     className="form-control"
                     placeholder="Nama Pengguna"
                     {...register("userId", {
-                      required: "User ID required",
+                      required: "Username required",
+                      minLength: {
+                        value: 4,
+                        message: "Username length minimum 4",
+                      },
                     })}
                     autoComplete="off"
                   />
@@ -120,6 +194,10 @@ function Login() {
                     placeholder="Kata Sandi"
                     {...register("password", {
                       required: "Password required",
+                      minLength: {
+                        value: 8,
+                        message: "password length minimum 8",
+                      },
                     })}
                   />
                   <div className="input-group-append">
@@ -145,6 +223,41 @@ function Login() {
                   as={<span className="text-danger text-xs"></span>}
                 />
               </div>
+              {/* <LoadCanvasTemplate /> */}
+              <div className={`${devMode ? "d-none" : "d-flex"}`}>
+                <canvas
+                  ref={canvasRef}
+                  height={50}
+                  width={150}
+                  className="pr-3"
+                />
+                <button
+                  className="btn btn-sm btn-secondary"
+                  onClick={resetCanvas}
+                >
+                  Reload
+                </button>
+              </div>
+              {!devMode && (
+                <div className={`mb-3 mt-3`}>
+                  <div className="form-group">
+                    <input
+                      type="text"
+                      className="form-control"
+                      id="captcha"
+                      {...register("captcha", {
+                        required: "Captcha Required",
+                      })}
+                      autoComplete="off"
+                    />
+                  </div>
+                  <ErrorMessage
+                    errors={errors}
+                    name="captcha"
+                    as={<span className="text-danger text-xs"></span>}
+                  />
+                </div>
+              )}
               <div className="row float-right">
                 <div className="col-12 float-end">
                   {!isLoading && (
@@ -169,7 +282,7 @@ function Login() {
         </div>
       </div>
     </div>
-  );
+  )
 }
 
-export default Login;
+export default Login
