@@ -1,23 +1,19 @@
-import { useEffect, useMemo, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import {
-  handleGetListData,
-  handleGetListStructure,
-  handleStructureHeader,
-} from '../Utils/TableUtils'
-import { setCurrentPayload, setFilteringList } from '../Store/List/listSlice'
-import TableComponent from '../Components/Table/TableComponent'
-import { useParams } from 'react-router-dom'
-import AutoLayout from './AutoLayout'
-import Inbox from '../Components/Inbox'
-import { createColumnHelper } from '@tanstack/react-table'
-import FullLoad from './FullLoad'
+import { useEffect, useMemo, useState } from "react"
+import { useDispatch, useSelector } from "react-redux"
+import { handleGetListData, handleGetListStructure } from "../Utils/TableUtils"
+import { setCurrentPayload, setFilteringList } from "../Store/List/listSlice"
+import { useLocation, useParams } from "react-router-dom"
+import AutoLayout from "./AutoLayout"
+import Inbox from "../Components/Inbox"
+import FullLoad from "./FullLoad"
 
 function TableList() {
   const [loader, showLoader, hideLoader] = FullLoad()
-  const { menuId } = useParams()
+  // const { menuId } = useParams()
   const dispatch = useDispatch()
   const [structures, setStructures] = useState({})
+  const menuSlice = useSelector((res) => res.menu)
+  const { state, pathname } = useLocation()
 
   // state
   const [dataQuery, setDataQuery] = useState()
@@ -35,7 +31,7 @@ function TableList() {
         menuId: menuId,
         moduleId: user.activeModule.id,
         roleId: user.activeRole.id,
-        filtering: filtering?.length ? filtering : [{ id: '', value: '' }],
+        filtering: filtering?.length ? filtering : [{ id: "", value: "" }],
         pagination: {
           pageIndex: pageIndex + 1,
           perPage: pageSize,
@@ -44,13 +40,14 @@ function TableList() {
       dispatch(setCurrentPayload(payload))
       await handleGetListData(payload, setDataQuery)
     } catch (error) {
+    } finally {
       hideLoader()
     }
   }
 
   const pagination = useMemo(
     () => ({ pageIndex, pageSize }),
-    [pageIndex, pageSize]
+    [pageIndex, pageSize],
   )
 
   useEffect(() => {
@@ -61,22 +58,23 @@ function TableList() {
 
   // get structure
   useEffect(() => {
-    if (menuId) {
+    if (menuSlice) {
       setPagination({ pageIndex: 0, pageSize: 10 })
-      handleGetListStructure(user, menuId, setStructures)
+      handleGetListStructure(user, menuSlice.activeMenuId, setStructures)
     }
-  }, [menuId])
+  }, [menuSlice, user])
 
   // get data
   useEffect(() => {
-    if (menuId) fetchData(menuId, pageIndex, pageSize, filtering)
-  }, [menuId, pageIndex, pageSize, filtering])
+    if (menuSlice)
+      fetchData(menuSlice.activeMenuId, pageIndex, pageSize, filtering)
+  }, [menuSlice, pageIndex, pageSize, filtering])
 
   return (
     <div>
       <div className="d-md-flex">
         <Inbox
-          className={'col-md-3'}
+          className={"col-md-3"}
           pageIndex={pageIndex}
           pageSize={pageSize}
           fetchData={fetchData}
@@ -96,12 +94,14 @@ function TableList() {
           structures={structures}
           setStructures={setStructures}
         /> */}
-        <AutoLayout
-          className="ml-md-3 mt-3 mt-md-0"
-          fetchData={fetchData}
-          pageIndex={pageIndex}
-          pageSize={pageSize}
-        />
+        {pathname == "/form" && (
+          <AutoLayout
+            className="ml-md-3 mt-3 mt-md-0"
+            fetchData={fetchData}
+            pageIndex={pageIndex}
+            pageSize={pageSize}
+          />
+        )}
       </div>
     </div>
   )

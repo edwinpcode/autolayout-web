@@ -1,157 +1,155 @@
-import React, { useEffect, useState } from "react";
-import { useForm } from "react-hook-form";
-import { useDispatch, useSelector } from "react-redux";
-import { useLocation, useNavigate, useParams } from "react-router-dom";
+import React, { useEffect, useState } from "react"
+import { useForm } from "react-hook-form"
+import { useDispatch, useSelector } from "react-redux"
+import { useLocation, useNavigate } from "react-router-dom"
 // components
-import Skeleton from "../Components/AutoLayout/Skeleton";
-import Tab from "../Components/AutoLayout/Tab";
-import ButtonType from "../Components/AutoLayout/ButtonType";
-import FieldWithPanel from "../Components/AutoLayout/FieldWithPanel";
-import Loading from "./Loading";
+import Skeleton from "../Components/AutoLayout/Skeleton"
+import Tab from "../Components/AutoLayout/Tab"
+import ButtonType from "../Components/AutoLayout/ButtonType"
+import FieldWithPanel from "../Components/AutoLayout/FieldWithPanel"
+import Loading from "./Loading"
 // service
-import { getField, getTab } from "../Services/AutoLayoutService";
-import { setFormPanel, setFormAction } from "../Store/Form/FormSlice";
-import { setTabId } from "../Store/Menu/menuSlice";
-import { setLoadingField } from "../Store/Loading/LoadingSlice";
-import { CheckBox, CheckBoxOutlineBlank } from "@mui/icons-material";
+import { getField, getTab } from "../Services/AutoLayoutService"
+import { setFormPanel, setFormAction } from "../Store/Form/FormSlice"
+import { setTabId } from "../Store/Menu/menuSlice"
+import { setLoadingField } from "../Store/Loading/LoadingSlice"
+import { CheckBox, CheckBoxOutlineBlank } from "@mui/icons-material"
 
 function AutoLayout({ className, fetchData, pageIndex, pageSize }) {
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
-  const { state, pathname } = useLocation();
-  const { id, value } = useParams();
+  const navigate = useNavigate()
+  const dispatch = useDispatch()
+  const { state, pathname } = useLocation()
   // prettier-ignore
   const { register, handleSubmit, formState: { errors }, setValue, getValues, resetField, watch, clearErrors, control, unregister } = useForm({ mode: 'onChange' })
   // state
-  const [tab, setTab] = useState();
-  const [activeTabId, setActiveTabId] = useState("");
+  const [tab, setTab] = useState()
+  const [activeTabId, setActiveTabId] = useState("")
   // redux state
-  const panelData = useSelector((state) => state.form.panel);
-  const actionData = useSelector((state) => state.form.action);
-  const user = useSelector((state) => state.user);
-  const menu = useSelector((state) => state.menu);
-  const loading = useSelector((state) => state.loading.field);
-  const loadingSpin = useSelector((state) => state.loading.spin);
+  const panelData = useSelector((state) => state.form.panel)
+  const actionData = useSelector((state) => state.form.action)
+  const user = useSelector((state) => state.user)
+  const menu = useSelector((state) => state.menu)
+  const loading = useSelector((state) => state.loading.field)
+  const loadingSpin = useSelector((state) => state.loading.spin)
   const [checkStatus, setCheckStatus] = useState({
     value: null,
     desciption: "",
-  });
+  })
 
   const getFieldByForm = async (payload) => {
     await getField(payload)
       .then((res) => {
         if (res.data.status != "1") {
-          return window.Swal.fire("Kesalahan", res.data.message, "error");
+          return window.Swal.fire("Kesalahan", res.data.message, "error")
         }
         if (payload.tabId === activeTabId) {
-          dispatch(setFormPanel(res.data.panel));
-          dispatch(setFormAction(res.data.action));
+          dispatch(setFormPanel(res.data.panel))
+          dispatch(setFormAction(res.data.action))
           if (res.data.checked) {
-            setCheckStatus(res.data.checked);
+            setCheckStatus(res.data.checked)
           }
         }
       })
       .catch((error) => {
-        window.Swal.fire("Error", error.message, error);
+        window.Swal.fire("Error", error.message, error)
       })
       .finally(() => {
-        dispatch(setLoadingField(false));
-      });
-  };
+        dispatch(setLoadingField(false))
+      })
+  }
 
   useEffect(() => {
-    dispatch(setFormPanel([]));
+    dispatch(setFormPanel([]))
     // handle form reload by menuId condition
-    if (menu.activeMenuId === "") return navigate("/dashboard");
+    if (menu.activeMenuId === "") return navigate("/dashboard")
     // handle tab
-    let param = "";
+    let param = ""
     if (state && state.param && state.param.length) {
-      param = state.param[0].value;
-    } else if (value) {
-      param = value;
+      param = state.param[0].value
     } else if (pathname != "/form") {
-      return;
+      return
     }
     const payload = {
       menuId: menu.activeMenuId,
       moduleId: user.activeModule.id,
       param: param,
-    };
+    }
     getTab(payload)
       .then((res) => {
         if (res.data.status != "1") {
-          return window.Swal.fire("Kesalahan", res.data.response, "error");
+          return window.Swal.fire("Kesalahan", res.data.response, "error")
         }
-        setTab(res.data.data);
+        setTab(res.data.data)
         // by default, set active tab = first tab index
-        dispatch(setTabId(res.data.data[0].id));
-        setActiveTabId(res.data.data[0].id);
+        dispatch(setTabId(res.data.data[0].id))
+        setActiveTabId(res.data.data[0].id)
       })
       .catch((error) => {
         // console.log(error)
-        window.Swal.fire("Error", error.message, "error");
-      });
-  }, [menu.activeMenuId, value]);
+        window.Swal.fire("Error", error.message, "error")
+      })
+  }, [menu.activeMenuId])
 
   const reset = () => {
-    let param = "";
-    // if (state && state.param && state.param.length) {
-    //   param = state.param[0].value
-    // }
-    if (value) {
-      param = value;
+    let param = ""
+    if (state && state.param && state.param.length) {
+      param = state.param[0].value
     } else {
-      return;
+      return
     }
     const payload = {
       menuId: menu.activeMenuId,
       moduleId: user.activeModule.id,
       param: param,
-    };
+    }
     getTab(payload)
       .then((res) => {
         if (res.data.status != "1") {
-          return window.Swal.fire("Kesalahan", res.data.response, "error");
+          return window.Swal.fire("Kesalahan", res.data.response, "error")
         }
-        setTab(res.data.data);
+        setTab(res.data.data)
         // by default, set active tab = first tab index
         // dispatch(setTabId(res.data.data[0].id))
         // setActiveTabId(res.data.data[0].id)
       })
       .catch((error) => {
         // console.log(error)
-        window.Swal.fire("Error", error.message, "error");
-      });
-  };
+        window.Swal.fire("Error", error.message, "error")
+      })
+  }
+
+  useEffect(() => {
+    console.log(state)
+  }, [state])
 
   // handle get field
   useEffect(() => {
     if (activeTabId !== "" && menu.activeMenuId !== "") {
-      dispatch(setLoadingField(true));
+      dispatch(setLoadingField(true))
       let payload = {
         tabId: activeTabId,
         tc: menu.activeTrackId,
         userId: user.id,
         param: state?.param || [],
-      };
-      if (id && value) {
-        payload = {
-          ...payload,
-          param: [
-            {
-              id,
-              value,
-            },
-          ],
-        };
       }
-      if (pathname != "/form" && !id && !value) {
-        return;
-      }
+      // if (id && value) {
+      //   payload = {
+      //     ...payload,
+      //     param: [
+      //       {
+      //         id,
+      //         value,
+      //       },
+      //     ],
+      //   }
+      // }
+      // if (pathname != "/form" && !id && !value) {
+      //   return
+      // }
       // get field by payload
-      getFieldByForm(payload);
+      getFieldByForm(payload)
     }
-  }, [activeTabId, menu.activeMenuId, id, value]);
+  }, [activeTabId, menu.activeMenuId])
 
   return (
     <div
@@ -164,15 +162,13 @@ function AutoLayout({ className, fetchData, pageIndex, pageSize }) {
       }}
     >
       {loadingSpin && <Loading />}
-      {!id && !value && pathname != "/form" ? (
-        <div></div>
-      ) : !panelData || !tab ? (
+      {!panelData || !tab ? (
         <Skeleton />
       ) : (
         <div className="overflow-auto h-100 card card-danger">
           <div className="card-header">
             <div className="">
-              <h3 className="card-title">{value}</h3>
+              <h3 className="card-title">{state.param[0]?.value}</h3>
               {/* <span className="info-box-icon">
                 <i className="far fa-bookmark"></i>
               </span> */}
@@ -265,7 +261,7 @@ function AutoLayout({ className, fetchData, pageIndex, pageSize }) {
         </div>
       )}
     </div>
-  );
+  )
 }
 
-export default AutoLayout;
+export default AutoLayout

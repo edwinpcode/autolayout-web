@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
-import { NavLink, Link, useNavigate, useParams } from "react-router-dom"
+import { NavLink, Link, useNavigate, useLocation } from "react-router-dom"
 import { setMenuSlice } from "../Store/Menu/menuSlice"
 import { AuthLogout } from "../Services/AuthService"
 import Load from "../Pages/FullLoad"
@@ -9,13 +9,13 @@ function Header() {
   const dispatch = useDispatch()
   // redux state
   const userState = useSelector((state) => state.user)
-  const { menuId, id, value } = useParams()
   const userData = userState.data
   const userId = useSelector((state) => state.user.id)
   const activeModuleId = useSelector((state) => state.user.activeModule.id)
   const activeRoleId = useSelector((state) => state.user.activeRole.id)
   const [photoProfile, setPhotoProfile] = useState()
   const menu = useSelector((state) => state.menu)
+  const { state } = useLocation()
 
   // loading
   const [loader, showLoader, hideLoader] = Load()
@@ -42,7 +42,8 @@ function Header() {
 
   const goBack = (e) => {
     e.preventDefault()
-    navigate(`/${menuId}`)
+    // navigate(`/${menuId}`)
+    navigate("/", { state: { param: [] } })
   }
 
   return (
@@ -60,12 +61,12 @@ function Header() {
               <i className="fas fa-bars"></i>
             </a>
           </li>
-          <li className={`nav-item ${!id ? "hidden" : ""}`}>
+          {/* <li className={`nav-item ${!state.param[0]?.id ? "hidden" : ""}`}>
             <Link className="nav-link" onClick={goBack}>
               <i className="fa fa-arrow-left"></i>
               <span>Back</span>
             </Link>
-          </li>
+          </li> */}
           {/* <li className="d-flex align-items-center">
             <span className="text-bold">{menu.activeMenuDesc}</span>
           </li> */}
