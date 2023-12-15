@@ -1,5 +1,5 @@
 # nodejs as builder
-FROM node:16-alpine as builder
+FROM node:18-alpine as builder
 MAINTAINER Jefri Herdi Triyanto
 LABEL org.opencontainers.image.authors="jefriherditriyanto@gmail.com"
 
