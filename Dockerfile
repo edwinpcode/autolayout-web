@@ -26,11 +26,11 @@ COPY ./nginx.conf /etc/nginx/nginx.conf
 RUN rm -rf /usr/share/nginx/html/*
 
 # Copy from the stahg 1
-COPY --from=builder /react-app/dist /usr/share/nginx/html
+COPY --from=builder /react-app/build /usr/share/nginx/html
 
 # 🚫 Remove Meta Files & Folders
 RUN ls -a &&\
-  rm -rf dist &&\
+  rm -rf build &&\
   rm -rf node_modules
 
 EXPOSE 8080
