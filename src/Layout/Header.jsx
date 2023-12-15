@@ -24,15 +24,26 @@ function Header() {
 
   const handleLogout = () => {
     showLoader()
-    AuthLogout(userId, activeModuleId, activeRoleId).then((res) => {
-      if (res.data.statusss != "1") {
-        hideLoader()
-        return window.Swal.fire("Kesalahan", res.data.message, "error")
-      }
-      hideLoader()
-      localStorage.clear()
-      window.location.replace("/login")
+    AuthLogout({
+      userId,
+      moduleId: activeModuleId,
+      groupId: activeRoleId,
     })
+      .then((res) => {
+        if (res.data.response.status == "1") {
+          localStorage.clear()
+          window.location.replace("/login")
+        }
+        if (res.data.statusss != "1") {
+          return window.Swal.fire("Kesalahan", res.data.message, "error")
+        }
+      })
+      .catch((e) => {
+        window.Swal.fire("Kesalahan", e.message, "error")
+      })
+      .finally(() => {
+        hideLoader()
+      })
   }
 
   useEffect(() => {
