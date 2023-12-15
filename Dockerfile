@@ -18,8 +18,6 @@ RUN yarn build
 
 FROM nginx:1.16.0-alpine
 
-#!/bin/sh
-
 COPY ./nginx.conf /etc/nginx/nginx.conf
 
 # Remove default nginx index page
@@ -28,10 +26,4 @@ RUN rm -rf /usr/share/nginx/html/*
 # Copy from the stahg 1
 COPY --from=builder /react-app/build /usr/share/nginx/html
 
-# 🚫 Remove Meta Files & Folders
-RUN ls -a &&\
-  rm -rf build &&\
-  rm -rf node_modules
-
-EXPOSE 8080
 ENTRYPOINT ["nginx", "-g", "daemon off;"]
