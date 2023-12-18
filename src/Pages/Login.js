@@ -8,12 +8,12 @@ import { encryptAES } from '../Utils/EncryptUtils'
 import Logo from './Logo'
 import { useDispatch } from 'react-redux'
 import { setUser, setUserId } from '../Store/User/userSlice'
-import {
-  loadCaptchaEnginge,
-  LoadCanvasTemplate,
-  LoadCanvasTemplateNoReload,
-  validateCaptcha,
-} from 'react-simple-captcha'
+// import {
+//   loadCaptchaEnginge,
+//   LoadCanvasTemplate,
+//   LoadCanvasTemplateNoReload,
+//   validateCaptcha,
+// } from 'react-simple-captcha'
 
 const metaTags = document.getElementsByTagName('meta')
 const metaTagsArray = Array.from(metaTags)
@@ -34,6 +34,7 @@ function Login() {
   }
   const canvasRef = useRef(null)
   const [compareCaptcha, setCompareCaptcha] = useState('')
+  const [devMode, setDevMode] = useState(false)
 
   const navigate = useNavigate()
   const {
@@ -80,6 +81,12 @@ function Login() {
   }
 
   useEffect(() => {
+    if (process.env.NODE_ENV == 'development') {
+      setDevMode(true)
+    }
+  }, [])
+
+  useEffect(() => {
     handleCanvas()
   }, [])
 
@@ -102,7 +109,7 @@ function Login() {
     // if (!validateCaptcha(captcha)) {
     //   return window.Swal.fire('Error', 'Wrong captcha', 'error')
     // }
-    if (captcha != compareCaptcha) {
+    if (captcha != compareCaptcha && !devMode) {
       resetCanvas()
       return window.Swal.fire('Error', 'Wrong captcha', 'error')
     }
@@ -130,7 +137,7 @@ function Login() {
         window.Swal.fire(
           'Peringatan',
           'Mohon maaf, sedang terjadi kendala koneksi pada sistem, silahkan coba kembali secara berkala',
-          'error'
+          'error',
         )
       })
   }
@@ -228,38 +235,42 @@ function Login() {
                 />
               </div>
               {/* <LoadCanvasTemplate /> */}
-              <div className="d-flex">
-                <canvas
-                  ref={canvasRef}
-                  height={50}
-                  width={150}
-                  className="pr-3"
-                />
-                <button
-                  className="btn btn-sm btn-secondary"
-                  onClick={resetCanvas}
-                >
-                  Reload
-                </button>
-              </div>
-              <div className="mb-3 mt-3">
-                <div className="form-group">
-                  <input
-                    type="text"
-                    className="form-control"
-                    id="captcha"
-                    {...register('captcha', {
-                      required: 'Captcha Required',
-                    })}
-                    autoComplete="off"
+              {!devMode && (
+                <div className="d-flex">
+                  <canvas
+                    ref={canvasRef}
+                    height={50}
+                    width={150}
+                    className="pr-3"
+                  />
+                  <button
+                    className="btn btn-sm btn-secondary"
+                    onClick={resetCanvas}
+                  >
+                    Reload
+                  </button>
+                </div>
+              )}
+              {!devMode && (
+                <div className="mb-3 mt-3">
+                  <div className="form-group">
+                    <input
+                      type="text"
+                      className="form-control"
+                      id="captcha"
+                      {...register('captcha', {
+                        required: 'Captcha Required',
+                      })}
+                      autoComplete="off"
+                    />
+                  </div>
+                  <ErrorMessage
+                    errors={errors}
+                    name="captcha"
+                    as={<span className="text-danger text-xs"></span>}
                   />
                 </div>
-                <ErrorMessage
-                  errors={errors}
-                  name="captcha"
-                  as={<span className="text-danger text-xs"></span>}
-                />
-              </div>
+              )}
               <div className="row float-right">
                 <div className="col-12 float-end">
                   {!isLoading && (
