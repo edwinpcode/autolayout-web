@@ -100,25 +100,25 @@ const Inbox = ({
   //   }
   // }, [id, value])
 
-  useEffect(() => {
-    document.getElementById("body").classList.add("sidebar-collapse")
-    if (!open) {
-      document.getElementById("inboxCard").classList.add("collapsed-card")
-      document
-        .getElementById("collapseButton")
-        .classList.replace("fa-minus", "fa-plus")
-      document.getElementById("inboxBody").classList.add("d-none")
-    } else {
-      document.getElementById("inboxCard").classList.remove("collapsed-card")
-      document
-        .getElementById("collapseButton")
-        .classList.replace("fa-plus", "fa-minus")
-      document.getElementById("inboxBody").classList.remove("d-none")
-    }
-  }, [open])
+  // useEffect(() => {
+  //   document.getElementById("body").classList.add("sidebar-collapse")
+  //   if (!open) {
+  //     document.getElementById("inboxCard").classList.add("collapsed-card")
+  //     document
+  //       .getElementById("collapseButton")
+  //       .classList.replace("fa-minus", "fa-plus")
+  //     document.getElementById("inboxBody").classList.add("d-none")
+  //   } else {
+  //     document.getElementById("inboxCard").classList.remove("collapsed-card")
+  //     document
+  //       .getElementById("collapseButton")
+  //       .classList.replace("fa-plus", "fa-minus")
+  //     document.getElementById("inboxBody").classList.remove("d-none")
+  //   }
+  // }, [open])
 
   return (
-    <div className={`${className}`}>
+    <div className={`${className} col-md-3`}>
       <div className="card card-primary" id="inboxCard">
         <div className="card-header">
           <span className="card-title">{menu.activeMenuDesc}</span>

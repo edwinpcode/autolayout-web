@@ -33,8 +33,7 @@ function Header() {
         if (res.data.response.status == "1") {
           localStorage.clear()
           window.location.replace("/login")
-        }
-        if (res.data.statusss != "1") {
+        } else if (res.data.statusss != "1") {
           return window.Swal.fire("Kesalahan", res.data.message, "error")
         }
       })

@@ -74,7 +74,7 @@ function TableList() {
     <div>
       <div className="d-md-flex">
         <Inbox
-          className={"col-md-3"}
+          // className={"col-md-3"}
           pageIndex={pageIndex}
           pageSize={pageSize}
           fetchData={fetchData}
