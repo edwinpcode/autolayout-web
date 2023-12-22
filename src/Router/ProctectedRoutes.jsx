@@ -1,27 +1,28 @@
-import React, { useEffect } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import { Navigate, Outlet, redirect } from 'react-router-dom'
-import FullLoad from '../Pages/FullLoad'
-import { AuthLogout } from '../Services/AuthService'
-import { GetUserById } from '../Services/UserService'
-import { setUser, setUserData } from '../Store/User/userSlice'
+import React, { useEffect } from "react"
+import { useDispatch, useSelector } from "react-redux"
+import { Navigate, Outlet, redirect } from "react-router-dom"
+import FullLoad from "../Pages/FullLoad"
+import { AuthLogout } from "../Services/AuthService"
+import { GetUserById } from "../Services/UserService"
+import { setUser, setUserData } from "../Store/User/userSlice"
 
 const sessionTime = 60000 * parseInt(process.env.REACT_APP_SESSION_TIME)
 
 function ProtectedRoutes() {
   const dispatch = useDispatch()
-  const hasToken = !!localStorage.getItem('token')
+  const hasToken = !!localStorage.getItem("accessToken")
   const [loader, showLoader, hideLoader] = FullLoad()
   // redux
   const user = useSelector((state) => state.user)
 
   const getUser = async () => {
-    await GetUserById(user.id)
+    await GetUserById({ userId: user.id })
       .then((res) => {
         // handle user not found
-        if (res.data.status != '1') {
-          localStorage.removeItem('token')
-          return redirect('/login')
+        if (res.data.status != "1") {
+          window.Swal.fire("Error", res.data.message, "error")
+          localStorage.clear()
+          return redirect("/login")
         }
         // set current user to redux
         const userId = user.id
@@ -35,7 +36,7 @@ function ProtectedRoutes() {
             userId,
             activeModule: { id: moduleId, desc: moduleDesc },
             activeRole: { id: roleId, desc: roleDesc },
-          })
+          }),
         )
         dispatch(setUserData(res.data))
       })
@@ -43,11 +44,12 @@ function ProtectedRoutes() {
         console.log(e)
         const token = e.response.data.refreshToken
         if (token) {
-          localStorage.setItem('token', e.response.data.refreshToken)
+          localStorage.setItem("accessToken", e.response.data.accessToken)
+          localStorage.setItem("refreshToken", e.response.data.refreshToken)
           window.location.reload()
         } else {
-          localStorage.removeItem('token')
-          window.location = '/login'
+          localStorage.clear()
+          window.location = "/login"
         }
       })
   }
@@ -56,7 +58,7 @@ function ProtectedRoutes() {
     // Set a timer variable to store the timeout ID
     let timer
     // Attach a click event listener to the document
-    document.addEventListener('click', () => {
+    document.addEventListener("click", () => {
       // If there's a timer running, clear it
       if (timer) {
         clearTimeout(timer)
@@ -66,14 +68,14 @@ function ProtectedRoutes() {
         let timerInterval
         // Perform action if the user has been inactive
         window.Swal.fire({
-          title: 'Apakah ingin melanjutkan?',
-          html: 'keluar otomatis dalam <strong></strong> detik',
-          icon: 'warning',
+          title: "Apakah ingin melanjutkan?",
+          html: "keluar otomatis dalam <strong></strong> detik",
+          icon: "warning",
           showCancelButton: true,
-          confirmButtonColor: '#3085d6',
-          cancelButtonColor: '#d33',
-          cancelButtonText: 'Keluar',
-          confirmButtonText: 'Lanjut!',
+          confirmButtonColor: "#3085d6",
+          cancelButtonColor: "#d33",
+          cancelButtonText: "Keluar",
+          confirmButtonText: "Lanjut!",
           timer: 60000 * 5, // timer konfirmasi
           timerProgressBar: true, // adds a progress bar to the timer
           allowOutsideClick: false,
@@ -82,7 +84,7 @@ function ProtectedRoutes() {
           didOpen: () => {
             timerInterval = setInterval(() => {
               window.Swal.getHtmlContainer().querySelector(
-                'strong'
+                "strong",
               ).textContent = (window.Swal.getTimerLeft() / 1000).toFixed(0)
             }, 100)
           },
@@ -96,12 +98,12 @@ function ProtectedRoutes() {
             showLoader()
             AuthLogout(user.id, user.activeModule.id, user.activeRole.id).then(
               (res) => {
-                if (res.data.response.status != '1') {
-                  return window.Swal.fire('', res.data.response.msg, 'error')
+                if (res.data.response.status != "1") {
+                  return window.Swal.fire("", res.data.response.msg, "error")
                 }
-                localStorage.clear('token')
-                window.location = '/login'
-              }
+                localStorage.clear()
+                window.location = "/login"
+              },
             )
           }
         })
@@ -111,7 +113,7 @@ function ProtectedRoutes() {
 
   useEffect(() => {
     // get current user by userId
-    if (user.activeModule.id === '' || user.activeRole.id === '') {
+    if (user.activeModule.id === "" || user.activeRole.id === "") {
       getUser()
     } else {
       inactivityTime()

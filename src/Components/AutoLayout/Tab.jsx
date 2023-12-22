@@ -1,17 +1,16 @@
-import * as React from 'react'
-import Tabs from '@mui/material/Tabs'
-import Tab from '@mui/material/Tab'
-import Box from '@mui/material/Box'
-import { useDispatch, useSelector } from 'react-redux'
-import { setFormPanel } from '../../Store/Form/FormSlice'
-import { resetHiddenField } from '../../Store/HiddenElement/hiddenElementSlice'
-import { setTabId } from '../../Store/Menu/menuSlice'
-import { useLocation, useParams } from 'react-router-dom'
-import { CheckBox, CheckBoxOutlineBlank } from '@mui/icons-material'
+import * as React from "react"
+import Tabs from "@mui/material/Tabs"
+import Tab from "@mui/material/Tab"
+import Box from "@mui/material/Box"
+import { useDispatch, useSelector } from "react-redux"
+import { setFormPanel } from "../../Store/Form/FormSlice"
+import { resetHiddenField } from "../../Store/HiddenElement/hiddenElementSlice"
+import { setTabId } from "../../Store/Menu/menuSlice"
+import { useLocation } from "react-router-dom"
+import { CheckBox, CheckBoxOutlineBlank } from "@mui/icons-material"
 
 export default function Tabw({ data, activeTabId, setActiveTabId, reset }) {
   const { state } = useLocation()
-  const { id } = useParams()
   const dispatch = useDispatch()
   const [value, setValue] = React.useState(0)
   const loading = useSelector((state) => state.loading.field)
@@ -22,7 +21,7 @@ export default function Tabw({ data, activeTabId, setActiveTabId, reset }) {
 
   return (
     <div>
-      <Box sx={{ borderBottom: '1px solid #DEE2E6' }}>
+      <Box sx={{ borderBottom: "1px solid #DEE2E6" }}>
         <Tabs
           value={value}
           onChange={handleChange}
@@ -30,8 +29,8 @@ export default function Tabw({ data, activeTabId, setActiveTabId, reset }) {
           allowScrollButtonsMobile
           TabIndicatorProps={{
             style: {
-              backgroundColor: '#17A2B8',
-              height: '3px',
+              backgroundColor: "#17A2B8",
+              height: "3px",
             },
           }}
         >
@@ -40,16 +39,17 @@ export default function Tabw({ data, activeTabId, setActiveTabId, reset }) {
               key={item.id}
               id={item.id}
               style={{
-                display: index > 0 && !id ? 'none' : 'block',
-                color: loading ? 'GrayText' : '#17a2b8',
-                fontFamily: 'SourceSansPro',
-                textTransform: 'capitalize',
-                fontWeight: 'reguler',
+                display:
+                  index > 0 && state?.param.length === 0 ? "none" : "block",
+                color: loading ? "GrayText" : "#17a2b8",
+                fontFamily: "SourceSansPro",
+                textTransform: "capitalize",
+                fontWeight: "reguler",
               }}
               label={item.label}
               icon={
                 item.checked ? (
-                  item.checked == '1' ? (
+                  item.checked == "1" ? (
                     <CheckBox />
                   ) : (
                     <CheckBoxOutlineBlank />

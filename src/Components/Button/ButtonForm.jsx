@@ -1,12 +1,11 @@
-import { useDispatch, useSelector } from 'react-redux'
-import { useLocation, useParams } from 'react-router-dom'
-import { axiosPost } from '../../Services/AutoLayoutService'
-import { setFormPanel } from '../../Store/Form/FormSlice'
+import { useDispatch, useSelector } from "react-redux"
+import { useLocation } from "react-router-dom"
+import { axiosPost } from "../../Services/AutoLayoutService"
+import { setFormPanel } from "../../Store/Form/FormSlice"
 
 function ButtonForm({ fieldItem }) {
   const dispatch = useDispatch()
   const { state } = useLocation()
-  const { id, value } = useParams()
   // redux
   const menu = useSelector((state) => state.menu)
   const userId = useSelector((state) => state.user.id)
@@ -16,19 +15,19 @@ function ButtonForm({ fieldItem }) {
       tabId: [],
       tc: menu.activeTrackId,
       userId: userId,
-      param: [{ id, value }],
+      param: [{ id: state.id, value: state.value }],
     }
     // push tab id
     payload.tabId.push(menu.activeTabId)
     // push button id
     payload.tabId.push(fieldItem.id)
     // get product panel
-    await axiosPost('/getfieldbyformnameproduct', payload).then((res) => {
-      if (res.data.status !== '1') {
-        return window.Swal.fire('', res.data.message, 'error')
+    await axiosPost("/getfieldbyformnameproduct", payload).then((res) => {
+      if (res.data.status !== "1") {
+        return window.Swal.fire("", res.data.message, "error")
       }
       dispatch(setFormPanel(res.data.panel))
-      window.$('.modal').modal('hide')
+      window.$(".modal").modal("hide")
     })
   }
 

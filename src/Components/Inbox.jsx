@@ -1,21 +1,20 @@
-import { useEffect, useMemo, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import { useEffect, useMemo, useState } from "react"
+import { useDispatch, useSelector } from "react-redux"
 import {
   handleGetListData,
   handleGetListStructure,
   handleStructureHeader,
-} from '../Utils/TableUtils'
-import { setCurrentPayload, setFilteringList } from '../Store/List/listSlice'
-import { useParams } from 'react-router-dom'
+} from "../Utils/TableUtils"
+import { setCurrentPayload, setFilteringList } from "../Store/List/listSlice"
 import {
   createColumnHelper,
   flexRender,
   getCoreRowModel,
   useReactTable,
-} from '@tanstack/react-table'
-import classNames from 'classnames'
-import FullLoad from '../Pages/FullLoad'
-import TopAction from './Table/TopAction'
+} from "@tanstack/react-table"
+import classNames from "classnames"
+import FullLoad from "../Pages/FullLoad"
+import TopAction from "./Table/TopAction"
 
 const Inbox = ({
   getValues,
@@ -34,14 +33,13 @@ const Inbox = ({
   const [loader, showLoader, hideLoader] = FullLoad()
   const [filterData, setFilterData] = useState([])
   const menu = useSelector((state) => state.menu)
-  const { menuId, id, value } = useParams()
   const [open, setOpen] = useState(true)
   const [selected, setSelected] = useState([])
   const [rowSelection, setRowSelection] = useState({})
 
   const columnVisibility = useMemo(
     () => structures.headerVisibility,
-    [structures]
+    [structures],
   )
 
   const columns = useMemo(() => {
@@ -60,9 +58,9 @@ const Inbox = ({
     const searchCriteria = []
     if (filterData) {
       filterData.forEach(({ label, value }) => {
-        if (value !== '') searchCriteria.push(`${label} = ${value}`)
+        if (value !== "") searchCriteria.push(`${label} = ${value}`)
       })
-      const res = searchCriteria.join(', ')
+      const res = searchCriteria.join(", ")
       return res
     }
     return filterData
@@ -70,7 +68,7 @@ const Inbox = ({
 
   const pagination = useMemo(
     () => ({ pageIndex, pageSize }),
-    [pageIndex, pageSize]
+    [pageIndex, pageSize],
   )
 
   useEffect(() => {
@@ -94,33 +92,33 @@ const Inbox = ({
     debugTable: false,
   })
 
-  useEffect(() => {
-    if (id && value) {
-      setOpen(false)
-    } else {
-      setOpen(true)
-    }
-  }, [id, value])
+  // useEffect(() => {
+  //   if (id && value) {
+  //     setOpen(false)
+  //   } else {
+  //     setOpen(true)
+  //   }
+  // }, [id, value])
 
-  useEffect(() => {
-    document.getElementById('body').classList.add('sidebar-collapse')
-    if (!open) {
-      document.getElementById('inboxCard').classList.add('collapsed-card')
-      document
-        .getElementById('collapseButton')
-        .classList.replace('fa-minus', 'fa-plus')
-      document.getElementById('inboxBody').classList.add('d-none')
-    } else {
-      document.getElementById('inboxCard').classList.remove('collapsed-card')
-      document
-        .getElementById('collapseButton')
-        .classList.replace('fa-plus', 'fa-minus')
-      document.getElementById('inboxBody').classList.remove('d-none')
-    }
-  }, [open])
+  // useEffect(() => {
+  //   document.getElementById("body").classList.add("sidebar-collapse")
+  //   if (!open) {
+  //     document.getElementById("inboxCard").classList.add("collapsed-card")
+  //     document
+  //       .getElementById("collapseButton")
+  //       .classList.replace("fa-minus", "fa-plus")
+  //     document.getElementById("inboxBody").classList.add("d-none")
+  //   } else {
+  //     document.getElementById("inboxCard").classList.remove("collapsed-card")
+  //     document
+  //       .getElementById("collapseButton")
+  //       .classList.replace("fa-plus", "fa-minus")
+  //     document.getElementById("inboxBody").classList.remove("d-none")
+  //   }
+  // }, [open])
 
   return (
-    <div className={`${className}`}>
+    <div className={`${className} col-md-3`}>
       <div className="card card-primary" id="inboxCard">
         <div className="card-header">
           <span className="card-title">{menu.activeMenuDesc}</span>
@@ -155,7 +153,7 @@ const Inbox = ({
             <section className="">
               <div className="d-flex justify-content-between">
                 <div className="pr-2 text-sm">
-                  Halaman {table.getState().pagination.pageIndex + 1} dari{' '}
+                  Halaman {table.getState().pagination.pageIndex + 1} dari{" "}
                   {table.getPageCount()}
                 </div>
                 <select
@@ -175,7 +173,7 @@ const Inbox = ({
               </div>
               <div className="d-flex justify-content-between mt-1">
                 <div
-                  className={classNames('page-item w-100', {
+                  className={classNames("page-item w-100", {
                     disabled: !table.getCanPreviousPage(),
                   })}
                   onClick={() => table.previousPage()}
@@ -190,7 +188,7 @@ const Inbox = ({
                   </button>
                 </div>
                 <div
-                  className={classNames('page-item w-100', {
+                  className={classNames("page-item w-100", {
                     disabled: !table.getCanNextPage(),
                   })}
                   onClick={() => table.nextPage()}
@@ -205,7 +203,7 @@ const Inbox = ({
           <div
             className="mt-3"
             style={{
-              height: filterDataLabel ? '50vh' : '60vh',
+              height: filterDataLabel ? "50vh" : "60vh",
             }}
           >
             <div className="overflow-auto h-100">
@@ -223,13 +221,13 @@ const Inbox = ({
                 return (
                   <div
                     key={index}
-                    className={`border ${
-                      id && row.original[id] == value ? 'bg-light' : ''
-                    }`}
+                    // className={`border ${
+                    //   id && row.original[id] == value ? 'bg-light' : ''
+                    // }`}
                   >
                     {row.getVisibleCells().map((cell, index) => {
                       let right = false
-                      if (cell.getContext().cell.id.includes('action')) {
+                      if (cell.getContext().cell.id.includes("action")) {
                         right = true
                       }
                       return (
@@ -237,13 +235,13 @@ const Inbox = ({
                           key={index}
                           className={`flex-fill d-flex ${
                             right
-                              ? 'justify-content-end'
-                              : 'justify-content-evenly'
+                              ? "justify-content-end"
+                              : "justify-content-evenly"
                           } p-1`}
                         >
                           {flexRender(
                             cell.column.columnDef.cell,
-                            cell.getContext()
+                            cell.getContext(),
                           )}
                         </div>
                       )

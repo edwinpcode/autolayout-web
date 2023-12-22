@@ -1,17 +1,17 @@
-import React, { useEffect, useState } from 'react'
-import FullLoad from '../../../Pages/FullLoad'
-import { useDispatch, useSelector } from 'react-redux'
-import { useLocation, useNavigate, useParams } from 'react-router-dom'
-import { getDataActionWithButton } from '../../../Services/AutoLayoutService'
-import { setFormAction, setFormPanel } from '../../../Store/Form/FormSlice'
-import { resetDropdown, setDropdown } from '../../../Store/Input/DropdownSlice'
+import React, { useEffect, useState } from "react"
+import FullLoad from "../../../Pages/FullLoad"
+import { useDispatch, useSelector } from "react-redux"
+import { useLocation, useNavigate } from "react-router-dom"
+import { getDataActionWithButton } from "../../../Services/AutoLayoutService"
+import { setFormAction, setFormPanel } from "../../../Store/Form/FormSlice"
+import { resetDropdown, setDropdown } from "../../../Store/Input/DropdownSlice"
 import {
   setLoadingField,
   setLoadingSpin,
-} from '../../../Store/Loading/LoadingSlice'
-import InputCommon from './InputCommon'
-import { useForm } from 'react-hook-form'
-import { ErrorMessage } from '@hookform/error-message'
+} from "../../../Store/Loading/LoadingSlice"
+import InputCommon from "./InputCommon"
+import { useForm } from "react-hook-form"
+import { ErrorMessage } from "@hookform/error-message"
 
 const InputTextboxWithButton = ({
   button,
@@ -29,7 +29,6 @@ const InputTextboxWithButton = ({
   ...props
 }) => {
   const { state } = useLocation()
-  const { menuId, id, value } = useParams()
   const dispatch = useDispatch()
   const navigate = useNavigate()
   // prettier-ignore
@@ -54,29 +53,31 @@ const InputTextboxWithButton = ({
       dispatch(setLoadingSpin(false))
       dispatch(setLoadingField(false))
       // nik baru (tidak ditemukan)
-      if (res.data.status == '0') {
-        navigate(`/${menuId}/${id}/${value}`, { state: { param: [] } })
+      if (res.data.status == "0") {
+        // navigate(`/${menuId}/${id}/${value}`, { state: { param: [] } })
+        // navigate("/", { state: { param: [] } })
         dispatch(setFormPanel(res.data.panel))
         dispatch(setFormAction(res.data.action))
-        return window.Swal.fire('', res.data.message, 'warning')
+        return window.Swal.fire("", res.data.message, "warning")
       }
       // nik ditemukan
-      if (res.data.status == '1') {
+      if (res.data.status == "1") {
         dispatch(setFormPanel(res.data.panel))
         dispatch(setFormAction(res.data.action))
-        return window.Swal.fire('', res.data.message, 'success')
+        return window.Swal.fire("", res.data.message, "success")
       }
       // nik dalam pengajuan
-      if (res.data.status == '2') {
-        navigate(`/${menuId}`)
-        return window.Swal.fire('', res.data.message, 'warning')
+      if (res.data.status == "2") {
+        // navigate(`/${menuId}`)
+        navigate("/")
+        return window.Swal.fire("", res.data.message, "warning")
       }
     })
   }
 
   return (
     <>
-      <label className={`${fieldItem.hide ? 'hidden' : ''}`}>
+      <label className={`${fieldItem.hide ? "hidden" : ""}`}>
         {label}
         {isMandatory && (
           <span className="text-danger font-weight-bold"> *</span>
@@ -96,7 +97,7 @@ const InputTextboxWithButton = ({
           setValue={setValue}
           watch={watch}
           resetField={resetField}
-          hide={fieldItem.hide == '1' || false}
+          hide={fieldItem.hide == "1" || false}
           register={register}
         />
         <span className="input-group-append">
@@ -113,7 +114,7 @@ const InputTextboxWithButton = ({
         errors={errors}
         name={fieldItem.id}
         as="div"
-        style={{ color: 'red', marginTop: '5px' }}
+        style={{ color: "red", marginTop: "5px" }}
       />
     </>
   )

@@ -1,16 +1,16 @@
-import React from 'react'
-import IndeterminateCheckbox from '../Components/Table/IndeterminateCheckbox'
-import { getGridData, getListData } from '../Services/ListService'
-import { getAllStructure, getGridStructure } from '../Services/StructureService'
-import { dateDisplay, datetimeDisplay, timeDisplay } from './DatetimeUtils'
-import ButtonType from '../Components/AutoLayout/ButtonType'
-import InputCheckbox from '../Components/AutoLayout/Input/InputCheckbox'
-import { handleParamValues } from './ParamUtils'
-import InputSelectItem from '../Components/AutoLayout/Input/InputSelectItem'
+import React from "react"
+import IndeterminateCheckbox from "../Components/Table/IndeterminateCheckbox"
+import { getGridData, getListData } from "../Services/ListService"
+import { getAllStructure, getGridStructure } from "../Services/StructureService"
+import { dateDisplay, datetimeDisplay, timeDisplay } from "./DatetimeUtils"
+import ButtonType from "../Components/AutoLayout/ButtonType"
+import InputCheckbox from "../Components/AutoLayout/Input/InputCheckbox"
+import { handleParamValues } from "./ParamUtils"
+import InputSelectItem from "../Components/AutoLayout/Input/InputSelectItem"
 
 export const addRowSelectionColumn = (defaultColumn, columnHelper) => {
   defaultColumn.unshift(
-    columnHelper.accessor('row_selection', {
+    columnHelper.accessor("row_selection", {
       header: ({ table }) => (
         <IndeterminateCheckbox
           {...{
@@ -29,7 +29,7 @@ export const addRowSelectionColumn = (defaultColumn, columnHelper) => {
           }}
         />
       ),
-    })
+    }),
   )
 }
 
@@ -48,7 +48,7 @@ export const handleColumnType = ({
   // hardcode
   const setActionSelectValue = (selectValue) => {
     const dataIsExist = values.filter(
-      (value) => value.data === info.row.original.ap_regno
+      (value) => value.data === info.row.original.ap_regno,
     )
 
     if (values.length <= 0 || !dataIsExist.length)
@@ -60,11 +60,11 @@ export const handleColumnType = ({
     return (window.values = values)
   }
   // Text
-  if (header.type === 'text') {
+  if (header.type === "text") {
     return info.getValue()
   }
   // Checkbox
-  if (header.type === 'checkbox') {
+  if (header.type === "checkbox") {
     return (
       <InputCheckbox
         info={info}
@@ -75,7 +75,7 @@ export const handleColumnType = ({
   }
 
   // Select Item on Grid
-  if (header.type === 'selectItem') {
+  if (header.type === "selectItem") {
     return (
       <InputSelectItem
         info={info}
@@ -85,30 +85,30 @@ export const handleColumnType = ({
     )
   }
   // Currency
-  if (header.type === 'currency') {
+  if (header.type === "currency") {
     const value = info.getValue()
-    return value ? parseFloat(value).toLocaleString('en-US') : ''
+    return value ? parseFloat(value).toLocaleString("en-US") : ""
   }
   // Datetime
-  if (header.type === 'datetime') {
+  if (header.type === "datetime") {
     const value = info.getValue()
     const result = datetimeDisplay(value)
     return result
   }
   // Date
-  if (header.type === 'date') {
+  if (header.type === "date") {
     const value = info.getValue()
     const result = dateDisplay(value)
     return result
   }
   // Date
-  if (header.type === 'time') {
+  if (header.type === "time") {
     const value = info.getValue()
     const result = timeDisplay(value)
     return result
   }
   // BUTTON
-  if (header.type === 'button') {
+  if (header.type === "button") {
     // const gridItem = item
     const buttonList = info.getValue()
     if (buttonList === undefined) {
@@ -146,14 +146,14 @@ export const handleColumnType = ({
                   pageSize={pageSize}
                   pageIndex={pageIndex}
                 />
-              )
+              ),
           )}
         </div>
       )
     }
   }
   // SELECT
-  if (header.type === 'select') {
+  if (header.type === "select") {
     return (
       <select
         onChange={(e) => setActionSelectValue(e.target.value)}
@@ -170,11 +170,11 @@ export const handleColumnType = ({
     )
   }
   // RADIO
-  if (header.type === 'radio') {
+  if (header.type === "radio") {
     return header.item.map((item) => (
       <div key={item.label} className="position-relative">
         <input
-          name={'radio_' + info.row.index}
+          name={"radio_" + info.row.index}
           className="d-block mx-auto"
           type="radio"
           value={item.label}
@@ -215,7 +215,7 @@ export const handleStructureHeader = ({
           gridItem,
         }),
       type: header.type,
-    })
+    }),
   )
   if (structures.canSelectAll) {
     // add row selection to first column (array unshift)
@@ -228,7 +228,7 @@ export const handleStructureHeader = ({
 export const handleGetListData = async (payload, setDataQuery) => {
   try {
     const res = await getListData(payload)
-    if (res.data.status != '1') {
+    if (res.data.status != "1") {
       setDataQuery({
         rows: [],
         pageCount: 1,
@@ -238,12 +238,12 @@ export const handleGetListData = async (payload, setDataQuery) => {
     setDataQuery({
       rows: res.data.data.list,
       pageCount: Math.ceil(
-        parseInt(res.data.data.total) / payload.pagination.perPage
+        parseInt(res.data.data.total) / payload.pagination.perPage,
       ),
       total: parseInt(res.data.data.total),
     })
   } catch (error) {
-    return window.Swal.fire('Error', error.message, 'error')
+    return window.Swal.fire("Error", error.message, "error")
   }
 }
 
@@ -256,29 +256,33 @@ export const handleGetListStructure = (user, menuId, setStructures) => {
   }
   getAllStructure(payload)
     .then((res) => {
-      if (res.data.status != '1') {
-        return window.Swal.fire('Kesalahan', res.data.message, 'error')
+      if (res.data.status != "1") {
+        return window.Swal.fire("Kesalahan", res.data.message, "error")
       }
       setStructures(res.data.data)
     })
     .catch((e) => {
-      window.Swal.fire('Kesalahan', e.response.message, 'error')
+      window.Swal.fire("Kesalahan", e.message, "error")
     })
 }
 
 export const handleGetGridData = async (payload, setDataQuery) => {
-  await getGridData(payload).then((res) => {
-    if (res.data.status != '1') {
-      return window.Swal.fire('Kesalahan', res.data.message, 'error')
-    }
-    setDataQuery({
-      rows: res.data.data.list,
-      pageCount: Math.ceil(
-        parseInt(res.data.data.total) / payload.pagination.perPage
-      ),
-      total: parseInt(res.data.data.total),
+  await getGridData(payload)
+    .then((res) => {
+      if (res.data.status != "1") {
+        return window.Swal.fire("Kesalahan", res.data.message, "error")
+      }
+      setDataQuery({
+        rows: res.data.data.list,
+        pageCount: Math.ceil(
+          parseInt(res.data.data.total) / payload.pagination.perPage,
+        ),
+        total: parseInt(res.data.data.total),
+      })
     })
-  })
+    .catch((e) => {
+      window.Swal.fire("Kesalahan", e.message, "error")
+    })
 }
 
 export const handleGetGridStructure = (setStructures, gridItem, getValues) => {
@@ -286,10 +290,14 @@ export const handleGetGridStructure = (setStructures, gridItem, getValues) => {
     grid: gridItem.id,
     param: handleParamValues(gridItem.reference.parent, getValues),
   }
-  getGridStructure(payload).then((res) => {
-    if (res.data.status != '1') {
-      return window.Swal.fire('Kesalahan', res.data.message, 'error')
-    }
-    setStructures(res.data.data)
-  })
+  getGridStructure(payload)
+    .then((res) => {
+      if (res.data.status != "1") {
+        return window.Swal.fire("Kesalahan", res.data.message, "error")
+      }
+      setStructures(res.data.data)
+    })
+    .catch((e) => {
+      window.Swal.fire("Kesalahan", e.message, "error")
+    })
 }
