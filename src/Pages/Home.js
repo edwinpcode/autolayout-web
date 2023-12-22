@@ -1,19 +1,19 @@
-import React, { useEffect, useState } from 'react'
-import { Outlet, useNavigate } from 'react-router-dom'
-import { useSelector } from 'react-redux'
-import Header from '../Layout/Header'
-import SideBar from '../Layout/SideBar'
-import AuthStepperContent from '../Components/Stepper/AuthStepperContent'
-import BackTop from './BackTop'
-import Load from '../Pages/FullLoad'
-import Inbox from '../Components/Inbox'
+import React, { useEffect, useState } from "react"
+import { Outlet, useNavigate } from "react-router-dom"
+import { useSelector } from "react-redux"
+import Header from "../Layout/Header"
+import SideBar from "../Layout/SideBar"
+import AuthStepperContent from "../Components/Stepper/AuthStepperContent"
+import BackTop from "./BackTop"
+import Load from "../Pages/FullLoad"
+import Inbox from "../Components/Inbox"
 
 function Home() {
   const navigate = useNavigate()
 
   const menu = useSelector((state) => state.menu)
 
-  const tokenLogout = localStorage.getItem('token')
+  const tokenLogout = localStorage.getItem("accessToken")
 
   // loading
   const [loader, showLoader, hideLoader] = Load()
@@ -22,12 +22,12 @@ function Home() {
     // showLoader()
     //if token null
     if (tokenLogout === null) {
-      return navigate('/login')
+      return navigate("/login")
     }
     // if menu not selected
-    if (menu.activeMenuId === '') {
+    if (menu.activeMenuId === "") {
       // hideLoader()
-      return navigate('/dashboard')
+      return navigate("/dashboard")
     }
   }, [])
 
@@ -48,7 +48,7 @@ function Home() {
         <section className="content pt-3">
           <div className="container-fluid">
             <div className="card">
-              <div className="card-body" style={{ minHeight: '90vh' }}>
+              <div className="card-body" style={{ minHeight: "90vh" }}>
                 <Outlet />
               </div>
             </div>

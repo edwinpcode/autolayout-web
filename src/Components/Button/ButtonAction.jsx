@@ -1,53 +1,51 @@
-import { useSelector, useDispatch } from 'react-redux'
-import { useLocation, useNavigate, useParams } from 'react-router-dom'
+import { useSelector, useDispatch } from "react-redux"
+import { useLocation, useNavigate } from "react-router-dom"
 import {
   axiosPost,
   deleteData,
   getField,
-  getFieldBySub,
   saveDataAndUpload,
   saveForm,
   updateStatus,
-} from '../../Services/AutoLayoutService'
-import Load from '../../Pages/FullLoad'
-import socket from '../../Utils/SocketUtils'
+} from "../../Services/AutoLayoutService"
+import Load from "../../Pages/FullLoad"
 import {
   handleGetGridData,
   handleGetGridStructure,
   handleGetListData,
-} from '../../Utils/TableUtils'
-import { confirmSwal } from '../../Utils/SwalUtils'
-import CryptoJS from 'crypto-js'
+} from "../../Utils/TableUtils"
+import { confirmSwal } from "../../Utils/SwalUtils"
+import CryptoJS from "crypto-js"
 import {
   setFilteringList,
   setGridFilter,
   triggerRefreshGrid,
-} from '../../Store/List/listSlice'
-import { handleParamValues } from '../../Utils/ParamUtils'
-import { getFieldByFieldId } from '../../Utils/FieldReferenceUtils'
-import { setFormAction, setFormPanel } from '../../Store/Form/FormSlice'
-import { setLoadingField } from '../../Store/Loading/LoadingSlice'
-import { useEffect } from 'react'
+} from "../../Store/List/listSlice"
+import { handleParamValues } from "../../Utils/ParamUtils"
+import { getFieldByFieldId } from "../../Utils/FieldReferenceUtils"
+import { setFormAction, setFormPanel } from "../../Store/Form/FormSlice"
+import { setLoadingField } from "../../Store/Loading/LoadingSlice"
+
 const openInNewTab = (url) => {
-  window.open(url, '_blank', 'noreferrer')
+  window.open(url, "_blank", "noreferrer")
 }
 const openMaps = (longlat) => {
-  if (longlat === '') {
+  if (longlat === "") {
     window.Swal.fire(
-      'Gagal',
-      'Gagal Membuka Maps, Pastika Longitude dan Latitude sudah benar',
-      'error'
+      "Gagal",
+      "Gagal Membuka Maps, Pastika Longitude dan Latitude sudah benar",
+      "error",
     )
     return
   }
   window.open(
-    'https://www.google.com/maps/search/?api=1&query=' + longlat,
-    '_blank',
-    'noreferrer'
+    "https://www.google.com/maps/search/?api=1&query=" + longlat,
+    "_blank",
+    "noreferrer",
   )
 }
 
-function b64toBlob(b64Data, contentType = '', sliceSize = 512) {
+function b64toBlob(b64Data, contentType = "", sliceSize = 512) {
   const byteCharacters = atob(b64Data)
   const byteArrays = []
   for (let offset = 0; offset < byteCharacters.length; offset += sliceSize) {
@@ -85,7 +83,6 @@ function ButtonAction({
   const navigate = useNavigate()
   const { state, pathname } = useLocation()
   const dispatch = useDispatch()
-  const { menuId, id, value } = useParams()
   // loading
   const [loader, showLoader, hideLoader] = Load()
   // redux
@@ -93,7 +90,7 @@ function ButtonAction({
   const menu = useSelector((state) => state.menu)
   const hiddenField = useSelector((state) => state.hiddenElement.hiddenField)
   const currentListPayload = useSelector((state) => state.list.currentPayload)
-  const lastFormPayload = useSelector((state) => state.form.lastPayload)
+  // const lastFormPayload = useSelector((state) => state.form.lastPayload)
   const filtering = useSelector((state) => state.list.filtering)
 
   // refresh grid data
@@ -113,10 +110,10 @@ function ButtonAction({
         let filtering = []
         for (const [id, value] of Object.entries(fieldData)) {
           // with id
-          payload.filtering.push({ id, value: value || '' })
+          payload.filtering.push({ id, value: value || "" })
           // with label
           let { label } = getFieldByFieldId(id, panelList)
-          filtering.push({ label, value: value || '' })
+          filtering.push({ label, value: value || "" })
         }
         // dispatch dipake nanti ketika filter pagination sudah fix
         dispatch(setGridFilter(payload.filtering))
@@ -136,21 +133,21 @@ function ButtonAction({
   }
   // download file
   const downloadFile = (base64, fileName, fileType) => {
-    let mimeType = 'application/pdf'
-    if (fileType === 'docx') {
+    let mimeType = "application/pdf"
+    if (fileType === "docx") {
       mimeType =
-        'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
+        "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
     }
-    if (fileType === 'excel') {
+    if (fileType === "excel") {
       mimeType =
-        'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+        "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
     }
-    if (fileType === 'csv') {
-      mimeType = 'text/csv'
+    if (fileType === "csv") {
+      mimeType = "text/csv"
     }
-    const extensition = fileType === 'excel' ? '.xlsx' : `.${fileType}`
+    const extensition = fileType === "excel" ? ".xlsx" : `.${fileType}`
     const linkSource = `data:${mimeType};base64,${base64}`
-    const downloadLink = document.createElement('a')
+    const downloadLink = document.createElement("a")
 
     downloadLink.href = linkSource
     downloadLink.download = fileName + extensition
@@ -158,7 +155,7 @@ function ButtonAction({
   }
 
   const findPanelId = (fieldId) => {
-    let panelId = ''
+    let panelId = ""
     panelList.forEach((panelItem) => {
       panelItem.listField.forEach((fieldItem) => {
         if (fieldItem.id === fieldId) {
@@ -173,16 +170,16 @@ function ButtonAction({
     // showLoader()
     // available action:
     // redirect, save, submit, cancel
-    if (actionItem.isRedirect === '1') {
+    if (actionItem.isRedirect === "1") {
       const payload = {}
       if (actionItem.url.param) {
         const param = handleParamValues(actionItem.url.param, getValues, info)
         Object.assign(payload, { param })
-        navigate(`/${menuId}/${param[0].id}/${param[0].value}`)
-        // return navigate(actionItem?.url?.path, { state: payload })
+        // navigate(`/${menu.activeMenuId}/${param[0].id}/${param[0].value}`)
+        return navigate(actionItem?.url?.path, { state: payload })
       }
     }
-    if (actionItem.flagType == 'multiSubmit') {
+    if (actionItem.flagType == "multiSubmit") {
       const payload = {
         id: actionItem.param,
         param: selected,
@@ -192,7 +189,7 @@ function ButtonAction({
     }
 
     // save
-    if (actionItem.flagType === 'save') {
+    if (actionItem.flagType === "save") {
       const payload = {
         panel: [],
         userId: user.id,
@@ -202,10 +199,10 @@ function ButtonAction({
       let notSavedFields = []
       panelList.forEach((panelItem) => {
         panelItem.listField.forEach((fieldItem) => {
-          if (fieldItem.fieldSave === '0') notSavedFields.push(fieldItem.id)
+          if (fieldItem.fieldSave === "0") notSavedFields.push(fieldItem.id)
         })
       })
-      notSavedFields.length && console.log('not saved field', notSavedFields)
+      notSavedFields.length && console.log("not saved field", notSavedFields)
       // mapping form data to payload
       for (let [fieldId, fieldValue] of Object.entries(data)) {
         // not include in notSavedFields & hiddenField
@@ -223,13 +220,13 @@ function ButtonAction({
       // save data
       await saveForm(saveEndpoint, payload).then((res) => {
         showLoader()
-        if (res.data.status != '1') {
+        if (res.data.status != "1") {
           hideLoader()
-          return window.Swal.fire('Kesalahan', res.data.message, 'error')
+          return window.Swal.fire("Kesalahan", res.data.message, "error")
         }
         hideLoader()
-        window.$('.modal').modal('hide')
-        window.Swal.fire('Berhasil', res.data.message, 'success')
+        window.$(".modal").modal("hide")
+        window.Swal.fire("Berhasil", res.data.message, "success")
         refreshGridData()
         if (res?.data?.key?.length) {
           // navigate(`/${menuId}`, { state: { param: res.data.key } })
@@ -241,53 +238,53 @@ function ButtonAction({
         }
       })
       // hardcode (simpan jaminan)
-      if (actionItem.flagAction === 'saveJaminan') {
+      if (actionItem.flagAction === "saveJaminan") {
         dispatch(triggerRefreshGrid())
       }
     }
 
     // save
-    if (actionItem.flagType === 'saveAndUpload') {
+    if (actionItem.flagType === "saveAndUpload") {
       const formData = new FormData()
       // param
       const param = []
       actionItem.url.param.forEach((paramId) => {
-        const paramValue = window.$('#' + paramId).val()
+        const paramValue = window.$("#" + paramId).val()
         param.push({ id: paramId, value: paramValue })
       })
-      formData.append('param', JSON.stringify(param))
+      formData.append("param", JSON.stringify(param))
       // fields
       const fields = []
       for (const [id, value] of Object.entries(data)) {
-        const fieldEl = window.$('#' + id).attr('type')
-        if (fieldEl === 'file') {
-          formData.append('file', data[id][0])
+        const fieldEl = window.$("#" + id).attr("type")
+        if (fieldEl === "file") {
+          formData.append("file", data[id][0])
         } else {
           fields.push({ id, value })
         }
       }
-      formData.append('fields', JSON.stringify(fields))
+      formData.append("fields", JSON.stringify(fields))
       // user id
-      formData.append('userid', user.id)
-      formData.append('tc', menu.activeTrackId)
-      formData.append('uploadtype', actionItem.flagAction)
-      formData.append('lat', 'hardcode') // hardcode
-      formData.append('lon', 'hardcode')
-      formData.append('addr', 'hardcode')
+      formData.append("userid", user.id)
+      formData.append("tc", menu.activeTrackId)
+      formData.append("uploadtype", actionItem.flagAction)
+      formData.append("lat", "hardcode") // hardcode
+      formData.append("lon", "hardcode")
+      formData.append("addr", "hardcode")
       await saveDataAndUpload(formData).then((res) => {
-        if (res.data.status != '1') {
+        if (res.data.status != "1") {
           hideLoader()
-          return window.Swal.fire('Error', res.data.message, 'error')
+          return window.Swal.fire("Error", res.data.message, "error")
         }
-        window.$('.modal').modal('hide')
-        window.Swal.fire('Berhasil', res.data.message, 'success')
+        window.$(".modal").modal("hide")
+        window.Swal.fire("Berhasil", res.data.message, "success")
       })
       refreshGridData()
       hideLoader()
     }
 
     // submit & cancel
-    if (['submit', 'cancel'].includes(actionItem.flagType)) {
+    if (["submit", "cancel"].includes(actionItem.flagType)) {
       const payload = {
         flagType: actionItem.flagType,
         flagAction: actionItem.flagAction,
@@ -300,25 +297,26 @@ function ButtonAction({
       }
       // alert('tinggal kirim payload. NOTE : ada code loading juga nanti disini')
       updateStatus(payload).then((res) => {
-        if (res.data.status != '1') {
+        if (res.data.status != "1") {
           hideLoader()
-          if (res.data.message != '') {
-            return window.Swal.fire('Kesalahan', res.data.message, 'error')
+          if (res.data.message != "") {
+            return window.Swal.fire("Kesalahan", res.data.message, "error")
           }
-          return window.Swal.fire('Kesalahan', 'Something went wrong', 'error')
+          return window.Swal.fire("Kesalahan", "Something went wrong", "error")
         }
-        window.Swal.fire('Berhasil', res.data.message, 'success')
-        window.$('.modal').modal('hide')
+        window.Swal.fire("Berhasil", res.data.message, "success")
+        window.$(".modal").modal("hide")
         hideLoader()
-        if (res.data.isBackToInbox === '1') {
-          navigate(`/${menuId}`)
+        if (res.data.isBackToInbox === "1") {
+          // navigate(`/${menuId}`)
+          navigate("/")
         }
         refreshGridData()
       })
     }
 
     // delete
-    if (actionItem?.flagType === 'hapus') {
+    if (actionItem?.flagType === "hapus") {
       const payload = {}
       if (actionItem.url.param.length) {
         const param = handleParamValues(actionItem.url.param, getValues, info)
@@ -329,46 +327,46 @@ function ButtonAction({
       Object.assign(payload, { flagAction: actionItem.flagAction })
       // delete action
       await deleteData(payload).then((res) => {
-        if (res.data.status != '1') {
+        if (res.data.status != "1") {
           hideLoader()
-          return window.Swal.fire('', res.data.message, 'error')
+          return window.Swal.fire("", res.data.message, "error")
         }
         hideLoader()
-        window.Swal.fire('', res.data.message, 'success')
+        window.Swal.fire("", res.data.message, "success")
       })
       // refresh grid data
       refreshGridData()
     }
 
     // export
-    if (actionItem?.flagType === 'export') {
+    if (actionItem?.flagType === "export") {
       const fileType = actionItem.flagAction.match(/export(\w+)/)[1]
       const payload = {
         ...currentListPayload,
         fileType: fileType.toLowerCase(),
       }
-      await axiosPost('/exportlistdata', payload).then((res) => {
-        if (res.data.status != '1') {
+      await axiosPost("/exportlistdata", payload).then((res) => {
+        if (res.data.status != "1") {
           hideLoader()
-          return window.Swal.fire('', res.data.message, 'error')
+          return window.Swal.fire("", res.data.message, "error")
         }
         const data = res.data.data
         downloadFile(data.base64, data.fileName, data.fileType)
-        window.Swal.fire('', res.data.message, 'success')
+        window.Swal.fire("", res.data.message, "success")
       })
     }
 
     // upload
-    if (actionItem.flagType === 'upload') {
+    if (actionItem.flagType === "upload") {
       const payload = {}
-      console.log('perlu edit')
+      console.log("perlu edit")
     }
 
     // search / filter
-    if (actionItem.flagType === 'search') {
+    if (actionItem.flagType === "search") {
       if (gridItem) {
         refreshGridData({ withFiltering: true, fieldData: data })
-        window.$('.modal').modal('hide')
+        window.$(".modal").modal("hide")
       } else {
         const payload = {
           userId: user.id,
@@ -384,22 +382,22 @@ function ButtonAction({
         let filtering = []
         for (const [id, value] of Object.entries(data)) {
           // with id
-          payload.filtering.push({ id, value: value || '' })
+          payload.filtering.push({ id, value: value || "" })
           // with label
           let { label } = getFieldByFieldId(id, panelList)
-          filtering.push({ label, value: value || '' })
+          filtering.push({ label, value: value || "" })
         }
         // dispatch dipake nanti ketika filter pagination sudah fix
         dispatch(setFilteringList(payload.filtering))
         setFilterData(filtering)
         // hideLoader() ga jalan?
         handleGetListData(payload, setDataQuery)
-        window.$('.modal').modal('hide')
+        window.$(".modal").modal("hide")
       }
     }
 
     // use / pakai
-    if (actionItem.flagType === 'use') {
+    if (actionItem.flagType === "use") {
       const payload = {
         flagType: actionItem.flagType,
         flagAction: actionItem.flagAction,
@@ -408,18 +406,18 @@ function ButtonAction({
         const param = handleParamValues(actionItem.url.param, getValues, info)
         Object.assign(payload, { param })
       }
-      await axiosPost('/usedata', payload).then((res) => {
-        if (res.data.status !== '1') {
+      await axiosPost("/usedata", payload).then((res) => {
+        if (res.data.status !== "1") {
           hideLoader()
-          return window.Swal.fire('Error', res.data.message, 'error')
+          return window.Swal.fire("Error", res.data.message, "error")
         }
-        window.Swal.fire('', res.data.message, 'success')
+        window.Swal.fire("", res.data.message, "success")
       })
       refreshGridData()
     }
 
     // generate
-    if (actionItem.flagType === 'generate') {
+    if (actionItem.flagType === "generate") {
       const payload = {
         flagType: actionItem.flagType,
         flagAction: actionItem.flagAction,
@@ -428,43 +426,43 @@ function ButtonAction({
         const param = handleParamValues(actionItem.url.param, getValues, info)
         Object.assign(payload, { param })
       }
-      await axiosPost('/generatedocument', payload).then((res) => {
-        if (res.data.status !== '1') {
+      await axiosPost("/generatedocument", payload).then((res) => {
+        if (res.data.status !== "1") {
           hideLoader()
-          return window.Swal.fire('Error', res.data.message, 'error')
+          return window.Swal.fire("Error", res.data.message, "error")
         }
-        window.Swal.fire('', res.data.message, 'success')
+        window.Swal.fire("", res.data.message, "success")
       })
       refreshGridStructure()
       refreshGridData()
     }
 
     // preview
-    if (actionItem.flagType === 'preview') {
+    if (actionItem.flagType === "preview") {
       const payload = {
         flagType: actionItem.flagType,
         flagAction: actionItem.flagAction,
         param: handleParamValues(actionItem.url.param, getValues, info),
       }
-      const data = await axiosPost('/viewdocument', payload).then((res) => {
-        if (res.data.status !== '1') {
+      const data = await axiosPost("/viewdocument", payload).then((res) => {
+        if (res.data.status !== "1") {
           hideLoader()
-          return window.Swal.fire('Error', res.data.message, 'error')
+          return window.Swal.fire("Error", res.data.message, "error")
         }
         return res.data.data
       })
-      if (data.fileType === 'docx') {
+      if (data.fileType === "docx") {
         downloadFile(data.base64, data.fileName, data.fileType)
       } else {
-        const blob = b64toBlob(data.base64, 'application/pdf')
+        const blob = b64toBlob(data.base64, "application/pdf")
         const blobUrl = URL.createObjectURL(blob)
         // const uniqueCode = blobUrl.substring(blobUrl.lastIndexOf('/') + 1)
-        window.open(`/preview?src=${blobUrl}`, '_blank')
+        window.open(`/preview?src=${blobUrl}`, "_blank")
       }
     }
 
     // home
-    if (actionItem.flagType === 'home') {
+    if (actionItem.flagType === "home") {
       dispatch(setLoadingField(true))
       dispatch(setGridFilter([]))
       dispatch(setFilteringList([]))
@@ -474,13 +472,13 @@ function ButtonAction({
         tabId: menu.activeTabId,
         tc: menu.activeTrackId,
         userId: user.id,
-        param: [{ id, value }],
+        param: [{ id: state.id, value: state.value }],
       }
       // get field by payload
       await getField(payload).then((res) => {
-        if (res.data.status != '1') {
+        if (res.data.status != "1") {
           hideLoader()
-          return window.Swal.fire('Kesalahan', res.data.message, 'error')
+          return window.Swal.fire("Kesalahan", res.data.message, "error")
         }
         dispatch(setFormPanel(res.data.panel))
         dispatch(setFormAction(res.data.action))
@@ -489,14 +487,14 @@ function ButtonAction({
     }
 
     // change
-    if (actionItem.flagType === 'change') {
+    if (actionItem.flagType === "change") {
       const hashedPassword = CryptoJS.TripleDES.encrypt(
-        'plos1234',
-        'Monday-2023-04-10-11'
+        "plos1234",
+        "Monday-2023-04-10-11",
       )
       const decryptPass = CryptoJS.TripleDES.decrypt(
         hashedPassword,
-        'Monday-2023-04-10-11'
+        "Monday-2023-04-10-11",
       )
       console.log(hashedPassword)
       console.log(decryptPass)
@@ -515,14 +513,14 @@ function ButtonAction({
       //   window.Swal.fire('Berhasil', res.data.message, 'success')
       // })
     }
-    fetchData(menuId, pageIndex, pageSize, filtering)
+    fetchData(menu.activeMenuId, pageIndex, pageSize, filtering)
     hideLoader()
   }
 
   const confirmButtonClick = (data, alert) => {
     // handle need confirm
     // console.log(data, actionItem)
-    if (actionItem?.needConfirm === '1') {
+    if (actionItem?.needConfirm === "1") {
       confirmSwal({
         action: handleButtonClick,
         data: data,
@@ -537,13 +535,13 @@ function ButtonAction({
 
   return (
     <>
-      {actionItem.type === 'button' && actionItem.path && (
+      {actionItem.type === "button" && actionItem.path && (
         <a
           className={actionItem.className}
           onClick={
             handleSubmit
               ? handleSubmit((data) =>
-                  confirmButtonClick(data, actionItem.alert)
+                  confirmButtonClick(data, actionItem.alert),
                 )
               : confirmButtonClick
           }
@@ -554,13 +552,13 @@ function ButtonAction({
           {actionItem.label}
         </a>
       )}
-      {actionItem.type === 'button' && (
+      {actionItem.type === "button" && (
         <button
           className={actionItem.className}
           onClick={
             handleSubmit
               ? handleSubmit((data) =>
-                  confirmButtonClick(data, actionItem.alert)
+                  confirmButtonClick(data, actionItem.alert),
                 )
               : confirmButtonClick
           }
@@ -570,7 +568,7 @@ function ButtonAction({
           {actionItem.label}
         </button>
       )}
-      {actionItem.type === 'anchor' && (
+      {actionItem.type === "anchor" && (
         <div className="mx-auto">
           <button
             type="button"
@@ -581,11 +579,11 @@ function ButtonAction({
           </button>
         </div>
       )}
-      {actionItem.type === 'linkmaps' && (
+      {actionItem.type === "linkmaps" && (
         <>
           <label onClick={() => console.log(actionItem)}>
-            {actionItem.label}{' '}
-            {actionItem.isMandatory === '1' && (
+            {actionItem.label}{" "}
+            {actionItem.isMandatory === "1" && (
               <span className="text-danger font-weight-bold"> *</span>
             )}
           </label>
@@ -593,8 +591,8 @@ function ButtonAction({
             type="button"
             onClick={() =>
               openMaps(
-                document.querySelector('#' + actionItem.reference.parent[0])
-                  .value
+                document.querySelector("#" + actionItem.reference.parent[0])
+                  .value,
               )
             }
             className="btn btn-xs btn-danger form-control"

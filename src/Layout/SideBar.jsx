@@ -1,28 +1,26 @@
-import React, { useMemo, useState, useEffect } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import React, { useMemo, useState, useEffect } from "react"
+import { useDispatch, useSelector } from "react-redux"
 import {
   NavLink,
   useLocation,
   useNavigate,
-  useParams,
   useSearchParams,
-} from 'react-router-dom'
-import { getMenu } from '../Services/MenuService'
-import { setMenuSlice } from '../Store/Menu/menuSlice'
-import { reset, setFilteringList } from '../Store/List/listSlice'
-import { setMenuSidebarSlice } from '../Store/Menu/menuSidebarSlice'
+} from "react-router-dom"
+import { getMenu } from "../Services/MenuService"
+import { setMenuSlice } from "../Store/Menu/menuSlice"
+import { reset, setFilteringList } from "../Store/List/listSlice"
+import { setMenuSidebarSlice } from "../Store/Menu/menuSidebarSlice"
 
-const metaTags = document.getElementsByTagName('meta')
+const metaTags = document.getElementsByTagName("meta")
 const metaTagsArray = Array.from(metaTags)
 
 const applicationNameTag = metaTagsArray.find((tag) => {
-  return tag.getAttribute('name') === 'application-name'
+  return tag.getAttribute("name") === "application-name"
 })
 
-const applicationName = applicationNameTag.getAttribute('content')
+const applicationName = applicationNameTag.getAttribute("content")
 
 function SideBar() {
-  const { menuId } = useParams()
   const dispatch = useDispatch()
   const { state } = useLocation()
   // redux state
@@ -32,7 +30,7 @@ function SideBar() {
   const activeRoleId = useSelector((state) => state.user.activeRole.id)
   // state
   const [menu, setMenu] = useState()
-  const [searchSidebarValue, setSearchSidebarValue] = useState('')
+  const [searchSidebarValue, setSearchSidebarValue] = useState("")
   const navigate = useNavigate()
   const [searchParams, setSearchParams] = useSearchParams()
 
@@ -41,14 +39,14 @@ function SideBar() {
       // handle menu data
       getMenu(userId, activeModuleId, activeRoleId)
         .then((res) => {
-          if (res.data.status != '1') {
-            return window.Swal.fire('', res.data.message, 'error')
+          if (res.data.status != "1") {
+            return window.Swal.fire("", res.data.message, "error")
           }
           setMenu(res.data)
           dispatch(setMenuSidebarSlice(res.data.data))
         })
         .catch((e) =>
-          window.Swal.fire('Kesalahan', e.response.message, 'error')
+          window.Swal.fire("Kesalahan", e.response.message, "error"),
         )
     }
   }, [activeModuleId, activeRoleId])
@@ -66,7 +64,7 @@ function SideBar() {
         const searchedValueLower = searchSidebarValue.toLowerCase()
         if (data.child) {
           return data.child.some((child) =>
-            child.menuDesc.toLowerCase().includes(searchedValueLower)
+            child.menuDesc.toLowerCase().includes(searchedValueLower),
           )
         }
       })
@@ -91,18 +89,18 @@ function SideBar() {
       dispatch(setFilteringList([]))
       dispatch(setMenuSlice({ menuId, trackId, menuDesc }))
       dispatch(reset())
-      document.getElementById('body').classList.add('sidebar-collapse')
+      document.getElementById("body").classList.add("sidebar-collapse")
     }
     // console.log(treeviewId)
     if (treeviewId && hasChild) {
-      document.getElementById(treeviewId).classList.toggle('menu-open')
+      document.getElementById(treeviewId).classList.toggle("menu-open")
     }
   }
 
   return (
     <aside
       className="main-sidebar elevation-4 sidebar-light-danger"
-      id={'sidebar'}
+      id={"sidebar"}
     >
       <a href="/" className="brand-link">
         <img
@@ -135,28 +133,29 @@ function SideBar() {
                   <NavLink
                     // to={`${data.path}/${data.menuId}`}
                     to={`${
-                      data.path == '/form'
-                        ? data.path
-                        : data.path == '/report'
-                        ? `${data.path}/${data.menuId}`
-                        : data.child
-                        ? '#'
-                        : data.menuId
+                      // data.path == '/form'
+                      //   ? data.path
+                      //   : data.path == '/report'
+                      //   ? `${data.path}/${data.menuId}`
+                      //   : data.child
+                      //   ? '#'
+                      //   : data.menuId
+                      data.child ? "#" : data.path
                     }`}
-                    state={data.path !== '/' ? { param: [] } : state}
+                    state={data.path !== "/" ? { param: [] } : state}
                     onClick={() => handleMenuClick(data, `treeview${index}`)}
                     className={() => {
                       if (data.menuId === activeMenuId) {
-                        return 'nav-link active'
+                        return "nav-link active"
                       } else {
-                        return 'nav-link'
+                        return "nav-link"
                       }
                     }}
                   >
-                    {data.icon !== '' ? (
-                      <i className={'nav-icon ' + data.icon}></i>
+                    {data.icon !== "" ? (
+                      <i className={"nav-icon " + data.icon}></i>
                     ) : (
-                      <i className={'nav-icon fal fa-circle'}></i>
+                      <i className={"nav-icon fal fa-circle"}></i>
                     )}
                     <p>
                       {data.menuDesc}
@@ -176,25 +175,26 @@ function SideBar() {
                         <li className="nav-item" key={index}>
                           <NavLink
                             to={`${
-                              child.path == '/form'
-                                ? child.path
-                                : child.path == '/report'
-                                ? `${child.path}/${child.menuId}`
-                                : child.menuId
+                              // child.path == "/form"
+                              //   ? child.path
+                              //   : child.path == "/report"
+                              //     ? `${child.path}/${child.menuId}`
+                              //     : child.menuId
+                              child.path
                             }`}
                             onClick={() => handleMenuClick(child)}
                             className={() => {
                               if (child.menuId === activeMenuId) {
-                                return 'nav-link active'
+                                return "nav-link active"
                               } else {
-                                return 'nav-link'
+                                return "nav-link"
                               }
                             }}
                           >
-                            {child.icon !== '' ? (
-                              <i className={'nav-icon ' + child?.icon}></i>
+                            {child.icon !== "" ? (
+                              <i className={"nav-icon " + child?.icon}></i>
                             ) : (
-                              <i className={'nav-icon fal fa-circle'}></i>
+                              <i className={"nav-icon fal fa-circle"}></i>
                             )}
                             <p>{child.menuDesc}</p>
                           </NavLink>

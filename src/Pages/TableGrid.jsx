@@ -1,9 +1,9 @@
-import { useEffect, useMemo, useState } from 'react'
-import { handleGetGridData, handleGetGridStructure } from '../Utils/TableUtils'
-import { useDispatch, useSelector } from 'react-redux'
-import { setFilteringList } from '../Store/List/listSlice'
-import TableComponent from '../Components/Table/TableComponent'
-import { handleParamValues } from '../Utils/ParamUtils'
+import { useEffect, useMemo, useState } from "react"
+import { handleGetGridData, handleGetGridStructure } from "../Utils/TableUtils"
+import { useDispatch, useSelector } from "react-redux"
+import { setFilteringList } from "../Store/List/listSlice"
+import TableComponent from "../Components/Table/TableComponent"
+import { handleParamValues } from "../Utils/ParamUtils"
 
 function TableGrid({ gridItem, activeTabId, watch, getValues }) {
   const dispatch = useDispatch()
@@ -24,7 +24,7 @@ function TableGrid({ gridItem, activeTabId, watch, getValues }) {
 
   const columnVisibility = useMemo(
     () => structures.headerVisibility,
-    [structures]
+    [structures],
   )
 
   useEffect(() => {
@@ -52,7 +52,6 @@ function TableGrid({ gridItem, activeTabId, watch, getValues }) {
         perPage: pageSize,
       },
     }
-    // console.log(1)
     handleGetGridData(payload, setDataQuery)
   }, [
     pageIndex,

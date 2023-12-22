@@ -1,11 +1,11 @@
-import { useEffect, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import { GetAuthModule } from '../../Services/AuthService'
-import { SetActiveGroup } from '../../Services/UserService'
-import classNames from 'classnames'
-import { setPhotoProfile, setUser } from '../../Store/User/userSlice'
-import { SkeletonAuth } from '../AutoLayout/Skeleton'
-import Stepper from 'react-stepper-horizontal'
+import { useEffect, useState } from "react"
+import { useDispatch, useSelector } from "react-redux"
+import { GetAuthModule } from "../../Services/AuthService"
+import { SetActiveGroup } from "../../Services/UserService"
+import classNames from "classnames"
+import { setPhotoProfile, setUser } from "../../Store/User/userSlice"
+import { SkeletonAuth } from "../AutoLayout/Skeleton"
+import Stepper from "react-stepper-horizontal"
 
 function AuthStepperContent({ isAutoSelectModule }) {
   const dispatch = useDispatch()
@@ -22,9 +22,9 @@ function AuthStepperContent({ isAutoSelectModule }) {
     roleId,
     roleDescr,
     moduleId,
-    moduleDescr
+    moduleDescr,
   ) => {
-    await SetActiveGroup(userId, moduleId, roleId)
+    await SetActiveGroup({ userId, moduleId, roleId })
       .then((res) => {
         if (res.data.status == 1) {
           dispatch(
@@ -32,18 +32,18 @@ function AuthStepperContent({ isAutoSelectModule }) {
               userId,
               activeModule: { id: moduleId, desc: moduleDescr },
               activeRole: { id: roleId, desc: roleDescr },
-            })
+            }),
           )
           dispatch(setPhotoProfile(res.data.photoProfile))
-          if (window.location.pathname === '/auth') {
-            window.location = '/dashboard'
+          if (window.location.pathname === "/auth") {
+            window.location = "/dashboard"
           }
-          window.$('#authStepperModal').modal('hide')
+          window.$("#authStepperModal").modal("hide")
         }
       })
       .catch((e) => {
         console.log(e)
-        window.Swal.fire('Error', e.message, 'error')
+        window.Swal.fire("Error", e.message, "error")
       })
   }
 
@@ -55,7 +55,7 @@ function AuthStepperContent({ isAutoSelectModule }) {
         data.role[0].groupId,
         data.role[0].groupName,
         data.id,
-        data.name
+        data.name,
       )
     }
     setActiveStep(1)
@@ -72,7 +72,7 @@ function AuthStepperContent({ isAutoSelectModule }) {
     <>
       <div className="mb-3">
         <Stepper
-          steps={[{ title: 'Select Application' }, { title: 'Select Role' }]}
+          steps={[{ title: "Select Application" }, { title: "Select Role" }]}
           activeStep={activeStep}
           activeColor="#17a2b8"
           completeColor="#c0c0c0"
@@ -88,11 +88,11 @@ function AuthStepperContent({ isAutoSelectModule }) {
                   <button
                     onClick={() => handleSelectModule(data)}
                     className={classNames(
-                      'btn-select-module btn btn-danger w-100 h-100',
+                      "btn-select-module btn btn-danger w-100 h-100",
                       {
-                        'btn-danger': data.id != user.activeModule.id,
-                        'btn-default': data.id == user.activeModule.id,
-                      }
+                        "btn-danger": data.id != user.activeModule.id,
+                        "btn-default": data.id == user.activeModule.id,
+                      },
                     )}
                   >
                     <span className="badge badge-danger navbar-badge position-absolute text-lg">
@@ -122,12 +122,12 @@ function AuthStepperContent({ isAutoSelectModule }) {
                           role.groupId,
                           role.groupName,
                           selectedModule.id,
-                          selectedModule.name
+                          selectedModule.name,
                         )
                       }
-                      className={classNames('btn w-100 h-100', {
-                        'btn-danger': selectedRole != role,
-                        'btn-default': selectedRole == role,
+                      className={classNames("btn w-100 h-100", {
+                        "btn-danger": selectedRole != role,
+                        "btn-default": selectedRole == role,
                       })}
                     >
                       <span className="badge badge-danger navbar-badge position-absolute text-lg">

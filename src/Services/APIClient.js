@@ -1,25 +1,58 @@
-import axios from 'axios'
+import axios from "axios";
+import memoizedRefreshToken from "./RefreshToken";
 
-const headers = {
-  'Content-Type': 'application/json;charset=UTF-8',
-  'Access-Control-Allow-Origin': '*',
-  Accept: 'application/json',
-}
+export const APIPublic = axios.create({
+  baseURL: process.env.REACT_APP_API_END_POINT,
+  headers: {
+    Accept: "application/json",
+  },
+});
 
-const token = localStorage.getItem('token')
-if (token) {
-  Object.assign(headers, {
-    Authorization: `Bearer ${token}`,
-  })
-}
+const APIClient = axios;
 
-const APIClient = axios.create({
-  baseURL:
-    // process.env.REACT_APP_ENV === 'LOCAL'
-    // ? 'http://localhost:3000/Data'
-    // :
-    process.env.REACT_APP_API_END_POINT,
-  headers: headers,
-})
+APIClient.defaults.baseURL = process.env.REACT_APP_API_END_POINT;
 
-export default APIClient
+APIClient.interceptors.request.use(
+  async (config) => {
+    const accessToken = localStorage.getItem("accessToken");
+    const userId = localStorage.getItem("userId");
+
+    if (accessToken) {
+      config.headers = {
+        ...config.headers,
+        authorization: `Bearer ${accessToken}`,
+        user: `${userId}`,
+        "Content-Type": "application/json;charset=UTF-8",
+        "Access-Control-Allow-Origin": "*",
+        Accept: "application/json",
+      };
+    }
+
+    return config;
+  },
+  (error) => Promise.reject(error)
+);
+
+APIClient.interceptors.response.use(
+  (response) => response,
+  async (error) => {
+    const config = error?.config;
+
+    if (error?.response?.status === 401 && !config?.sent) {
+      config.sent = true;
+
+      const result = await memoizedRefreshToken();
+      if (result?.accessToken) {
+        config.headers = {
+          ...config.headers,
+          authorization: `Bearer ${result?.accessToken}`,
+        };
+      }
+
+      return APIClient(config);
+    }
+    return Promise.reject(error);
+  }
+);
+
+export default APIClient;
