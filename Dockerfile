@@ -12,7 +12,7 @@ COPY . .
 RUN yarn install
 
 # Build the project and copy the files
-RUN yarn build
+RUN yarn build 
 
 # ----------------------------------------------------------------------
 
