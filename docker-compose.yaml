@@ -1,12 +1,12 @@
 version: "3.8"
 services:
-  ifinforce-dev:
+  1up-dev:
     build:
       context: .
       dockerfile: Dockerfile
     restart: always
     ports:
-      - "3002:8080" 
+      - "3007:8080" 
     network_mode: bridge
     extra_hosts:
       - "host.docker.internal:host-gateway"
