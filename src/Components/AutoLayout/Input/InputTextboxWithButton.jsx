@@ -55,7 +55,7 @@ const InputTextboxWithButton = ({
       // nik baru (tidak ditemukan)
       if (res.data.status == "0") {
         // navigate(`/${menuId}/${id}/${value}`, { state: { param: [] } })
-        navigate("/", { state: { param: [] } })
+        // navigate("/", { state: { param: [] } })
         dispatch(setFormPanel(res.data.panel))
         dispatch(setFormAction(res.data.action))
         return window.Swal.fire("", res.data.message, "warning")
