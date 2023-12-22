@@ -6,7 +6,7 @@ services:
       dockerfile: Dockerfile
     restart: always
     ports:
-      - "3002:8080"
+      - "3002:8080" 
     network_mode: bridge
     extra_hosts:
       - "host.docker.internal:host-gateway"
