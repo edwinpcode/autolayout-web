@@ -51,8 +51,6 @@ function ProtectedRoutes() {
         //   localStorage.clear()
         //   window.location = "/login"
         // }
-        localStorage.clear()
-        window.location = "/login"
       })
   }
 
