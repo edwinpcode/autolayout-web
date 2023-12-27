@@ -35,20 +35,20 @@ function ProtectedRoutes() {
             userId,
             activeModule: { id: moduleId, desc: moduleDesc },
             activeRole: { id: roleId, desc: roleDesc },
-          })
+          }),
         )
         dispatch(setUserData(res.data))
       })
       .catch((e) => {
-        const token = e.response.data?.refreshToken
-        if (token) {
-          localStorage.setItem('accessToken', e.response.data.accessToken)
-          localStorage.setItem('refreshToken', e.response.data.refreshToken)
-          window.location.reload()
-        } else {
-          localStorage.clear()
-          window.location = '/login'
-        }
+        // const token = e.response.data?.refreshToken
+        // if (token) {
+        //   localStorage.setItem('accessToken', e.response.data.accessToken)
+        //   localStorage.setItem('refreshToken', e.response.data.refreshToken)
+        //   window.location.reload()
+        // } else {
+        //   localStorage.clear()
+        //   window.location = '/login'
+        // }
       })
   }
 
@@ -82,7 +82,7 @@ function ProtectedRoutes() {
           didOpen: () => {
             timerInterval = setInterval(() => {
               window.Swal.getHtmlContainer().querySelector(
-                'strong'
+                'strong',
               ).textContent = (window.Swal.getTimerLeft() / 1000).toFixed(0)
             }, 100)
           },
@@ -101,7 +101,7 @@ function ProtectedRoutes() {
                 }
                 localStorage.clear()
                 window.location = '/login'
-              }
+              },
             )
           }
         })
