@@ -78,7 +78,7 @@ function ProtectedRoutes() {
           cancelButtonColor: "#d33",
           cancelButtonText: "Keluar",
           confirmButtonText: "Lanjut!",
-          timer: 60000 * 5, // timer konfirmasi
+          timer: 10000, // timer konfirmasi
           timerProgressBar: true, // adds a progress bar to the timer
           allowOutsideClick: false,
           allowEscapeKey: false,
@@ -93,22 +93,28 @@ function ProtectedRoutes() {
           willClose: () => {
             clearInterval(timerInterval)
           },
-        }).then((result) => {
-          if (result.isConfirmed) {
-            document.body.click()
-          } else {
-            showLoader()
-            AuthLogout(user.id, user.activeModule.id, user.activeRole.id).then(
-              (res) => {
+        })
+          .then((result) => {
+            if (result.isConfirmed) {
+              document.body.click()
+            } else {
+              showLoader()
+              AuthLogout({
+                userId: user.id,
+                moduleId: user.activeModule.id,
+                groupId: user.activeRole.id,
+              }).then((res) => {
                 if (res.data.response.status != "1") {
                   return window.Swal.fire("", res.data.response.msg, "error")
                 }
                 localStorage.clear()
                 window.location = "/login"
-              },
-            )
-          }
-        })
+              })
+            }
+          })
+          .catch((error) => {
+            window.Swal.fire("Error", error.message, "error")
+          })
       }, sessionTime)
     })
   }
