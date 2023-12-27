@@ -41,16 +41,18 @@ function ProtectedRoutes() {
         dispatch(setUserData(res.data))
       })
       .catch((e) => {
-        console.log(e)
-        const token = e.response.data.refreshToken
-        if (token) {
-          localStorage.setItem("accessToken", e.response.data.accessToken)
-          localStorage.setItem("refreshToken", e.response.data.refreshToken)
-          window.location.reload()
-        } else {
-          localStorage.clear()
-          window.location = "/login"
-        }
+        // console.log(e)
+        // const token = e.response.data?.refreshToken
+        // if (token) {
+        //   localStorage.setItem("accessToken", e.response.data.accessToken)
+        //   localStorage.setItem("refreshToken", e.response.data.refreshToken)
+        //   window.location.reload()
+        // } else {
+        //   localStorage.clear()
+        //   window.location = "/login"
+        // }
+        localStorage.clear()
+        window.location = "/login"
       })
   }
 
