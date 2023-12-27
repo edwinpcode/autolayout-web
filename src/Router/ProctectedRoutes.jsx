@@ -41,16 +41,16 @@ function ProtectedRoutes() {
         dispatch(setUserData(res.data))
       })
       .catch((e) => {
-        console.log(e)
-        const token = e.response.data.refreshToken
-        if (token) {
-          localStorage.setItem("accessToken", e.response.data.accessToken)
-          localStorage.setItem("refreshToken", e.response.data.refreshToken)
-          window.location.reload()
-        } else {
-          localStorage.clear()
-          window.location = "/login"
-        }
+        // console.log(e)
+        // const token = e.response.data.refreshToken
+        // if (token) {
+        //   localStorage.setItem("accessToken", e.response.data.accessToken)
+        //   localStorage.setItem("refreshToken", e.response.data.refreshToken)
+        //   window.location.reload()
+        // } else {
+        //   localStorage.clear()
+        //   window.location = "/login"
+        // }
       })
   }
 
@@ -76,7 +76,7 @@ function ProtectedRoutes() {
           cancelButtonColor: "#d33",
           cancelButtonText: "Keluar",
           confirmButtonText: "Lanjut!",
-          timer: 10000, // timer konfirmasi
+          timer: 60000 * 3, // timer konfirmasi
           timerProgressBar: true, // adds a progress bar to the timer
           allowOutsideClick: false,
           allowEscapeKey: false,
