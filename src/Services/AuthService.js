@@ -1,5 +1,5 @@
 import axios from "axios"
-import APIClient from "./APIClient"
+import APIClient, { APIPublic } from "./APIClient"
 
 export const AuthLogin = async (userId, password) => {
   const param = {
@@ -15,7 +15,7 @@ export const AuthLogin = async (userId, password) => {
     // process.env.REACT_APP_ENV === 'LOCAL'
     // ? 'res_login'
     // :
-    await APIClient.post("/userlogin", param).then((res) => res.data)
+    await APIPublic.post("/userlogin", param).then((res) => res.data)
 
   return result
 }

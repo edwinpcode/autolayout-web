@@ -8,6 +8,8 @@ import { reset } from "../Store/List/listSlice"
 import socket from "../Utils/SocketUtils"
 import FullLoad from "./FullLoad"
 import moment from "moment"
+import Chart from "../Components/Dashboard/Chart"
+
 function Dashboard() {
   const dispatch = useDispatch()
   // state
@@ -86,7 +88,7 @@ function Dashboard() {
   return (
     <div>
       <h3>Dashboard</h3>
-      {/* <div className="d-flex">
+      <div className="d-flex">
         <div className="border rounded-lg shadow-lg w-50 p-2">
           <div className="d-flex justify-content-between text-bold p-2">
             <span>Presensi</span>
@@ -120,7 +122,7 @@ function Dashboard() {
             </button>
           </div>
         </div>
-      </div> */}
+      </div>
       {/* {!dashboardBox ? (
         <SkeletonDashboard />
       ) : (
@@ -177,6 +179,7 @@ function Dashboard() {
           )
         })}
       </div>
+      <Chart />
     </div>
   )
 }

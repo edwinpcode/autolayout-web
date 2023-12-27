@@ -6,23 +6,20 @@ import AutoLayout from "./Pages/AutoLayout"
 import Auth from "./Pages/Auth"
 import ProtectedRoutes from "./Router/ProctectedRoutes"
 import Profile from "./Pages/Profile"
-import Chart from "./Components/Chart/Chart"
-import Flowchart from "./Pages/Flowchart"
 import NewChart from "./Components/Chart/NewChart"
 import Dashboard from "./Pages/Dashboard"
 import RealDashboard from "./Pages/RealDashboard"
 import Report from "./Pages/Report"
 import Tester from "./Pages/Tester"
 import TableList from "./Pages/TableList"
-import InputTextareaWithCheckbox from "./Components/AutoLayout/Input/InputTextareaWithCheckbox"
 import PreviewDocument from "./Pages/PreviewDocument"
 import PublicRoutes from "./Router/PublicRoutes"
-// import { Dnd } from './Components/DnD'
-// import Chart from './Pages/Chart'
+import Chart from "./Components/Dashboard/Chart"
 
 const AppRouter = () => {
   return (
     <Routes history={BrowserRouter}>
+      {/* <Route element={<Chart />} path="/chart" /> */}
       <Route element={<ProtectedRoutes />}>
         {/* <Route path="/form-builder" element={<Dnd />} /> */}
         <Route path="/tester" element={<Tester />} />

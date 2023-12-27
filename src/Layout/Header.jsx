@@ -4,6 +4,7 @@ import { NavLink, Link, useNavigate, useLocation } from "react-router-dom"
 import { setMenuSlice } from "../Store/Menu/menuSlice"
 import { AuthLogout } from "../Services/AuthService"
 import Load from "../Pages/FullLoad"
+import { useForm } from "react-hook-form"
 
 function Header() {
   const dispatch = useDispatch()
@@ -16,6 +17,8 @@ function Header() {
   const [photoProfile, setPhotoProfile] = useState()
   const menu = useSelector((state) => state.menu)
   const { state } = useLocation()
+
+  const { setValue, register } = useForm()
 
   // loading
   const [loader, showLoader, hideLoader] = Load()
@@ -98,16 +101,16 @@ function Header() {
 
         {/* Right navbar links */}
         <ul className="navbar-nav ml-auto">
-          {/* <li className="nav-item">
+          <li className="nav-item">
             <div className="input-group">
-              <input className="form-control" />
+              <input className="form-control" {...register("search")} />
               <div className="input-group-append">
                 <div className="input-group-text">
                   <i className="fas fa-microphone"></i>
                 </div>
               </div>
             </div>
-          </li> */}
+          </li>
           <li className="nav-item">
             <Link
               className="nav-link"
