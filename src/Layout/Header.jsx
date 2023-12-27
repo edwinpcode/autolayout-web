@@ -98,6 +98,16 @@ function Header() {
 
         {/* Right navbar links */}
         <ul className="navbar-nav ml-auto">
+          {/* <li className="nav-item">
+            <div className="input-group">
+              <input className="form-control" />
+              <div className="input-group-append">
+                <div className="input-group-text">
+                  <i className="fas fa-microphone"></i>
+                </div>
+              </div>
+            </div>
+          </li> */}
           <li className="nav-item">
             <Link
               className="nav-link"
