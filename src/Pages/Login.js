@@ -8,6 +8,7 @@ import { encryptAES } from "../Utils/EncryptUtils"
 import Logo from "./Logo"
 import { useDispatch } from "react-redux"
 import { setUser, setUserId } from "../Store/User/userSlice"
+import axios from "axios"
 // import {
 //   loadCaptchaEnginge,
 //   LoadCanvasTemplate,
@@ -37,6 +38,9 @@ function Login() {
   const [devMode, setDevMode] = useState(false)
   const [photo, setPhoto] = useState(null)
   const [showVideo, setShowVideo] = useState(false)
+  const [longitude, setLongitude] = useState(0)
+  const [latitude, setLatitude] = useState(0)
+  const [address, setAddress] = useState("")
 
   const navigate = useNavigate()
   const {
@@ -118,7 +122,15 @@ function Login() {
     setLoading(true)
     const secret = getSecretKeyByDate()
     const encrypted = encryptAES(password, secret)
-    AuthLogin(userId, encrypted)
+    const payload = {
+      userId: userId,
+      password: encrypted,
+      longitude: longitude,
+      latitude: latitude,
+      address: address,
+    }
+    console.log(payload)
+    AuthLogin(payload)
       .then((res) => {
         if (res.response.status === "1") {
           localStorage.setItem("accessToken", res.response.accessToken)
@@ -129,18 +141,19 @@ function Login() {
           dispatch(setUserId(res.response.userId))
         } else {
           resetCanvas()
-          setLoading(false)
           window.Swal.fire("Kesalahan", res.response.message, "error")
         }
       })
       .catch((err) => {
         resetCanvas()
-        setLoading(false)
         window.Swal.fire(
           "Peringatan",
           "Mohon maaf, sedang terjadi kendala koneksi pada sistem, silahkan coba kembali secara berkala",
           "error",
         )
+      })
+      .finally(() => {
+        setLoading(false)
       })
   }
 
@@ -175,8 +188,40 @@ function Login() {
     }
   }
 
+  const fetchLocation = () => {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          setLatitude(position.coords.latitude)
+          setLongitude(position.coords.longitude)
+        },
+        (err) => {
+          console.log(err.message)
+        },
+      )
+    }
+  }
+
+  const getAddress = async ({ longitude, latitude }) => {
+    try {
+      const res = await axios.get(
+        `https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${latitude}&lon=${longitude}`,
+      )
+      if (res.data && res.data.display_name) {
+        setAddress(res.data.display_name)
+      }
+    } catch (error) {
+      console.error("Error fetching address:", error)
+    }
+  }
+
+  useEffect(() => {
+    if (longitude && latitude) getAddress({ longitude, latitude })
+  }, [latitude, longitude])
+
   useEffect(() => {
     // loadCaptchaEnginge(6)
+    fetchLocation()
   }, [])
 
   return (
@@ -299,9 +344,9 @@ function Login() {
                     {isLoading && <i className="fas fa-spinner fa-spin"></i>}
                     MASUK
                   </button>
-                  <button className="btn btn-outline-success btn-block btn-lg">
+                  {/* <button className="btn btn-outline-success btn-block btn-lg">
                     <span className="">LUPA KATA SANDI ?</span>
-                  </button>
+                  </button> */}
                 </div>
               </form>
             </div>

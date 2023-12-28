@@ -1,14 +1,20 @@
 import axios from "axios"
 import APIClient, { APIPublic } from "./APIClient"
 
-export const AuthLogin = async (userId, password) => {
+export const AuthLogin = async ({
+  userId,
+  password,
+  latitude,
+  longitude,
+  address,
+}) => {
   const param = {
     loginType: "loginauthentication",
     userId: userId,
     password: password,
-    lat: "",
-    lon: "",
-    addr: "",
+    lat: `${latitude}`,
+    lon: `${longitude}`,
+    addr: address,
   }
 
   const result =
