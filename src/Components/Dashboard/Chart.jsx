@@ -121,9 +121,9 @@ const Chart = () => {
 
   return (
     <div>
-      <div className="card card-primary">
+      <div className="card card-success">
         <div className="card-header">
-          <span className="">KPU Koperasi</span>
+          <span className="">KPI Koperasi</span>
           <div className="card-tools">
             <button className="btn btn-tool" data-card-widget="collapse">
               <i className="fas fa-minus" id="collapseButton"></i>
@@ -140,9 +140,9 @@ const Chart = () => {
           </div>
         </div>
       </div>
-      <div className="card card-primary">
+      <div className="card card-success">
         <div className="card-header">
-          <span className="">KPU Unit Kerja</span>
+          <span className="">KPI Unit Kerja</span>
           <div className="card-tools">
             <button className="btn btn-tool" data-card-widget="collapse">
               <i className="fas fa-minus" id="collapseButton"></i>
@@ -159,9 +159,9 @@ const Chart = () => {
           </div>
         </div>
       </div>
-      <div className="card card-primary">
+      <div className="card card-success">
         <div className="card-header">
-          <span className="">KPU Individu</span>
+          <span className="">KPI Individu</span>
           <div className="card-tools">
             <button className="btn btn-tool" data-card-widget="collapse">
               <i className="fas fa-minus" id="collapseButton"></i>

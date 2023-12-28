@@ -43,11 +43,11 @@ function Header() {
       groupId: activeRoleId,
     })
       .then((res) => {
-        if (res.data.response.status == "1") {
+        if (res.data.response?.status == "1") {
           localStorage.clear()
           window.location.replace("/login")
         } else if (res.data.statusss != "1") {
-          return window.Swal.fire("Kesalahan", res.data.message, "error")
+          window.Swal.fire("Kesalahan", res.data.message, "error")
         }
       })
       .catch((e) => {
@@ -70,8 +70,8 @@ function Header() {
         setMediaStream(stream)
         mediaRecorder.current = new MediaRecorder(stream)
         const chunks = []
-        mediaRecorder.current.start()
         mediaRecorder.current.ondataavailable = (e) => {
+          mediaRecorder.current.start()
           chunks.push(e.data)
         }
 
@@ -81,21 +81,6 @@ function Header() {
       .catch((e) => {
         window.Swal.fire("Error", e.message, "error")
       })
-  }
-
-  const stopRecorderjs = async () => {
-    if (recorder) {
-      const audioUrl = URL.createObjectURL(audioBlob)
-
-      const a = document.createElement("a")
-      document.body.appendChild(a)
-      a.style = "display: none"
-      a.href = audioUrl
-      a.download = "recorded_audio.wav"
-      a.click()
-      window.URL.revokeObjectURL(audioUrl)
-      document.body.removeChild(a)
-    }
   }
 
   const stopRecording = () => {

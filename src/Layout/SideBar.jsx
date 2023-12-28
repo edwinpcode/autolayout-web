@@ -40,14 +40,12 @@ function SideBar() {
       getMenu(userId, activeModuleId, activeRoleId)
         .then((res) => {
           if (res.data.status != "1") {
-            return window.Swal.fire("", res.data.message, "error")
+            return window.Swal.fire("Kesalahan", res.data.message, "error")
           }
           setMenu(res.data)
           dispatch(setMenuSidebarSlice(res.data.data))
         })
-        .catch((e) =>
-          window.Swal.fire("Kesalahan", e.response.message, "error"),
-        )
+        .catch((e) => window.Swal.fire("Kesalahan", e.message, "error"))
     }
   }, [activeModuleId, activeRoleId])
 
@@ -104,11 +102,10 @@ function SideBar() {
     >
       <a href="/" className="brand-link">
         <img
-          src="/images/logo_favicon.svg"
+          src="/images/logo_1up.png"
           alt="App Logo"
           className="brand-image"
         />
-        <span className="brand-text font-weight-bold">{applicationName}</span>
       </a>
 
       <div className="sidebar">

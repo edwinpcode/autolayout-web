@@ -35,6 +35,8 @@ function Login() {
   const canvasRef = useRef(null)
   const [compareCaptcha, setCompareCaptcha] = useState("")
   const [devMode, setDevMode] = useState(false)
+  const [photo, setPhoto] = useState(null)
+  const [showVideo, setShowVideo] = useState(false)
 
   const navigate = useNavigate()
   const {
@@ -44,6 +46,9 @@ function Login() {
     handleSubmit,
     formState: { errors },
   } = useForm({ mode: "onChange" })
+  const videoRef = useRef(null)
+  const canvasCameraRef = useRef(null)
+  const [mediaStream, setMediaStream] = useState(null)
 
   const dispatch = useDispatch()
 
@@ -139,145 +144,203 @@ function Login() {
       })
   }
 
+  const startCamera = async () => {
+    try {
+      const stream = await navigator.mediaDevices.getUserMedia({ video: true })
+      setShowVideo(true)
+      if (videoRef.current) {
+        setMediaStream(stream)
+        videoRef.current.srcObject = stream
+      }
+    } catch (error) {
+      console.error("Error accessing camera:", error)
+    }
+  }
+
+  const takePhoto = () => {
+    if (videoRef.current) {
+      const video = videoRef.current
+      const canvas = canvasCameraRef.current
+      canvas.width = video.videoWidth
+      canvas.height = video.videoHeight
+      const ctx = canvas.getContext("2d")
+      ctx.drawImage(video, 0, 0, canvas.width, canvas.height)
+      const photoData = canvas.toDataURL("image/png")
+      setPhoto(photoData)
+      if (mediaStream) {
+        setShowVideo(false)
+        mediaStream.getTracks().forEach((track) => track.stop())
+        setMediaStream(null)
+      }
+    }
+  }
+
   useEffect(() => {
     // loadCaptchaEnginge(6)
   }, [])
 
   return (
-    <div className="login-page">
-      <div className="login-box">
-        <div className="card">
-          <div className="card-body login-card-body rounded">
-            <div className="login-logo">
-              <Logo />
-              <hr></hr>
-              <a href="#">
-                <b>{loginApplicationName}</b>
-              </a>
-            </div>
-            <p className="login-box-msg">
-              Silakan masuk untuk memulai aplikasi.
-            </p>
-            <form onSubmit={handleSubmit(handleLogin)}>
-              <div className="mb-3">
-                <div className="input-group">
-                  <input
-                    type="text"
-                    className="form-control"
-                    placeholder="Nama Pengguna"
-                    {...register("userId", {
-                      required: "Username required",
-                      minLength: {
-                        value: 4,
-                        message: "Username length minimum 4",
-                      },
-                    })}
-                    autoComplete="off"
-                  />
-                  <div className="input-group-append">
-                    <div className="input-group-text">
-                      <span className="fas fa-user" />
-                    </div>
-                  </div>
-                </div>
-                <ErrorMessage
-                  errors={errors}
-                  name="userId"
-                  as={<span className="text-danger text-xs"></span>}
-                />
+    <div className="position-relative">
+      <div className="login-page">
+        <div className="login-box border-danger">
+          <div className="d-flex justify-content-between rounded bg-white p-4 shadow-lg">
+            <div className="w-100 mr-2">
+              <div className="login-logo">
+                <Logo />
               </div>
-              <div className="mb-3">
-                <div className="input-group">
-                  <input
-                    type={passwordShown ? "text" : "password"}
-                    className="form-control"
-                    placeholder="Kata Sandi"
-                    {...register("password", {
-                      required: "Password required",
-                      minLength: {
-                        value: 8,
-                        message: "password length minimum 8",
-                      },
-                    })}
-                  />
-                  <div className="input-group-append">
-                    <div className="input-group-text">
-                      {!passwordShown && (
-                        <span
-                          className="fas fa-lock"
-                          onClick={togglePasswordVisiblity}
-                        />
-                      )}
-                      {passwordShown && (
-                        <span
-                          className="fas fa-unlock"
-                          onClick={togglePasswordVisiblity}
-                        />
-                      )}{" "}
-                    </div>
-                  </div>
-                </div>
-                <ErrorMessage
-                  errors={errors}
-                  name="password"
-                  as={<span className="text-danger text-xs"></span>}
-                />
-              </div>
-              {/* <LoadCanvasTemplate /> */}
-              <div className={`${devMode ? "d-none" : "d-flex"}`}>
-                <canvas
-                  ref={canvasRef}
-                  height={50}
-                  width={150}
-                  className="pr-3"
-                />
-                <button
-                  className="btn btn-sm btn-secondary"
-                  onClick={resetCanvas}
-                >
-                  Reload
-                </button>
-              </div>
-              {!devMode && (
-                <div className={`mb-3 mt-3`}>
-                  <div className="form-group">
+              <form onSubmit={handleSubmit(handleLogin)}>
+                <div className="mb-3">
+                  {/* <label htmlFor="username">NIK</label> */}
+                  <div className="input-group">
                     <input
                       type="text"
+                      id="username"
                       className="form-control"
-                      id="captcha"
-                      {...register("captcha", {
-                        required: "Captcha Required",
+                      placeholder="NIK"
+                      {...register("userId", {
+                        required: "NIK is required",
+                        minLength: {
+                          value: 4,
+                          message: "Username length minimum 4",
+                        },
                       })}
                       autoComplete="off"
                     />
+                    <div className="input-group-append">
+                      <div className="input-group-text">
+                        <span className="fas fa-user" />
+                      </div>
+                    </div>
                   </div>
                   <ErrorMessage
                     errors={errors}
-                    name="captcha"
+                    name="userId"
                     as={<span className="text-danger text-xs"></span>}
                   />
                 </div>
-              )}
-              <div className="row float-right">
-                <div className="col-12 float-end">
-                  {!isLoading && (
-                    <button type="submit" className="btn btn-danger btn-block">
-                      Masuk
-                    </button>
-                  )}
-                  {isLoading && (
-                    <button
-                      type="submit"
-                      disabled
-                      className="btn btn-danger btn-block"
-                    >
-                      <i className="fas fa-spinner fa-spin"></i>
-                      Masuk
-                    </button>
-                  )}
+                <div className="mb-3">
+                  <div className="input-group">
+                    <input
+                      type={passwordShown ? "text" : "password"}
+                      className="form-control"
+                      placeholder="Kata Sandi"
+                      {...register("password", {
+                        required: "Password required",
+                        minLength: {
+                          value: 8,
+                          message: "password length minimum 8",
+                        },
+                      })}
+                    />
+                    <div className="input-group-append">
+                      <div className="input-group-text">
+                        {!passwordShown && (
+                          <span
+                            className="fas fa-lock"
+                            onClick={togglePasswordVisiblity}
+                          />
+                        )}
+                        {passwordShown && (
+                          <span
+                            className="fas fa-unlock"
+                            onClick={togglePasswordVisiblity}
+                          />
+                        )}{" "}
+                      </div>
+                    </div>
+                  </div>
+                  <ErrorMessage
+                    errors={errors}
+                    name="password"
+                    as={<span className="text-danger text-xs"></span>}
+                  />
                 </div>
-              </div>
-            </form>
+                {/* <LoadCanvasTemplate /> */}
+                <div className={`${devMode ? "d-none" : "d-flex"}`}>
+                  <canvas
+                    ref={canvasRef}
+                    height={50}
+                    width={150}
+                    className="pr-3"
+                  />
+                  <button
+                    className="btn btn-sm btn-secondary"
+                    onClick={resetCanvas}
+                  >
+                    Reload
+                  </button>
+                </div>
+                {!devMode && (
+                  <div className={`mb-3 mt-3`}>
+                    <div className="form-group">
+                      <input
+                        type="text"
+                        className="form-control"
+                        id="captcha"
+                        {...register("captcha", {
+                          required: "Captcha Required",
+                        })}
+                        autoComplete="off"
+                      />
+                    </div>
+                    <ErrorMessage
+                      errors={errors}
+                      name="captcha"
+                      as={<span className="text-danger text-xs"></span>}
+                    />
+                  </div>
+                )}
+                <div className="">
+                  <button
+                    type="submit"
+                    className="btn btn-success btn-block btn-lg"
+                    disabled={isLoading}
+                  >
+                    {isLoading && <i className="fas fa-spinner fa-spin"></i>}
+                    MASUK
+                  </button>
+                  <button className="btn btn-outline-success btn-block btn-lg">
+                    <span className="">LUPA KATA SANDI ?</span>
+                  </button>
+                </div>
+              </form>
+            </div>
+            {/* <div className="w-50 ml-2">
+              <video
+                ref={videoRef}
+                autoPlay
+                muted
+                style={{
+                  display: showVideo ? "block" : "none",
+                  maxWidth: "100%",
+                }}
+                className="mt-3"
+              />
+              <canvas ref={canvasCameraRef} style={{ display: "none" }} />
+              {photo && !showVideo && (
+                <img src={photo} className="w-100 mt-3"></img>
+              )}
+              {!showVideo ? (
+                <button
+                  className="btn btn-success mt-3 btn-block"
+                  onClick={startCamera}
+                >
+                  Take Photo
+                </button>
+              ) : (
+                <button
+                  className="btn btn-success mt-3 btn-block"
+                  onClick={takePhoto}
+                >
+                  Take Photo
+                </button>
+              )}
+              {photo && (
+                <a className="btn btn-success btn-block" download href={photo}>
+                  Download
+                </a>
+              )}
+            </div> */}
           </div>
         </div>
       </div>

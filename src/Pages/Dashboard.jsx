@@ -9,6 +9,7 @@ import socket from "../Utils/SocketUtils"
 import FullLoad from "./FullLoad"
 import moment from "moment"
 import Chart from "../Components/Dashboard/Chart"
+import axios from "axios"
 
 function Dashboard() {
   const dispatch = useDispatch()
@@ -24,7 +25,9 @@ function Dashboard() {
   const roleId = useSelector((state) => state.user.activeRole.id)
   const [date, setDate] = useState(moment())
   const [status, setStatus] = useState("CHECK IN")
-  const [location, setLocation] = useState("Location")
+  const [location, setLocation] = useState("")
+  const [longitude, setLongitude] = useState(0)
+  const [latitude, setLatitude] = useState(0)
 
   const fetch = async ({ activeModuleId, activeRoleId }) => {
     try {
@@ -57,6 +60,20 @@ function Dashboard() {
     dispatch(reset())
   }
 
+  const fetchLocation = () => {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          setLatitude(position.coords.latitude)
+          setLongitude(position.coords.longitude)
+        },
+        (err) => {
+          console.log(err.message)
+        },
+      )
+    }
+  }
+
   // send to nodejs
   // useEffect(() => {
   //   const token = localStorage.getItem('token')
@@ -73,16 +90,36 @@ function Dashboard() {
 
   const checkIn = () => {
     setStatus("CHECK IN")
+    setDate(moment())
   }
 
   const checkOut = () => {
     setStatus("CHECK OUT")
+    setDate(moment())
+  }
+
+  const getAddress = async ({ longitude, latitude }) => {
+    try {
+      const res = await axios.get(
+        `https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${latitude}&lon=${longitude}`,
+      )
+      if (res.data && res.data.display_name) {
+        setLocation(res.data.display_name)
+      }
+    } catch (error) {
+      console.error("Error fetching address:", error)
+    }
   }
 
   useEffect(() => {
-    setInterval(() => {
-      setDate(moment())
-    }, 1000)
+    if (longitude && latitude) getAddress({ longitude, latitude })
+  }, [latitude, longitude])
+
+  useEffect(() => {
+    // setInterval(() => {
+    //   setDate(moment())
+    // }, 1000)
+    fetchLocation()
   }, [])
 
   return (
@@ -96,7 +133,7 @@ function Dashboard() {
           </div>
           <div className="d-flex justify-content-center text-bold text-xl text-capitalize border-bottom">
             <span>
-              {date.format("hh:mm:ss a")} - {status}
+              {date.format("hh:mm a")} - {status}
             </span>
           </div>
           <div className="d-flex p-2 align-items-center">

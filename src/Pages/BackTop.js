@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect } from "react"
 
 const BackTop = () => {
   const [showTopBtn, setShowTopBtn] = useState(false)
 
   useEffect(() => {
-    window.addEventListener('scroll', () => {
+    window.addEventListener("scroll", () => {
       if (window.scrollY > 300) {
         setShowTopBtn(true)
       } else {
@@ -16,7 +16,7 @@ const BackTop = () => {
   const goToTop = () => {
     window.scrollTo({
       top: 0,
-      behavior: 'smooth',
+      behavior: "smooth",
     })
   }
 
@@ -26,14 +26,14 @@ const BackTop = () => {
         <button
           id="back-to-top"
           onClick={goToTop}
-          className="btn btn-danger back-to-top"
+          className="btn btn-success back-to-top"
           role="button"
           aria-label="Scroll to top"
         >
           <span className="fas fa-chevron-up"></span>
         </button>
       )}
-      {''}
+      {""}
     </div>
   )
 }

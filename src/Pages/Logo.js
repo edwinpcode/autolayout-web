@@ -1,19 +1,19 @@
-import React from "react";
+import React from "react"
 
 function Logo() {
   return (
     <div>
       <img
-        src={process.env.PUBLIC_URL + "/images/logo_favicon.svg"}
+        src={process.env.PUBLIC_URL + "/images/logo_1up.png"}
         alt="logo-login"
-        // className="mw-50"
-        style={{
-          width: "100px",
-          height: "100px",
-        }}
+        className="w-100"
+        // style={{
+        //   width: "100px",
+        //   height: "100px",
+        // }}
       ></img>
     </div>
-  );
+  )
 }
 
-export default Logo;
+export default Logo

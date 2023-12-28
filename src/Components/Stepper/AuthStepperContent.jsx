@@ -88,9 +88,9 @@ function AuthStepperContent({ isAutoSelectModule }) {
                   <button
                     onClick={() => handleSelectModule(data)}
                     className={classNames(
-                      "btn-select-module btn btn-danger w-100 h-100",
+                      "btn-select-module btn btn-success w-100 h-100",
                       {
-                        "btn-danger": data.id != user.activeModule.id,
+                        "btn-success": data.id != user.activeModule.id,
                         "btn-default": data.id == user.activeModule.id,
                       },
                     )}
