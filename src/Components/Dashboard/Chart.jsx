@@ -123,7 +123,7 @@ const Chart = () => {
     <div>
       <div className="card card-success">
         <div className="card-header">
-          <span className="">KPI Koperasi</span>
+          <span className="">KPI Korporasi</span>
           <div className="card-tools">
             <button className="btn btn-tool" data-card-widget="collapse">
               <i className="fas fa-minus" id="collapseButton"></i>

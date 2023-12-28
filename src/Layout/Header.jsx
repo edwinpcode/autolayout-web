@@ -70,8 +70,8 @@ function Header() {
         setMediaStream(stream)
         mediaRecorder.current = new MediaRecorder(stream)
         const chunks = []
+        mediaRecorder.current.start()
         mediaRecorder.current.ondataavailable = (e) => {
-          mediaRecorder.current.start()
           chunks.push(e.data)
         }
 
@@ -113,9 +113,9 @@ function Header() {
       console.log(formData)
       try {
         const res = await AIService.voiceToText(formData)
-        if (res.data.transcription) {
-          setValue("search", res.data.transcription)
-          setSearchResult(res.data.transcription)
+        if (res.data.status == "1") {
+          setValue("search", res.data.message)
+          setSearchResult(res.data.message)
         }
       } catch (error) {
         console.log(error)
