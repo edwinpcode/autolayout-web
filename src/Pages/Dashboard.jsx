@@ -61,9 +61,11 @@ function Dashboard() {
   }
 
   const fetchLocation = () => {
+    console.log("fet")
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
         (position) => {
+          console.log(position.coords)
           setLatitude(position.coords.latitude)
           setLongitude(position.coords.longitude)
         },

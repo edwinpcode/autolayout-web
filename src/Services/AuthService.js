@@ -71,7 +71,7 @@ export function getDashboard({ userId, moduleId, groupId }) {
     moduleId: moduleId,
     groupId: groupId,
   }
-  return APIClient.post("/dashboard/count", JSON.stringify(param))
+  return APIClient.post("/dashboard/count", param)
 }
 
 export function getBoxForm(userId, level, fieldId, path) {

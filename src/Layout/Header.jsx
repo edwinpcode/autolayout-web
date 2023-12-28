@@ -68,8 +68,9 @@ function Header() {
       })
       .then(async (stream) => {
         setMediaStream(stream)
-        mediaRecorder.current = new MediaRecorder(stream)
-        const chunks = []
+        const media = new MediaRecorder(stream)
+        mediaRecorder.current = media
+        let chunks = []
         mediaRecorder.current.start()
         mediaRecorder.current.ondataavailable = (e) => {
           chunks.push(e.data)
@@ -106,10 +107,10 @@ function Header() {
   const search = async () => {
     const formData = new FormData()
     if (audioBlob) {
-      const file = new File([audioBlob], "record.wav", {
-        type: mimeType,
-      })
-      formData.append("file", file)
+      // const file = new File([audioBlob], "record.wav", {
+      //   type: mimeType,
+      // })
+      formData.append("file", audioBlob, "record.wav")
       console.log(formData)
       try {
         const res = await AIService.voiceToText(formData)

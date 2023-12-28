@@ -5,13 +5,11 @@ export const APIPublic = axios.create({
   baseURL: process.env.REACT_APP_API_END_POINT,
   headers: {
     Accept: "application/json",
-    "Access-Control-Allow-Origin": "*",
   },
 })
 
 export const formDataConfig = {
   headers: {
-    Accept: "application/json",
     "Content-Type": "multipart/form-data",
   },
 }
@@ -31,9 +29,7 @@ APIClient.interceptors.request.use(
   async (config) => {
     const accessToken = localStorage.getItem("accessToken")
     const userId = localStorage.getItem("userId")
-    config.headers["Access-Control-Allow-Origin"] = "*"
     config.headers["Accept"] = "application/json"
-    config.headers["Content-Type"] = "application/json;charset=UTF-8"
     if (accessToken) {
       config.headers = {
         ...config.headers,

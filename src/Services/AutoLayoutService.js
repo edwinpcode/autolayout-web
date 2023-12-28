@@ -1,23 +1,23 @@
-import axios from 'axios'
-import APIClient from './APIClient'
-import APILocal from './APILocal'
+import axios from "axios"
+import APIClient from "./APIClient"
+import APILocal from "./APILocal"
 
 export const retrieveData = (param) => {
-  return APIClient.post('/retrivedata', JSON.stringify(param))
+  return APIClient.post("/retrivedata", JSON.stringify(param))
 }
 
 export const saveData = (actionId, param, url) => {
   param = {
-    formname: 'IDCD1001',
-    apregno: '000061002022',
-    tc: '4.0',
-    userid: 'AO_100',
-    status: '1',
+    formname: "IDCD1001",
+    apregno: "000061002022",
+    tc: "4.0",
+    userid: "AO_100",
+    status: "1",
     panel: param,
     actionId: actionId,
   }
 
-  if (url === 'updatestatus') {
+  if (url === "updatestatus") {
     delete param.panel
     delete param.formname
     param.regno = param.apregno
@@ -26,25 +26,25 @@ export const saveData = (actionId, param, url) => {
     delete param.status
   }
 
-  return APIClient.post('/' + url, JSON.stringify(param))
+  return APIClient.post("/" + url, JSON.stringify(param))
 }
 
 export const getTab = async ({ menuId, moduleId, param }) => {
-  const result = await APIClient.post('/listtab', { menuId, moduleId, param })
+  const result = await APIClient.post("/listtab", { menuId, moduleId, param })
   return result
 }
 
 // haecal
 export const getField = async (payload) => {
-  if (process.env.REACT_APP_ENV == 'LOCAL') {
-    return await APILocal.get('http://localhost:3002/getfielfbyformname')
+  if (process.env.REACT_APP_ENV == "LOCAL") {
+    return await APILocal.get("http://localhost:3002/getfielfbyformname")
   }
-  const result = await APIClient.post('/getfieldbyformname', payload)
+  const result = await APIClient.post("/getfieldbyformname", payload)
   return result
 }
 
 export const getFieldBySub = async (payload) => {
-  return await APIClient.post('/getfieldbysub', payload)
+  return await APIClient.post("/getfieldbysub", payload)
 }
 
 export const saveForm = async (endpoint, data) => {
@@ -52,13 +52,13 @@ export const saveForm = async (endpoint, data) => {
 }
 
 export const submitForm = async (payload) => {
-  return await APIClient.post('/updatestatus', payload)
+  return await APIClient.post("/updatestatus", payload)
 }
 
 export const getTableForm = async (payload) => {
   // note
   return await axios(
-    'http://localhost:3000/Data/AutoLayout/Table/response.json'
+    "http://localhost:3000/Data/AutoLayout/Table/response.json",
   )
 }
 
@@ -66,32 +66,32 @@ export const getReference = async (payload) => {
   const result =
     // process.env.REACT_APP_ENV === 'LOCAL'
     //   ? ''
-    await APIClient.post('/getreference', payload)
+    await APIClient.post("/getreference", payload)
 
   return result
 }
 
 export const uploadFile = async (formData) => {
-  return await APIClient.post('/uploadfiles', formData)
+  return await APIClient.post("/uploadfiles", formData)
 }
 export const saveDataAndUpload = async (formData) => {
-  return await APIClient.post('/saveDataAndUpload', formData)
+  return await APIClient.post("/saveDataAndUpload", formData)
 }
 
 export const deleteData = async (payload) => {
-  return await APIClient.post('/delete', payload)
+  return await APIClient.post("/delete", payload)
 }
 
 export const getViewDoc = async (payload) => {
-  return await APIClient.post('/viewdoc', payload)
+  return await APIClient.post("/viewdoc", payload)
 }
 
 export const getCancelModal = async (payload) => {
-  return await APIClient.post('/canceldata', payload)
+  return await APIClient.post("/canceldata", payload)
 }
 
 export const updateStatus = async (payload) => {
-  return await APIClient.post('/updatestatus', payload)
+  return await APIClient.post("/updatestatus", payload)
 }
 
 export const getDataActionWithButton = async (path, payload) => {
@@ -103,9 +103,9 @@ export const axiosPost = async (endpoint, payload) => {
     return await APIClient.post(endpoint, payload)
   } catch (error) {
     window.Swal.fire(
-      '',
-      'Mohon maaf, sedang terjadi kendala koneksi pada sistem, silahkan coba kembali secara berkala',
-      'error'
+      "Error",
+      "Mohon maaf, sedang terjadi kendala koneksi pada sistem, silahkan coba kembali secara berkala",
+      "error",
     )
   }
 }

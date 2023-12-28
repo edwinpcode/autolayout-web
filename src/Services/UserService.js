@@ -1,6 +1,6 @@
 import axios from "axios"
 import { useQuery } from "react-query"
-import APIClient from "./APIClient"
+import APIClient, { formDataConfig } from "./APIClient"
 
 export const SetActiveGroup = async ({ userId, moduleId, roleId }) => {
   // return process.env.REACT_APP_ENV === 'LOCAL'
@@ -11,4 +11,9 @@ export const SetActiveGroup = async ({ userId, moduleId, roleId }) => {
 
 export const GetUserById = async ({ userId }) => {
   return await APIClient.post("/user", { userId })
+}
+
+export const updatePhoto = async (payload) => {
+  console.log(formDataConfig)
+  return await APIClient.post("uploadphotoprofile", {}, formDataConfig)
 }
