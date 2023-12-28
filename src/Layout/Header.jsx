@@ -19,7 +19,7 @@ function Header() {
   const menu = useSelector((state) => state.menu)
   const { state } = useLocation()
 
-  const { setValue, register } = useForm()
+  const { setValue, register, handleSubmit } = useForm()
   const mediaRecorder = useRef(null)
   const [recordingStatus, setRecordingStatus] = useState("inactive")
   const [audioUrl, setAudioUrl] = useState(null)
@@ -73,7 +73,9 @@ function Header() {
         let chunks = []
         mediaRecorder.current.start()
         mediaRecorder.current.ondataavailable = (e) => {
-          chunks.push(e.data)
+          if (e.data.size > 0) {
+            chunks.push(e.data)
+          }
         }
 
         setAudioChunks(chunks)
@@ -111,7 +113,7 @@ function Header() {
       //   type: mimeType,
       // })
       formData.append("file", audioBlob, "record.wav")
-      console.log(formData)
+      // console.log(formData)
       try {
         const res = await AIService.voiceToText(formData)
         if (res.data.status == "1") {
@@ -123,6 +125,32 @@ function Header() {
         window.Swal.fire("Kesalahan", error.message, "error")
       }
     }
+  }
+
+  const downloadAudio = () => {
+    if (audioBlob) {
+      const url = URL.createObjectURL(audioBlob)
+      const a = document.createElement("a")
+      document.body.appendChild(a)
+      a.style = "display: none"
+      a.href = url
+      a.download = "recorded_audio.wav"
+      a.click()
+      window.URL.revokeObjectURL(url)
+      document.body.removeChild(a)
+    } else {
+      console.error("No audio to download.")
+    }
+  }
+
+  useEffect(() => {
+    if (audioBlob) {
+      search()
+    }
+  }, [audioBlob])
+
+  const onSubmit = ({ search }) => {
+    console.log(search)
   }
 
   useEffect(() => {
@@ -359,45 +387,73 @@ function Header() {
               </button>
             </div>
             <div className="modal-body">
-              <input
+              {/* <input
                 type="file"
                 onChange={(e) => setAudioBlob(e.target.files[0])}
-              ></input>
-              {recordingStatus === "inactive" && (
-                <div className="btn btn-success" onClick={startRecording}>
-                  <i className="fas fa-microphone"></i>
-                </div>
-              )}
-              {recordingStatus === "recording" && (
-                <div className="btn btn-danger" onClick={stopRecording}>
-                  <i className="fas fa-stop"></i>
-                </div>
-              )}
-              {audioUrl ? (
+              ></input> */}
+              {/* {audioUrl ? (
                 <div className="mt-3">
                   <audio src={audioUrl} controls></audio>
                 </div>
-              ) : null}
-              <div className="input-group mt-3">
-                <input className="form-control" {...register("search")}></input>
-                <div className="input-group-append">
-                  <div className="input-group-text">
-                    <i className="fas fa-search"></i>
+              ) : null} */}
+              <div className="d-flex">
+                {/* {recordingStatus === "inactive" && (
+                  <div className="btn btn-success" onClick={startRecording}>
+                    <i className="fas fa-microphone"></i>
+                  </div>
+                )}
+                {recordingStatus === "recording" && (
+                  <div className="btn btn-danger" onClick={stopRecording}>
+                    <i className="fas fa-stop"></i>
+                  </div>
+                )} */}
+                <div className="input-group mt-1">
+                  <div
+                    className="input-group-prepend"
+                    onClick={
+                      recordingStatus == "inactive"
+                        ? startRecording
+                        : stopRecording
+                    }
+                  >
+                    <div className="input-group-text">
+                      {recordingStatus == "inactive" ? (
+                        <i className="fas fa-microphone"></i>
+                      ) : (
+                        <i className="fas fa-stop"></i>
+                      )}
+                    </div>
+                  </div>
+                  <input
+                    className="form-control form-control-lg"
+                    {...register("search")}
+                  ></input>
+                  <div
+                    className="input-group-append"
+                    onClick={handleSubmit(onSubmit)}
+                  >
+                    <div className="input-group-text">
+                      <i className="fas fa-search"></i>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
             <div className="modal-footer">
-              <a className="btn btn-secondary" download href={audioUrl}>
-                Download Recording
-              </a>
+              {/* <button
+                className="btn btn-secondary"
+                onClick={downloadAudio}
+                disabled={!audioBlob}
+              >
+                Download
+              </button>
               <button
                 type="button"
                 className="btn btn-primary"
                 onClick={search}
               >
                 Upload
-              </button>
+              </button> */}
             </div>
           </div>
         </div>

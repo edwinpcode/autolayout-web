@@ -61,11 +61,10 @@ function Dashboard() {
   }
 
   const fetchLocation = () => {
-    console.log("fet")
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
         (position) => {
-          console.log(position.coords)
+          console.log(position.coords.latitude)
           setLatitude(position.coords.latitude)
           setLongitude(position.coords.longitude)
         },
@@ -73,6 +72,8 @@ function Dashboard() {
           console.log(err.message)
         },
       )
+    } else {
+      console.log("Location unavailable")
     }
   }
 
