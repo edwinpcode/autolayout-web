@@ -22,11 +22,13 @@ function Header() {
   const { setValue, register } = useForm()
   const mediaRecorder = useRef(null)
   const [recordingStatus, setRecordingStatus] = useState("inactive")
-  const [audio, setAudio] = useState(null)
+  const [audioUrl, setAudioUrl] = useState(null)
   const [audioBlob, setAudioBlob] = useState(null)
-  const mimeType = "audio/webm"
+  const mimeType = "audio/wav"
   const [searchResult, setSearchResult] = useState("")
   const [audioChunks, setAudioChunks] = useState([])
+  const [mediaStream, setMediaStream] = useState(null)
+  const [recorder, setRecorder] = useState(null)
 
   // loading
   const [loader, showLoader, hideLoader] = Load()
@@ -58,10 +60,15 @@ function Header() {
 
   const startRecording = () => {
     navigator.mediaDevices
-      .getUserMedia({ audio: true })
-      .then((stream) => {
-        // setMediaStream(stream)
-        mediaRecorder.current = new MediaRecorder(stream, { type: mimeType })
+      .getUserMedia({
+        audio: {
+          sampleRate: 16000,
+          channelCount: 1,
+        },
+      })
+      .then(async (stream) => {
+        setMediaStream(stream)
+        mediaRecorder.current = new MediaRecorder(stream)
         const chunks = []
         mediaRecorder.current.start()
         mediaRecorder.current.ondataavailable = (e) => {
@@ -76,17 +83,37 @@ function Header() {
       })
   }
 
+  const stopRecorderjs = async () => {
+    if (recorder) {
+      const audioUrl = URL.createObjectURL(audioBlob)
+
+      const a = document.createElement("a")
+      document.body.appendChild(a)
+      a.style = "display: none"
+      a.href = audioUrl
+      a.download = "recorded_audio.wav"
+      a.click()
+      window.URL.revokeObjectURL(audioUrl)
+      document.body.removeChild(a)
+    }
+  }
+
   const stopRecording = () => {
-    if (mediaRecorder && mediaRecorder.current.state !== "inactive") {
+    if (
+      mediaRecorder &&
+      mediaRecorder.current.state !== "inactive" &&
+      mediaStream
+    ) {
       mediaRecorder.current.stop()
       setRecordingStatus("inactive")
-      // setMediaStream(null)
-      mediaRecorder.current.onstop = () => {
+      mediaRecorder.current.onstop = async () => {
         const blob = new Blob(audioChunks, { type: mimeType })
         setAudioBlob(blob)
         const audioUrl = URL.createObjectURL(blob)
-        setAudio(audioUrl)
+        setAudioUrl(audioUrl)
         setAudioChunks([])
+        mediaStream.getTracks().forEach((track) => track.stop())
+        setMediaStream(null)
       }
     }
   }
@@ -352,19 +379,17 @@ function Header() {
               ></input>
               {recordingStatus === "inactive" && (
                 <div className="btn btn-success" onClick={startRecording}>
-                  <span>Start</span>
                   <i className="fas fa-microphone"></i>
                 </div>
               )}
               {recordingStatus === "recording" && (
                 <div className="btn btn-danger" onClick={stopRecording}>
-                  <span>Stop</span>
                   <i className="fas fa-stop"></i>
                 </div>
               )}
-              {audio ? (
+              {audioUrl ? (
                 <div className="mt-3">
-                  <audio src={audio} controls></audio>
+                  <audio src={audioUrl} controls></audio>
                 </div>
               ) : null}
               <div className="input-group mt-3">
@@ -377,7 +402,7 @@ function Header() {
               </div>
             </div>
             <div className="modal-footer">
-              <a className="btn btn-secondary" download href={audio}>
+              <a className="btn btn-secondary" download href={audioUrl}>
                 Download Recording
               </a>
               <button
