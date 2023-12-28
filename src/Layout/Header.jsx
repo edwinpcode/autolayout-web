@@ -1,10 +1,11 @@
-import React, { useEffect, useState } from "react"
+import React, { useEffect, useState, useRef } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { NavLink, Link, useNavigate, useLocation } from "react-router-dom"
 import { setMenuSlice } from "../Store/Menu/menuSlice"
 import { AuthLogout } from "../Services/AuthService"
 import Load from "../Pages/FullLoad"
 import { useForm } from "react-hook-form"
+import AIService from "../Services/AIService"
 
 function Header() {
   const dispatch = useDispatch()
@@ -19,6 +20,13 @@ function Header() {
   const { state } = useLocation()
 
   const { setValue, register } = useForm()
+  const mediaRecorder = useRef(null)
+  const [recordingStatus, setRecordingStatus] = useState("inactive")
+  const [audio, setAudio] = useState(null)
+  const [audioBlob, setAudioBlob] = useState(null)
+  const mimeType = "audio/webm"
+  const [searchResult, setSearchResult] = useState("")
+  const [audioChunks, setAudioChunks] = useState([])
 
   // loading
   const [loader, showLoader, hideLoader] = Load()
@@ -46,6 +54,62 @@ function Header() {
       .finally(() => {
         hideLoader()
       })
+  }
+
+  const startRecording = () => {
+    navigator.mediaDevices
+      .getUserMedia({ audio: true })
+      .then((stream) => {
+        // setMediaStream(stream)
+        mediaRecorder.current = new MediaRecorder(stream, { type: mimeType })
+        const chunks = []
+        mediaRecorder.current.start()
+        mediaRecorder.current.ondataavailable = (e) => {
+          chunks.push(e.data)
+        }
+
+        setAudioChunks(chunks)
+        setRecordingStatus("recording")
+      })
+      .catch((e) => {
+        window.Swal.fire("Error", e.message, "error")
+      })
+  }
+
+  const stopRecording = () => {
+    if (mediaRecorder && mediaRecorder.current.state !== "inactive") {
+      mediaRecorder.current.stop()
+      setRecordingStatus("inactive")
+      // setMediaStream(null)
+      mediaRecorder.current.onstop = () => {
+        const blob = new Blob(audioChunks, { type: mimeType })
+        setAudioBlob(blob)
+        const audioUrl = URL.createObjectURL(blob)
+        setAudio(audioUrl)
+        setAudioChunks([])
+      }
+    }
+  }
+
+  const search = async () => {
+    const formData = new FormData()
+    if (audioBlob) {
+      const file = new File([audioBlob], "record.wav", {
+        type: mimeType,
+      })
+      formData.append("file", file)
+      console.log(formData)
+      try {
+        const res = await AIService.voiceToText(formData)
+        if (res.data.transcription) {
+          setValue("search", res.data.transcription)
+          setSearchResult(res.data.transcription)
+        }
+      } catch (error) {
+        console.log(error)
+        window.Swal.fire("Kesalahan", error.message, "error")
+      }
+    }
   }
 
   useEffect(() => {
@@ -102,13 +166,41 @@ function Header() {
         {/* Right navbar links */}
         <ul className="navbar-nav ml-auto">
           <li className="nav-item">
-            <div className="input-group">
-              <input className="form-control" {...register("search")} />
-              <div className="input-group-append">
+            <div
+              className="input-group"
+              data-toggle="modal"
+              data-target="#exampleModal"
+            >
+              <input
+                className="form-control"
+                // {...register("search")}
+                placeholder="Cari..."
+                // disabled
+                value={""}
+                onChange={() => {}}
+              />
+              <div
+                className="input-group-append"
+                // onClick={getMicrophonePermission}
+                // data-toggle="modal"
+                // data-target="#exampleModal"
+              >
                 <div className="input-group-text">
-                  <i className="fas fa-microphone"></i>
+                  <i className="fas fa-search"></i>
                 </div>
               </div>
+              {/* {permission && (
+                <div className="input-group-append">
+                  <button
+                    type="button"
+                    data-toggle="modal"
+                    data-target="#exampleModal"
+                    className="btn btn-sm btn-secondary"
+                  >
+                    <i className="fas fa-microphone"></i>
+                  </button>
+                </div>
+              )} */}
             </div>
           </li>
           <li className="nav-item">
@@ -231,6 +323,74 @@ function Header() {
         </ul>
       </nav>
       {loader}
+      <div
+        className="modal fade"
+        id="exampleModal"
+        tabIndex="-1"
+        aria-labelledby="exampleModalLabel"
+        aria-hidden="true"
+      >
+        <div className="modal-dialog">
+          <div className="modal-content">
+            <div className="modal-header">
+              <h1 className="modal-title fs-5" id="exampleModalLabel">
+                Pencarian
+              </h1>
+              <button
+                type="button"
+                className="close"
+                data-dismiss="modal"
+                aria-label="Close"
+              >
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div className="modal-body">
+              <input
+                type="file"
+                onChange={(e) => setAudioBlob(e.target.files[0])}
+              ></input>
+              {recordingStatus === "inactive" && (
+                <div className="btn btn-success" onClick={startRecording}>
+                  <span>Start</span>
+                  <i className="fas fa-microphone"></i>
+                </div>
+              )}
+              {recordingStatus === "recording" && (
+                <div className="btn btn-danger" onClick={stopRecording}>
+                  <span>Stop</span>
+                  <i className="fas fa-stop"></i>
+                </div>
+              )}
+              {audio ? (
+                <div className="mt-3">
+                  <audio src={audio} controls></audio>
+                </div>
+              ) : null}
+              <div className="input-group mt-3">
+                <input className="form-control" {...register("search")}></input>
+                <div className="input-group-append">
+                  <div className="input-group-text">
+                    <i className="fas fa-search"></i>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className="modal-footer">
+              <a className="btn btn-secondary" download href={audio}>
+                Download Recording
+              </a>
+              <button
+                type="button"
+                className="btn btn-primary"
+                onClick={search}
+              >
+                Upload
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
     </>
   )
 }

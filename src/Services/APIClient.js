@@ -9,6 +9,20 @@ export const APIPublic = axios.create({
   },
 })
 
+export const formDataConfig = {
+  headers: {
+    Accept: "application/json",
+    "Content-Type": "multipart/form-data",
+  },
+}
+
+export const APIAI = axios.create({
+  baseURL: process.env.REACT_APP_API_AI,
+  headers: {
+    Accept: "application/json",
+  },
+})
+
 const APIClient = axios
 
 APIClient.defaults.baseURL = process.env.REACT_APP_API_END_POINT

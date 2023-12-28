@@ -123,6 +123,7 @@ const Chart = () => {
     <div>
       <div className="card card-primary">
         <div className="card-header">
+          <span className="">KPU Koperasi</span>
           <div className="card-tools">
             <button className="btn btn-tool" data-card-widget="collapse">
               <i className="fas fa-minus" id="collapseButton"></i>
@@ -130,35 +131,50 @@ const Chart = () => {
           </div>
         </div>
         <div className="card-body">
-          <div>
-            <span className="">KPU Koperasi</span>
-            <div className="d-flex row">
-              {arrayOptions1.map((data, index) => (
-                <div className="col-4 border" key={index}>
-                  <HighchartsReact highcharts={Highcharts} options={data} />
-                </div>
-              ))}
-            </div>
+          <div className="d-flex row">
+            {arrayOptions1.map((data, index) => (
+              <div className="col-4 border" key={index}>
+                <HighchartsReact highcharts={Highcharts} options={data} />
+              </div>
+            ))}
           </div>
-          <div className="mt-3">
-            <span className="">KPU Unit Kerja</span>
-            <div className="d-flex row">
-              {arrayOptions2.map((data, index) => (
-                <div className="col-4 border" key={index}>
-                  <HighchartsReact highcharts={Highcharts} options={data} />
-                </div>
-              ))}
-            </div>
+        </div>
+      </div>
+      <div className="card card-primary">
+        <div className="card-header">
+          <span className="">KPU Unit Kerja</span>
+          <div className="card-tools">
+            <button className="btn btn-tool" data-card-widget="collapse">
+              <i className="fas fa-minus" id="collapseButton"></i>
+            </button>
           </div>
-          <div className="mt-3">
-            <span className="">KPU Individu</span>
-            <div className="d-flex row">
-              {arrayOptions3.map((data, index) => (
-                <div className="col-4 border" key={index}>
-                  <HighchartsReact highcharts={Highcharts} options={data} />
-                </div>
-              ))}
-            </div>
+        </div>
+        <div className="card-body">
+          <div className="d-flex row">
+            {arrayOptions2.map((data, index) => (
+              <div className="col-4 border" key={index}>
+                <HighchartsReact highcharts={Highcharts} options={data} />
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+      <div className="card card-primary">
+        <div className="card-header">
+          <span className="">KPU Individu</span>
+          <div className="card-tools">
+            <button className="btn btn-tool" data-card-widget="collapse">
+              <i className="fas fa-minus" id="collapseButton"></i>
+            </button>
+          </div>
+        </div>
+        <div className="card-body">
+          <div className="d-flex row">
+            {arrayOptions3.map((data, index) => (
+              <div className="col-4 border" key={index}>
+                <HighchartsReact highcharts={Highcharts} options={data} />
+              </div>
+            ))}
           </div>
         </div>
       </div>
