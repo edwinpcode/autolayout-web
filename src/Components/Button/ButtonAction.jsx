@@ -595,7 +595,7 @@ function ButtonAction({
                   .value,
               )
             }
-            className="btn btn-xs btn-danger form-control"
+            className="btn btn-xs btn-success form-control"
           >
             Buka Maps
           </button>

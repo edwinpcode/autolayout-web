@@ -119,7 +119,7 @@ const Inbox = ({
 
   return (
     <div className={`${className} col-md-3`}>
-      <div className="card card-primary" id="inboxCard">
+      <div className="card card-success" id="inboxCard">
         <div className="card-header">
           <span className="card-title">{menu.activeMenuDesc}</span>
           <div className="card-tools">

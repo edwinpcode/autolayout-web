@@ -78,14 +78,15 @@ function SideBar() {
   const handleMenuClick = (data, treeviewId) => {
     const hasChild = data.child || false
     if (!hasChild) {
-      const { menuDesc, menuId, trackId } = data
+      const { menuDesc, menuId, trackId, path } = data
       // set active menu
       setSearchParams({
         menuId,
         trackId,
       })
       dispatch(setFilteringList([]))
-      dispatch(setMenuSlice({ menuId, trackId, menuDesc }))
+      console.log(data)
+      dispatch(setMenuSlice({ menuId, trackId, menuDesc, path }))
       dispatch(reset())
       document.getElementById("body").classList.add("sidebar-collapse")
     }

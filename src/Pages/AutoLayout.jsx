@@ -83,7 +83,7 @@ function AutoLayout({ className }) {
 
   // get structure
   useEffect(() => {
-    if (menu) {
+    if (menu && menu.path != "/form") {
       setPagination({ pageIndex: 0, pageSize: 10 })
       handleGetListStructure(user, menu.activeMenuId, setStructures)
     }
@@ -91,7 +91,8 @@ function AutoLayout({ className }) {
 
   // get data
   useEffect(() => {
-    if (menu) fetchData(menu.activeMenuId, pageIndex, pageSize, filtering)
+    if (menu && menu.path != "/form")
+      fetchData(menu.activeMenuId, pageIndex, pageSize, filtering)
   }, [menu, pageIndex, pageSize, filtering])
 
   const getFieldByForm = async (payload) => {
@@ -177,8 +178,8 @@ function AutoLayout({ className }) {
   }
 
   useEffect(() => {
-    console.log(state)
-  }, [state])
+    console.log(panelData, tab)
+  }, [panelData, tab])
 
   // handle get field
   useEffect(() => {
@@ -211,19 +212,23 @@ function AutoLayout({ className }) {
 
   return (
     <div className="d-md-flex">
-      <Inbox
-        // className={"col-md-3"}
-        pageIndex={pageIndex}
-        pageSize={pageSize}
-        fetchData={fetchData}
-        setPagination={setPagination}
-        dataQuery={dataQuery}
-        setDataQuery={setDataQuery}
-        structures={structures}
-        setStructures={setStructures}
-      />
+      {menu.path != "/form" && (
+        <Inbox
+          // className={"col-md-3"}
+          pageIndex={pageIndex}
+          pageSize={pageSize}
+          fetchData={fetchData}
+          setPagination={setPagination}
+          dataQuery={dataQuery}
+          setDataQuery={setDataQuery}
+          structures={structures}
+          setStructures={setStructures}
+        />
+      )}
       <div
-        className={`overflow-y-auto bg-white col-md-9`}
+        className={`overflow-y-auto bg-white ${
+          menu.path != "/form" ? "col-md-9" : "col-md-12"
+        }`}
         style={{
           height: "85vh",
           // width: '100%',
@@ -233,10 +238,10 @@ function AutoLayout({ className }) {
         {!panelData || !tab ? (
           <Skeleton />
         ) : (
-          <div className="overflow-auto h-100 card card-danger">
+          <div className="overflow-auto h-100 card card-success">
             <div className="card-header">
               <div className="">
-                <h3 className="card-title">{state.param[0]?.value}</h3>
+                <h3 className="card-title">{state && state.param[0]?.value}</h3>
                 {/* <span className="info-box-icon">
                 <i className="far fa-bookmark"></i>
               </span> */}

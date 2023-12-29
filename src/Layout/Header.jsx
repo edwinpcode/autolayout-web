@@ -253,7 +253,12 @@ function Header() {
               onClick={(e) => {
                 e.preventDefault()
                 dispatch(
-                  setMenuSlice({ menuId: null, trackId: null, menuDesc: null }),
+                  setMenuSlice({
+                    menuId: "",
+                    trackId: "",
+                    menuDesc: "",
+                    path: "",
+                  }),
                 )
                 navigate("/dashboard")
               }}

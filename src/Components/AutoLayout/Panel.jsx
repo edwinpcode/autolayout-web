@@ -1,5 +1,5 @@
-import React from 'react'
-import ButtonType from './ButtonType'
+import React from "react"
+import ButtonType from "./ButtonType"
 
 /* 
   note:
@@ -22,9 +22,9 @@ function Panel({
   gridItem,
 }) {
   return (
-    <div className={`col-md-${panelItem.width || '12'}`}>
+    <div className={`col-md-${panelItem.width || "12"}`}>
       <div
-        className={`card w-100 ${panelItem.className || 'card-danger'}`}
+        className={`card w-100 ${panelItem.className || "card-success"}`}
         id={id}
       >
         <div className="card-header">
