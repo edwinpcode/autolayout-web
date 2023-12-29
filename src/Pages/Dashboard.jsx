@@ -129,7 +129,7 @@ function Dashboard() {
     <div>
       <h3>Dashboard</h3>
       <div className="d-flex">
-        <div className="border rounded-lg shadow-lg w-50 p-2">
+        <div className="border rounded-lg shadow-lg col-lg-6 p-2">
           <div className="d-flex justify-content-between text-bold p-2">
             <span>Presensi</span>
             <span>{date.format("LL")}</span>
