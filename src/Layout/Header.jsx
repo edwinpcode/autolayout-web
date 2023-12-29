@@ -24,7 +24,7 @@ function Header() {
   const [recordingStatus, setRecordingStatus] = useState("inactive")
   const [audioUrl, setAudioUrl] = useState(null)
   const [audioBlob, setAudioBlob] = useState(null)
-  const mimeType = "audio/wav"
+  const mimeType = "audio/webm"
   const [searchResult, setSearchResult] = useState("")
   const [audioChunks, setAudioChunks] = useState([])
   const [mediaStream, setMediaStream] = useState(null)
@@ -58,7 +58,7 @@ function Header() {
       })
   }
 
-  const startRecording = () => {
+  const startRecord = () => {
     navigator.mediaDevices
       .getUserMedia({
         audio: {
@@ -86,7 +86,7 @@ function Header() {
       })
   }
 
-  const stopRecording = () => {
+  const stopRecord = () => {
     if (
       mediaRecorder &&
       mediaRecorder.current.state !== "inactive" &&
@@ -397,23 +397,17 @@ function Header() {
                 </div>
               ) : null} */}
               <div className="d-flex">
-                {/* {recordingStatus === "inactive" && (
-                  <div className="btn btn-success" onClick={startRecording}>
-                    <i className="fas fa-microphone"></i>
-                  </div>
-                )}
-                {recordingStatus === "recording" && (
-                  <div className="btn btn-danger" onClick={stopRecording}>
-                    <i className="fas fa-stop"></i>
-                  </div>
-                )} */}
+                {/* <div className="btn btn-success" onClick={startRecording}>
+                  <i className="fas fa-microphone"></i>
+                </div>
+                <div className="btn btn-danger" onClick={stopRecording}>
+                  <i className="fas fa-stop"></i>
+                </div> */}
                 <div className="input-group mt-1">
                   <div
                     className="input-group-prepend"
                     onClick={
-                      recordingStatus == "inactive"
-                        ? startRecording
-                        : stopRecording
+                      recordingStatus == "inactive" ? startRecord : stopRecord
                     }
                   >
                     <div className="input-group-text">
