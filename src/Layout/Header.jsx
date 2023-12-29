@@ -112,7 +112,10 @@ function Header() {
       // const file = new File([audioBlob], "record.wav", {
       //   type: mimeType,
       // })
-      formData.append("file", audioBlob, "record.wav")
+      const timestamp = new Date().toISOString().replace(/[-:.]/g, "")
+      const randomString = Math.random().toString(36).substring(2, 5)
+      const fileName = `audio_${timestamp}_${randomString}.webm`
+      formData.append("file", audioBlob, fileName)
       // console.log(formData)
       try {
         const res = await AIService.voiceToText(formData)
