@@ -1,10 +1,10 @@
-import { ErrorMessage } from '@hookform/error-message'
-import moment from 'moment'
-import { useForm } from 'react-hook-form'
-import { useSelector } from 'react-redux'
-import { encryptAES } from '../../Utils/EncryptUtils'
-import { changePassword } from '../../Services/AuthService'
-import { useState } from 'react'
+import { ErrorMessage } from "@hookform/error-message"
+import moment from "moment"
+import { useForm } from "react-hook-form"
+import { useSelector } from "react-redux"
+import { encryptAES } from "../../Utils/EncryptUtils"
+import { changePassword } from "../../Services/AuthService"
+import { useState } from "react"
 
 function ChangePassword() {
   // prettier-ignore
@@ -33,7 +33,7 @@ function ChangePassword() {
     const encryptedConfirmPassword = encryptAES(confirmPassword)
 
     const payload = {
-      type: 'change',
+      type: "change",
       userid: user.id,
       password: encryptedPassword,
       newpwd: encryptedNewPassword,
@@ -41,26 +41,26 @@ function ChangePassword() {
     }
     changePassword(payload)
       .then((res) => {
-        if (res.data.status == '0') {
+        if (res.data.status == "0") {
           throw new Error(res.data.message)
         }
         reset()
-        window.Swal.fire('Sucess', res.data.message, 'success')
+        window.Swal.fire("Sucess", res.data.message, "success")
       })
       .catch((error) => {
-        window.Swal.fire('Error', error.message, 'error')
+        window.Swal.fire("Error", error.message, "error")
       })
   }
 
   const validatePasswordMatch = (value) => {
     // get the value of the "password" field using the watch function
-    const newPassword = watch('newPassword')
+    const newPassword = watch("newPassword")
     // compare the value with the value of the "password" field
-    return value === newPassword ? true : 'Kata sandi tidak cocok'
+    return value === newPassword ? true : "Kata sandi tidak cocok"
   }
 
   return (
-    <div className="card w-100 card-danger" id="changePassword">
+    <div className="card w-100 card-success" id="changePassword">
       <div className="card-header">
         <h3 className="card-title">Ganti Kata Sandi</h3>
         <div className="card-tools m-0">
@@ -83,19 +83,19 @@ function ChangePassword() {
               </label>
               <div className="input-group">
                 <input
-                  type={hiddenPassword ? 'password' : 'text'}
+                  type={hiddenPassword ? "password" : "text"}
                   id="oldPassword"
                   className="form-control form-control-sm"
                   name="oldPassword"
-                  {...register('oldPassword', {
-                    required: 'Kata Sandi Saat Ini harus diisi',
+                  {...register("oldPassword", {
+                    required: "Kata Sandi Saat Ini harus diisi",
                     minLength: {
                       value: 8,
-                      message: 'Minimal Kata Sandi Saat Ini 8 karakter',
+                      message: "Minimal Kata Sandi Saat Ini 8 karakter",
                     },
                     maxLength: {
                       value: 30,
-                      message: 'Maksimal Kata Sandi Saat Ini 30 karakter',
+                      message: "Maksimal Kata Sandi Saat Ini 30 karakter",
                     },
                   })}
                 />
@@ -116,7 +116,7 @@ function ChangePassword() {
                 errors={errors}
                 name="oldPassword"
                 as="div"
-                style={{ color: 'red', marginTop: '5px' }}
+                style={{ color: "red", marginTop: "5px" }}
               />
             </div>
           </div>
@@ -128,19 +128,19 @@ function ChangePassword() {
               </label>
               <div className="input-group">
                 <input
-                  type={hiddenPasswordNew ? 'password' : 'text'}
+                  type={hiddenPasswordNew ? "password" : "text"}
                   id="newPassword"
                   className="form-control form-control-sm"
                   name="newPassword"
-                  {...register('newPassword', {
-                    required: 'Kata Sandi Baru harus diisi',
+                  {...register("newPassword", {
+                    required: "Kata Sandi Baru harus diisi",
                     minLength: {
                       value: 8,
-                      message: 'Minimal Kata Sandi Baru 8 karakter',
+                      message: "Minimal Kata Sandi Baru 8 karakter",
                     },
                     maxLength: {
                       value: 30,
-                      message: 'Maksimal Kata Sandi Baru 30 karakter',
+                      message: "Maksimal Kata Sandi Baru 30 karakter",
                     },
                   })}
                 />
@@ -161,7 +161,7 @@ function ChangePassword() {
                 errors={errors}
                 name="newPassword"
                 as="div"
-                style={{ color: 'red', marginTop: '5px' }}
+                style={{ color: "red", marginTop: "5px" }}
               />
             </div>
           </div>
@@ -173,20 +173,20 @@ function ChangePassword() {
               </label>
               <div className="input-group">
                 <input
-                  type={hiddenPasswordConfirm ? 'password' : 'text'}
+                  type={hiddenPasswordConfirm ? "password" : "text"}
                   id="confirmPassword"
                   className="form-control form-control-sm"
                   name="confirmPassword"
-                  {...register('confirmPassword', {
-                    required: 'Konfirmasi Kata Sandi Baru harus diisi',
+                  {...register("confirmPassword", {
+                    required: "Konfirmasi Kata Sandi Baru harus diisi",
                     minLength: {
                       value: 8,
-                      message: 'Minimal Konfirmasi Kata Sandi Baru 8 karakter',
+                      message: "Minimal Konfirmasi Kata Sandi Baru 8 karakter",
                     },
                     maxLength: {
                       value: 30,
                       message:
-                        'Maksimal Konfirmasi Kata Sandi Baru 30 karakter',
+                        "Maksimal Konfirmasi Kata Sandi Baru 30 karakter",
                     },
                     validate: validatePasswordMatch,
                   })}
@@ -208,7 +208,7 @@ function ChangePassword() {
                 errors={errors}
                 name="confirmPassword"
                 as="div"
-                style={{ color: 'red', marginTop: '5px' }}
+                style={{ color: "red", marginTop: "5px" }}
               />
             </div>
           </div>
@@ -216,7 +216,7 @@ function ChangePassword() {
       </div>
       <div className="card-footer">
         <button
-          className="btn btn-sm btn-danger"
+          className="btn btn-sm btn-success"
           type="button"
           onClick={handleSubmit(handleChangePassword)}
         >

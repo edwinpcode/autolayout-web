@@ -50,7 +50,7 @@ function EditPhoto() {
 
   return (
     <form
-      className="card w-100 card-danger"
+      className="card w-100 card-success"
       id="editProfile"
       onSubmit={handleSubmit(handleUpdatePhoto)}
     >
@@ -109,7 +109,7 @@ function EditPhoto() {
       </div>
       <div className="card-footer">
         <button
-          className="btn btn-sm btn-danger"
+          className="btn btn-sm btn-success"
           type="submit"
           disabled={loading}
         >

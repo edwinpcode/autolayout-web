@@ -10,6 +10,7 @@ import FullLoad from "./FullLoad"
 import moment from "moment"
 import Chart from "../Components/Dashboard/Chart"
 import axios from "axios"
+import { userStatus } from "../Services/UserService"
 
 function Dashboard() {
   const dispatch = useDispatch()
@@ -23,8 +24,8 @@ function Dashboard() {
   const activeRoleId = useSelector((state) => state.user.activeRole.id)
   const moduleId = useSelector((state) => state.user.activeModule.id)
   const roleId = useSelector((state) => state.user.activeRole.id)
-  const [date, setDate] = useState(moment())
-  const [status, setStatus] = useState("CHECK IN")
+  const [date, setDate] = useState(null)
+  const [status, setStatus] = useState("")
   const [location, setLocation] = useState("")
   const [longitude, setLongitude] = useState(0)
   const [latitude, setLatitude] = useState(0)
@@ -47,6 +48,29 @@ function Dashboard() {
     } finally {
       hideLoader()
     }
+  }
+
+  const cekStatus = async (presensiType) => {
+    // -presensiType: checkin,checkout,checkstatus
+    try {
+      const res = await userStatus({ userid: userId, presensiType })
+      if (res.data.status == "1") {
+        if (
+          res.data.message &&
+          res.data.message.toLowerCase().includes("already")
+        ) {
+          setStatus(res.data.message)
+        } else {
+          setStatus(res.data.message)
+          window.Swal.fire("Berhasil", res.data.message, "success")
+        }
+        // 2023-12-29 15:47:00
+        const date = moment(res.data.statusTime, "YYYY-MM-DD HH:mm:ss")
+        setDate(date)
+      } else {
+        window.Swal.fire("Error", res.data.message, "error")
+      }
+    } catch (e) {}
   }
 
   useEffect(() => {
@@ -91,13 +115,15 @@ function Dashboard() {
   // }, [])
 
   const checkIn = () => {
-    setStatus("CHECK IN")
-    setDate(moment())
+    cekStatus("checkin")
+    // setStatus("CHECK IN")
+    // setDate(moment())
   }
 
   const checkOut = () => {
-    setStatus("CHECK OUT")
-    setDate(moment())
+    cekStatus("checkout")
+    // setStatus("CHECK OUT")
+    // setDate(moment())
   }
 
   const getAddress = async ({ longitude, latitude }) => {
@@ -122,6 +148,7 @@ function Dashboard() {
     //   setDate(moment())
     // }, 1000)
     fetchLocation()
+    cekStatus("checkstatus")
   }, [])
 
   return (
@@ -131,11 +158,11 @@ function Dashboard() {
         <div className="border rounded-lg shadow-lg col-lg-6 p-2">
           <div className="d-flex justify-content-between text-bold p-2">
             <span>Presensi</span>
-            <span>{date.format("LL")}</span>
+            <span>{date?.format("LL")}</span>
           </div>
           <div className="d-flex justify-content-center text-bold text-xl text-capitalize border-bottom">
             <span>
-              {date.format("hh:mm a")} - {status}
+              {date?.format("hh:mm a")} - {status}
             </span>
           </div>
           <div className="d-flex p-2 align-items-center">
@@ -146,7 +173,9 @@ function Dashboard() {
             <button
               onClick={checkIn}
               className={`btn ${
-                status == "CHECK IN" ? "btn-secondary disabled" : "btn-success"
+                status.toLowerCase().includes("check in")
+                  ? "btn-secondary disabled"
+                  : "btn-success"
               }`}
             >
               CHECK IN
@@ -154,7 +183,9 @@ function Dashboard() {
             <button
               onClick={checkOut}
               className={`btn ${
-                status == "CHECK OUT" ? "btn-secondary disabled" : "btn-success"
+                status.toLowerCase().includes("check out")
+                  ? "btn-secondary disabled"
+                  : "btn-success"
               }`}
             >
               CHECK OUT
@@ -209,9 +240,8 @@ function Dashboard() {
                   onClick={() => handleMenuClick(dashboardItem)}
                   className="small-box-footer"
                 >
-                  {" "}
-                  Click here to see the list{" "}
-                  <i className="fas fa-arrow-circle-right"></i>
+                  Click here to see the list
+                  <i className="fas fa-arrow-circle-right ml-2"></i>
                 </Link>
               </div>
             </div>

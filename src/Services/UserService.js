@@ -16,3 +16,7 @@ export const GetUserById = async ({ userId }) => {
 export const updatePhoto = async (payload) => {
   return await APIClient.post("uploadphotoprofile", payload, formDataConfig)
 }
+
+export const userStatus = async ({ userid, presensiType }) => {
+  return await APIClient.post("/presensi", { userid, presensiType })
+}

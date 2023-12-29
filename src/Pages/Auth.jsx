@@ -47,7 +47,7 @@ function Auth() {
             <Logo />
           </div>
           <div className="card-body">
-            <AuthStepperContent isAutoSelectModule={true} />
+            <AuthStepperContent />
           </div>
           <div className="card-footer d-flex justify-content-center">
             <button

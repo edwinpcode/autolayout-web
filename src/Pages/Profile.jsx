@@ -1,5 +1,5 @@
-import EditPhoto from '../Components/Profile/EditPhoto'
-import ChangePassword from '../Components/Profile/ChangePassword'
+import EditPhoto from "../Components/Profile/EditPhoto"
+import ChangePassword from "../Components/Profile/ChangePassword"
 
 function Profile() {
   return (

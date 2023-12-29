@@ -7,7 +7,7 @@ import { setPhotoProfile, setUser } from "../../Store/User/userSlice"
 import { SkeletonAuth } from "../AutoLayout/Skeleton"
 import Stepper from "react-stepper-horizontal"
 
-function AuthStepperContent({ isAutoSelectModule }) {
+function AuthStepperContent() {
   const dispatch = useDispatch()
   // state
   const user = useSelector((state) => state.user)
@@ -63,7 +63,7 @@ function AuthStepperContent({ isAutoSelectModule }) {
 
   useEffect(() => {
     const userModule = userData?.data?.module || []
-    if (isAutoSelectModule && userModule.length === 1) {
+    if (userModule.length === 1) {
       handleSelectModule(userModule[0])
     }
   }, [userData])
@@ -74,7 +74,7 @@ function AuthStepperContent({ isAutoSelectModule }) {
         <Stepper
           steps={[{ title: "Select Application" }, { title: "Select Role" }]}
           activeStep={activeStep}
-          activeColor="#17a2b8"
+          activeColor="#5cb85c"
           completeColor="#c0c0c0"
         />
       </div>
@@ -126,7 +126,7 @@ function AuthStepperContent({ isAutoSelectModule }) {
                         )
                       }
                       className={classNames("btn w-100 h-100", {
-                        "btn-danger": selectedRole != role,
+                        "btn-success": selectedRole != role,
                         "btn-default": selectedRole == role,
                       })}
                     >
@@ -146,7 +146,7 @@ function AuthStepperContent({ isAutoSelectModule }) {
               <div className="col mt-3">
                 <button
                   type="button"
-                  className="btn btn-sm btn-danger"
+                  className="btn btn-sm btn-success"
                   onClick={() => setActiveStep(0)}
                 >
                   <i className="fal fa-arrow-left"></i>
