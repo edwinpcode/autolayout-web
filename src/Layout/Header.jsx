@@ -117,7 +117,7 @@ function Header() {
       setAudioUrl(null)
       setAudioBlob(null)
     } catch (error) {
-      console.log(error)
+      // console.log(error)
       window.Swal.fire("Kesalahan", error.message, "error")
     }
   }
