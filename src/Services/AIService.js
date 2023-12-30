@@ -2,6 +2,7 @@ import APIClient, { APIAI, formDataConfig } from "./APIClient"
 
 const voiceToText = async (payload) => {
   const res = await APIClient.post("speechToText", payload, formDataConfig)
+  // const res = await APIAI.post("/stt/speak/upload", payload, formDataConfig)
   return res
 }
 

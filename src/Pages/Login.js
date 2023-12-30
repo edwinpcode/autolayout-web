@@ -55,13 +55,13 @@ function Login() {
   } = useForm({ mode: "onChange" })
   const videoRef = useRef(null)
   const canvasCameraRef = useRef(null)
-  const [mediaStream, setMediaStream] = useState(null)
+  const [mediaStreamVideo, setMediaStreamVideo] = useState(null)
+  const [mediaStreamAudio, setMediaStreamAudio] = useState(null)
   const mediaRecorder = useRef(null)
   const [recordingStatus, setRecordingStatus] = useState("inactive")
   const [audioUrl, setAudioUrl] = useState(null)
   const [audioBlob, setAudioBlob] = useState(null)
   const mimeType = "audio/webm"
-  const [searchResult, setSearchResult] = useState("")
   const [audioChunks, setAudioChunks] = useState([])
   const [useCamera, setUseCamera] = useState(false)
   const [flipped, setFlipped] = useState(false)
@@ -125,10 +125,10 @@ function Login() {
     setPhoto(file)
     const uri = URL.createObjectURL(file)
     setPhotoURI2(uri)
-    if (mediaStream) {
+    if (mediaStreamVideo) {
       setShowVideo(false)
-      mediaStream.getTracks().forEach((track) => track.stop())
-      setMediaStream(null)
+      mediaStreamVideo.getTracks().forEach((track) => track.stop())
+      setMediaStreamVideo(null)
     }
   }
 
@@ -146,7 +146,7 @@ function Login() {
     // if (!validateCaptcha(captcha)) {
     //   return window.Swal.fire('Error', 'Wrong captcha', 'error')
     // }
-    if (captcha !== compareCaptcha && !devMode) {
+    if (captcha !== compareCaptcha && !devMode && !useCamera) {
       resetCanvas()
       return window.Swal.fire("Error", "Wrong captcha", "error")
     }
@@ -238,7 +238,7 @@ function Login() {
       setPhotoURI(null)
       setShowVideo(true)
       if (videoRef.current) {
-        setMediaStream(stream)
+        setMediaStreamVideo(stream)
         videoRef.current.srcObject = stream
       }
     } catch (error) {
@@ -264,10 +264,10 @@ function Login() {
 
   useEffect(() => {
     if (!useCamera) {
-      if (mediaStream) {
+      if (mediaStreamVideo) {
         setShowVideo(false)
-        mediaStream.getTracks().forEach((track) => track.stop())
-        setMediaStream(null)
+        mediaStreamVideo.getTracks().forEach((track) => track.stop())
+        setMediaStreamVideo(null)
       }
       if (photo) {
         setPhoto(null)
@@ -277,7 +277,7 @@ function Login() {
         setPhotoURI2(null)
       }
     }
-  }, [useCamera, mediaStream, photo, photoURI, photoURI2])
+  }, [useCamera, mediaStreamVideo, photo, photoURI, photoURI2])
 
   useEffect(() => {
     if (useCamera) {
@@ -302,10 +302,10 @@ function Login() {
       }
       const photoData = canvas.toDataURL("image/png")
       setPhotoURI(photoData)
-      if (mediaStream) {
+      if (mediaStreamVideo) {
         setShowVideo(false)
-        mediaStream.getTracks().forEach((track) => track.stop())
-        setMediaStream(null)
+        mediaStreamVideo.getTracks().forEach((track) => track.stop())
+        setMediaStreamVideo(null)
       }
     }
   }
@@ -366,17 +366,16 @@ function Login() {
         },
       })
       .then(async (stream) => {
-        setMediaStream(stream)
+        setMediaStreamAudio(stream)
         const media = new MediaRecorder(stream)
         mediaRecorder.current = media
         let chunks = []
         mediaRecorder.current.start()
         mediaRecorder.current.ondataavailable = (e) => {
-          if (e.data.size > 0) {
-            chunks.push(e.data)
-          }
+          if (typeof e.data === "undefined") return
+          if (e.data.size === 0) return
+          chunks.push(e.data)
         }
-
         setAudioChunks(chunks)
         setRecordingStatus("recording")
       })
@@ -386,11 +385,7 @@ function Login() {
   }
 
   const stopRecord = () => {
-    if (
-      mediaRecorder &&
-      mediaRecorder.current.state !== "inactive" &&
-      mediaStream
-    ) {
+    if (mediaRecorder) {
       mediaRecorder.current.stop()
       setRecordingStatus("inactive")
       mediaRecorder.current.onstop = async () => {
@@ -399,52 +394,47 @@ function Login() {
         const audioUrl = URL.createObjectURL(blob)
         setAudioUrl(audioUrl)
         setAudioChunks([])
-        mediaStream.getTracks().forEach((track) => track.stop())
-        setMediaStream(null)
+        if (mediaStreamAudio) {
+          mediaStreamAudio.getTracks().forEach((track) => track.stop())
+          setMediaStreamAudio(null)
+        }
       }
     }
   }
 
-  const search = async () => {
+  const search = async (audioBlob) => {
     const formData = new FormData()
-    if (audioBlob) {
-      // const file = new File([audioBlob], "record.wav", {
-      //   type: mimeType,
-      // })
-      const timestamp = new Date().toISOString().replace(/[-:.]/g, "")
-      const randomString = Math.random().toString(36).substring(2, 5)
-      const fileName = `audio_${timestamp}_${randomString}.webm`
-      formData.append("file", audioBlob, fileName)
-      // console.log(formData)
-      try {
-        setRecordingStatus("search")
-        const res = await AIService.voiceToText(formData)
-        if (res.data.status == "1") {
-          setValue("userId", res.data.message)
-          setSearchResult(res.data.message)
-          URL.revokeObjectURL(audioUrl)
-          setAudioUrl(null)
-          setAudioBlob(null)
-        }
-      } catch (error) {
-        window.Swal.fire("Kesalahan", error.message, "error")
-      } finally {
-        setRecordingStatus("inactive")
+    const timestamp = new Date().toISOString().replace(/[-:.]/g, "")
+    const randomString = Math.random().toString(36).substring(2, 5)
+    const fileName = `audio_${timestamp}_${randomString}.webm`
+    formData.append("file", audioBlob, fileName)
+    try {
+      setRecordingStatus("search")
+      const res = await AIService.voiceToText(formData)
+      if (res.data.status == "1") {
+        setValue("userId", res.data.message)
       }
+      URL.revokeObjectURL(audioUrl)
+      setAudioUrl(null)
+      setAudioBlob(null)
+    } catch (error) {
+      window.Swal.fire("Kesalahan", error.message, "error")
+    } finally {
+      setRecordingStatus("inactive")
     }
   }
 
   useEffect(() => {
     setShowVideo(false)
-    if (mediaStream) {
-      mediaStream.getTracks().forEach((track) => track.stop())
-      setMediaStream(null)
+    if (mediaStreamVideo) {
+      mediaStreamVideo.getTracks().forEach((track) => track.stop())
+      setMediaStreamVideo(null)
     }
   }, [imageSource])
 
   useEffect(() => {
     if (audioBlob) {
-      search()
+      search(audioBlob)
     }
   }, [audioBlob])
 
@@ -549,7 +539,7 @@ function Login() {
                     Reload
                   </button>
                 </div>
-                {!devMode && (
+                {!devMode && !useCamera && (
                   <div className={`mb-3 mt-3`}>
                     <div className="form-group">
                       <input

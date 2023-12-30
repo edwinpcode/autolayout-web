@@ -25,10 +25,9 @@ function Header() {
   const [audioUrl, setAudioUrl] = useState(null)
   const [audioBlob, setAudioBlob] = useState(null)
   const mimeType = "audio/webm"
-  const [searchResult, setSearchResult] = useState("")
   const [audioChunks, setAudioChunks] = useState([])
   const [mediaStream, setMediaStream] = useState(null)
-  const [recorder, setRecorder] = useState(null)
+  const [audioDuration, setAudioDuration] = useState(null)
 
   // loading
   const [loader, showLoader, hideLoader] = Load()
@@ -73,11 +72,10 @@ function Header() {
         let chunks = []
         mediaRecorder.current.start()
         mediaRecorder.current.ondataavailable = (e) => {
-          if (e.data.size > 0) {
-            chunks.push(e.data)
-          }
+          if (typeof e.data === "undefined") return
+          if (e.data.size === 0) return
+          chunks.push(e.data)
         }
-
         setAudioChunks(chunks)
         setRecordingStatus("recording")
       })
@@ -87,11 +85,7 @@ function Header() {
   }
 
   const stopRecord = () => {
-    if (
-      mediaRecorder &&
-      mediaRecorder.current.state !== "inactive" &&
-      mediaStream
-    ) {
+    if (mediaRecorder) {
       mediaRecorder.current.stop()
       setRecordingStatus("inactive")
       mediaRecorder.current.onstop = async () => {
@@ -100,33 +94,31 @@ function Header() {
         const audioUrl = URL.createObjectURL(blob)
         setAudioUrl(audioUrl)
         setAudioChunks([])
-        mediaStream.getTracks().forEach((track) => track.stop())
-        setMediaStream(null)
+        if (mediaStream) {
+          mediaStream.getTracks().forEach((track) => track.stop())
+          setMediaStream(null)
+        }
       }
     }
   }
 
-  const search = async () => {
+  const search = async (audioBlob) => {
     const formData = new FormData()
-    if (audioBlob) {
-      // const file = new File([audioBlob], "record.wav", {
-      //   type: mimeType,
-      // })
-      const timestamp = new Date().toISOString().replace(/[-:.]/g, "")
-      const randomString = Math.random().toString(36).substring(2, 5)
-      const fileName = `audio_${timestamp}_${randomString}.webm`
-      formData.append("file", audioBlob, fileName)
-      // console.log(formData)
-      try {
-        const res = await AIService.voiceToText(formData)
-        if (res.data.status == "1") {
-          setValue("search", res.data.message)
-          setSearchResult(res.data.message)
-        }
-      } catch (error) {
-        console.log(error)
-        window.Swal.fire("Kesalahan", error.message, "error")
+    const timestamp = new Date().toISOString().replace(/[-:.]/g, "")
+    const randomString = Math.random().toString(36).substring(2, 5)
+    const fileName = `audio_${timestamp}_${randomString}.webm`
+    formData.append("file", audioBlob, fileName)
+    try {
+      const res = await AIService.voiceToText(formData)
+      if (res.data.status == "1") {
+        setValue("search", res.data.message)
       }
+      URL.revokeObjectURL(audioUrl)
+      setAudioUrl(null)
+      setAudioBlob(null)
+    } catch (error) {
+      console.log(error)
+      window.Swal.fire("Kesalahan", error.message, "error")
     }
   }
 
@@ -148,9 +140,9 @@ function Header() {
 
   useEffect(() => {
     if (audioBlob) {
-      search()
+      search(audioBlob)
     }
-  }, [audioBlob])
+  }, [audioBlob, audioDuration])
 
   const onSubmit = ({ search }) => {
     console.log(search)
