@@ -65,8 +65,10 @@ function Dashboard() {
           window.Swal.fire("Berhasil", res.data.message, "success")
         }
         // 2023-12-29 15:47:00
-        const date = moment(res.data.statusTime, "YYYY-MM-DD HH:mm:ss")
-        setDate(date)
+        if (res.data.statusTime && res.data.statusTime != "") {
+          const date = moment(res.data.statusTime, "YYYY-MM-DD HH:mm:ss")
+          setDate(date)
+        }
       } else {
         window.Swal.fire("Error", res.data.message, "error")
       }
