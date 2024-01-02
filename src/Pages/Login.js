@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom"
 import { AuthLogin } from "../Services/AuthService"
 import { encryptAES } from "../Utils/EncryptUtils"
 import Logo from "./Logo"
-import { useDispatch } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 import { setUser, setUserId } from "../Store/User/userSlice"
 import axios from "axios"
 import AIService from "../Services/AIService"
@@ -186,7 +186,11 @@ function Login() {
             localStorage.setItem("expiredIn", res.data.expiredIn)
             localStorage.setItem("userId", res.data.userId)
             dispatch(setUserId(res.data.userId))
-            window.location = "/auth"
+            if (devMode) {
+              navigate("/auth")
+            } else {
+              window.location = "/auth"
+            }
           } else {
             resetCanvas()
             window.Swal.fire("Kesalahan", res.data.message, "error")
@@ -222,8 +226,12 @@ function Login() {
             localStorage.setItem("refreshToken", res.response.refreshToken)
             localStorage.setItem("expiredIn", res.response.expiredIn)
             localStorage.setItem("userId", res.response.userId)
-            window.location = "/auth"
             dispatch(setUserId(res.response.userId))
+            if (devMode) {
+              navigate("/auth")
+            } else {
+              window.location = "/auth"
+            }
           } else {
             resetCanvas()
             window.Swal.fire("Kesalahan", res.response.message, "error")

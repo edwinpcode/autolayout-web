@@ -6,6 +6,7 @@ import classNames from "classnames"
 import { setPhotoProfile, setUser } from "../../Store/User/userSlice"
 import { SkeletonAuth } from "../AutoLayout/Skeleton"
 import Stepper from "react-stepper-horizontal"
+import { useNavigate } from "react-router-dom"
 
 function AuthStepperContent() {
   const dispatch = useDispatch()
@@ -16,6 +17,14 @@ function AuthStepperContent() {
   const [selectedRole, setSelectedRole] = useState({})
   // redux
   const userData = useSelector((state) => state.user.data)
+  const [devMode, setDevMode] = useState(false)
+  const navigate = useNavigate()
+
+  useEffect(() => {
+    if (process.env.NODE_ENV === "development") {
+      setDevMode(true)
+    }
+  }, [])
 
   const handleSelectedGroup = async (
     userId,
@@ -36,7 +45,11 @@ function AuthStepperContent() {
           )
           dispatch(setPhotoProfile(res.data.photoProfile))
           if (window.location.pathname === "/auth") {
-            window.location = "/dashboard"
+            if (devMode) {
+              navigate("/dashboard")
+            } else {
+              window.location = "/dashboard"
+            }
           }
           window.$("#authStepperModal").modal("hide")
         }

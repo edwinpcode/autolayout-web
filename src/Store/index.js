@@ -1,23 +1,24 @@
-import { combineReducers, configureStore } from '@reduxjs/toolkit'
-import { listReducer } from './List/listSlice'
-import { menuReducer } from './Menu/menuSlice'
-import { userReducer } from './User/userSlice'
-import { nodeReducer } from './Flowchart/nodeSlice'
-import { edgeReducer } from './Flowchart/edgeSlice'
-import { elementReducer } from './Flowchart/elementSlice'
-import { hiddenElementReducer } from './HiddenElement/hiddenElementSlice'
-import { dropdownReducer } from './Input/DropdownSlice'
-import { loadingReducer } from './Loading/LoadingSlice'
-import { formReducer } from './Form/FormSlice'
-import { menuSideabarReducer } from './Menu/menuSidebarSlice'
-import storage from 'redux-persist/lib/storage'
-import thunk from 'redux-thunk'
-import { persistReducer, persistStore } from 'redux-persist'
-import { tokenReducer } from './Token/tokenSlice'
-import storageSession from 'redux-persist/lib/storage/session'
+import { combineReducers, configureStore } from "@reduxjs/toolkit"
+import { listReducer } from "./List/listSlice"
+import { menuReducer } from "./Menu/menuSlice"
+import { userReducer } from "./User/userSlice"
+import { nodeReducer } from "./Flowchart/nodeSlice"
+import { edgeReducer } from "./Flowchart/edgeSlice"
+import { elementReducer } from "./Flowchart/elementSlice"
+import { hiddenElementReducer } from "./HiddenElement/hiddenElementSlice"
+import { dropdownReducer } from "./Input/DropdownSlice"
+import { loadingReducer } from "./Loading/LoadingSlice"
+import { formReducer } from "./Form/FormSlice"
+import { menuSideabarReducer } from "./Menu/menuSidebarSlice"
+import storage from "redux-persist/lib/storage"
+import thunk from "redux-thunk"
+import { persistReducer, persistStore } from "redux-persist"
+import { tokenReducer } from "./Token/tokenSlice"
+import storageSession from "redux-persist/lib/storage/session"
+import devReducer from "./Dev/DevModeSlice"
 
 const persistConfig = {
-  key: 'root',
+  key: "root",
   storage: storageSession,
 }
 
@@ -35,6 +36,7 @@ const reducer = combineReducers({
   form: formReducer,
   menuSidebar: menuSideabarReducer,
   token: tokenReducer,
+  devMode: devReducer,
 })
 
 const persistedReducer = persistReducer(persistConfig, reducer)

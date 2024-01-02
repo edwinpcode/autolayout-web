@@ -1,14 +1,14 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState } from "react"
 import {
   dateDisplay,
   dateValue,
   getAge,
   getMonthAge,
   getYearAge,
-} from '../../../Utils/DatetimeUtils'
-import moment from 'moment'
-import 'moment/locale/id'
-import FieldCascadingUtil from '../../../Utils/FieldCascadingUtil'
+} from "../../../Utils/DatetimeUtils"
+import moment from "moment"
+import "moment/locale/id"
+import FieldCascadingUtil from "../../../Utils/FieldCascadingUtil"
 moment.locale(process.env.REACT_APP_DATE_LANG)
 
 function InputDate({
@@ -28,18 +28,18 @@ function InputDate({
   resetField,
   ...props
 }) {
-  const [displayValue, setDisplayValue] = useState('')
+  const [displayValue, setDisplayValue] = useState("")
 
   const clear = () => {
     resetField(id)
-    setDisplayValue('')
+    setDisplayValue("")
   }
 
   const inputWatch = watch(id)
   useEffect(() => {
-    if (inputWatch && inputWatch !== '') {
+    if (inputWatch && inputWatch !== "") {
       setDisplayValue(
-        dateDisplay(inputWatch, process.env.REACT_APP_DATE_FORMATVAL)
+        dateDisplay(inputWatch, process.env.REACT_APP_DATE_FORMATVAL),
       )
       if (child.length !== 0) {
         // const year = getYearAge(inputWatch)
@@ -55,73 +55,73 @@ function InputDate({
     }
 
     window.$(function () {
-      const today = moment().format('DD/MM/YYYY')
+      const today = moment().format("DD/MM/YYYY")
       const handleMinDate = () => {
-        if (fieldItem.rule === 'onlyPresentDate') return today
+        if (fieldItem.rule === "onlyPresentDate") return today
         else return false
       }
       const handleMaxDate = () => {
-        if (fieldItem.rule === 'onlyPastDate') return today
+        if (fieldItem.rule === "onlyPastDate") return today
         else return false
       }
       window.$(`#date_${id}`).daterangepicker({
         singleDatePicker: true,
         startDate:
-          inputWatch === ''
-            ? moment().format('DD/MM/YYYY')
-            : moment(inputWatch).format('DD/MM/YYYY'),
+          inputWatch === ""
+            ? moment().format("DD/MM/YYYY")
+            : moment(inputWatch).format("DD/MM/YYYY"),
         autoUpdateInput: false,
         showDropdowns: true,
         locale: {
-          format: 'DD/MM/YYYY',
-          applyLabel: 'Pilih',
-          cancelLabel: 'Batal',
-          daysOfWeek: ['Min', 'Sen', 'Sel', 'Rab', 'Kam', 'Jum', 'Sab'],
+          format: "DD/MM/YYYY",
+          applyLabel: "Pilih",
+          cancelLabel: "Batal",
+          daysOfWeek: ["Min", "Sen", "Sel", "Rab", "Kam", "Jum", "Sab"],
           monthNames: [
-            'Januari',
-            'Februari',
-            'Maret',
-            'April',
-            'Mei',
-            'Juni',
-            'Juli',
-            'Agustus',
-            'September',
-            'Oktober',
-            'November',
-            'Desember',
+            "Januari",
+            "Februari",
+            "Maret",
+            "April",
+            "Mei",
+            "Juni",
+            "Juli",
+            "Agustus",
+            "September",
+            "Oktober",
+            "November",
+            "Desember",
           ],
         },
         minDate: handleMinDate(),
         maxDate: handleMaxDate(),
-        drops: fieldItem.type === 'date' ? 'up' : 'down',
+        drops: fieldItem.type === "date" ? "up" : "down",
       })
       // on apply
       window
         .$(`#date_${id}`)
-        .on('apply.daterangepicker', function (ev, picker) {
+        .on("apply.daterangepicker", function (ev, picker) {
           const newDisplayValue = picker.startDate.format(
-            process.env.REACT_APP_DATE_FORMATDISP
+            process.env.REACT_APP_DATE_FORMATDISP,
           )
           const newInputValue = picker.startDate.format(
-            process.env.REACT_APP_DATE_FORMATVAL
+            process.env.REACT_APP_DATE_FORMATVAL,
           )
           const formattedDisplayValue = moment(newDisplayValue).format(
-            process.env.REACT_APP_DATE_FORMATDISP
+            process.env.REACT_APP_DATE_FORMATDISP,
           )
           setDisplayValue(formattedDisplayValue)
           window.$(`#date_${id}`).val(formattedDisplayValue)
           setValue(id, newInputValue)
-          window.$('.daterangepicker').hide()
+          window.$(".daterangepicker").hide()
         })
     })
   }, [inputWatch])
 
   useEffect(() => {
-    if (defaultValue && defaultValue !== '') {
+    if (defaultValue && defaultValue !== "") {
       setValue(
         id,
-        dateValue(defaultValue, process.env.REACT_APP_DATE_FORMATVAL)
+        dateValue(defaultValue, process.env.REACT_APP_DATE_FORMATVAL),
       )
     }
   }, [])
@@ -132,7 +132,7 @@ function InputDate({
         onClick={() => {
           console.log(fieldItem)
         }}
-        className={`${hide ? 'hidden' : ''}`}
+        className={`${hide ? "hidden" : ""}`}
       >
         {label}
         {isMandatory && (
