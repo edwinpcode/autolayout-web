@@ -83,17 +83,17 @@ function AutoLayout({ className }) {
 
   // get structure
   useEffect(() => {
-    if (menu && menu.path != "/form") {
+    if (menu && menu.path != "/form" && !tab) {
       setPagination({ pageIndex: 0, pageSize: 10 })
       handleGetListStructure(user, menu.activeMenuId, setStructures)
     }
-  }, [menu, user])
+  }, [menu, user, tab])
 
   // get data
   useEffect(() => {
-    if (menu && menu.path != "/form")
+    if (menu && menu.path != "/form" && !tab)
       fetchData(menu.activeMenuId, pageIndex, pageSize, filtering)
-  }, [menu, pageIndex, pageSize, filtering])
+  }, [menu, pageIndex, pageSize, filtering, !tab])
 
   const getFieldByForm = async (payload) => {
     await getField(payload)
@@ -118,6 +118,9 @@ function AutoLayout({ className }) {
   }
 
   useEffect(() => {
+    if (tab) {
+      return
+    }
     dispatch(setFormPanel([]))
     // handle form reload by menuId condition
     if (menu.activeMenuId === "") return navigate("/dashboard")
@@ -147,7 +150,7 @@ function AutoLayout({ className }) {
         // console.log(error)
         window.Swal.fire("Error", error.message, "error")
       })
-  }, [menu.activeMenuId])
+  }, [menu.activeMenuId, tab])
 
   const reset = () => {
     let param = ""
@@ -178,12 +181,12 @@ function AutoLayout({ className }) {
   }
 
   useEffect(() => {
-    console.log(panelData, tab)
+    console.log("panel: ", panelData, "tab: ", tab)
   }, [panelData, tab])
 
   // handle get field
   useEffect(() => {
-    if (activeTabId !== "" && menu.activeMenuId !== "") {
+    if (activeTabId !== "" && menu.activeMenuId !== "" && !tab) {
       dispatch(setLoadingField(true))
       let payload = {
         tabId: activeTabId,
@@ -208,7 +211,7 @@ function AutoLayout({ className }) {
       // get field by payload
       getFieldByForm(payload)
     }
-  }, [activeTabId, menu.activeMenuId])
+  }, [activeTabId, menu.activeMenuId, tab])
 
   return (
     <div className="d-md-flex">
@@ -223,6 +226,7 @@ function AutoLayout({ className }) {
           setDataQuery={setDataQuery}
           structures={structures}
           setStructures={setStructures}
+          setTab={setTab}
         />
       )}
       <div

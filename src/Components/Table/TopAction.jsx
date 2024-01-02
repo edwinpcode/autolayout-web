@@ -1,6 +1,6 @@
-import { useEffect, useMemo, useState } from 'react'
-import { useSelector } from 'react-redux'
-import ButtonType from '../AutoLayout/ButtonType'
+import { useEffect, useMemo, useState } from "react"
+import { useSelector } from "react-redux"
+import ButtonType from "../AutoLayout/ButtonType"
 
 function TopAction({
   structures,
@@ -15,6 +15,7 @@ function TopAction({
   setFilterData,
   filterDataLabel,
   selected = [],
+  setTab,
 }) {
   // state
   // const [filterData, setFilterData] = useState([])
@@ -62,6 +63,7 @@ function TopAction({
             pageSize={pageSize}
             fetchData={fetchData}
             selected={selected}
+            setTab={setTab}
           />
         ))}
       </div>

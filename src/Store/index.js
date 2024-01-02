@@ -16,6 +16,7 @@ import { persistReducer, persistStore } from "redux-persist"
 import { tokenReducer } from "./Token/tokenSlice"
 import storageSession from "redux-persist/lib/storage/session"
 import devReducer from "./Dev/DevModeSlice"
+import { inboxReducer } from "./Inbox/InboxStore"
 
 const persistConfig = {
   key: "root",
@@ -37,6 +38,7 @@ const reducer = combineReducers({
   menuSidebar: menuSideabarReducer,
   token: tokenReducer,
   devMode: devReducer,
+  inbox: inboxReducer,
 })
 
 const persistedReducer = persistReducer(persistConfig, reducer)

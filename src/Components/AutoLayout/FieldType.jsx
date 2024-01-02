@@ -1,24 +1,24 @@
-import { ErrorMessage } from '@hookform/error-message'
-import DropdownSelect from './Input/DropdownSelect'
-import InputCommon from './Input/InputCommon'
-import InputDate from './Input/InputDate'
-import InputFile from './Input/InputFile'
-import Flowchart from '../../Pages/Flowchart'
-import InputRadio from './Input/InputRadio'
-import InputTextboxWithButton from './Input/InputTextboxWithButton'
-import InputDatetime from './Input/InputDatetime'
-import InputTime from './Input/InputTime'
-import TableGrid from '../../Pages/TableGrid'
-import InputTextareaWithCheckbox from './Input/InputTextareaWithCheckbox'
-import CheckboxCopyValue from './Input/CheckboxCopyValue'
-import BoxForm from './Box/BoxForm'
-import ReportForm from '../AutoLayout/Chart/ReportForm'
-import ChartForm from '../AutoLayout/Chart/ChartForm'
-import ButtonForm from '../Button/ButtonForm'
-import { handleFieldRule } from '../../Utils/FieldRuleUtils'
-import ButtonType from './ButtonType'
-import InputPassword from './Input/InputPassword'
-import InputTextArea from './Input/InputTextArea'
+import { ErrorMessage } from "@hookform/error-message"
+import DropdownSelect from "./Input/DropdownSelect"
+import InputCommon from "./Input/InputCommon"
+import InputDate from "./Input/InputDate"
+import InputFile from "./Input/InputFile"
+import Flowchart from "../../Pages/Flowchart"
+import InputRadio from "./Input/InputRadio"
+import InputTextboxWithButton from "./Input/InputTextboxWithButton"
+import InputDatetime from "./Input/InputDatetime"
+import InputTime from "./Input/InputTime"
+import TableGrid from "../../Pages/TableGrid"
+import InputTextareaWithCheckbox from "./Input/InputTextareaWithCheckbox"
+import CheckboxCopyValue from "./Input/CheckboxCopyValue"
+import BoxForm from "./Box/BoxForm"
+import ReportForm from "../AutoLayout/Chart/ReportForm"
+import ChartForm from "../AutoLayout/Chart/ChartForm"
+import ButtonForm from "../Button/ButtonForm"
+import { handleFieldRule } from "../../Utils/FieldRuleUtils"
+import ButtonType from "./ButtonType"
+import InputPassword from "./Input/InputPassword"
+import InputTextArea from "./Input/InputTextArea"
 
 /* 
   note:
@@ -50,8 +50,8 @@ function FieldType({
 }) {
   return (
     <>
-      {['textbox', 'email'].includes(fieldItem.type) && (
-        <div className={`col-md-${fieldItem.width || '12'}`}>
+      {["textbox", "email"].includes(fieldItem.type) && (
+        <div className={`col-md-${fieldItem.width || "12"}`}>
           <div className="form-group">
             <InputCommon
               showLabel={true}
@@ -66,22 +66,22 @@ function FieldType({
               setValue={setValue}
               watch={watch}
               resetField={resetField}
-              hide={fieldItem.hide == '1' || false}
+              hide={fieldItem.hide == "1" || false}
               register={register}
               filter={filter}
-              className={fieldItem.className || ''}
+              className={fieldItem.className || ""}
             />
             <ErrorMessage
               errors={errors}
               name={fieldItem.id}
               as="div"
-              style={{ color: 'red', marginTop: '5px' }}
+              style={{ color: "red", marginTop: "5px" }}
             />
           </div>
         </div>
       )}
-      {fieldItem.type === 'textarea' && (
-        <div className={`col-md-${fieldItem.width || '12'}`}>
+      {fieldItem.type === "textarea" && (
+        <div className={`col-md-${fieldItem.width || "12"}`}>
           <div className="form-group">
             <InputTextArea
               fieldItem={fieldItem}
@@ -92,12 +92,12 @@ function FieldType({
               errors={errors}
               name={fieldItem.id}
               as="div"
-              style={{ color: 'red', marginTop: '5px' }}
+              style={{ color: "red", marginTop: "5px" }}
             />
           </div>
         </div>
       )}
-      {fieldItem.type === 'radio' && (
+      {fieldItem.type === "radio" && (
         <div className={`col-md-${fieldItem.width}`}>
           <InputRadio
             data={fieldItem}
@@ -105,12 +105,12 @@ function FieldType({
             setValue={setValue}
             panel={panel}
             getValues={getValues}
-            readOnly={fieldItem.isReadOnly === '1' || false}
+            readOnly={fieldItem.isReadOnly === "1" || false}
             listField={fieldList}
-            isReadOnly={fieldItem.isReadOnly === '1' || false}
+            isReadOnly={fieldItem.isReadOnly === "1" || false}
             defaultValue={fieldItem.valueList}
             condition={fieldItem.condition || []}
-            hide={fieldItem.hide === '' || false}
+            hide={fieldItem.hide === "" || false}
             register={register(fieldItem.id, handleFieldRule(fieldItem))}
             unregister={unregister}
           />
@@ -118,14 +118,14 @@ function FieldType({
             errors={errors}
             name={fieldItem.id}
             as="div"
-            style={{ color: 'red', marginTop: '5px' }}
+            style={{ color: "red", marginTop: "5px" }}
           />
         </div>
       )}
-      {fieldItem.type === 'dropdown' && (
+      {fieldItem.type === "dropdown" && (
         <div
-          className={`col-md-${fieldItem.width || '12'} ${
-            fieldItem.hide == '1' ? 'hidden' : ''
+          className={`col-md-${fieldItem.width || "12"} ${
+            fieldItem.hide == "1" ? "hidden" : ""
           }`}
         >
           <div className="form-group">
@@ -138,13 +138,13 @@ function FieldType({
               parent={fieldItem.reference?.parent || []}
               child={fieldItem.reference?.child || []}
               resetField={resetField}
-              readOnly={fieldItem.isReadOnly === '1' || false}
+              readOnly={fieldItem.isReadOnly === "1" || false}
               getValues={getValues}
               setValue={setValue}
               defaultValue={fieldItem.valueList}
               condition={fieldItem.condition || []}
-              isMandatory={fieldItem.isMandatory === '1' || false}
-              isReadOnly={fieldItem.isReadOnly === '1' || false}
+              isMandatory={fieldItem.isMandatory === "1" || false}
+              isReadOnly={fieldItem.isReadOnly === "1" || false}
               unregister={unregister}
               register={register(fieldItem.id, handleFieldRule(fieldItem))}
             />
@@ -152,22 +152,22 @@ function FieldType({
               errors={errors}
               name={fieldItem.id}
               as="div"
-              style={{ color: 'red', marginTop: '5px' }}
+              style={{ color: "red", marginTop: "5px" }}
             />
           </div>
         </div>
       )}
-      {fieldItem.type === 'datetime' && (
-        <div className={`col-md-${fieldItem.width || '12'}`}>
+      {fieldItem.type === "datetime" && (
+        <div className={`col-md-${fieldItem.width || "12"}`}>
           <div className="form-group">
             <InputDatetime
               child={fieldItem.reference?.child || []}
               defaultValue={fieldItem.value}
-              hide={fieldItem.hide === '1' || false}
+              hide={fieldItem.hide === "1" || false}
               id={fieldItem.id}
-              isMandatory={fieldItem.isMandatory === '1' ? true : false}
+              isMandatory={fieldItem.isMandatory === "1" ? true : false}
               label={fieldItem.label}
-              readOnly={fieldItem.isReadOnly === '1' || false}
+              readOnly={fieldItem.isReadOnly === "1" || false}
               register={register(fieldItem.id, handleFieldRule(fieldItem))}
               setValue={setValue}
               view={fieldItem.view}
@@ -177,23 +177,23 @@ function FieldType({
               errors={errors}
               name={fieldItem.id}
               as="div"
-              style={{ color: 'red', marginTop: '5px' }}
+              style={{ color: "red", marginTop: "5px" }}
             />
           </div>
         </div>
       )}
-      {['date', 'dateDown'].includes(fieldItem.type) && (
-        <div className={`col-md-${fieldItem.width || '12'}`}>
+      {["date", "dateDown"].includes(fieldItem.type) && (
+        <div className={`col-md-${fieldItem.width || "12"}`}>
           <div className="form-group">
             <InputDate
               fieldItem={fieldItem}
               child={fieldItem.reference?.child || []}
               defaultValue={fieldItem.value}
-              hide={fieldItem.hide === '1' || false}
+              hide={fieldItem.hide === "1" || false}
               id={fieldItem.id}
-              isMandatory={fieldItem.isMandatory === '1' ? true : false}
+              isMandatory={fieldItem.isMandatory === "1" ? true : false}
               label={fieldItem.label}
-              disabled={fieldItem.isReadOnly == '1' || false}
+              disabled={fieldItem.isReadOnly == "1" || false}
               register={register(fieldItem.id, handleFieldRule(fieldItem))}
               setValue={setValue}
               view={fieldItem.view}
@@ -207,20 +207,20 @@ function FieldType({
               errors={errors}
               name={fieldItem.id}
               as="div"
-              style={{ color: 'red', marginTop: '5px' }}
+              style={{ color: "red", marginTop: "5px" }}
             />
           </div>
         </div>
       )}
-      {fieldItem.type === 'time' && (
-        <div className={`col-md-${fieldItem.width || '12'}`}>
+      {fieldItem.type === "time" && (
+        <div className={`col-md-${fieldItem.width || "12"}`}>
           <div className="form-group">
             <InputTime
               child={fieldItem.reference?.child || []}
               defaultValue={fieldItem.value}
-              hide={fieldItem.hide === '1' || false}
+              hide={fieldItem.hide === "1" || false}
               id={fieldItem.id}
-              isMandatory={fieldItem.isMandatory === '1' ? true : false}
+              isMandatory={fieldItem.isMandatory === "1" ? true : false}
               label={fieldItem.label}
               register={register(fieldItem.id, handleFieldRule(fieldItem))}
               setValue={setValue}
@@ -231,13 +231,13 @@ function FieldType({
               errors={errors}
               name={fieldItem.id}
               as="div"
-              style={{ color: 'red', marginTop: '5px' }}
+              style={{ color: "red", marginTop: "5px" }}
             />
           </div>
         </div>
       )}
-      {fieldItem.type === 'file' && (
-        <div className={`col-md-${fieldItem.width || '12'}`}>
+      {fieldItem.type === "file" && (
+        <div className={`col-md-${fieldItem.width || "12"}`}>
           <InputFile
             fieldItem={fieldItem}
             register={register}
@@ -247,11 +247,11 @@ function FieldType({
             errors={errors}
             name={fieldItem.id}
             as="div"
-            style={{ color: 'red', marginTop: '-15px' }}
+            style={{ color: "red", marginTop: "-15px" }}
           />
         </div>
       )}
-      {fieldItem.type === 'grid' && (
+      {fieldItem.type === "grid" && (
         <div className="col-md-12">
           <TableGrid
             gridItem={fieldItem}
@@ -261,13 +261,13 @@ function FieldType({
           />
         </div>
       )}
-      {fieldItem.type === 'flowchart' && (
+      {fieldItem.type === "flowchart" && (
         <div className="mx-1 w-100">
           <Flowchart flowchart={fieldItem} />
         </div>
       )}
-      {fieldItem.type === 'textboxwithbutton' && (
-        <div className={`col-md-${fieldItem.width || '12'}`} key={fieldItem.id}>
+      {fieldItem.type === "textboxwithbutton" && (
+        <div className={`col-md-${fieldItem.width || "12"}`} key={fieldItem.id}>
           <div className="form-group">
             <InputTextboxWithButton
               fieldItem={fieldItem}
@@ -277,18 +277,18 @@ function FieldType({
               child={fieldItem.reference?.child || []}
               defaultValue={fieldItem.value}
               flag={fieldItem.flag}
-              isMandatory={fieldItem.isMandatory === '1' ? true : false}
+              isMandatory={fieldItem.isMandatory === "1" ? true : false}
               label={fieldItem.label}
               parent={fieldItem.reference?.parent || []}
               path={fieldItem.path}
-              readOnly={fieldItem.isReadOnly === '1' || false}
+              readOnly={fieldItem.isReadOnly === "1" || false}
               width={fieldItem.width}
             />
           </div>
         </div>
       )}
-      {fieldItem.type === 'textareawithcheckbox' && (
-        <div className={`col-md-${fieldItem.width || '12'}`} key={fieldItem.id}>
+      {fieldItem.type === "textareawithcheckbox" && (
+        <div className={`col-md-${fieldItem.width || "12"}`} key={fieldItem.id}>
           <div className="form-group">
             <InputTextareaWithCheckbox
               child={fieldItem.reference?.child || []}
@@ -296,13 +296,13 @@ function FieldType({
               defaultValue={fieldItem.value}
               flag={fieldItem.flag}
               getValues={getValues}
-              hide={fieldItem.hide === '1' || false}
+              hide={fieldItem.hide === "1" || false}
               id={fieldItem.id}
-              isMandatory={fieldItem.isMandatory === '1' ? true : false}
+              isMandatory={fieldItem.isMandatory === "1" ? true : false}
               label={fieldItem.label}
               parent={fieldItem.reference?.parent || []}
               path={fieldItem.path}
-              readOnly={fieldItem.isReadOnly === '1' || false}
+              readOnly={fieldItem.isReadOnly === "1" || false}
               register={register(fieldItem.id, handleFieldRule(fieldItem))}
               resetField={resetField}
               setValue={setValue}
@@ -313,13 +313,13 @@ function FieldType({
               errors={errors}
               name={fieldItem.id}
               as="div"
-              style={{ color: 'red', marginTop: '5px' }}
+              style={{ color: "red", marginTop: "5px" }}
             />
           </div>
         </div>
       )}
-      {fieldItem.type === 'checkboxcopyvalue' && (
-        <div className={`col-md-${fieldItem.width || '12'}`} key={fieldItem.id}>
+      {fieldItem.type === "checkboxcopyvalue" && (
+        <div className={`col-md-${fieldItem.width || "12"}`} key={fieldItem.id}>
           <div className="form-group">
             <CheckboxCopyValue
               child={fieldItem.reference?.child || []}
@@ -327,13 +327,13 @@ function FieldType({
               defaultValue={fieldItem.value}
               flag={fieldItem.flag}
               getValues={getValues}
-              hide={fieldItem.hide === '1' || false}
+              hide={fieldItem.hide === "1" || false}
               id={fieldItem.id}
-              isMandatory={fieldItem.isMandatory === '1' ? true : false}
+              isMandatory={fieldItem.isMandatory === "1" ? true : false}
               label={fieldItem.label}
               parent={fieldItem.reference?.parent || []}
               path={fieldItem.path}
-              readOnly={fieldItem.isReadOnly === '1' || false}
+              readOnly={fieldItem.isReadOnly === "1" || false}
               resetField={resetField}
               setValue={setValue}
               watch={watch}
@@ -342,7 +342,7 @@ function FieldType({
           </div>
         </div>
       )}
-      {fieldItem.type === 'box' && (
+      {fieldItem.type === "box" && (
         <div className={`col-${fieldItem.width}`}>
           <BoxForm
             level={fieldItem.dataset[0].level}
@@ -352,7 +352,7 @@ function FieldType({
           />
         </div>
       )}
-      {fieldItem.type === 'chart' && (
+      {fieldItem.type === "chart" && (
         <div className={`col-${fieldItem.width}`}>
           <ReportForm
             level={fieldItem.dataset[0].level}
@@ -361,7 +361,7 @@ function FieldType({
           />
         </div>
       )}
-      {fieldItem.type === 'button' && (
+      {fieldItem.type === "button" && (
         <ButtonType
           buttonItem={fieldItem}
           panelList={panel}
@@ -372,8 +372,8 @@ function FieldType({
           gridItem={gridItem}
         />
       )}
-      {fieldItem.type === 'password' && (
-        <div className={`col-md-${fieldItem.width || '12'}`}>
+      {fieldItem.type === "password" && (
+        <div className={`col-md-${fieldItem.width || "12"}`}>
           <div className="form-group">
             <InputPassword
               id={fieldItem.id}
@@ -383,8 +383,8 @@ function FieldType({
           </div>
         </div>
       )}
-      {fieldItem.type === 'linkmaps' && (
-        <div className={`col-md-${fieldItem.width || '12'}`}>
+      {fieldItem.type === "linkmaps" && (
+        <div className={`col-md-${fieldItem.width || "12"}`}>
           <div className="form-group">
             <ButtonType
               buttonItem={fieldItem}

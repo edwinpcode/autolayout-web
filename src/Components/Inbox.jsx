@@ -28,6 +28,7 @@ const Inbox = ({
   structures,
   setStructures,
   className,
+  setTab,
 }) => {
   const columnHelper = createColumnHelper()
   const [loader, showLoader, hideLoader] = FullLoad()
@@ -36,6 +37,7 @@ const Inbox = ({
   const [open, setOpen] = useState(true)
   const [selected, setSelected] = useState([])
   const [rowSelection, setRowSelection] = useState({})
+  const { param } = useSelector((state) => state.inbox)
 
   const columnVisibility = useMemo(
     () => structures.headerVisibility,
@@ -51,6 +53,7 @@ const Inbox = ({
       pageIndex,
       pageSize,
       setSelected,
+      setTab,
     })
   }, [structures])
 
@@ -147,6 +150,7 @@ const Inbox = ({
               filterData={filterData}
               filterDataLabel={filterDataLabel}
               selected={selected}
+              setTab={setTab}
             />
           )}
           {dataQuery?.total > 10 && (
@@ -218,12 +222,18 @@ const Inbox = ({
                 </div>
               )}
               {table.getRowModel().rows.map((row, index) => {
+                let id = "0"
+                let value = "0"
+                if (param.length) {
+                  id = param[0].id
+                  value = param[0].value
+                }
                 return (
                   <div
                     key={index}
-                    // className={`border ${
-                    //   id && row.original[id] == value ? 'bg-light' : ''
-                    // }`}
+                    className={`border ${
+                      row.original[id] == value ? "bg-light" : ""
+                    }`}
                   >
                     {row.getVisibleCells().map((cell, index) => {
                       let right = false

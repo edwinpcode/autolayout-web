@@ -25,6 +25,7 @@ import { handleParamValues } from "../../Utils/ParamUtils"
 import { getFieldByFieldId } from "../../Utils/FieldReferenceUtils"
 import { setFormAction, setFormPanel } from "../../Store/Form/FormSlice"
 import { setLoadingField } from "../../Store/Loading/LoadingSlice"
+import { setInbox } from "../../Store/Inbox/InboxStore"
 
 const openInNewTab = (url) => {
   window.open(url, "_blank", "noreferrer")
@@ -78,6 +79,7 @@ function ButtonAction({
   pageSize,
   fetchData,
   selected = [],
+  setTab = (value) => {},
   ...props
 }) {
   const navigate = useNavigate()
@@ -170,11 +172,17 @@ function ButtonAction({
     // showLoader()
     // available action:
     // redirect, save, submit, cancel
+    if (pathname == actionItem.url.path) {
+      if (setTab) {
+        setTab(null)
+      }
+    }
     if (actionItem.isRedirect === "1") {
       const payload = {}
       if (actionItem.url.param) {
         const param = handleParamValues(actionItem.url.param, getValues, info)
         Object.assign(payload, { param })
+        dispatch(setInbox(param))
         // navigate(`/${menu.activeMenuId}/${param[0].id}/${param[0].value}`)
         return navigate(actionItem?.url?.path, { state: payload })
       }

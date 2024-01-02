@@ -57,6 +57,10 @@ function Header() {
       })
   }
 
+  useEffect(() => {
+    console.log(userData)
+  }, [userData])
+
   const startRecord = () => {
     navigator.mediaDevices
       .getUserMedia({

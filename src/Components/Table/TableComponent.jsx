@@ -1,10 +1,10 @@
-import { useMemo, useState } from 'react'
+import { useMemo, useState } from "react"
 // prettier-ignore
 import { createColumnHelper, flexRender, getCoreRowModel, useReactTable, } from '@tanstack/react-table'
-import classNames from 'classnames'
-import { handleStructureHeader } from '../../Utils/TableUtils'
-import { SkeletonTable } from '../AutoLayout/Skeleton'
-import TopAction from './TopAction'
+import classNames from "classnames"
+import { handleStructureHeader } from "../../Utils/TableUtils"
+import { SkeletonTable } from "../AutoLayout/Skeleton"
+import TopAction from "./TopAction"
 
 function TableComponent({
   dataQuery,
@@ -26,7 +26,7 @@ function TableComponent({
 
   const columnVisibility = useMemo(
     () => structures.headerVisibility,
-    [structures]
+    [structures],
   )
 
   // handle structure
@@ -47,9 +47,9 @@ function TableComponent({
     const searchCriteria = []
     if (filterData) {
       filterData.forEach(({ label, value }) => {
-        if (value !== '') searchCriteria.push(`${label} = ${value}`)
+        if (value !== "") searchCriteria.push(`${label} = ${value}`)
       })
-      const res = searchCriteria.join(', ')
+      const res = searchCriteria.join(", ")
       return res
     }
     return filterData
@@ -58,7 +58,7 @@ function TableComponent({
   // handle pagination
   const pagination = useMemo(
     () => ({ pageIndex, pageSize }),
-    [pageIndex, pageSize]
+    [pageIndex, pageSize],
   )
 
   // table option
@@ -112,8 +112,8 @@ function TableComponent({
                           key={header.id}
                           colSpan={header.colSpan}
                           style={
-                            header.column.columnDef.header === ''
-                              ? { border: 'none' }
+                            header.column.columnDef.header === ""
+                              ? { border: "none" }
                               : {}
                           }
                         >
@@ -121,7 +121,7 @@ function TableComponent({
                             <div>
                               {flexRender(
                                 header.column.columnDef.header,
-                                header.getContext()
+                                header.getContext(),
                               )}
                             </div>
                           )}
@@ -150,7 +150,7 @@ function TableComponent({
                           <td key={index}>
                             {flexRender(
                               cell.column.columnDef.cell,
-                              cell.getContext()
+                              cell.getContext(),
                             )}
                           </td>
                         )
@@ -165,7 +165,7 @@ function TableComponent({
             <section className="d-flex align-items-center justify-content-between">
               <div className="d-flex align-items-center">
                 <div className="pr-2 text-sm">
-                  Halaman {table.getState().pagination.pageIndex + 1} dari{' '}
+                  Halaman {table.getState().pagination.pageIndex + 1} dari{" "}
                   {table.getPageCount()}
                 </div>
                 <select
@@ -185,7 +185,7 @@ function TableComponent({
               </div>
               <div className="pagination pagination-sm justify-content-end">
                 <div
-                  className={classNames('page-item', {
+                  className={classNames("page-item", {
                     disabled: !table.getCanPreviousPage(),
                   })}
                   onClick={() => table.previousPage()}
@@ -200,7 +200,7 @@ function TableComponent({
                   </button>
                 </div>
                 <div
-                  className={classNames('page-item', {
+                  className={classNames("page-item", {
                     disabled: !table.getCanNextPage(),
                   })}
                   onClick={() => table.nextPage()}

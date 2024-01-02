@@ -1,7 +1,7 @@
-import ButtonAction from '../Button/ButtonAction'
-import ButtonModal from '../Button/ButtonModal'
-import ButtonOpenPanel from '../Button/ButtonOpenPanel'
-import ButtonDropdownTopAction from '../Table/TopAction/ButtonDropdownTopAction'
+import ButtonAction from "../Button/ButtonAction"
+import ButtonModal from "../Button/ButtonModal"
+import ButtonOpenPanel from "../Button/ButtonOpenPanel"
+import ButtonDropdownTopAction from "../Table/TopAction/ButtonDropdownTopAction"
 
 function ButtonType({
   buttonItem,
@@ -21,10 +21,11 @@ function ButtonType({
   pageIndex = 0,
   fetchData = () => {},
   selected = [],
+  setTab = (value) => {},
 }) {
   return (
     <>
-      {['button', 'anchor', 'linkmaps'].includes(buttonItem.type) && (
+      {["button", "anchor", "linkmaps"].includes(buttonItem.type) && (
         <ButtonAction
           resetTab={resetTab}
           type="button"
@@ -43,24 +44,25 @@ function ButtonType({
           pageSize={pageSize}
           fetchData={fetchData}
           selected={selected}
+          setTab={setTab}
         />
       )}
-      {buttonItem.type === 'buttonDropdown' && (
+      {buttonItem.type === "buttonDropdown" && (
         <ButtonDropdownTopAction
           icon={buttonItem.icon}
           label={buttonItem.label}
           item={buttonItem.item}
-          className={buttonItem.className + ' dropdown-toggle'}
+          className={buttonItem.className + " dropdown-toggle"}
         />
       )}
-      {buttonItem.type === 'buttonModal' && (
+      {buttonItem.type === "buttonModal" && (
         <ButtonModal
           icon={buttonItem.icon}
           label={buttonItem.label}
           dataTarget={
             index ? buttonItem.dataTarget + index : buttonItem.dataTarget
           }
-          className={buttonItem.className + ' mx-2'}
+          className={buttonItem.className + " mx-2"}
           gridItem={gridItem}
           setDataQuery={setDataQuery}
           setFilterData={setFilterData}
@@ -72,7 +74,7 @@ function ButtonType({
           fetchData={fetchData}
         />
       )}
-      {buttonItem.type === 'buttonOpenPanel' && (
+      {buttonItem.type === "buttonOpenPanel" && (
         <ButtonOpenPanel
           headerItem={buttonItem}
           info={info}
