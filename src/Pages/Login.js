@@ -63,13 +63,15 @@ function Login() {
   const [audioBlob, setAudioBlob] = useState(null)
   const mimeType = "audio/webm"
   const [audioChunks, setAudioChunks] = useState([])
-  const [useCamera, setUseCamera] = useState(false)
+  const [useCamera, setUseCamera] = useState(true)
   const [flipped, setFlipped] = useState(false)
   const [imageSource, setImageSource] = useState("camera")
   const [photo, setPhoto] = useState(null)
   const [silenceDetected, setSilenceDetected] = useState(false)
   const [timer, setTimer] = useState(0)
   const [isRecording, setIsRecording] = useState(false)
+
+  const { userId, username } = watch()
 
   const dispatch = useDispatch()
 
@@ -145,7 +147,13 @@ function Login() {
     return formattedDate + "00000"
   }
 
-  const handleLogin = ({ userId, password, captcha }) => {
+  useEffect(() => {
+    if (photoURI) {
+      handleSubmit(handleLogin)()
+    }
+  }, [photoURI])
+
+  const handleLogin = ({ username, userId, password, captcha }) => {
     // if (!validateCaptcha(captcha)) {
     //   return window.Swal.fire('Error', 'Wrong captcha', 'error')
     // }
@@ -201,7 +209,7 @@ function Login() {
       const secret = getSecretKeyByDate()
       const encrypted = encryptAES(password, secret)
       const payload = {
-        userId: userId,
+        userId: username,
         password: encrypted,
         longitude: longitude,
         latitude: latitude,
@@ -243,6 +251,8 @@ function Login() {
       if (videoRef.current) {
         setMediaStreamVideo(stream)
         videoRef.current.srcObject = stream
+        videoRef.current.style.transform = "scaleX(-1)"
+        setFlipped(true)
       }
     } catch (error) {
       console.error("Error accessing camera:", error)
@@ -283,10 +293,10 @@ function Login() {
   }, [useCamera, mediaStreamVideo, photo, photoURI, photoURI2])
 
   useEffect(() => {
-    if (useCamera) {
+    if (useCamera && userId) {
       startCamera()
     }
-  }, [useCamera])
+  }, [useCamera, userId])
 
   const takePhoto = () => {
     if (videoRef.current) {
@@ -394,7 +404,7 @@ function Login() {
         }
         setAudioChunks(chunks)
         setRecordingStatus("recording")
-        detectSilence(stream)
+        // detectSilence(stream)
       })
       .catch((e) => {
         window.Swal.fire("Error", e.message, "error")
@@ -489,55 +499,90 @@ function Login() {
   return (
     <div className="position-relative">
       <div className="login-page">
-        <div className={`login-box border-danger ${useCamera ? "w-75" : ""}`}>
+        <div
+          className={`login-box border-danger ${
+            userId && useCamera ? "w-75" : ""
+          }`}
+        >
           <div className={`row rounded bg-white p-4 shadow-lg`}>
-            <div className={`${useCamera ? "col-md-6" : "w-100"}`}>
+            <div className={`${userId && useCamera ? "col-md-6" : "w-100"}`}>
               <div className="login-logo">
                 <Logo />
               </div>
               <form onSubmit={handleSubmit(handleLogin)}>
-                <div className="mb-3">
-                  {/* <label htmlFor="username">NIK</label> */}
-                  <div className="input-group">
-                    <input
-                      type="text"
-                      id="username"
-                      className="form-control"
-                      placeholder="NIK"
-                      {...register("userId", {
-                        required: "NIK is required",
-                        minLength: {
-                          value: 4,
-                          message: "Username length minimum 4",
-                        },
-                      })}
-                      autoComplete="off"
-                    />
-                    <div
-                      className="input-group-append"
-                      onClick={
-                        recordingStatus == "inactive" ? startRecord : stopRecord
-                      }
-                      disabled={recordingStatus == "search"}
-                    >
-                      <div className="input-group-text">
-                        {timer != 0 && <span className="mr-2">{timer}</span>}
-                        {recordingStatus == "search" ? (
-                          <i className="fas fa-spinner fa-spin"></i>
-                        ) : recordingStatus == "inactive" ? (
-                          <i className="fas fa-microphone"></i>
-                        ) : (
-                          <i className="fas fa-stop"></i>
-                        )}
+                {!useCamera && (
+                  <div className="mb-3">
+                    {/* <label htmlFor="username">NIK</label> */}
+                    <div className="input-group">
+                      <input
+                        type="text"
+                        id="username"
+                        className="form-control"
+                        placeholder="NIK"
+                        {...register("username", {
+                          required: "NIK is required",
+                          minLength: {
+                            value: 4,
+                            message: "Username length minimum 4",
+                          },
+                        })}
+                        autoComplete="off"
+                      />
+                      <div className="input-group-append">
+                        <div className="input-group-text">
+                          <i className="fas fa-user"></i>
+                        </div>
                       </div>
                     </div>
+                    <ErrorMessage
+                      errors={errors}
+                      name="username"
+                      as={<span className="text-danger text-xs"></span>}
+                    />
                   </div>
-                  <ErrorMessage
-                    errors={errors}
-                    name="userId"
-                    as={<span className="text-danger text-xs"></span>}
-                  />
-                </div>
+                )}
+                {useCamera && (
+                  <div className="mb-3">
+                    <div className="input-group">
+                      <input
+                        disabled
+                        type="text"
+                        id="username"
+                        className="form-control"
+                        placeholder="NIK"
+                        {...register("userId", {
+                          required: "NIK is required",
+                        })}
+                        autoComplete="off"
+                      />
+                      <div
+                        className="input-group-append"
+                        onClick={
+                          recordingStatus == "inactive"
+                            ? startRecord
+                            : stopRecord
+                        }
+                        disabled={recordingStatus == "search"}
+                      >
+                        <div className="input-group-text">
+                          {timer != 0 && <span className="mr-2">{timer}</span>}
+                          {recordingStatus == "search" ? (
+                            <i className="fas fa-spinner fa-spin"></i>
+                          ) : recordingStatus == "inactive" ? (
+                            <i className="fas fa-microphone"></i>
+                          ) : (
+                            <i className="fas fa-stop"></i>
+                          )}
+                        </div>
+                      </div>
+                    </div>
+                    <ErrorMessage
+                      errors={errors}
+                      name="userId"
+                      as={<span className="text-danger text-xs"></span>}
+                    />
+                  </div>
+                )}
                 {!useCamera && (
                   <div className="mb-3">
                     {/* <label htmlFor="password">Kata Sandi</label> */}
@@ -611,60 +656,59 @@ function Login() {
                   </div>
                 )}
                 <div className="">
+                  {!useCamera && (
+                    <button
+                      type="submit"
+                      className="btn btn-success btn-block btn-lg"
+                      disabled={isLoading}
+                    >
+                      {isLoading && <i className="fas fa-spinner fa-spin"></i>}
+                      MASUK
+                    </button>
+                  )}
                   <button
                     type="button"
-                    className="btn btn-outline-success btn-block btn-lg"
+                    className="btn btn-link btn-block"
                     onClick={() => setUseCamera((value) => !value)}
                   >
-                    <span className="">
-                      {useCamera ? "GUNAKAN KATA SANDI" : "GUNAKAN KAMERA"}
-                    </span>
+                    {useCamera ? (
+                      <span>Manual login? klik disini</span>
+                    ) : (
+                      <span>Voice login? klik disini</span>
+                    )}
                   </button>
-                  <button
-                    type="submit"
-                    className="btn btn-success btn-block btn-lg"
-                    disabled={isLoading}
-                  >
-                    {isLoading && <i className="fas fa-spinner fa-spin"></i>}
-                    MASUK
-                  </button>
-                  {/* <button className="btn btn-outline-success btn-block btn-lg">
-                      <span className="">LUPA KATA SANDI ?</span>
-                    </button> */}
                 </div>
               </form>
             </div>
-            {useCamera && (
+            {userId && useCamera && (
               <div className="col-md-6">
-                <div>
-                  <div className="form-group d-flex mt-2">
-                    <label className=""> Sumber Foto : </label>
-                    <div className="form-check ml-3">
-                      <input
-                        className="form-check-input"
-                        type="radio"
-                        name="radio1"
-                        value="camera"
-                        checked={imageSource === "camera"}
-                        onChange={(e) => setImageSource(e.target.value)}
-                      />
-                      <label className="form-check-label">Camera</label>
-                    </div>
-                    <div className="form-check ml-3">
-                      <input
-                        className="form-check-input"
-                        type="radio"
-                        value="file"
-                        checked={imageSource == "file"}
-                        onChange={(e) => setImageSource(e.target.value)}
-                      />
-                      <label className="form-check-label">File</label>
-                    </div>
+                {/* <div className="form-group d-flex mt-2">
+                  <label className=""> Sumber Foto : </label>
+                  <div className="form-check ml-3">
+                    <input
+                      className="form-check-input"
+                      type="radio"
+                      name="radio1"
+                      value="camera"
+                      checked={imageSource === "camera"}
+                      onChange={(e) => setImageSource(e.target.value)}
+                    />
+                    <label className="form-check-label">Camera</label>
                   </div>
-                </div>
+                  <div className="form-check ml-3">
+                    <input
+                      className="form-check-input"
+                      type="radio"
+                      value="file"
+                      checked={imageSource == "file"}
+                      onChange={(e) => setImageSource(e.target.value)}
+                    />
+                    <label className="form-check-label">File</label>
+                  </div>
+                </div> */}
                 {imageSource == "camera" && (
                   <div className="">
-                    <div className="form-check mt-2">
+                    {/* <div className="form-check mt-2">
                       <input
                         type="checkbox"
                         className="form-check-input"
@@ -678,7 +722,7 @@ function Login() {
                       >
                         Flip Photo
                       </label>
-                    </div>
+                    </div> */}
                     <video
                       ref={videoRef}
                       autoPlay
@@ -698,7 +742,11 @@ function Login() {
                         className="btn btn-success mt-2 btn-block"
                         type="button"
                         onClick={showVideo ? takePhoto : startCamera}
+                        disabled={isLoading}
                       >
+                        {isLoading && (
+                          <i className="fas fa-spinner fa-spin"></i>
+                        )}
                         {showVideo ? "AMBIL FOTO" : "ULANGI"}
                       </button>
                     </div>
