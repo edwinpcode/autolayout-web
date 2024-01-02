@@ -356,6 +356,7 @@ function Header() {
                 href="#"
                 onClick={() => handleLogout()}
                 className="dropdown-item"
+                id="logout"
               >
                 <i className="fas fa-sign-out-alt mr-2"></i> Logout
               </a>

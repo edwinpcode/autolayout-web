@@ -67,6 +67,9 @@ function Login() {
   const [flipped, setFlipped] = useState(false)
   const [imageSource, setImageSource] = useState("camera")
   const [photo, setPhoto] = useState(null)
+  const [silenceDetected, setSilenceDetected] = useState(false)
+  const [timer, setTimer] = useState(0)
+  const [isRecording, setIsRecording] = useState(false)
 
   const dispatch = useDispatch()
 
@@ -357,15 +360,28 @@ function Login() {
     fetchLocation()
   }, [])
 
+  useEffect(() => {
+    let interval
+
+    if (silenceDetected) {
+      interval = setInterval(() => {
+        setTimer((prevTimer) => prevTimer + 1)
+      }, 1000)
+    } else {
+      clearInterval(interval)
+      setTimer(0)
+    }
+
+    return () => clearInterval(interval)
+  }, [silenceDetected])
+
   const startRecord = () => {
     navigator.mediaDevices
       .getUserMedia({
-        audio: {
-          sampleRate: 16000,
-          channelCount: 1,
-        },
+        audio: true,
       })
       .then(async (stream) => {
+        setIsRecording(true)
         setMediaStreamAudio(stream)
         const media = new MediaRecorder(stream)
         mediaRecorder.current = media
@@ -378,14 +394,45 @@ function Login() {
         }
         setAudioChunks(chunks)
         setRecordingStatus("recording")
+        detectSilence(stream)
       })
       .catch((e) => {
         window.Swal.fire("Error", e.message, "error")
       })
   }
 
+  const detectSilence = (stream) => {
+    if (mediaRecorder.current && recordingStatus == "recording") {
+      console.log("cek silence")
+      const audioContext = new AudioContext()
+      const analyser = audioContext.createAnalyser()
+      const microphone = audioContext.createMediaStreamSource(stream)
+
+      microphone.connect(analyser)
+
+      analyser.fftSize = 2048
+      const bufferLength = analyser.frequencyBinCount
+      const dataArray = new Uint8Array(bufferLength)
+
+      const checkSilence = () => {
+        analyser.getByteTimeDomainData(dataArray)
+        const silenceThreshold = 128 // Adjust this threshold as needed
+
+        const isSilent = !dataArray.some((sample) => sample > silenceThreshold)
+        if (isSilent) {
+          setTimeout(stopRecord, 2000) // Stop recording after 2 seconds of silence
+        } else {
+          setTimeout(checkSilence, 100) // Check for silence every 100ms
+        }
+      }
+
+      checkSilence()
+    }
+  }
+
   const stopRecord = () => {
     if (mediaRecorder) {
+      setIsRecording(false)
       mediaRecorder.current.stop()
       setRecordingStatus("inactive")
       mediaRecorder.current.onstop = async () => {
@@ -474,6 +521,7 @@ function Login() {
                       disabled={recordingStatus == "search"}
                     >
                       <div className="input-group-text">
+                        {timer != 0 && <span className="mr-2">{timer}</span>}
                         {recordingStatus == "search" ? (
                           <i className="fas fa-spinner fa-spin"></i>
                         ) : recordingStatus == "inactive" ? (

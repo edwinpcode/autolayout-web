@@ -63,6 +63,12 @@ function Dashboard() {
         } else {
           setStatus(res.data.message)
           window.Swal.fire("Berhasil", res.data.message, "success")
+          // if (res.data.message.toLowerCase().includes("out")) {
+          //   const logout = document.getElementById("logout")
+          //   if (logout) {
+          //     logout.click()
+          //   }
+          // }
         }
         // 2023-12-29 15:47:00
         if (res.data.statusTime && res.data.statusTime != "") {
@@ -70,9 +76,37 @@ function Dashboard() {
           setDate(date)
         }
       } else {
-        window.Swal.fire("Error", res.data.message, "error")
+        window.Swal.fire("Peringatan", res.data.message, "warning")
+        setStatus(res.data.message)
+        // if (res.data.message.toLowerCase().includes("already")) {
+        //   window.Swal.fire("Peringatan", res.data.message, "warning")
+        // } else {
+        //   window.Swal.fire({
+        //     title: "Presensi",
+        //     html: "Lakukan Check In?",
+        //     icon: "warning",
+        //     showCancelButton: true,
+        //     confirmButtonColor: "#5cb85c",
+        //     cancelButtonColor: "#d33",
+        //     cancelButtonText: "Keluar",
+        //     confirmButtonText: "IYA",
+        //     allowOutsideClick: false,
+        //     allowEscapeKey: false,
+        //   }).then((res) => {
+        //     if (res.isConfirmed) {
+        //       cekStatus("checkin")
+        //     } else {
+        //       const logout = document.getElementById("logout")
+        //       if (logout) {
+        //         logout.click()
+        //       }
+        //     }
+        //   })
+        // }
       }
-    } catch (e) {}
+    } catch (e) {
+      window.Swal.fire("Error", e.message, "error")
+    }
   }
 
   useEffect(() => {
@@ -174,20 +208,46 @@ function Dashboard() {
           <div className="d-flex pt-3 justify-content-around">
             <button
               onClick={checkIn}
+              disabled={
+                status == ""
+                  ? true
+                  : status.toLowerCase().includes("already")
+                    ? true
+                    : status.toLocaleLowerCase().includes("check in berhasil")
+                      ? true
+                      : false
+              }
               className={`btn ${
-                status.toLowerCase().includes("check in")
-                  ? "btn-secondary disabled"
-                  : "btn-success"
+                status == ""
+                  ? "btn-secondary"
+                  : status.toLowerCase().includes("already")
+                    ? "btn-secondary"
+                    : status.toLocaleLowerCase().includes("check in berhasil")
+                      ? "btn-secondary"
+                      : "btn-success"
               }`}
             >
               CHECK IN
             </button>
             <button
               onClick={checkOut}
+              disabled={
+                status == ""
+                  ? true
+                  : status.toLowerCase().includes("please")
+                    ? true
+                    : status.toLowerCase().includes("check out")
+                      ? true
+                      : false
+              }
               className={`btn ${
-                status.toLowerCase().includes("check out")
-                  ? "btn-secondary disabled"
-                  : "btn-success"
+                status == ""
+                  ? "btn-secondary"
+                  : status.toLowerCase().includes("please")
+                    ? "btn-secondary"
+                    : status.toLocaleLowerCase().includes("check out")
+                      ? "btn-secondary"
+                      : "btn-success"
               }`}
             >
               CHECK OUT

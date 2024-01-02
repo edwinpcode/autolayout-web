@@ -29,7 +29,7 @@ export default function Tabw({ data, activeTabId, setActiveTabId, reset }) {
           allowScrollButtonsMobile
           TabIndicatorProps={{
             style: {
-              backgroundColor: "#17A2B8",
+              backgroundColor: "#5cb85c",
               height: "3px",
             },
           }}
@@ -41,7 +41,7 @@ export default function Tabw({ data, activeTabId, setActiveTabId, reset }) {
               style={{
                 display:
                   index > 0 && state?.param.length === 0 ? "none" : "block",
-                color: loading ? "GrayText" : "#17a2b8",
+                color: loading ? "GrayText" : "#5cb85c",
                 fontFamily: "SourceSansPro",
                 textTransform: "capitalize",
                 fontWeight: "reguler",
