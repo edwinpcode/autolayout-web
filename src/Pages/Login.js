@@ -408,6 +408,7 @@ function Login() {
     const randomString = Math.random().toString(36).substring(2, 5)
     const fileName = `audio_${timestamp}_${randomString}.webm`
     formData.append("file", audioBlob, fileName)
+    formData.append("removewhitespace", "1")
     try {
       setRecordingStatus("search")
       const res = await AIService.voiceToText(formData)
@@ -525,7 +526,9 @@ function Login() {
                   </div>
                 )}
                 {/* <LoadCanvasTemplate /> */}
-                <div className={`${devMode ? "d-none" : "d-flex"}`}>
+                <div
+                  className={`${!devMode && !useCamera ? "d-flex" : "d-none"}`}
+                >
                   <canvas
                     ref={canvasRef}
                     height={50}
