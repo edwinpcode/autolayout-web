@@ -544,7 +544,8 @@ function Login() {
                 {useCamera && (
                   <div className="mb-3">
                     <div className="input-group">
-                      <input
+                      <div className="form-control bg-light">{userId}</div>
+                      {/* <input
                         disabled
                         type="text"
                         id="username"
@@ -554,7 +555,7 @@ function Login() {
                           required: "NIK is required",
                         })}
                         autoComplete="off"
-                      />
+                      /> */}
                       <div
                         className="input-group-append"
                         onClick={
