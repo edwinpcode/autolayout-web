@@ -186,9 +186,6 @@ function Dashboard() {
     // }, 1000)
     fetchLocation()
     cekStatus("checkstatus")
-    if (process.env.NODE_ENV === "development") {
-      dispatch(setDevMode(true))
-    }
   }, [])
 
   return (

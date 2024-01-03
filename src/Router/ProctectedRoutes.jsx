@@ -5,6 +5,7 @@ import FullLoad from "../Pages/FullLoad"
 import { AuthLogout } from "../Services/AuthService"
 import { GetUserById } from "../Services/UserService"
 import { setUser, setUserData } from "../Store/User/userSlice"
+import { setDevMode } from "../Store/Dev/DevModeSlice"
 
 const sessionTime = 60000 * parseInt(process.env.REACT_APP_SESSION_TIME)
 
@@ -126,6 +127,12 @@ function ProtectedRoutes() {
       document.body.click()
     }
   }, [user.activeModule.id, user.activeRole.id])
+
+  useEffect(() => {
+    if (process.env.NODE_ENV === "development") {
+      dispatch(setDevMode(true))
+    }
+  }, [])
 
   return (
     <React.Fragment>
