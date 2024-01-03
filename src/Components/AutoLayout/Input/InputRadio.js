@@ -11,7 +11,7 @@ export default function InputRadio({
   data,
   register,
   condition,
-  defaultValue,
+  defaultValue = [],
   setValue,
   panel = [],
   isReadOnly,

@@ -7,7 +7,7 @@ const devSlice = createSlice({
   initialState,
   reducers: {
     setDevMode: (state, action) => {
-      state = action.payload
+      return action.payload
     },
   },
 })

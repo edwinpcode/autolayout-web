@@ -7,9 +7,10 @@ import { AuthLogin } from "../Services/AuthService"
 import { encryptAES } from "../Utils/EncryptUtils"
 import Logo from "./Logo"
 import { useDispatch, useSelector } from "react-redux"
-import { setUser, setUserId } from "../Store/User/userSlice"
+import { setUser, setUserData, setUserId } from "../Store/User/userSlice"
 import axios from "axios"
 import AIService from "../Services/AIService"
+import { setDevMode } from "../Store/Dev/DevModeSlice"
 // import {
 //   loadCaptchaEnginge,
 //   LoadCanvasTemplate,
@@ -36,13 +37,14 @@ function Login() {
   }
   const canvasRef = useRef(null)
   const [compareCaptcha, setCompareCaptcha] = useState("")
-  const [devMode, setDevMode] = useState(false)
+  // const [devMode, setDevMode] = useState(false)
   const [photoURI, setPhotoURI] = useState(null)
   const [photoURI2, setPhotoURI2] = useState(null)
   const [showVideo, setShowVideo] = useState(false)
   const [longitude, setLongitude] = useState(0)
   const [latitude, setLatitude] = useState(0)
   const [address, setAddress] = useState("")
+  const devMode = useSelector((state) => state.devMode)
 
   const navigate = useNavigate()
   const {
@@ -113,7 +115,8 @@ function Login() {
   useEffect(() => {
     handleCanvas()
     if (process.env.NODE_ENV === "development") {
-      setDevMode(true)
+      // setDevMode(true)
+      dispatch(setDevMode(true))
     }
   }, [])
 
@@ -185,7 +188,9 @@ function Login() {
             localStorage.setItem("refreshToken", res.data.refreshToken)
             localStorage.setItem("expiredIn", res.data.expiredIn)
             localStorage.setItem("userId", res.data.userId)
+            localStorage.setItem("branchName", res.data.branchName)
             dispatch(setUserId(res.data.userId))
+            dispatch(setUserData(res.data))
             if (devMode) {
               navigate("/auth")
             } else {
@@ -226,7 +231,9 @@ function Login() {
             localStorage.setItem("refreshToken", res.response.refreshToken)
             localStorage.setItem("expiredIn", res.response.expiredIn)
             localStorage.setItem("userId", res.response.userId)
+            localStorage.setItem("branchName", res.response.branchName)
             dispatch(setUserId(res.response.userId))
+            dispatch(setUserData(res.response))
             if (devMode) {
               navigate("/auth")
             } else {

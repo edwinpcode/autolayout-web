@@ -11,6 +11,7 @@ import moment from "moment"
 import Chart from "../Components/Dashboard/Chart"
 import axios from "axios"
 import { userStatus } from "../Services/UserService"
+import { setDevMode } from "../Store/Dev/DevModeSlice"
 
 function Dashboard() {
   const dispatch = useDispatch()
@@ -185,6 +186,9 @@ function Dashboard() {
     // }, 1000)
     fetchLocation()
     cekStatus("checkstatus")
+    if (process.env.NODE_ENV === "development") {
+      dispatch(setDevMode(true))
+    }
   }, [])
 
   return (

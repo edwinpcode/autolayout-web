@@ -28,6 +28,7 @@ function Header() {
   const [audioChunks, setAudioChunks] = useState([])
   const [mediaStream, setMediaStream] = useState(null)
   const [audioDuration, setAudioDuration] = useState(null)
+  const [branchName, setBranchName] = useState("")
 
   // loading
   const [loader, showLoader, hideLoader] = Load()
@@ -60,6 +61,13 @@ function Header() {
   useEffect(() => {
     console.log(userData)
   }, [userData])
+
+  useEffect(() => {
+    const branchName = localStorage.getItem("branchName")
+    if (branchName) {
+      setBranchName(branchName)
+    }
+  }, [])
 
   const startRecord = () => {
     navigator.mediaDevices
@@ -347,7 +355,9 @@ function Header() {
 
                 <div className="row">
                   <div className="col-3 font-weight-bold">Branch</div>
-                  <div className="col-9">{userData?.branchName}</div>
+                  <div className="col-9">
+                    {branchName != "" ? branchName : userData?.branchName}
+                  </div>
                 </div>
               </div>
 

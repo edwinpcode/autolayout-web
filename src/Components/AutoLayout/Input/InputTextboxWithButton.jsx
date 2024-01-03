@@ -14,7 +14,7 @@ import { useForm } from "react-hook-form"
 import { ErrorMessage } from "@hookform/error-message"
 
 const InputTextboxWithButton = ({
-  button,
+  button = [],
   child,
   defaultValue,
   flag,

@@ -17,14 +17,8 @@ function AuthStepperContent() {
   const [selectedRole, setSelectedRole] = useState({})
   // redux
   const userData = useSelector((state) => state.user.data)
-  const [devMode, setDevMode] = useState(false)
   const navigate = useNavigate()
-
-  useEffect(() => {
-    if (process.env.NODE_ENV === "development") {
-      setDevMode(true)
-    }
-  }, [])
+  const devMode = useSelector((state) => state.devMode)
 
   const handleSelectedGroup = async (
     userId,
