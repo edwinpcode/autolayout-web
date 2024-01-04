@@ -84,6 +84,10 @@ function EditPhoto() {
       canvas.width = video.videoWidth
       canvas.height = video.videoHeight
       const ctx = canvas.getContext("2d")
+      ctx.save()
+      ctx.beginPath()
+      ctx.arc(canvas.width / 2, canvas.height / 2, 200, 0, Math.PI * 2)
+      ctx.clip()
       if (flipped) {
         ctx.translate(canvas.width, 0)
         ctx.scale(-1, 1)
@@ -92,6 +96,7 @@ function EditPhoto() {
       if (flipped) {
         ctx.setTransform(1, 0, 0, 1, 0, 0)
       }
+      ctx.restore()
       const photoData = canvas.toDataURL("image/png")
       setPhotoURI(photoData)
       setValue("photoURI", photoData)
@@ -251,16 +256,37 @@ function EditPhoto() {
 
           {imageSource == "camera" && (
             <div className="col-md-12">
-              <video
-                ref={videoRef}
-                autoPlay
-                muted
+              <div
                 style={{
+                  position: "relative",
+                  width: "100%",
                   display: showVideo ? "block" : "none",
-                  maxWidth: "100%",
                 }}
-                className="mt-3"
-              />
+              >
+                <video
+                  ref={videoRef}
+                  autoPlay
+                  playsInline
+                  muted
+                  style={{
+                    width: "100%",
+                  }}
+                />
+
+                <div
+                  style={{
+                    position: "absolute",
+                    top: "50%",
+                    left: "50%",
+                    transform: "translate(-50%, -50%)",
+                    width: "60%",
+                    height: "80%",
+                    borderRadius: "50%",
+                    border: "5px solid red",
+                    boxSizing: "border-box",
+                  }}
+                />
+              </div>
               <canvas ref={canvasCameraRef} style={{ display: "none" }} />
               {photoURI && !showVideo && imageSource == "camera" && (
                 <img src={photoURI} className="w-100 mt-3"></img>
