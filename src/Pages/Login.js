@@ -36,6 +36,8 @@ function Login() {
     setPasswordShown(passwordShown ? false : true)
   }
   const canvasRef = useRef(null)
+  const canvasAudioRef = useRef(null)
+  const canvasContextRef = useRef(null)
   const [compareCaptcha, setCompareCaptcha] = useState("")
   // const [devMode, setDevMode] = useState(false)
   const [photoURI, setPhotoURI] = useState(null)
@@ -59,7 +61,7 @@ function Login() {
   const canvasCameraRef = useRef(null)
   const [mediaStreamVideo, setMediaStreamVideo] = useState(null)
   const [mediaStreamAudio, setMediaStreamAudio] = useState(null)
-  const mediaRecorder = useRef(null)
+  const [mediaRecorder, setMediaRecorder] = useState(null)
   const [recordingStatus, setRecordingStatus] = useState("inactive")
   const [audioUrl, setAudioUrl] = useState(null)
   const [audioBlob, setAudioBlob] = useState(null)
@@ -69,9 +71,9 @@ function Login() {
   const [flipped, setFlipped] = useState(false)
   const [imageSource, setImageSource] = useState("camera")
   const [photo, setPhoto] = useState(null)
-  const [silenceDetected, setSilenceDetected] = useState(false)
   const [timer, setTimer] = useState(0)
   const [isRecording, setIsRecording] = useState(false)
+  const debounceTimeoutRef = useRef(null)
 
   const { userId, username } = watch()
 
@@ -385,20 +387,93 @@ function Login() {
     fetchLocation()
   }, [])
 
-  useEffect(() => {
-    let interval
+  const convertToNewScale = (value) => {
+    const oldMax = 255
+    const oldMin = 128
+    const newMin = 0
+    const newMax = 100
 
-    if (silenceDetected) {
-      interval = setInterval(() => {
-        setTimer((prevTimer) => prevTimer + 1)
-      }, 1000)
-    } else {
-      clearInterval(interval)
-      setTimer(0)
+    const newValue =
+      ((value - oldMin) / (oldMax - oldMin)) * (newMax - newMin) + newMin
+    return newValue
+  }
+
+  useEffect(() => {
+    if (!mediaStreamAudio) return
+    const audioCtx = new (window.AudioContext || window.webkitAudioContext)()
+    const analyser = audioCtx.createAnalyser()
+    const source = audioCtx.createMediaStreamSource(mediaStreamAudio)
+    source.connect(analyser)
+    // const canvas = canvasAudioRef.current
+    // const canvasCtx = canvas.getContext("2d")
+    // const WIDTH = canvas.width
+    // const HEIGHT = canvas.height
+    analyser.fftSize = 2048
+    const bufferLength = analyser.frequencyBinCount
+    const dataArray = new Uint8Array(bufferLength)
+    const THRESHOLD = 5 // Ambang batas kekuatan sinyal
+    const draw = () => {
+      if (!isRecording) return
+      requestAnimationFrame(draw)
+
+      analyser.getByteTimeDomainData(dataArray)
+
+      const max = Math.max(...dataArray)
+
+      // setBawah((prevBawah) =>
+      //   prevBawah === null || max < prevBawah ? max : prevBawah,
+      // )
+      // setAtas((prevAtas) =>
+      //   prevAtas === null || max > prevAtas ? max : prevAtas,
+      // )
+
+      const percentage = convertToNewScale(max)
+      // setPercent(percentage)
+
+      const isLoud = percentage > THRESHOLD
+      // setSoundDetected(isLoud)
+
+      if (isLoud) {
+        clearTimeout(debounceTimeoutRef.current)
+        debounceTimeoutRef.current = null
+      } else if (!debounceTimeoutRef.current) {
+        debounceTimeoutRef.current = setTimeout(() => {
+          if (!isLoud) {
+            setIsRecording(false)
+            // stopRecord()
+          }
+        }, 2000)
+      }
+
+      // canvasCtx.fillStyle = isLoud ? "rgb(0, 255, 0)" : "rgb(200, 200, 200)"
+      // canvasCtx.fillRect(0, 0, WIDTH, HEIGHT)
+
+      // canvasCtx.lineWidth = 2
+      // canvasCtx.strokeStyle = "rgb(0, 0, 0)"
+      // canvasCtx.beginPath()
+
+      // const sliceWidth = WIDTH / bufferLength
+      // let x = 0
+
+      // for (let i = 0; i < bufferLength; i++) {
+      //   const v = dataArray[i] / 128.0
+      //   const y = (v * HEIGHT) / 2
+
+      //   if (i === 0) {
+      //     canvasCtx.moveTo(x, y)
+      //   } else {
+      //     canvasCtx.lineTo(x, y)
+      //   }
+
+      //   x += sliceWidth
+      // }
+
+      // canvasCtx.lineTo(WIDTH, HEIGHT / 2)
+      // canvasCtx.stroke()
     }
 
-    return () => clearInterval(interval)
-  }, [silenceDetected])
+    draw()
+  }, [isRecording])
 
   const startRecord = () => {
     navigator.mediaDevices
@@ -409,58 +484,39 @@ function Login() {
         setIsRecording(true)
         setMediaStreamAudio(stream)
         const media = new MediaRecorder(stream)
-        mediaRecorder.current = media
         let chunks = []
-        mediaRecorder.current.start()
-        mediaRecorder.current.ondataavailable = (e) => {
+        media.start()
+        media.ondataavailable = (e) => {
           if (typeof e.data === "undefined") return
           if (e.data.size === 0) return
           chunks.push(e.data)
         }
         setAudioChunks(chunks)
+        setMediaRecorder(media)
         setRecordingStatus("recording")
-        // detectSilence(stream)
       })
       .catch((e) => {
         window.Swal.fire("Error", e.message, "error")
       })
   }
 
-  const detectSilence = (stream) => {
-    if (mediaRecorder.current && recordingStatus == "recording") {
-      console.log("cek silence")
-      const audioContext = new AudioContext()
-      const analyser = audioContext.createAnalyser()
-      const microphone = audioContext.createMediaStreamSource(stream)
-
-      microphone.connect(analyser)
-
-      analyser.fftSize = 2048
-      const bufferLength = analyser.frequencyBinCount
-      const dataArray = new Uint8Array(bufferLength)
-
-      const checkSilence = () => {
-        analyser.getByteTimeDomainData(dataArray)
-        const silenceThreshold = 128 // Adjust this threshold as needed
-
-        const isSilent = !dataArray.some((sample) => sample > silenceThreshold)
-        if (isSilent) {
-          setTimeout(stopRecord, 2000) // Stop recording after 2 seconds of silence
-        } else {
-          setTimeout(checkSilence, 100) // Check for silence every 100ms
-        }
+  useEffect(() => {
+    if (mediaRecorder) {
+      if (!isRecording) {
+        stopRecord()
       }
-
-      checkSilence()
     }
-  }
+  }, [isRecording, mediaRecorder])
 
   const stopRecord = () => {
     if (mediaRecorder) {
+      console.log("stop")
       setIsRecording(false)
-      mediaRecorder.current.stop()
+      mediaRecorder.stop()
       setRecordingStatus("inactive")
-      mediaRecorder.current.onstop = async () => {
+      mediaRecorder.onstop = async () => {
+        clearTimeout(debounceTimeoutRef.current)
+        debounceTimeoutRef.current = null
         const blob = new Blob(audioChunks, { type: mimeType })
         setAudioBlob(blob)
         const audioUrl = URL.createObjectURL(blob)
@@ -479,6 +535,7 @@ function Login() {
     const timestamp = new Date().toISOString().replace(/[-:.]/g, "")
     const randomString = Math.random().toString(36).substring(2, 5)
     const fileName = `audio_${timestamp}_${randomString}.webm`
+    console.log(audioBlob)
     formData.append("file", audioBlob, fileName)
     formData.append("removewhitespace", "1")
     try {
@@ -491,7 +548,7 @@ function Login() {
       setAudioUrl(null)
       setAudioBlob(null)
     } catch (error) {
-      window.Swal.fire("Kesalahan", error.message, "error")
+      // window.Swal.fire("Kesalahan", error.message, "error")
     } finally {
       setRecordingStatus("inactive")
     }
