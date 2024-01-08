@@ -38,7 +38,9 @@
 } */
 
 .modal {
-  box-shadow: 0 0 0px rgba(0, 0, 0, 0.125), 0 0px 0px rgba(0, 0, 0, 0.2);
+  box-shadow:
+    0 0 0px rgba(0, 0, 0, 0.125),
+    0 0px 0px rgba(0, 0, 0, 0.2);
 }
 
 .modal-body {
@@ -81,9 +83,9 @@ button.btn-tool {
   border-radius: 0.2rem;
 }
 
-[class*='sidebar-light-'] .nav-treeview > .nav-item > .nav-link.active,
-[class*='sidebar-light-'] .nav-treeview > .nav-item > .nav-link.active:hover {
-  background-color: rgb(23 162 184) !important;
+[class*="sidebar-light-"] .nav-treeview > .nav-item > .nav-link.active,
+[class*="sidebar-light-"] .nav-treeview > .nav-item > .nav-link.active:hover {
+  background-color: #28a745 !important;
   color: white !important;
 }
 
@@ -124,7 +126,9 @@ button.btn-tool {
 
 @keyframes loading {
   to {
-    background-position: 1000px 0px, 0px 0px;
+    background-position:
+      1000px 0px,
+      0px 0px;
   }
 }
 
@@ -185,7 +189,7 @@ button.btn-tool {
 }
 
 .circle::after {
-  content: '';
+  content: "";
   padding-bottom: 100%;
   display: block;
 }
@@ -200,7 +204,7 @@ button.btn-tool {
 
 .diamond::after {
   position: absolute;
-  content: '';
+  content: "";
   top: 0px;
   left: 0px;
   width: 100%;
@@ -229,7 +233,7 @@ button.btn-tool {
 }
 
 .box::after {
-  content: '';
+  content: "";
   display: block;
   background-color: orange;
   border: 1px solid black;
@@ -290,10 +294,11 @@ button.btn-tool {
   padding: 0rem 0.5rem;
 }
 
-.bootstrap-select.disabled, .bootstrap-select > .disabled {
-	cursor: not-allowed;
-	background: #e9ecef;
-	border-radius: 4px;
+.bootstrap-select.disabled,
+.bootstrap-select > .disabled {
+  cursor: not-allowed;
+  background: #e9ecef;
+  border-radius: 4px;
 }
 
 .custom-control-input:checked ~ .custom-control-label::before {
