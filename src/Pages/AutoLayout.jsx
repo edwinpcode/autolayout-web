@@ -186,7 +186,7 @@ function AutoLayout({ className }) {
 
   // handle get field
   useEffect(() => {
-    if (activeTabId !== "" && menu.activeMenuId !== "" && !tab) {
+    if (activeTabId !== "" && menu.activeMenuId !== "") {
       dispatch(setLoadingField(true))
       let payload = {
         tabId: activeTabId,
