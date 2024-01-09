@@ -33,6 +33,8 @@ function SideBar() {
   const [searchSidebarValue, setSearchSidebarValue] = useState("")
   const navigate = useNavigate()
   const [searchParams, setSearchParams] = useSearchParams()
+  const [show, setShow] = useState(false)
+  const [hover, setHover] = useState(false)
 
   useEffect(() => {
     if (activeModuleId && activeRoleId) {
@@ -102,11 +104,20 @@ function SideBar() {
       id={"sidebar"}
     >
       <a href="/" className="brand-link">
-        <img
-          src="/images/logo_1up.png"
-          alt="App Logo"
-          className="brand-image"
-        />
+        {show ? (
+          <img
+            src="/images/logo_1up.png"
+            alt="App Logo"
+            className="brand-image"
+          />
+        ) : (
+          <img
+            src="/images/logo_1up_sidebar.png"
+            alt="App Logo"
+            className="brand-image"
+          />
+        )}
+        <span className="barnd-text">1UP</span>
       </a>
 
       <div className="sidebar">
