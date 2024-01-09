@@ -117,7 +117,7 @@ function SideBar() {
             className="brand-image"
           />
         )}
-        <span className="barnd-text">1UP</span>
+        <span className="brand-text">Satu Untuk Pegadaian</span>
       </a>
 
       <div className="sidebar">
