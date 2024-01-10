@@ -195,6 +195,7 @@ const Flow = ({ fieldItem }) => {
 
   // Save FLowchart Data (with node and edge)
   const onSave = (e) => {
+    console.log(nodes, edges)
     e.preventDefault()
     // set start / end event node empty data
     setNodes((nds) =>
@@ -255,7 +256,7 @@ const Flow = ({ fieldItem }) => {
         if (!nodes[i].data.trackCode) {
           window.Swal.fire(
             "Kesalahan",
-            `data node '${nodes[i].data.label}' tidak benar, silahkan ubah`,
+            `data node '${nodes[i].data.label}' perlu Track Code, silahkan ubah`,
             "warning",
           )
           return

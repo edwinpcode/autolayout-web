@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react"
+import React, { useState, useEffect, useRef } from "react"
 // import { ErrorMessage } from '@hookform/error-message';
 import { useForm } from "react-hook-form"
 import InputCommon from "../AutoLayout/Input/InputCommon"
@@ -27,10 +27,17 @@ function Modal({ code }) {
   const [orientDropdown, setOrientDropdown] = useState([])
   const [animatedDropdown, setAnimatedDropdown] = useState([])
   const [menuDropdown, setMenuDropdown] = useState([])
+  const modalRef = useRef(null)
+  const [isLoading, setIsLoading] = useState(false)
+  const [isError, setIsError] = useState(false)
+  const [errorMessage, setErrorMessage] = useState("")
+  const [data, setData] = useState([])
 
-  const { data, isLoading, isError } = useQuery(["modal"], () =>
-    getFlowchartModal({ code }),
-  )
+  // const { data } = useQuery(["modal"], () => getFlowchartModal({ code }))
+
+  // useEffect(() => {
+  //   console.log(data)
+  // }, [data])
   // useEffect(() => setFields(data.data.data), [data])
   // console.log(data)
 
@@ -112,7 +119,33 @@ function Modal({ code }) {
         animated: edgeState.animated ? edgeState.animated : false,
       })
     }
+    fetchData()
   }, [nodeState, edgeState])
+
+  const fetchData = async () => {
+    try {
+      setIsLoading(true)
+      const res = await getFlowchartModal({ code })
+      if (res.data.status != "1") {
+        // throw new Error(res.data.message)
+        setIsError(true)
+        setErrorMessage(res.data.message)
+      }
+      if (res.data.data) {
+        setData(res.data.data)
+      }
+      console.log(res)
+    } catch (error) {
+      console.log(error)
+      window.Swal.fire("Kesalahan", error.message, "error")
+    } finally {
+      setIsLoading(false)
+    }
+  }
+
+  useEffect(() => {
+    console.log(code)
+  }, [code])
 
   // save data to elementState and close modal
   const onClickSave = () => {
@@ -128,11 +161,26 @@ function Modal({ code }) {
     }
     window.$("#editElement").modal("hide")
   }
+
+  // useEffect(() => {
+  //   if (modalRef) {
+  //     modalRef.current.addEventListener("show", reset)
+  //   }
+  //   return () => {
+  //     modalRef.current.removeEventListener("show", reset)
+  //   }
+  // }, [])
+
   if (isError)
     return window.Swal.fire("Kesalahan", `Silahkan muat ulang modal`, "error")
   if (isLoading) return <div>Loading...</div>
   return (
-    <div className="modal fade" id="editElement" aria-hidden="true">
+    <div
+      className="modal fade"
+      id="editElement"
+      aria-hidden="true"
+      ref={modalRef}
+    >
       <div className="modal-dialog">
         <div className="modal-content">
           <div className="modal-header">
@@ -149,92 +197,90 @@ function Modal({ code }) {
           <div className="modal-body">
             {code ? null : <div>Silahkan Pilih Elemen</div>}
             <div>
-              {data?.data.data
-                ? data?.data.data.map((field, index) => {
-                    if (
-                      field.type === "textbox" &&
-                      nodeState.type === "businessProcess"
-                    ) {
-                      return (
-                        <InputCommon
-                          id={field.id}
-                          defaultValue={field.value}
-                          fieldItem={field}
-                          label={field.label}
-                          isMandatory={field.isMandatory}
-                          register={register}
-                          key={index}
-                          parent={[]}
-                          child={[]}
-                          watch={watch}
-                          setValue={setValue}
-                          showLabel={true}
-                        />
-                      )
-                    } else if (
-                      field.type === "textbox" &&
-                      field.name !== "trackCode"
-                    ) {
-                      return (
-                        <InputCommon
-                          id={field.id}
-                          defaultValue={field.value}
-                          fieldItem={field}
-                          label={field.label}
-                          isMandatory={field.isMandatory}
-                          register={register}
-                          key={index}
-                          parent={[]}
-                          child={[]}
-                          watch={watch}
-                          setValue={setValue}
-                          showLabel={true}
-                        />
-                      )
-                    } else if (
-                      (field.type === "dropdown" &&
-                        nodeState.type === "businessProcess") ||
-                      (field.type === "dropdown" && code === "edge")
-                    ) {
-                      const data = getDropdown(field)
-                      return (
-                        // {/* <InputDropdown key={index} item={data} /> */}
-                        <div className="form-group" key={index}>
-                          <label>
-                            {field.label}
-                            {field.isMandatory && (
-                              <span className="text-danger font-weight-bold">
-                                {" "}
-                                *
-                              </span>
-                            )}
-                          </label>
-                          <select
-                            className="custom-select rounded-sm"
-                            {...register(field.name, {
-                              required:
-                                field.isMandatory === "1"
-                                  ? `${field.label} harus diisi`
-                                  : false,
-                            })}
-                          >
-                            {field.name === "sideMenu"
-                              ? data.map((option, index) => (
-                                  <option key={index} value={option.menuId}>
-                                    {option.menuDesc}
-                                  </option>
-                                ))
-                              : data.map((option, index) => (
-                                  <option key={index} value={option.value}>
-                                    {option.label}
-                                  </option>
-                                ))}
-                          </select>
-                        </div>
-                      )
-                    }
-                  })
-                : null}
+              {data.map((field, index) => {
+                if (
+                  field.type === "textbox" &&
+                  nodeState.type === "businessProcess"
+                ) {
+                  return (
+                    <InputCommon
+                      id={field.id}
+                      defaultValue={field.value}
+                      fieldItem={field}
+                      label={field.label}
+                      isMandatory={field.isMandatory}
+                      register={register}
+                      key={index}
+                      parent={[]}
+                      child={[]}
+                      watch={watch}
+                      setValue={setValue}
+                      showLabel={true}
+                    />
+                  )
+                } else if (
+                  field.type === "textbox" &&
+                  field.name !== "trackCode"
+                ) {
+                  return (
+                    <InputCommon
+                      id={field.id}
+                      defaultValue={field.value}
+                      fieldItem={field}
+                      label={field.label}
+                      isMandatory={field.isMandatory}
+                      register={register}
+                      key={index}
+                      parent={[]}
+                      child={[]}
+                      watch={watch}
+                      setValue={setValue}
+                      showLabel={true}
+                    />
+                  )
+                } else if (
+                  (field.type === "dropdown" &&
+                    nodeState.type === "businessProcess") ||
+                  (field.type === "dropdown" && code === "edge")
+                ) {
+                  const data = getDropdown(field)
+                  return (
+                    // {/* <InputDropdown key={index} item={data} /> */}
+                    <div className="form-group" key={index}>
+                      <label>
+                        {field.label}
+                        {field.isMandatory && (
+                          <span className="text-danger font-weight-bold">
+                            {" "}
+                            *
+                          </span>
+                        )}
+                      </label>
+                      <select
+                        className="custom-select rounded-sm"
+                        {...register(field.name, {
+                          required:
+                            field.isMandatory === "1"
+                              ? `${field.label} harus diisi`
+                              : false,
+                        })}
+                      >
+                        {field.name === "sideMenu"
+                          ? data.map((option, index) => (
+                              <option key={index} value={option.menuId}>
+                                {option.menuDesc}
+                              </option>
+                            ))
+                          : data.map((option, index) => (
+                              <option key={index} value={option.value}>
+                                {option.label}
+                              </option>
+                            ))}
+                      </select>
+                    </div>
+                  )
+                }
+              })}
             </div>
           </div>
           <div className="modal-footer">
