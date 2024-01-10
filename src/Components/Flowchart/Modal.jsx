@@ -168,6 +168,7 @@ function Modal({ code }) {
                           child={[]}
                           watch={watch}
                           setValue={setValue}
+                          showLabel={true}
                         />
                       )
                     } else if (
@@ -187,6 +188,7 @@ function Modal({ code }) {
                           child={[]}
                           watch={watch}
                           setValue={setValue}
+                          showLabel={true}
                         />
                       )
                     } else if (
