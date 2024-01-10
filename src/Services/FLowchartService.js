@@ -1,8 +1,8 @@
-import axios from 'axios'
-import APIClient from './APIClient'
-import APILocal from './APILocal'
+import axios from "axios"
+import APIClient from "./APIClient"
+import APILocal from "./APILocal"
 
-const env = 'PRODUCTION'
+const env = "PRODUCTION"
 
 // Get ALL flowchart
 export const getFlowchart = async () => {
@@ -10,8 +10,8 @@ export const getFlowchart = async () => {
   const payload = {}
   const result =
     process.env.REACT_APP_ENV === env
-      ? APIClient.post('/retrieveDataBP', payload)
-      : await APILocal.get('/flowchart')
+      ? APIClient.post("/retrieveDataBP", payload)
+      : await APILocal.get("/flowchart")
   return result
 }
 
@@ -22,7 +22,7 @@ export const getFlowchartDetail = async (data) => {
   }
   const result =
     process.env.REACT_APP_ENV === env
-      ? APIClient.post('/getFlowchartByID', payload)
+      ? APIClient.post("/getFlowchartByID", payload)
       : APILocal.get(`/flowchart/${data.id}`)
   return result
 }
@@ -31,8 +31,8 @@ export const getFlowchartDetail = async (data) => {
 export const postFlowchart = async (payload) => {
   const result =
     process.env.REACT_APP_ENV === env
-      ? APIClient.post('/saveflowchartnew', payload)
-      : APILocal.post('/flowchart', payload)
+      ? APIClient.post("/saveflowchartnew", payload)
+      : APILocal.post("/flowchart", payload)
   return result
 }
 
@@ -40,7 +40,7 @@ export const postFlowchart = async (payload) => {
 export const updateFlowchart = async (payload) => {
   const result =
     process.env.REACT_APP_ENV === env
-      ? APIClient.post('/updateflowchart', payload)
+      ? APIClient.post("/updateflowchart", payload)
       : await APILocal.put(`/flownchart/${payload.id}`, payload)
   return result
 }
@@ -49,14 +49,15 @@ export const updateFlowchart = async (payload) => {
 export const deleteFlowchart = async (payload) => {
   const result =
     process.env.REACT_APP_ENV === env
-      ? APIClient.post('/deleteFlowchart', payload)
+      ? APIClient.post("/deleteFlowchart", payload)
       : await APILocal.delete(`/flowchart/${payload.id}`)
   return result
 }
 
-export const getFlowchartModal = async ({ code }) => {
+export const getFlowchartModal = async ({ code, id }) => {
   const payload = {
-    referenceName: 'getProperty',
+    referenceName: "getProperty",
+    id,
     param: [
       {
         code,
@@ -65,10 +66,10 @@ export const getFlowchartModal = async ({ code }) => {
   }
   const result =
     process.env.REACT_APP_ENV === env
-      ? APIClient.post('/getPropertyFlowchart', payload)
-      : code === 'node'
-      ? APILocal.get('/flowchartModalNode')
-      : APILocal.get('/flowchartModalEdge')
+      ? APIClient.post("/getPropertyFlowchart", payload)
+      : code === "node"
+        ? APILocal.get("/flowchartModalNode")
+        : APILocal.get("/flowchartModalEdge")
   return result
 }
 
@@ -76,8 +77,8 @@ export const getFlowchartToolbox = async () => {
   const payload = {}
   const result =
     process.env.REACT_APP_ENV === env
-      ? APIClient.post('/getToolboxFC', payload)
-      : APILocal.get('/flowchartToolbox')
+      ? APIClient.post("/getToolboxFC", payload)
+      : APILocal.get("/flowchartToolbox")
   return result
 }
 
@@ -85,8 +86,8 @@ export const getNodeDropdown = async () => {
   const payload = {}
   const result =
     process.env.REACT_APP_ENV === env
-      ? APIClient.post('/getNodeDropdownFC', payload)
-      : APILocal.get('/nodeDropdown')
+      ? APIClient.post("/getNodeDropdownFC", payload)
+      : APILocal.get("/nodeDropdown")
   return result
 }
 
@@ -94,7 +95,7 @@ export const getEdgeDropdown = async () => {
   const payload = {}
   const result =
     process.env.REACT_APP_ENV === env
-      ? APIClient.post('/getEdgeDropdownFC', payload)
-      : APILocal.get('/edgeDropdown')
+      ? APIClient.post("/getEdgeDropdownFC", payload)
+      : APILocal.get("/edgeDropdown")
   return result
 }

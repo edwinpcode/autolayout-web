@@ -11,6 +11,11 @@ import {
 } from "../../Services/FLowchartService"
 import { getMenu } from "../../Services/MenuService"
 import { useQuery } from "react-query"
+import { setNodeId } from "../../Store/Flowchart/nodeSlice"
+import {
+  setflowchartModalData,
+  setflowchartModalId,
+} from "../../Store/Flowchart/flowchartModalSlice"
 
 // Modal for edit node or edge on flowchart
 function Modal({ code }) {
@@ -20,6 +25,7 @@ function Modal({ code }) {
   const userId = useSelector((state) => state.user.id)
   const activeModuleId = useSelector((state) => state.user.activeModule.id)
   const activeRoleId = useSelector((state) => state.user.activeRole.id)
+  const flowchartModalData = useSelector((state) => state.flowchartModal.data)
 
   const [nodeDropdown, setNodeDropdown] = useState([])
   const [edgeDropdown, setEdgeDropdown] = useState([])
@@ -119,7 +125,9 @@ function Modal({ code }) {
         animated: edgeState.animated ? edgeState.animated : false,
       })
     }
-    fetchData()
+    if (nodeState.id != "" || edgeState.id != "") {
+      fetchData()
+    }
   }, [nodeState, edgeState])
 
   const fetchData = async () => {
@@ -127,14 +135,15 @@ function Modal({ code }) {
       setIsLoading(true)
       const res = await getFlowchartModal({ code })
       if (res.data.status != "1") {
-        // throw new Error(res.data.message)
         setIsError(true)
-        setErrorMessage(res.data.message)
+        return window.Swal.fire("Kesahalan", res.data.message, "error")
       }
-      if (res.data.data) {
+      if (res.data.data && res.data.data.length) {
         setData(res.data.data)
+        // dispatch(setflowchartModalId(res.data.data[0].value))
+        // dispatch(setflowchartModalData(res.data.data))
       }
-      console.log(res)
+      setIsError(false)
     } catch (error) {
       console.log(error)
       window.Swal.fire("Kesalahan", error.message, "error")
@@ -150,6 +159,7 @@ function Modal({ code }) {
   // save data to elementState and close modal
   const onClickSave = () => {
     const values = getValues()
+    console.log(values)
     if (code === "node") {
       // set values to elementState.data
       // for node data
@@ -171,10 +181,9 @@ function Modal({ code }) {
   //   }
   // }, [])
 
-  if (isError)
-    return window.Swal.fire("Kesalahan", `Silahkan muat ulang modal`, "error")
+  // if (isError)
+  //   return window.Swal.fire("Kesalahan", `Silahkan muat ulang modal`, "error")
   if (isLoading) return <div>Loading...</div>
-  errorMessage.toLowerCase().includes()
   return (
     <div
       className="modal fade"

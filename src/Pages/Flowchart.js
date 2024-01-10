@@ -203,7 +203,7 @@ const Flow = ({ fieldItem }) => {
         if (node.type === "startEvent" || node.type === "endEvent") {
           node.data = {
             ...node.data,
-            trackCode: "",
+            // trackCode: "",
             sideMenu: "",
             preAction: "",
             postAction: "",
@@ -252,16 +252,16 @@ const Flow = ({ fieldItem }) => {
         )
         return
       }
-      if (nodes[i].type !== "startEvent" && nodes[i].type !== "endEvent") {
-        if (!nodes[i].data.trackCode) {
-          window.Swal.fire(
-            "Kesalahan",
-            `data node '${nodes[i].data.label}' perlu Track Code, silahkan ubah`,
-            "warning",
-          )
-          return
-        }
-      }
+      // if (nodes[i].type !== "startEvent" && nodes[i].type !== "endEvent") {
+      //   if (!nodes[i].data.trackCode) {
+      //     window.Swal.fire(
+      //       "Kesalahan",
+      //       `data node '${nodes[i].data.label}' perlu Track Code, silahkan ubah`,
+      //       "warning",
+      //     )
+      //     return
+      //   }
+      // }
     }
     if (!name) {
       window.Swal.fire("Kesalahan", `Silahkan isi nama flowchart`, "warning")
@@ -434,6 +434,7 @@ const Flow = ({ fieldItem }) => {
       let tc = true
       for (let i = 0; i < nodes.length; i++) {
         if (nodes[i].type !== "startEvent" && nodes[i].type !== "endEvent") {
+          console.log(nodes[i], nodeState.id, elementState.data.trackCode)
           if (
             elementState.data.trackCode === nodes[i].data.trackCode &&
             nodeState.id !== nodes[i].id

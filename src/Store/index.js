@@ -18,6 +18,7 @@ import storageSession from "redux-persist/lib/storage/session"
 import devReducer from "./Dev/DevModeSlice"
 import { inboxReducer } from "./Inbox/InboxStore"
 import LogoReducer from "./LogoSlice"
+import { flowchartModalReducer } from "./Flowchart/flowchartModalSlice"
 
 const persistConfig = {
   key: "root",
@@ -41,6 +42,7 @@ const reducer = combineReducers({
   devMode: devReducer,
   inbox: inboxReducer,
   logo: LogoReducer,
+  flowchartModal: flowchartModalReducer,
 })
 
 const persistedReducer = persistReducer(persistConfig, reducer)
