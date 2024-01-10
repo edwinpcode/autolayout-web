@@ -174,6 +174,7 @@ function Modal({ code }) {
   if (isError)
     return window.Swal.fire("Kesalahan", `Silahkan muat ulang modal`, "error")
   if (isLoading) return <div>Loading...</div>
+  errorMessage.toLowerCase().includes()
   return (
     <div
       className="modal fade"
@@ -220,7 +221,7 @@ function Modal({ code }) {
                   )
                 } else if (
                   field.type === "textbox" &&
-                  field.name !== "trackCode"
+                  !field.name.toLowerCase().includes("track")
                 ) {
                   return (
                     <InputCommon
