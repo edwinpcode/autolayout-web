@@ -61,12 +61,25 @@ const nodeColor = (node) => {
 // keyboar bind for delete element
 const deleteKeyCode = ["Backspace", "Delete"]
 
-const Flow = ({ fieldItem }) => {
+const Flow = ({ fieldItem, getValues, watch, panelId }) => {
   // id from url for edit mode
   // let { id } = useParams();
 
   // check id for edit mode if this flowchart used as compoment
-  const [id, setId] = useState()
+  // const [id, setId] = useState()
+
+  const [idParent, setIdParent] = useState("")
+  const [parent, setParent] = useState("")
+
+  useEffect(() => {
+    if (fieldItem.reference?.parent?.length) {
+      const idParent = getValues(fieldItem.reference.parent[0])
+      setParent(fieldItem.reference.parent[0])
+      if (idParent) {
+        setIdParent(idParent)
+      }
+    }
+  }, [fieldItem])
 
   // set custom node type
   const nodeTypes = useMemo(
@@ -167,14 +180,20 @@ const Flow = ({ fieldItem }) => {
   // set input mode base on flowchart_id
   useEffect(() => {
     // set Mode - insert Mode or edit Mode
-    if (!id) {
+    if (idParent && idParent == "") {
       // set to create / insert mode
       setInputMode("insert")
-    } else {
+    } else if (idParent !== "") {
       // set to edit mode
       setInputMode("edit")
-      getFlowchartDetail({ id })
+      const payload = {
+        flowchart_id: idParent,
+      }
+      getFlowchartDetail(payload)
         .then((res) => {
+          if (res.data.status != "1") {
+            return window.Swal.fire("Kesalahan", res.data.message, "error")
+          }
           setName(res.data.name)
           setNodes(res.data.node)
           setEdges(res.data.edge)
@@ -183,7 +202,7 @@ const Flow = ({ fieldItem }) => {
           window.Swal.fire("Kesalahan", `Silahkan muat ulang halaman`, "error"),
         )
     }
-  }, [id])
+  }, [idParent])
 
   // Delete Element : node / edge
   const handleDelete = (e) => {
@@ -295,7 +314,7 @@ const Flow = ({ fieldItem }) => {
     } else {
       // Edit Mode
       const data = {
-        flowchart_id: id,
+        flowchart_id: idParent,
         name,
         description: "",
         node: nodes,
@@ -584,7 +603,13 @@ const Flow = ({ fieldItem }) => {
         </div>
       </div>
       <div className="d-flex justify-content-between my-2">
-        <Modal code={code} />
+        <Modal
+          code={code}
+          fieldItem={fieldItem}
+          idParent={idParent}
+          parent={parent}
+          panelId={panelId}
+        />
         {buttonModal ? (
           <div
             className="d-flex align-items-center"
@@ -631,10 +656,28 @@ const Flow = ({ fieldItem }) => {
 }
 
 // Wrapper
-const Flowchart = ({ fieldItem }) => {
+const Flowchart = ({ fieldItem, getValues, watch, parent, child, panel }) => {
+  const findPanelId = (fieldId) => {
+    let panelId = ""
+    panel.forEach((panelItem) => {
+      panelItem.listField.forEach((fieldItem) => {
+        if (fieldItem.id === fieldId) {
+          panelId = panelItem.panelId
+        }
+      })
+    })
+    return panelId
+  }
+  const panelId = findPanelId(fieldItem.id)
+
   return (
     <ReactFlowProvider>
-      <Flow fieldItem={fieldItem} />
+      <Flow
+        fieldItem={fieldItem}
+        getValues={getValues}
+        watch={watch}
+        panelId={panelId}
+      />
     </ReactFlowProvider>
   )
 }

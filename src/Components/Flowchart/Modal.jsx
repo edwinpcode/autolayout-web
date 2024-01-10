@@ -8,6 +8,7 @@ import {
   getEdgeDropdown,
   getFlowchartModal,
   getNodeDropdown,
+  saveFlowchartModal,
 } from "../../Services/FLowchartService"
 import { getMenu } from "../../Services/MenuService"
 import { useQuery } from "react-query"
@@ -18,7 +19,7 @@ import {
 } from "../../Store/Flowchart/flowchartModalSlice"
 
 // Modal for edit node or edge on flowchart
-function Modal({ code }) {
+function Modal({ code, idParent, parent, panelId }) {
   const nodeState = useSelector((state) => state.node)
   const edgeState = useSelector((state) => state.edge)
 
@@ -37,7 +38,8 @@ function Modal({ code }) {
   const [isLoading, setIsLoading] = useState(false)
   const [isError, setIsError] = useState(false)
   const [errorMessage, setErrorMessage] = useState("")
-  const [data, setData] = useState([])
+  const [form, setForm] = useState([])
+  const [loadingSave, setLoadingSave] = useState(false)
 
   // const { data } = useQuery(["modal"], () => getFlowchartModal({ code }))
 
@@ -50,7 +52,9 @@ function Modal({ code }) {
   const dispatch = useDispatch()
 
   // set form field
-  const { register, reset, getValues, watch, setValue } = useForm({})
+  const { register, reset, getValues, watch, setValue, handleSubmit } = useForm(
+    {},
+  )
 
   // get dropdown field value from backend
   useEffect(() => {
@@ -125,51 +129,101 @@ function Modal({ code }) {
         animated: edgeState.animated ? edgeState.animated : false,
       })
     }
-    if (nodeState.id != "" || edgeState.id != "") {
+    if (nodeState.id != "") {
       fetchData()
     }
   }, [nodeState, edgeState])
 
   const fetchData = async () => {
+    // reset()
+    const id = nodeState.id
     try {
       setIsLoading(true)
-      const res = await getFlowchartModal({ code })
+      const res = await getFlowchartModal({ code, id, idParent })
+      // const res = await getFlowchartModal({ code })
       if (res.data.status != "1") {
         setIsError(true)
-        return window.Swal.fire("Kesahalan", res.data.message, "error")
+        setErrorMessage(res.data.message)
+        setForm([])
+        window.Swal.fire("Kesalahan", res.data.message, "error")
+        return
       }
       if (res.data.data && res.data.data.length) {
-        setData(res.data.data)
-        // dispatch(setflowchartModalId(res.data.data[0].value))
-        // dispatch(setflowchartModalData(res.data.data))
+        setForm(res.data.data)
       }
       setIsError(false)
     } catch (error) {
       console.log(error)
+      setIsError(true)
+      setErrorMessage(error.message)
       window.Swal.fire("Kesalahan", error.message, "error")
     } finally {
       setIsLoading(false)
     }
   }
 
-  useEffect(() => {
-    console.log(code)
-  }, [code])
+  // useEffect(() => {
+  //   console.log(code)
+  // }, [code])
 
   // save data to elementState and close modal
-  const onClickSave = () => {
+  const onClickSave = async (data) => {
+    const panel = []
+    for (let [fieldId, fieldValue] of Object.entries(data)) {
+      if (
+        fieldId != "label" &&
+        fieldId != "trackCode" &&
+        fieldId != "sideMenu" &&
+        fieldId != "preAction" &&
+        fieldId != "postAction"
+      ) {
+        panel.push({ fieldId, fieldValue, panelId })
+      }
+    }
+    const param = [
+      {
+        id: parent,
+        value: idParent,
+      },
+    ]
+
+    const payload = {
+      panel,
+      userId: userId,
+      param,
+      id: nodeState.id,
+    }
+
+    console.log(payload)
+
     const values = getValues()
-    console.log(values)
+    // console.log(values)
+    if (!form.length) {
+      return window.Swal.fire("Peringatan", "No Data", "error")
+    }
     if (code === "node") {
       // set values to elementState.data
       // for node data
       dispatch(setElement({ data: values }))
+      try {
+        setLoadingSave(true)
+        const res = await saveFlowchartModal(payload)
+        if (res.data.status != "1") {
+          return window.Swal.fire("Kesalahan", res.data.message, "error")
+        }
+        window.$("#editElement").modal("hide")
+      } catch (e) {
+        window.Swal.fire("Kesalahan", e.message, "error")
+      } finally {
+        setLoadingSave(false)
+      }
     } else if (code === "edge") {
       // set set value to elementState
       // for edge data
       dispatch(setElement({ ...values }))
+      window.$("#editElement").modal("hide")
     }
-    window.$("#editElement").modal("hide")
+    // window.$("#editElement").modal("hide")
   }
 
   // useEffect(() => {
@@ -205,9 +259,12 @@ function Modal({ code }) {
             </button>
           </div>
           <div className="modal-body">
+            {/* {isError && (
+              <span className="text-sx text-danger">{errorMessage}</span>
+            )} */}
             {code ? null : <div>Silahkan Pilih Elemen</div>}
             <div>
-              {data.map((field, index) => {
+              {form.map((field, index) => {
                 if (
                   field.type === "textbox" &&
                   nodeState.type === "businessProcess"
@@ -294,18 +351,22 @@ function Modal({ code }) {
             </div>
           </div>
           <div className="modal-footer">
-            {/* <button
-                onClick={() => reset({})}
+            {/* {isError && (
+              <button
                 type="button"
-                className="btn btn-sm btn-secondary"
+                className="btn btn-secondary btn-sm"
+                onClick={fetchData}
               >
-                Clear
-              </button> */}
+                Refresh
+              </button>
+            )} */}
             <button
               type="button"
-              onClick={onClickSave}
+              onClick={handleSubmit(onClickSave)}
               className="btn btn-sm btn-success"
+              disabled={loadingSave}
             >
+              {loadingSave && <i className="fas fa-spinner fa-spin"></i>}
               Save
             </button>
           </div>

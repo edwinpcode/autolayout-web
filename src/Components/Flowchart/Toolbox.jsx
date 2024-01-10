@@ -39,7 +39,7 @@ const Toolbox = () => {
   if (isError)
     return (
       <div>
-        <button onClick={fetchData} className="btn btn-success">
+        <button type="button" onClick={fetchData} className="btn btn-success">
           Refresh
         </button>
       </div>

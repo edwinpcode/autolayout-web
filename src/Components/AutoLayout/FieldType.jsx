@@ -48,6 +48,7 @@ function FieldType({
   fetchData = () => {},
   gridItem,
 }) {
+  console.log(panel)
   return (
     <>
       {["textbox", "email"].includes(fieldItem.type) && (
@@ -263,7 +264,12 @@ function FieldType({
       )}
       {fieldItem.type === "flowchart" && (
         <div className="mx-1 w-100">
-          <Flowchart fieldItem={fieldItem} />
+          <Flowchart
+            fieldItem={fieldItem}
+            getValues={getValues}
+            watch={watch}
+            panel={panel}
+          />
         </div>
       )}
       {fieldItem.type === "textboxwithbutton" && (

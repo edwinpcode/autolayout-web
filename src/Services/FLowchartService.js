@@ -17,13 +17,10 @@ export const getFlowchart = async () => {
 
 // get 1 flowchart
 export const getFlowchartDetail = async (data) => {
-  const payload = {
-    flowchart_id: data.id,
-  }
   const result =
     process.env.REACT_APP_ENV === env
-      ? APIClient.post("/getFlowchartByID", payload)
-      : APILocal.get(`/flowchart/${data.id}`)
+      ? APIClient.post("/getFlowchartByID", data)
+      : APILocal.get(`/flowchart/${data.flowchart_id}`)
   return result
 }
 
@@ -54,10 +51,11 @@ export const deleteFlowchart = async (payload) => {
   return result
 }
 
-export const getFlowchartModal = async ({ code, id }) => {
+export const getFlowchartModal = async ({ code, id, idParent }) => {
   const payload = {
     referenceName: "getProperty",
     id,
+    idParent,
     param: [
       {
         code,
@@ -98,4 +96,9 @@ export const getEdgeDropdown = async () => {
       ? APIClient.post("/getEdgeDropdownFC", payload)
       : APILocal.get("/edgeDropdown")
   return result
+}
+
+export const saveFlowchartModal = async (payload) => {
+  const res = await APIClient.post("savedatamodalbpm", payload)
+  return res
 }

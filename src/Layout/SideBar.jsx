@@ -100,7 +100,7 @@ function SideBar() {
 
   return (
     <aside
-      className="main-sidebar elevation-4 sidebar-light-danger"
+      className="main-sidebar elevation-4 sidebar-light-success"
       id={"sidebar"}
     >
       <a href="/" className="brand-link">

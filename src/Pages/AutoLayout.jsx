@@ -180,9 +180,9 @@ function AutoLayout({ className }) {
       })
   }
 
-  useEffect(() => {
-    console.log("panel: ", panelData, "tab: ", tab)
-  }, [panelData, tab])
+  // useEffect(() => {
+  //   console.log("panel: ", panelData, "tab: ", tab)
+  // }, [panelData, tab])
 
   // handle get field
   useEffect(() => {
