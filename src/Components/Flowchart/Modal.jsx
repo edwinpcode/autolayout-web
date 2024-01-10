@@ -1,16 +1,16 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect } from "react"
 // import { ErrorMessage } from '@hookform/error-message';
-import { useForm } from 'react-hook-form'
-import InputCommon from '../AutoLayout/Input/InputCommon'
-import { useDispatch, useSelector } from 'react-redux'
-import { setElement } from '../../Store/Flowchart/elementSlice'
+import { useForm } from "react-hook-form"
+import InputCommon from "../AutoLayout/Input/InputCommon"
+import { useDispatch, useSelector } from "react-redux"
+import { setElement } from "../../Store/Flowchart/elementSlice"
 import {
   getEdgeDropdown,
   getFlowchartModal,
   getNodeDropdown,
-} from '../../Services/FLowchartService'
-import { getMenu } from '../../Services/MenuService'
-import { useQuery } from 'react-query'
+} from "../../Services/FLowchartService"
+import { getMenu } from "../../Services/MenuService"
+import { useQuery } from "react-query"
 
 // Modal for edit node or edge on flowchart
 function Modal({ code }) {
@@ -28,8 +28,8 @@ function Modal({ code }) {
   const [animatedDropdown, setAnimatedDropdown] = useState([])
   const [menuDropdown, setMenuDropdown] = useState([])
 
-  const { data, isLoading, isError } = useQuery(['modal'], () =>
-    getFlowchartModal({ code })
+  const { data, isLoading, isError } = useQuery(["modal"], () =>
+    getFlowchartModal({ code }),
   )
   // useEffect(() => setFields(data.data.data), [data])
   // console.log(data)
@@ -55,7 +55,7 @@ function Modal({ code }) {
   useEffect(() => {
     if (activeModuleId && activeRoleId)
       getMenu(userId, activeModuleId, activeRoleId).then((res) => {
-        if (res.data.status === '1') {
+        if (res.data.status === "1") {
           let data = []
           for (let i = 0; i < res.data.data.length; i++) {
             if (res.data.data[i].child) {
@@ -74,17 +74,17 @@ function Modal({ code }) {
 
   // return dropdown base field
   const getDropdown = (data) => {
-    if (data.referenceName[0].reference === 'sideMenuDropdown') {
+    if (data.referenceName[0].reference === "sideMenuDropdown") {
       return menuDropdown
-    } else if (data.name === 'type' && code === 'node') {
+    } else if (data.name === "type" && code === "node") {
       return nodeDropdown
-    } else if (data.name === 'type') {
+    } else if (data.name === "type") {
       return edgeDropdown
-    } else if (data.name === 'markerStart' || data.name === 'markerEnd') {
+    } else if (data.name === "markerStart" || data.name === "markerEnd") {
       return markerDropdown
-    } else if (data.name === 'animated') {
+    } else if (data.name === "animated") {
       return animatedDropdown
-    } else if (data.name === 'markerOrient') {
+    } else if (data.name === "markerOrient") {
       return orientDropdown
     } else return []
   }
@@ -92,23 +92,23 @@ function Modal({ code }) {
   // set field value from redux state
   useEffect(() => {
     reset()
-    if (code === 'node') {
+    if (code === "node") {
       // set from node state data
       reset(nodeState.data)
     } else {
       // set from edge state data
       reset({
         type: edgeState.type,
-        label: edgeState.label ? edgeState.label : '',
+        label: edgeState.label ? edgeState.label : "",
         markerOrient: edgeState.markerStart
           ? edgeState.markerStart.orient
           : edgeState.markerEnd
-          ? edgeState.markerEnd.orient
-          : 'auto',
+            ? edgeState.markerEnd.orient
+            : "auto",
         markerStart: edgeState.markerStart
           ? edgeState.markerStart.type
-          : 'none',
-        markerEnd: edgeState.markerEnd ? edgeState.markerEnd.type : 'none',
+          : "none",
+        markerEnd: edgeState.markerEnd ? edgeState.markerEnd.type : "none",
         animated: edgeState.animated ? edgeState.animated : false,
       })
     }
@@ -117,19 +117,19 @@ function Modal({ code }) {
   // save data to elementState and close modal
   const onClickSave = () => {
     const values = getValues()
-    if (code === 'node') {
+    if (code === "node") {
       // set values to elementState.data
       // for node data
       dispatch(setElement({ data: values }))
-    } else if (code === 'edge') {
+    } else if (code === "edge") {
       // set set value to elementState
       // for edge data
       dispatch(setElement({ ...values }))
     }
-    window.$('#editElement').modal('hide')
+    window.$("#editElement").modal("hide")
   }
   if (isError)
-    return window.Swal.fire('Kesalahan', `Silahkan muat ulang modal`, 'error')
+    return window.Swal.fire("Kesalahan", `Silahkan muat ulang modal`, "error")
   if (isLoading) return <div>Loading...</div>
   return (
     <div className="modal fade" id="editElement" aria-hidden="true">
@@ -152,11 +152,14 @@ function Modal({ code }) {
               {data?.data.data
                 ? data?.data.data.map((field, index) => {
                     if (
-                      field.type === 'textbox' &&
-                      nodeState.type === 'businessProcess'
+                      field.type === "textbox" &&
+                      nodeState.type === "businessProcess"
                     ) {
                       return (
                         <InputCommon
+                          id={field.id}
+                          defaultValue={field.value}
+                          fieldItem={field}
                           label={field.label}
                           isMandatory={field.isMandatory}
                           register={register}
@@ -168,11 +171,14 @@ function Modal({ code }) {
                         />
                       )
                     } else if (
-                      field.type === 'textbox' &&
-                      field.name !== 'trackCode'
+                      field.type === "textbox" &&
+                      field.name !== "trackCode"
                     ) {
                       return (
                         <InputCommon
+                          id={field.id}
+                          defaultValue={field.value}
+                          fieldItem={field}
                           label={field.label}
                           isMandatory={field.isMandatory}
                           register={register}
@@ -184,9 +190,9 @@ function Modal({ code }) {
                         />
                       )
                     } else if (
-                      (field.type === 'dropdown' &&
-                        nodeState.type === 'businessProcess') ||
-                      (field.type === 'dropdown' && code === 'edge')
+                      (field.type === "dropdown" &&
+                        nodeState.type === "businessProcess") ||
+                      (field.type === "dropdown" && code === "edge")
                     ) {
                       const data = getDropdown(field)
                       return (
@@ -196,7 +202,7 @@ function Modal({ code }) {
                             {field.label}
                             {field.isMandatory && (
                               <span className="text-danger font-weight-bold">
-                                {' '}
+                                {" "}
                                 *
                               </span>
                             )}
@@ -205,12 +211,12 @@ function Modal({ code }) {
                             className="custom-select rounded-sm"
                             {...register(field.name, {
                               required:
-                                field.isMandatory === '1'
+                                field.isMandatory === "1"
                                   ? `${field.label} harus diisi`
                                   : false,
                             })}
                           >
-                            {field.name === 'sideMenu'
+                            {field.name === "sideMenu"
                               ? data.map((option, index) => (
                                   <option key={index} value={option.menuId}>
                                     {option.menuDesc}

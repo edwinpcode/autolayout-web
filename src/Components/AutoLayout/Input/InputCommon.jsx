@@ -1,15 +1,15 @@
-import React, { useEffect } from 'react'
-import { useMemo } from 'react'
-import { NumericFormat } from 'react-number-format'
-import { getChildValueByChildParent } from '../../../Utils/FieldReferenceUtils'
-import { handleFieldRule } from '../../../Utils/FieldRuleUtils'
-import InputGroup from '../../InputGroup'
+import React, { useEffect } from "react"
+import { useMemo } from "react"
+import { NumericFormat } from "react-number-format"
+import { getChildValueByChildParent } from "../../../Utils/FieldReferenceUtils"
+import { handleFieldRule } from "../../../Utils/FieldRuleUtils"
+import InputGroup from "../../InputGroup"
 
 const numericRules = [
-  'currencyAbsolute',
-  'currency',
-  'numericAbsolute',
-  'numeric',
+  "currencyAbsolute",
+  "currency",
+  "numericAbsolute",
+  "numeric",
 ]
 
 function InputFormat({
@@ -25,7 +25,6 @@ function InputFormat({
   className,
 }) {
   const watchHiddenInput = watch(id, defaultValue)
-
   return (
     <>
       {fieldItem?.groupInput ? (
@@ -33,31 +32,31 @@ function InputFormat({
           <input type="hidden" id={id} {...register} />
           <NumericFormat
             value={
-              watchHiddenInput === ''
-                ? ''
-                : rule === 'numericAbsolute'
-                ? watchHiddenInput
-                : +watchHiddenInput
+              watchHiddenInput === ""
+                ? ""
+                : rule === "numericAbsolute"
+                  ? watchHiddenInput
+                  : +watchHiddenInput
             }
             type="text"
             allowNegative={
-              ['numericAbsolute', 'currencyAbsolute'].includes(rule)
+              ["numericAbsolute", "currencyAbsolute"].includes(rule)
                 ? false
                 : true
             }
-            allowLeadingZeros={rule === 'numericAbsolute' ? true : false}
-            className={'form-control ' + className}
+            allowLeadingZeros={rule === "numericAbsolute" ? true : false}
+            className={"form-control " + className}
             thousandsGroupStyle="thousand"
             thousandSeparator={
-              ['numericAbsolute', 'numeric'].includes(rule) ? false : ','
+              ["numericAbsolute", "numeric"].includes(rule) ? false : ","
             }
             onBlur={handleOnBlur}
             onValueChange={(values) => {
               setValue(id, values.value, { shouldValidate: true })
               const hiddenInput = document.getElementById(id)
-              hiddenInput.dispatchEvent(new Event('change'))
+              hiddenInput.dispatchEvent(new Event("change"))
             }}
-            readOnly={fieldItem?.isReadOnly === '1' || false}
+            readOnly={fieldItem?.isReadOnly === "1" || false}
             onKeyDown={handleKeyDown}
           />
         </InputGroup>
@@ -66,34 +65,34 @@ function InputFormat({
           <input type="hidden" id={id} {...register} />
           <NumericFormat
             value={
-              watchHiddenInput === ''
-                ? ''
-                : rule === 'numericAbsolute'
-                ? watchHiddenInput
-                : +watchHiddenInput
+              watchHiddenInput === ""
+                ? ""
+                : rule === "numericAbsolute"
+                  ? watchHiddenInput
+                  : +watchHiddenInput
             }
             type="text"
             allowNegative={
-              ['numericAbsolute', 'currencyAbsolute'].includes(rule)
+              ["numericAbsolute", "currencyAbsolute"].includes(rule)
                 ? false
                 : true
             }
-            allowLeadingZeros={rule === 'numericAbsolute' ? true : false}
-            className={'form-control ' + className}
+            allowLeadingZeros={rule === "numericAbsolute" ? true : false}
+            className={"form-control " + className}
             thousandsGroupStyle="thousand"
             thousandSeparator={
-              ['numericAbsolute', 'numeric'].includes(rule) ? false : ','
+              ["numericAbsolute", "numeric"].includes(rule) ? false : ","
             }
             onBlur={handleOnBlur}
             onValueChange={(values) => {
               setValue(id, values.value, { shouldValidate: true })
               const hiddenInput = document.getElementById(id)
-              hiddenInput.dispatchEvent(new Event('change'))
-              if (['Persentase', 'Nominal Biaya'].includes(fieldItem?.label)) {
+              hiddenInput.dispatchEvent(new Event("change"))
+              if (["Persentase", "Nominal Biaya"].includes(fieldItem?.label)) {
                 handleOnBlur()
               }
             }}
-            readOnly={fieldItem?.isReadOnly === '1' || false}
+            readOnly={fieldItem?.isReadOnly === "1" || false}
             onKeyDown={handleKeyDown}
           />
         </>
@@ -124,7 +123,7 @@ export default function InputCommon({
   ...props
 }) {
   const fieldRule = useMemo(() => handleFieldRule(fieldItem), [])
-
+  // console.log(fieldItem)
   const handleOnBlur = () => {
     // if has child
     if (child.length) {
@@ -139,27 +138,29 @@ export default function InputCommon({
     defaultValue && setValue(id, defaultValue)
 
     // hide field
-    if (fieldItem?.hide === '1') {
+    if (fieldItem?.hide === "1") {
       const currentEl = document.getElementById(id)
-      currentEl.parentElement.parentElement.style.display = 'none'
+      if (currentEl) {
+        currentEl.parentElement.parentElement.style.display = "none"
+      }
     }
 
     if (parent && parent.length) {
       parent.forEach((parentId) => {
         const parentEl = document.getElementById(parentId)
         if (parentEl) {
-          let eventType = parentEl.tagName === 'INPUT' ? 'input' : 'change'
+          let eventType = parentEl.tagName === "INPUT" ? "input" : "change"
           parentEl.addEventListener(eventType, () => {
             // reset current field value
             resetField(id)
             const currentFieldEl = document.getElementById(id)
-            currentFieldEl.dispatchEvent(new Event('change'))
+            currentFieldEl.dispatchEvent(new Event("change"))
             // reset child value
             if (child.length) {
               child.forEach((childId) => {
                 resetField(childId)
                 const childEl = document.getElementById(childId)
-                childEl.dispatchEvent(new Event('change'))
+                childEl.dispatchEvent(new Event("change"))
               })
             }
           })
@@ -167,8 +168,11 @@ export default function InputCommon({
       })
     }
 
-    if (fieldItem?.isReadOnly === '1') {
-      document.getElementById(id).addEventListener('change', handleOnBlur)
+    if (fieldItem?.isReadOnly === "1") {
+      const elementId = document.getElementById(id)
+      if (elementId) {
+        document.getElementById(id).addEventListener("change", handleOnBlur)
+      }
     }
   }, [])
 
@@ -176,8 +180,8 @@ export default function InputCommon({
   const handleKeyDown = (e) => {
     if (fieldItem?.maxLength) {
       const maxLength = Number(fieldItem.maxLength) // set maximum length here
-      const allowedKeys = ['Backspace', 'Delete', 'Tab']
-      const isCtrlA = e.ctrlKey && e.key === 'a'
+      const allowedKeys = ["Backspace", "Delete", "Tab"]
+      const isCtrlA = e.ctrlKey && e.key === "a"
       // all allowed key
       const isAllowed =
         e.target.value.length < maxLength ||
@@ -191,18 +195,20 @@ export default function InputCommon({
   }
 
   useEffect(() => {
-    setValue(id, defaultValue)
-    // hardcode
-    if (id === 'VDCD10001_002_029_001') {
-      const nomorKtpDebitur = getValues('VDCD10001_001_001')
-      setValue(id, nomorKtpDebitur)
+    if (defaultValue) {
+      setValue(id, defaultValue)
+      // hardcode
+      if (id === "VDCD10001_002_029_001") {
+        const nomorKtpDebitur = getValues("VDCD10001_001_001")
+        setValue(id, nomorKtpDebitur)
+      }
     }
   }, [defaultValue])
 
-  const watchNoKtp = watch('PA10001_001_001')
+  const watchNoKtp = watch("PA10001_001_001")
   useEffect(() => {
-    if (document.getElementById('PA10001_002_001_001')) {
-      setValue('PA10001_002_001_001', watchNoKtp)
+    if (document.getElementById("PA10001_002_001_001")) {
+      setValue("PA10001_002_001_001", watchNoKtp)
     }
   }, [watchNoKtp])
 
@@ -212,13 +218,14 @@ export default function InputCommon({
   //     setValue(id, filter[0].value)
   //   }
   // }, [filter])
+  // if (!id) return <></>
 
   return (
     <>
       {showLabel && (
         <label onClick={() => console.log(fieldItem)}>
           {fieldItem.label}
-          {fieldItem?.isMandatory === '1' && (
+          {fieldItem?.isMandatory === "1" && (
             <span className="text-danger font-weight-bold"> *</span>
           )}
         </label>
@@ -243,36 +250,36 @@ export default function InputCommon({
               <input
                 id={id}
                 type="text"
-                className={'form-control form-control-sm ' + className}
-                defaultValue={defaultValue || ''}
+                className={"form-control form-control-sm " + className}
+                defaultValue={defaultValue || ""}
                 {...register(id, fieldRule)}
                 onBlur={handleOnBlur}
-                readOnly={fieldItem?.isReadOnly == '1' || false}
+                readOnly={fieldItem?.isReadOnly == "1" || false}
               />
             </InputGroup>
           ) : (
             <>
-              {fieldItem?.rule === 'alphaonly' ? (
+              {fieldItem?.rule === "alphaonly" ? (
                 <input
                   id={id}
                   type="text"
-                  className={'form-control form-control-sm ' + className}
-                  defaultValue={defaultValue || ''}
+                  className={"form-control form-control-sm " + className}
+                  defaultValue={defaultValue || ""}
                   {...register(id, fieldRule)}
                   onBlur={handleOnBlur}
                   onKeyDown={handleKeyDown}
-                  readOnly={fieldItem?.isReadOnly == '1' || false}
+                  readOnly={fieldItem?.isReadOnly == "1" || false}
                 />
               ) : (
                 <input
                   id={id}
                   type="text"
                   className="form-control form-control-sm"
-                  defaultValue={defaultValue || ''}
+                  defaultValue={defaultValue || ""}
                   {...register(id, fieldRule)}
                   onBlur={handleOnBlur}
                   onKeyDown={handleKeyDown}
-                  readOnly={fieldItem?.isReadOnly == '1' || false}
+                  readOnly={fieldItem?.isReadOnly == "1" || false}
                 />
               )}
             </>

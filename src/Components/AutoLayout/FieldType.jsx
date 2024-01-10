@@ -263,7 +263,7 @@ function FieldType({
       )}
       {fieldItem.type === "flowchart" && (
         <div className="mx-1 w-100">
-          <Flowchart flowchart={fieldItem} />
+          <Flowchart fieldItem={fieldItem} />
         </div>
       )}
       {fieldItem.type === "textboxwithbutton" && (
