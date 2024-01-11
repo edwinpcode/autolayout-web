@@ -556,7 +556,7 @@ function Login() {
               <div className="login-logo">
                 <Logo />
               </div>
-              <form onSubmit={handleSubmit(handleLogin)}>
+              <form onSubmit={handleSubmit(handleLogin)} autoComplete="off">
                 {!useCamera && (
                   <div className="mb-3">
                     {/* <label htmlFor="username">NIK</label> */}
@@ -592,17 +592,6 @@ function Login() {
                   <div className="mb-3">
                     <div className="input-group">
                       <div className="form-control bg-light">{userId}</div>
-                      {/* <input
-                        disabled
-                        type="text"
-                        id="username"
-                        className="form-control"
-                        placeholder="NIK"
-                        {...register("userId", {
-                          required: "NIK is required",
-                        })}
-                        autoComplete="off"
-                      /> */}
                       <div
                         className="input-group-append"
                         onClick={
@@ -677,6 +666,7 @@ function Login() {
                     className="pr-3"
                   />
                   <button
+                    type="button"
                     className="btn btn-sm btn-secondary"
                     onClick={resetCanvas}
                   >
@@ -693,7 +683,6 @@ function Login() {
                         {...register("captcha", {
                           required: "Captcha Required",
                         })}
-                        autoComplete="off"
                       />
                     </div>
                     <ErrorMessage
