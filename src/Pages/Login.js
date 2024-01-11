@@ -232,6 +232,7 @@ function Login() {
                   className="pr-3"
                 />
                 <button
+                  type="button"
                   className="btn btn-sm btn-secondary"
                   onClick={resetCanvas}
                 >
