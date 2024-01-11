@@ -129,7 +129,7 @@ const Inbox = ({
             <button
               className="btn btn-tool"
               onClick={() => setOpen((state) => !state)}
-              // data-card-widget="collapse"
+              data-card-widget="collapse"
             >
               <i className="fas fa-minus" id="collapseButton"></i>
             </button>

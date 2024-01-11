@@ -263,13 +263,13 @@ function AutoLayout({ className }) {
                 >
                   <i className="fas fa-expand"></i>
                 </button>
-                {/* <button
-                type="button"
-                className="btn btn-tool"
-                data-card-widget="collapse"
-              >
-                <i className="fas fa-minus"></i>
-              </button> */}
+                <button
+                  type="button"
+                  className="btn btn-tool"
+                  data-card-widget="collapse"
+                >
+                  <i className="fas fa-minus"></i>
+                </button>
               </div>
             </div>
             {/* )} */}
