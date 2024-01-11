@@ -58,9 +58,9 @@ function Header() {
       })
   }
 
-  useEffect(() => {
-    console.log(userData)
-  }, [userData])
+  // useEffect(() => {
+  //   console.log(userData)
+  // }, [userData])
 
   useEffect(() => {
     const branchName = localStorage.getItem("branchName")
