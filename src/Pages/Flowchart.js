@@ -191,18 +191,48 @@ const Flow = ({ fieldItem, getValues, watch, panelId }) => {
       }
       getFlowchartDetail(payload)
         .then((res) => {
-          if (res.data.status != "1") {
-            return window.Swal.fire("Kesalahan", res.data.message, "error")
+          // if (res.data.status != "1") {
+          //   return window.Swal.fire("Kesalahan", res.data.message, "error")
+          // }
+          if (res.data.name) {
+            setName(res.data.name)
           }
-          setName(res.data.name)
-          setNodes(res.data.node)
-          setEdges(res.data.edge)
+          if (res.data.node) {
+            setNodes(res.data.node)
+          }
+          if (res.data.edge) {
+            setEdges(res.data.edge)
+          }
         })
         .catch((e) =>
           window.Swal.fire("Kesalahan", `Silahkan muat ulang halaman`, "error"),
         )
     }
   }, [idParent])
+
+  const refresh = () => {
+    const payload = {
+      flowchart_id: idParent,
+    }
+    getFlowchartDetail(payload)
+      .then((res) => {
+        // if (res.data.status != "1") {
+        //   return window.Swal.fire("Kesalahan", res.data.message, "error")
+        // }
+        if (res.data.name) {
+          setName(res.data.name)
+        }
+        if (res.data.node) {
+          setNodes(res.data.node)
+        }
+        if (res.data.edge) {
+          setEdges(res.data.edge)
+        }
+      })
+      .catch((e) =>
+        window.Swal.fire("Kesalahan", `Silahkan muat ulang halaman`, "error"),
+      )
+  }
 
   // Delete Element : node / edge
   const handleDelete = (e) => {
@@ -552,6 +582,12 @@ const Flow = ({ fieldItem, getValues, watch, panelId }) => {
               Minimap
             </label>
           </div>
+          {/* <button
+            type="button"
+            className="btn btn-success btn-sm align-items-end"
+          >
+            Refresh
+          </button> */}
         </div>
       </div>
       <ContextMenu
