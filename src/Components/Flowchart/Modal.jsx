@@ -139,7 +139,12 @@ function Modal({ code, idParent, parent, panelId }) {
     const id = nodeState.id
     try {
       setIsLoading(true)
-      const res = await getFlowchartModal({ code, id, idParent })
+      const res = await getFlowchartModal({
+        code,
+        id,
+        idParent,
+        referenceName: nodeState.type,
+      })
       // const res = await getFlowchartModal({ code })
       if (res.data.status != "1") {
         setIsError(true)

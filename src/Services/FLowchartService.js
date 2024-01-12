@@ -51,9 +51,14 @@ export const deleteFlowchart = async (payload) => {
   return result
 }
 
-export const getFlowchartModal = async ({ code, id, idParent }) => {
+export const getFlowchartModal = async ({
+  code,
+  id,
+  idParent,
+  referenceName,
+}) => {
   const payload = {
-    referenceName: "getProperty",
+    referenceName: referenceName || "getProperty",
     id,
     idParent,
     param: [
