@@ -43,6 +43,7 @@ function Login() {
     register,
     handleSubmit,
     formState: { errors },
+    setError,
   } = useForm({ mode: 'onChange' })
 
   const dispatch = useDispatch()
@@ -109,9 +110,15 @@ function Login() {
     // if (!validateCaptcha(captcha)) {
     //   return window.Swal.fire('Error', 'Wrong captcha', 'error')
     // }
+    // console.log(captcha, compareCaptcha)
     if (captcha != compareCaptcha && !devMode) {
+      setError('captcha', {
+        type: 'value',
+        message: 'Captcha Salah',
+      })
       resetCanvas()
-      return window.Swal.fire('Error', 'Wrong captcha', 'error')
+      return
+      // return window.Swal.fire('Error', 'Wrong captcha', 'error')
     }
     setLoading(true)
     const secret = getSecretKeyByDate()
