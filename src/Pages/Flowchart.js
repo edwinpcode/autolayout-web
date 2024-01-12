@@ -481,18 +481,18 @@ const Flow = ({ fieldItem, getValues, watch, panelId }) => {
     // check if found same track code (tc) on other node
     if (code === "node") {
       let tc = true
-      for (let i = 0; i < nodes.length; i++) {
-        if (nodes[i].type !== "startEvent" && nodes[i].type !== "endEvent") {
-          console.log(nodes[i], nodeState.id, elementState.data.trackCode)
-          if (
-            elementState.data.trackCode === nodes[i].data.trackCode &&
-            nodeState.id !== nodes[i].id
-          ) {
-            tc = false
-            break
-          }
-        }
-      }
+      // for (let i = 0; i < nodes.length; i++) {
+      //   if (nodes[i].type !== "startEvent" && nodes[i].type !== "endEvent") {
+      //     console.log(nodes[i], nodeState.id, elementState.data.trackCode)
+      //     if (
+      //       elementState.data.trackCode === nodes[i].data.trackCode &&
+      //       nodeState.id !== nodes[i].id
+      //     ) {
+      //       tc = false
+      //       break
+      //     }
+      //   }
+      // }
       if (tc) {
         setNodes((nds) =>
           nds.map((node) => {
