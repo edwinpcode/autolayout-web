@@ -56,6 +56,7 @@ function Login() {
     handleSubmit,
     watch,
     formState: { errors },
+    setError,
   } = useForm({ mode: "onChange" })
   const videoRef = useRef(null)
   const canvasCameraRef = useRef(null)
@@ -163,8 +164,12 @@ function Login() {
     //   return window.Swal.fire('Error', 'Wrong captcha', 'error')
     // }
     if (captcha !== compareCaptcha && !devMode && !useCamera) {
+      setError("captcha", {
+        type: "value",
+        message: "Captcha Salah",
+      })
       resetCanvas()
-      return window.Swal.fire("Error", "Wrong captcha", "error")
+      return
     }
     setLoading(true)
     if (useCamera) {
