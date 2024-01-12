@@ -43,6 +43,7 @@ function Login() {
     register,
     handleSubmit,
     formState: { errors },
+    setError,
   } = useForm({ mode: "onChange" })
 
   const dispatch = useDispatch()
@@ -103,12 +104,13 @@ function Login() {
   }
 
   const handleLogin = ({ userId, password, captcha }) => {
-    // if (!validateCaptcha(captcha)) {
-    //   return window.Swal.fire('Error', 'Wrong captcha', 'error')
-    // }
     if (captcha !== compareCaptcha && !devMode) {
+      setError("captcha", {
+        type: "value",
+        message: "Captcha Salah",
+      })
       resetCanvas()
-      return window.Swal.fire("Error", "Wrong captcha", "error")
+      return
     }
     setLoading(true)
     const secret = getSecretKeyByDate()
