@@ -617,12 +617,13 @@ const Flow = ({ fieldItem, getValues, watch, panelId }) => {
             onNodeDoubleClick={toggleModal}
             onNodesChange={onNodesChange}
             onConnect={onConnect}
-            // onEdgeClick={onSelectEdge}
+            onEdgeClick={onSelectEdge}
             onEdgeContextMenu={disableContextMenu}
             onEdgesChange={onEdgesChange}
-            // onEdgeUpdate={onEdgeUpdate}
-            // onEdgeUpdateStart={onEdgeUpdateStart}
-            // onEdgeUpdateEnd={onEdgeUpdateEnd}
+            onEdgeUpdate={onEdgeUpdate}
+            onEdgeUpdateStart={onEdgeUpdateStart}
+            onEdgeUpdateEnd={onEdgeUpdateEnd}
+            onEdgeDoubleClick={toggleModal}
           >
             {showMinimap ? (
               <MiniMap

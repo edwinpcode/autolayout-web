@@ -112,6 +112,9 @@ function Modal({ code, idParent, parent, panelId }) {
     if (code === "node") {
       // set from node state data
       reset(nodeState.data)
+      if (nodeState.id != "") {
+        fetchData(nodeState)
+      }
     } else {
       // set from edge state data
       reset({
@@ -128,22 +131,22 @@ function Modal({ code, idParent, parent, panelId }) {
         markerEnd: edgeState.markerEnd ? edgeState.markerEnd.type : "none",
         animated: edgeState.animated ? edgeState.animated : false,
       })
+      if (edgeState.id != "") {
+        fetchData(edgeState)
+      }
     }
-    if (nodeState.id != "") {
-      fetchData()
-    }
-  }, [nodeState, edgeState])
+  }, [nodeState, edgeState, code])
 
-  const fetchData = async () => {
+  const fetchData = async (state) => {
     // reset()
-    const id = nodeState.id
+    const id = state.id
     try {
       setIsLoading(true)
       const res = await getFlowchartModal({
         code,
         id,
         idParent,
-        referenceName: nodeState.type,
+        referenceName: state.id.includes("edge") ? "edge" : state.type,
       })
       // const res = await getFlowchartModal({ code })
       if (res.data.status != "1") {
