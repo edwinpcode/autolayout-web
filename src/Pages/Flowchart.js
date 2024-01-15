@@ -135,7 +135,7 @@ const Flow = ({ fieldItem, getValues, watch, panelId }) => {
       // }else {
       //   window.Swal.fire('Garis Output Maksimal 2')
       // }
-
+      // console.log(connection.type)
       if (!foundEdge) {
         setEdges((eds) => addEdge(connection, eds))
       }
@@ -553,6 +553,11 @@ const Flow = ({ fieldItem, getValues, watch, panelId }) => {
     window.$("#editElement").modal("show")
   }
 
+  // const edgeTypes = {
+  //   // custom: CustomEdge,
+  //   smoothStep: CustomEdge,
+  // }
+
   return (
     <div className="vh-100 bg-white rounded-lg ">
       <div className="d-flex my-1 justify-content-between">
@@ -624,6 +629,7 @@ const Flow = ({ fieldItem, getValues, watch, panelId }) => {
             onEdgeUpdateStart={onEdgeUpdateStart}
             onEdgeUpdateEnd={onEdgeUpdateEnd}
             onEdgeDoubleClick={toggleModal}
+            // edgeTypes={edgeTypes}
           >
             {showMinimap ? (
               <MiniMap

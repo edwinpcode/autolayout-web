@@ -216,21 +216,16 @@ function Modal({ code, idParent, parent, panelId }) {
     if (!form.length) {
       return window.Swal.fire("Peringatan", "No Data", "error")
     }
-    if (code === "node") {
-      // set values to elementState.data
-      // for node data
-      dispatch(setElement({ data: data }))
-    } else if (code === "edge") {
-      // set set value to elementState
-      // for edge data
-      dispatch(setElement({ ...data }))
-      window.$("#editElement").modal("hide")
-    }
     try {
       setLoadingSave(true)
       const res = await saveFlowchartModal(payload)
       if (res.data.status != "1") {
         return window.Swal.fire("Kesalahan", res.data.message, "error")
+      }
+      if (code === "node") {
+        dispatch(setElement({ data: data }))
+      } else if (code === "edge") {
+        dispatch(setElement({ ...data }))
       }
       window.$("#editElement").modal("hide")
     } catch (e) {
@@ -238,7 +233,6 @@ function Modal({ code, idParent, parent, panelId }) {
     } finally {
       setLoadingSave(false)
     }
-    // window.$("#editElement").modal("hide")
   }
 
   // useEffect(() => {
