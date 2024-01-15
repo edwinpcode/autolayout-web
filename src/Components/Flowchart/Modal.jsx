@@ -176,6 +176,16 @@ function Modal({ code, idParent, parent, panelId }) {
 
   // save data to elementState and close modal
   const onClickSave = async (data) => {
+    console.log(data)
+    console.log(form)
+    let id = ""
+    for (let i = 0; i < form.length; i++) {
+      if (i == 1) {
+        id = form[i].id
+        break
+      }
+    }
+    data.label = data[id]
     const panel = []
     for (let [fieldId, fieldValue] of Object.entries(data)) {
       if (
@@ -199,37 +209,34 @@ function Modal({ code, idParent, parent, panelId }) {
       panel,
       userId: userId,
       param,
-      id: nodeState.id,
+      id: code == "node" ? nodeState.id : edgeState.id,
     }
 
     console.log(payload)
-
-    const values = getValues()
-    // console.log(values)
     if (!form.length) {
       return window.Swal.fire("Peringatan", "No Data", "error")
     }
     if (code === "node") {
       // set values to elementState.data
       // for node data
-      dispatch(setElement({ data: values }))
-      try {
-        setLoadingSave(true)
-        const res = await saveFlowchartModal(payload)
-        if (res.data.status != "1") {
-          return window.Swal.fire("Kesalahan", res.data.message, "error")
-        }
-        window.$("#editElement").modal("hide")
-      } catch (e) {
-        window.Swal.fire("Kesalahan", e.message, "error")
-      } finally {
-        setLoadingSave(false)
-      }
+      dispatch(setElement({ data: data }))
     } else if (code === "edge") {
       // set set value to elementState
       // for edge data
-      dispatch(setElement({ ...values }))
+      dispatch(setElement({ ...data }))
       window.$("#editElement").modal("hide")
+    }
+    try {
+      setLoadingSave(true)
+      const res = await saveFlowchartModal(payload)
+      if (res.data.status != "1") {
+        return window.Swal.fire("Kesalahan", res.data.message, "error")
+      }
+      window.$("#editElement").modal("hide")
+    } catch (e) {
+      window.Swal.fire("Kesalahan", e.message, "error")
+    } finally {
+      setLoadingSave(false)
     }
     // window.$("#editElement").modal("hide")
   }
@@ -274,8 +281,8 @@ function Modal({ code, idParent, parent, panelId }) {
             <div>
               {form.map((field, index) => {
                 if (
-                  field.type === "textbox" &&
-                  nodeState.type === "businessProcess"
+                  field.type === "textbox"
+                  // nodeState.type === "businessProcess"
                 ) {
                   return (
                     <InputCommon
@@ -293,27 +300,29 @@ function Modal({ code, idParent, parent, panelId }) {
                       showLabel={true}
                     />
                   )
-                } else if (
-                  field.type === "textbox" &&
-                  !field.name.toLowerCase().includes("track")
-                ) {
-                  return (
-                    <InputCommon
-                      id={field.id}
-                      defaultValue={field.value}
-                      fieldItem={field}
-                      label={field.label}
-                      isMandatory={field.isMandatory}
-                      register={register}
-                      key={index}
-                      parent={[]}
-                      child={[]}
-                      watch={watch}
-                      setValue={setValue}
-                      showLabel={true}
-                    />
-                  )
-                } else if (
+                }
+                // else if (
+                //   field.type === "textbox" &&
+                //   !field.name.toLowerCase().includes("track")
+                // ) {
+                //   return (
+                //     <InputCommon
+                //       id={field.id}
+                //       defaultValue={field.value}
+                //       fieldItem={field}
+                //       label={field.label}
+                //       isMandatory={field.isMandatory}
+                //       register={register}
+                //       key={index}
+                //       parent={[]}
+                //       child={[]}
+                //       watch={watch}
+                //       setValue={setValue}
+                //       showLabel={true}
+                //     />
+                //   )
+                // }
+                else if (
                   (field.type === "dropdown" &&
                     nodeState.type === "businessProcess") ||
                   (field.type === "dropdown" && code === "edge")
