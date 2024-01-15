@@ -192,8 +192,10 @@ function Modal({ code, idParent, parent, panelId }) {
         fieldId != "label" &&
         fieldId != "trackCode" &&
         fieldId != "sideMenu" &&
-        fieldId != "preAction" &&
-        fieldId != "postAction"
+        fieldId != "type" &&
+        !fieldId.includes("Action") &&
+        !fieldId.includes("marker") &&
+        !fieldId.includes("animated")
       ) {
         panel.push({ fieldId, fieldValue, panelId })
       }
