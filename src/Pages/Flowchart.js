@@ -32,6 +32,7 @@ import {
 } from "../Services/FLowchartService"
 import Modal from "../Components/Flowchart/Modal"
 import ContextMenu from "../Components/Flowchart/ContextMenu"
+import CustomEdge from "../Components/Flowchart/Node/CustomEdge"
 
 // set default edge type
 const edgeOptions = {
@@ -553,10 +554,9 @@ const Flow = ({ fieldItem, getValues, watch, panelId }) => {
     window.$("#editElement").modal("show")
   }
 
-  // const edgeTypes = {
-  //   // custom: CustomEdge,
-  //   smoothStep: CustomEdge,
-  // }
+  const edgeTypes = {
+    custom: CustomEdge,
+  }
 
   return (
     <div className="vh-100 bg-white rounded-lg ">
@@ -601,7 +601,12 @@ const Flow = ({ fieldItem, getValues, watch, panelId }) => {
         position={contextPosition}
         onClose={OnCloseContextMenu}
       />
-      <div className="d-flex h-75">
+      <div
+        className="d-flex"
+        style={{
+          height: "60%",
+        }}
+      >
         <Toolbox />
         <div ref={reactFlowWrapper} className="h-auto w-100">
           <ReactFlow
@@ -629,7 +634,7 @@ const Flow = ({ fieldItem, getValues, watch, panelId }) => {
             onEdgeUpdateStart={onEdgeUpdateStart}
             onEdgeUpdateEnd={onEdgeUpdateEnd}
             onEdgeDoubleClick={toggleModal}
-            // edgeTypes={edgeTypes}
+            edgeTypes={edgeTypes}
           >
             {showMinimap ? (
               <MiniMap

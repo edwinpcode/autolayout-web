@@ -42,7 +42,7 @@ const CustomEdge = ({
           }}
           className="nodrag nopan"
         >
-          {data.label}
+          {data?.label}
         </div>
       </EdgeLabelRenderer>
     </>
