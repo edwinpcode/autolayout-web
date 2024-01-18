@@ -125,7 +125,7 @@ function AutoLayout() {
       {!panelData || !tab ? (
         <Skeleton />
       ) : (
-        <form>
+        <div>
           {state?.param?.length > 0 && (
             <div className="info-box bg-danger">
               <span className="info-box-icon">
@@ -195,7 +195,7 @@ function AutoLayout() {
               </div>
             </div>
           )}
-        </form>
+        </div>
       )}
     </>
   )
