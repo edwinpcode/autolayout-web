@@ -451,7 +451,7 @@ function Login() {
             setIsRecording(false)
             // stopRecord()
           }
-        }, 2000)
+        }, 4000)
       }
     }
 

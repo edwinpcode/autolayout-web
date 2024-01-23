@@ -171,7 +171,7 @@ function Header() {
           if (!isLoud) {
             setIsRecording(false)
           }
-        }, 2000)
+        }, 4000)
       }
     }
 
@@ -204,7 +204,7 @@ function Header() {
       setAudioBlob(null)
       setRecordingStatus("inactive")
     } catch (error) {
-      window.Swal.fire("Kesalahan", error.message, "error")
+      // window.Swal.fire("Kesalahan", error.message, "error")
     }
   }
 
