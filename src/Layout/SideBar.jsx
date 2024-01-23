@@ -122,14 +122,14 @@ function SideBar() {
 
       <div className="sidebar">
         <nav className="my-3">
-          <div className="px-3 mb-3">
+          {/* <div className="px-3 mb-3">
             <input
               className="form-control form-control-sidebar"
               type="text"
               placeholder="Search"
               onChange={(e) => setSearchSidebarValue(e.target.value)}
             />
-          </div>
+          </div> */}
           <ul
             className="nav nav-pills nav-sidebar flex-column"
             // data-widget="treeview"

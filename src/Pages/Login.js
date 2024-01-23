@@ -47,6 +47,7 @@ function Login() {
   const [latitude, setLatitude] = useState(0)
   const [address, setAddress] = useState("")
   const devMode = useSelector((state) => state.devMode)
+  const [border, setBorder] = useState("")
 
   const navigate = useNavigate()
   const {
@@ -440,9 +441,11 @@ function Login() {
       // setSoundDetected(isLoud)
 
       if (isLoud) {
+        setBorder("border-success")
         clearTimeout(debounceTimeoutRef.current)
         debounceTimeoutRef.current = null
       } else if (!debounceTimeoutRef.current) {
+        setBorder("")
         debounceTimeoutRef.current = setTimeout(() => {
           if (!isLoud) {
             setIsRecording(false)
@@ -595,8 +598,10 @@ function Login() {
                 )}
                 {useCamera && (
                   <div className="mb-3">
-                    <div className="input-group">
-                      <div className="form-control bg-light">{userId}</div>
+                    <div className={`input-group`}>
+                      <div className={`form-control bg-light ${border}`}>
+                        {userId}
+                      </div>
                       <div
                         className="input-group-append"
                         onClick={

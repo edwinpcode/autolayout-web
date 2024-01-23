@@ -6,6 +6,8 @@ import { AuthLogout } from "../Services/AuthService"
 import Load from "../Pages/FullLoad"
 import { useForm } from "react-hook-form"
 import AIService from "../Services/AIService"
+import { setMenuSidebarSlice } from "../Store/Menu/menuSidebarSlice"
+import { converttoNewScale } from "../Utils/ConvertUtil"
 
 function Header() {
   const dispatch = useDispatch()
@@ -29,6 +31,10 @@ function Header() {
   const [mediaStream, setMediaStream] = useState(null)
   const [audioDuration, setAudioDuration] = useState(null)
   const [branchName, setBranchName] = useState("")
+  const [isRecording, setIsRecording] = useState(false)
+  const [border, setBorder] = useState("")
+  const debounceTimeoutRef = useRef(null)
+  const [searchText, setSearchText] = useState("Cari...")
 
   // loading
   const [loader, showLoader, hideLoader] = Load()
@@ -78,6 +84,7 @@ function Header() {
         },
       })
       .then(async (stream) => {
+        setIsRecording(true)
         setMediaStream(stream)
         const media = new MediaRecorder(stream)
         mediaRecorder.current = media
@@ -96,9 +103,18 @@ function Header() {
       })
   }
 
+  useEffect(() => {
+    if (mediaRecorder.current) {
+      if (!isRecording) {
+        stopRecord()
+      }
+    }
+  }, [isRecording, mediaRecorder])
+
   const stopRecord = () => {
     if (mediaRecorder) {
       mediaRecorder.current.stop()
+      setIsRecording(false)
       setRecordingStatus("inactive")
       mediaRecorder.current.onstop = async () => {
         const blob = new Blob(audioChunks, { type: mimeType })
@@ -114,22 +130,80 @@ function Header() {
     }
   }
 
+  useEffect(() => {
+    if (!mediaStream) return
+    const audioCtx = new (window.AudioContext || window.webkitAudioContext)()
+    const analyser = audioCtx.createAnalyser()
+    const source = audioCtx.createMediaStreamSource(mediaStream)
+    source.connect(analyser)
+    analyser.fftSize = 2048
+    const bufferLength = analyser.frequencyBinCount
+    const dataArray = new Uint8Array(bufferLength)
+    const THRESHOLD = 5 // Ambang batas kekuatan sinyal
+    const draw = () => {
+      if (!isRecording) return
+      requestAnimationFrame(draw)
+
+      analyser.getByteTimeDomainData(dataArray)
+
+      const max = Math.max(...dataArray)
+
+      // setBawah((prevBawah) =>
+      //   prevBawah === null || max < prevBawah ? max : prevBawah,
+      // )
+      // setAtas((prevAtas) =>
+      //   prevAtas === null || max > prevAtas ? max : prevAtas,
+      // )
+
+      const percentage = converttoNewScale(max)
+      // setPercent(percentage)
+
+      const isLoud = percentage > THRESHOLD
+      // setSoundDetected(isLoud)
+
+      if (isLoud) {
+        setBorder("border-success")
+        clearTimeout(debounceTimeoutRef.current)
+        debounceTimeoutRef.current = null
+      } else if (!debounceTimeoutRef.current) {
+        setBorder("")
+        debounceTimeoutRef.current = setTimeout(() => {
+          if (!isLoud) {
+            setIsRecording(false)
+          }
+        }, 2000)
+      }
+    }
+
+    draw()
+  }, [isRecording])
+
   const search = async (audioBlob) => {
     const formData = new FormData()
     const timestamp = new Date().toISOString().replace(/[-:.]/g, "")
     const randomString = Math.random().toString(36).substring(2, 5)
     const fileName = `audio_${timestamp}_${randomString}.webm`
     formData.append("file", audioBlob, fileName)
+    formData.append("removewhitespace", "0")
+    formData.append("userId", userId)
+    formData.append("moduleId", activeModuleId)
+    formData.append("roleId", activeRoleId)
     try {
-      const res = await AIService.voiceToText(formData)
+      setRecordingStatus("searching")
+      const res = await AIService.speechToFindMenu(formData)
       if (res.data.status == "1") {
-        setValue("search", res.data.message)
+        setSearchText(res.data.message)
+        if (res.data.data.length) {
+          dispatch(setMenuSidebarSlice(res.data.data))
+        }
+      } else {
+        window.Swal.fire("Kesalahan", "Data tidak ditemukan", "error")
       }
       URL.revokeObjectURL(audioUrl)
       setAudioUrl(null)
       setAudioBlob(null)
+      setRecordingStatus("inactive")
     } catch (error) {
-      // console.log(error)
       window.Swal.fire("Kesalahan", error.message, "error")
     }
   }
@@ -214,41 +288,60 @@ function Header() {
         {/* Right navbar links */}
         <ul className="navbar-nav ml-auto">
           <li className="nav-item">
-            <div
+            {/* <div
               className="input-group"
               data-toggle="modal"
               data-target="#exampleModal"
             >
               <input
                 className="form-control"
-                // {...register("search")}
                 placeholder="Cari..."
-                // disabled
                 value={""}
                 onChange={() => {}}
               />
               <div
                 className="input-group-append"
-                // onClick={getMicrophonePermission}
-                // data-toggle="modal"
-                // data-target="#exampleModal"
               >
                 <div className="input-group-text">
                   <i className="fas fa-search"></i>
                 </div>
               </div>
-              {/* {permission && (
-                <div className="input-group-append">
-                  <button
-                    type="button"
-                    data-toggle="modal"
-                    data-target="#exampleModal"
-                    className="btn btn-sm btn-secondary"
-                  >
+            </div> */}
+            <div className={`input-group`}>
+              <div
+                className="input-group-prepend"
+                onClick={
+                  recordingStatus == "inactive" ? startRecord : stopRecord
+                }
+                disabled={recordingStatus == "searching"}
+              >
+                <div className={`input-group-text`}>
+                  {recordingStatus == "searching" ? (
+                    <i className="fas fa-spinner fa-spin"></i>
+                  ) : recordingStatus == "inactive" ? (
                     <i className="fas fa-microphone"></i>
-                  </button>
+                  ) : (
+                    <i className="fas fa-stop"></i>
+                  )}
                 </div>
-              )} */}
+              </div>
+              {/* <input
+                placeholder="Cari..."
+                className={`form-control form-control-lg ${border}`}
+                {...register("search")}
+                onChange={() => {}}
+              /> */}
+              <div className={`form-control form-control-lg ${border}`}>
+                {searchText}
+              </div>
+              <div
+                className={`input-group-append`}
+                // onClick={handleSubmit(onSubmit)}
+              >
+                <div className="input-group-text">
+                  <i className="fas fa-search"></i>
+                </div>
+              </div>
             </div>
           </li>
           <li className="nav-item">
@@ -418,14 +511,15 @@ function Header() {
                 <div className="btn btn-danger" onClick={stopRecording}>
                   <i className="fas fa-stop"></i>
                 </div> */}
-                <div className="input-group mt-1">
+                <div className={`input-group mt-1`}>
                   <div
                     className="input-group-prepend"
                     onClick={
                       recordingStatus == "inactive" ? startRecord : stopRecord
                     }
+                    disabled={recordingStatus == "searching"}
                   >
-                    <div className="input-group-text">
+                    <div className={`input-group-text`}>
                       {recordingStatus == "inactive" ? (
                         <i className="fas fa-microphone"></i>
                       ) : (
@@ -434,12 +528,12 @@ function Header() {
                     </div>
                   </div>
                   <input
-                    className="form-control form-control-lg"
+                    className={`form-control form-control-lg ${border}`}
                     {...register("search")}
                   ></input>
                   <div
-                    className="input-group-append"
-                    onClick={handleSubmit(onSubmit)}
+                    className={`input-group-append`}
+                    // onClick={handleSubmit(onSubmit)}
                   >
                     <div className="input-group-text">
                       <i className="fas fa-search"></i>
