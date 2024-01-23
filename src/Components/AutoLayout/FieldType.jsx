@@ -48,7 +48,7 @@ function FieldType({
   fetchData = () => {},
   gridItem,
 }) {
-  console.log(panel)
+  // console.log(panel)
   return (
     <>
       {["textbox", "email"].includes(fieldItem.type) && (

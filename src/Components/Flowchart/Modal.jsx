@@ -17,6 +17,7 @@ import {
   setflowchartModalData,
   setflowchartModalId,
 } from "../../Store/Flowchart/flowchartModalSlice"
+import FieldType from "../AutoLayout/FieldType"
 
 // Modal for edit node or edge on flowchart
 function Modal({ code, idParent, parent, panelId }) {
@@ -52,9 +53,15 @@ function Modal({ code, idParent, parent, panelId }) {
   const dispatch = useDispatch()
 
   // set form field
-  const { register, reset, getValues, watch, setValue, handleSubmit } = useForm(
-    {},
-  )
+  const {
+    register,
+    reset,
+    getValues,
+    watch,
+    setValue,
+    handleSubmit,
+    formState: { errors },
+  } = useForm()
 
   // get dropdown field value from backend
   useEffect(() => {
@@ -248,6 +255,97 @@ function Modal({ code, idParent, parent, panelId }) {
 
   // if (isError)
   //   return window.Swal.fire("Kesalahan", `Silahkan muat ulang modal`, "error")
+
+  const renderItem = () => {
+    return (
+      <div>
+        {form.map((field, index) => {
+          if (
+            field.type === "textbox"
+            // nodeState.type === "businessProcess"
+          ) {
+            return (
+              <InputCommon
+                id={field.id}
+                defaultValue={field.value}
+                fieldItem={field}
+                label={field.label}
+                isMandatory={field.isMandatory}
+                register={register}
+                key={index}
+                parent={[]}
+                child={[]}
+                watch={watch}
+                setValue={setValue}
+                showLabel={true}
+              />
+            )
+          }
+          // else if (
+          //   field.type === "textbox" &&
+          //   !field.name.toLowerCase().includes("track")
+          // ) {
+          //   return (
+          //     <InputCommon
+          //       id={field.id}
+          //       defaultValue={field.value}
+          //       fieldItem={field}
+          //       label={field.label}
+          //       isMandatory={field.isMandatory}
+          //       register={register}
+          //       key={index}
+          //       parent={[]}
+          //       child={[]}
+          //       watch={watch}
+          //       setValue={setValue}
+          //       showLabel={true}
+          //     />
+          //   )
+          // }
+          else if (
+            (field.type === "dropdown" &&
+              nodeState.type === "businessProcess") ||
+            (field.type === "dropdown" && code === "edge")
+          ) {
+            const data = getDropdown(field)
+            return (
+              // {/* <InputDropdown key={index} item={data} /> */}
+              <div className="form-group" key={index}>
+                <label>
+                  {field.label}
+                  {field.isMandatory && (
+                    <span className="text-danger font-weight-bold"> *</span>
+                  )}
+                </label>
+                <select
+                  className="custom-select rounded-sm"
+                  {...register(field.name, {
+                    required:
+                      field.isMandatory === "1"
+                        ? `${field.label} harus diisi`
+                        : false,
+                  })}
+                >
+                  {field.name === "sideMenu"
+                    ? data.map((option, index) => (
+                        <option key={index} value={option.menuId}>
+                          {option.menuDesc}
+                        </option>
+                      ))
+                    : data.map((option, index) => (
+                        <option key={index} value={option.value}>
+                          {option.label}
+                        </option>
+                      ))}
+                </select>
+              </div>
+            )
+          }
+        })}
+      </div>
+    )
+  }
+
   if (isLoading) return <div>Loading...</div>
   return (
     <div
@@ -274,93 +372,16 @@ function Modal({ code, idParent, parent, panelId }) {
               <span className="text-sx text-danger">{errorMessage}</span>
             )} */}
             {code ? null : <div>Silahkan Pilih Elemen</div>}
-            <div>
-              {form.map((field, index) => {
-                if (
-                  field.type === "textbox"
-                  // nodeState.type === "businessProcess"
-                ) {
-                  return (
-                    <InputCommon
-                      id={field.id}
-                      defaultValue={field.value}
-                      fieldItem={field}
-                      label={field.label}
-                      isMandatory={field.isMandatory}
-                      register={register}
-                      key={index}
-                      parent={[]}
-                      child={[]}
-                      watch={watch}
-                      setValue={setValue}
-                      showLabel={true}
-                    />
-                  )
-                }
-                // else if (
-                //   field.type === "textbox" &&
-                //   !field.name.toLowerCase().includes("track")
-                // ) {
-                //   return (
-                //     <InputCommon
-                //       id={field.id}
-                //       defaultValue={field.value}
-                //       fieldItem={field}
-                //       label={field.label}
-                //       isMandatory={field.isMandatory}
-                //       register={register}
-                //       key={index}
-                //       parent={[]}
-                //       child={[]}
-                //       watch={watch}
-                //       setValue={setValue}
-                //       showLabel={true}
-                //     />
-                //   )
-                // }
-                else if (
-                  (field.type === "dropdown" &&
-                    nodeState.type === "businessProcess") ||
-                  (field.type === "dropdown" && code === "edge")
-                ) {
-                  const data = getDropdown(field)
-                  return (
-                    // {/* <InputDropdown key={index} item={data} /> */}
-                    <div className="form-group" key={index}>
-                      <label>
-                        {field.label}
-                        {field.isMandatory && (
-                          <span className="text-danger font-weight-bold">
-                            {" "}
-                            *
-                          </span>
-                        )}
-                      </label>
-                      <select
-                        className="custom-select rounded-sm"
-                        {...register(field.name, {
-                          required:
-                            field.isMandatory === "1"
-                              ? `${field.label} harus diisi`
-                              : false,
-                        })}
-                      >
-                        {field.name === "sideMenu"
-                          ? data.map((option, index) => (
-                              <option key={index} value={option.menuId}>
-                                {option.menuDesc}
-                              </option>
-                            ))
-                          : data.map((option, index) => (
-                              <option key={index} value={option.value}>
-                                {option.label}
-                              </option>
-                            ))}
-                      </select>
-                    </div>
-                  )
-                }
-              })}
+            <div className="row">
+              {form.map((fieldItem, index) => (
+                <FieldType
+                  fieldItem={fieldItem}
+                  watch={watch}
+                  register={register}
+                  errors={errors}
+                  setValue={setValue}
+                />
+              ))}
             </div>
           </div>
           <div className="modal-footer">
