@@ -37,7 +37,7 @@ function TopAction({
 
   useEffect(() => {
     setFilterData([])
-  }, [activeMenuId, activeTabId])
+  }, [activeMenuId])
 
   return (
     <div className="mb-2 row">
