@@ -20,9 +20,10 @@ function Header() {
   const [photoProfile, setPhotoProfile] = useState()
   const menu = useSelector((state) => state.menu)
   const { state } = useLocation()
+  const devMode = useSelector((state) => state.devMode)
 
   const { setValue, register, handleSubmit } = useForm()
-  const mediaRecorder = useRef(null)
+  const [mediaRecorder, setMediaRecorder] = useState(null)
   const [recordingStatus, setRecordingStatus] = useState("inactive")
   const [audioUrl, setAudioUrl] = useState(null)
   const [audioBlob, setAudioBlob] = useState(null)
@@ -78,24 +79,21 @@ function Header() {
   const startRecord = () => {
     navigator.mediaDevices
       .getUserMedia({
-        audio: {
-          sampleRate: 16000,
-          channelCount: 1,
-        },
+        audio: true,
       })
       .then(async (stream) => {
         setIsRecording(true)
         setMediaStream(stream)
         const media = new MediaRecorder(stream)
-        mediaRecorder.current = media
         let chunks = []
-        mediaRecorder.current.start()
-        mediaRecorder.current.ondataavailable = (e) => {
+        media.start()
+        media.ondataavailable = (e) => {
           if (typeof e.data === "undefined") return
           if (e.data.size === 0) return
           chunks.push(e.data)
         }
         setAudioChunks(chunks)
+        setMediaRecorder(media)
         setRecordingStatus("recording")
       })
       .catch((e) => {
@@ -104,7 +102,7 @@ function Header() {
   }
 
   useEffect(() => {
-    if (mediaRecorder.current) {
+    if (mediaRecorder) {
       if (!isRecording) {
         stopRecord()
       }
@@ -113,10 +111,10 @@ function Header() {
 
   const stopRecord = () => {
     if (mediaRecorder) {
-      mediaRecorder.current.stop()
+      mediaRecorder.stop()
       setIsRecording(false)
       setRecordingStatus("inactive")
-      mediaRecorder.current.onstop = async () => {
+      mediaRecorder.onstop = async () => {
         const blob = new Blob(audioChunks, { type: mimeType })
         setAudioBlob(blob)
         const audioUrl = URL.createObjectURL(blob)
@@ -147,19 +145,8 @@ function Header() {
       analyser.getByteTimeDomainData(dataArray)
 
       const max = Math.max(...dataArray)
-
-      // setBawah((prevBawah) =>
-      //   prevBawah === null || max < prevBawah ? max : prevBawah,
-      // )
-      // setAtas((prevAtas) =>
-      //   prevAtas === null || max > prevAtas ? max : prevAtas,
-      // )
-
       const percentage = converttoNewScale(max)
-      // setPercent(percentage)
-
       const isLoud = percentage > THRESHOLD
-      // setSoundDetected(isLoud)
 
       if (isLoud) {
         setBorder("border-success")
@@ -199,28 +186,13 @@ function Header() {
       } else {
         window.Swal.fire("Kesalahan", "Data tidak ditemukan", "error")
       }
-      URL.revokeObjectURL(audioUrl)
-      setAudioUrl(null)
-      setAudioBlob(null)
-      setRecordingStatus("inactive")
     } catch (error) {
       // window.Swal.fire("Kesalahan", error.message, "error")
-    }
-  }
-
-  const downloadAudio = () => {
-    if (audioBlob) {
-      const url = URL.createObjectURL(audioBlob)
-      const a = document.createElement("a")
-      document.body.appendChild(a)
-      a.style = "display: none"
-      a.href = url
-      a.download = "recorded_audio.wav"
-      a.click()
-      window.URL.revokeObjectURL(url)
-      document.body.removeChild(a)
-    } else {
-      console.error("No audio to download.")
+    } finally {
+      // URL.revokeObjectURL(audioUrl)
+      // setAudioUrl(null)
+      // setAudioBlob(null)
+      setRecordingStatus("inactive")
     }
   }
 
@@ -229,10 +201,6 @@ function Header() {
       search(audioBlob)
     }
   }, [audioBlob, audioDuration])
-
-  const onSubmit = ({ search }) => {
-    console.log(search)
-  }
 
   useEffect(() => {
     const res = localStorage.getItem("photoProfile")
@@ -325,12 +293,6 @@ function Header() {
                   )}
                 </div>
               </div>
-              {/* <input
-                placeholder="Cari..."
-                className={`form-control form-control-lg ${border}`}
-                {...register("search")}
-                onChange={() => {}}
-              /> */}
               <div className={`form-control form-control-lg ${border}`}>
                 {searchText}
               </div>
