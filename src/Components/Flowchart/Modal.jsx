@@ -375,6 +375,7 @@ function Modal({ code, idParent, parent, panelId }) {
             <div className="row">
               {form.map((fieldItem, index) => (
                 <FieldType
+                  key={index}
                   fieldItem={fieldItem}
                   watch={watch}
                   register={register}
