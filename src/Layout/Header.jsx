@@ -6,8 +6,13 @@ import { AuthLogout } from "../Services/AuthService"
 import Load from "../Pages/FullLoad"
 import { useForm } from "react-hook-form"
 import AIService from "../Services/AIService"
-import { setMenuSidebarSlice } from "../Store/Menu/menuSidebarSlice"
+import {
+  setMenuSidebarSlice,
+  setSearchMenu,
+} from "../Store/Menu/menuSidebarSlice"
 import { converttoNewScale } from "../Utils/ConvertUtil"
+import { reset, setFilteringList } from "../Store/List/listSlice"
+import { useSearchParams } from "react-router-dom"
 
 function Header() {
   const dispatch = useDispatch()
@@ -18,7 +23,6 @@ function Header() {
   const activeModuleId = useSelector((state) => state.user.activeModule.id)
   const activeRoleId = useSelector((state) => state.user.activeRole.id)
   const [photoProfile, setPhotoProfile] = useState()
-  const menu = useSelector((state) => state.menu)
   const { state } = useLocation()
   const devMode = useSelector((state) => state.devMode)
 
@@ -35,8 +39,11 @@ function Header() {
   const [isRecording, setIsRecording] = useState(false)
   const [border, setBorder] = useState("")
   const debounceTimeoutRef = useRef(null)
-  const [searchText, setSearchText] = useState("Cari...")
-
+  // const [searchText, setSearchText] = useState("Cari...")
+  const [searchParams, setSearchParams] = useSearchParams()
+  const menuSideBar = useSelector((state) => state.menuSidebar)
+  const [menu, setMenu] = useState([])
+  const searchMenu = menuSideBar.searchMenu
   // loading
   const [loader, showLoader, hideLoader] = Load()
 
@@ -179,9 +186,13 @@ function Header() {
       setRecordingStatus("searching")
       const res = await AIService.speechToFindMenu(formData)
       if (res.data.status == "1") {
-        setSearchText(res.data.message)
+        // setSearchText(res.data.message)
+        dispatch(setSearchMenu(res.data.message))
         if (res.data.data.length) {
-          dispatch(setMenuSidebarSlice(res.data.data))
+          // dispatch(setMenuSidebarSlice(res.data.data))
+          setMenu(res.data.data)
+        } else {
+          setMenu([])
         }
       } else {
         window.Swal.fire("Kesalahan", "Data tidak ditemukan", "error")
@@ -212,6 +223,83 @@ function Header() {
     // navigate(`/${menuId}`)
     navigate("/", { state: { param: [] } })
   }
+
+  const handleMenuClick = (data) => {
+    // console.log(data)
+    const hasChild = data.child || false
+    const { menuDesc, menuId, trackId, path } = data
+    if (!hasChild) {
+      // console.log("no child")
+      // setSearchParams({
+      //   menuId,
+      //   trackId,
+      // })
+      dispatch(setFilteringList([]))
+      dispatch(setMenuSlice({ menuId, trackId, menuDesc, path }))
+      dispatch(reset())
+      document.getElementById("body").classList.add("sidebar-collapse")
+      navigate(path)
+    }
+    if (hasChild) {
+      const menu = document.getElementById(menuId)
+      if (menu) {
+        menu.classList.toggle("menu-open")
+      }
+    }
+  }
+
+  useEffect(() => {
+    if (menu.length && searchMenu != "") {
+      if (menu.length && menu[0].child) {
+        // console.log("shild", menu[0].child[0])
+        if (menu[0].child?.length && menu[0].child[0]?.menuId != "") {
+          // console.log("child")
+          handleMenuClick(menu[0].child[0])
+        }
+      } else if (menu.length && menu[0].menuId != "") {
+        // console.log("parent")
+        handleMenuClick(menu[0])
+      }
+    } else if (searchMenu != "") {
+      let search = searchMenu.toLowerCase()
+      let item = null
+      let data = menuSideBar.data
+      iloop: for (let i = 0; i < data.length; i++) {
+        if (data[i].child) {
+          let child = data[i].child
+          // console.log("if", child, i)
+          for (let k = 0; k < child.length; k++) {
+            const menuDesc = child[k].menuDesc.toLowerCase()
+            if (search.includes(menuDesc)) {
+              item = child[k]
+              break iloop
+            }
+          }
+          // for (let j = 0; j < menuSideBar.data[i].child[j].length; j++) {
+          //   console.log("asd")
+          //   console.log("loop j: ", j)
+          //   const menuDesc = menuSideBar.data[i].child[j].menuDesc.toLowerCase()
+          //   console.log(menuDesc)
+          //   if (searchText.includes(menuDesc)) {
+          //     console.log("child")
+          //     item = menuSideBar.data[i].child[j]
+          //     break iloop
+          //   }
+          // }
+        } else {
+          const menuDesc = data[i].menuDesc.toLowerCase()
+          if (search.includes(menuDesc)) {
+            item = data[i]
+            break
+          }
+        }
+      }
+      // console.log(item)
+      if (item) {
+        handleMenuClick(item)
+      }
+    }
+  }, [menu, searchMenu, menuSideBar])
 
   return (
     <>
@@ -294,7 +382,7 @@ function Header() {
                 </div>
               </div>
               <div className={`form-control form-control-lg ${border}`}>
-                {searchText}
+                {searchMenu != "" ? searchMenu : "Cari..."}
               </div>
               <div
                 className={`input-group-append`}

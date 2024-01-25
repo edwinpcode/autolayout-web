@@ -33,7 +33,6 @@ const BackTop = () => {
           <span className="fas fa-chevron-up"></span>
         </button>
       )}
-      {""}
     </div>
   )
 }

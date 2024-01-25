@@ -9,7 +9,10 @@ import {
 import { getMenu } from "../Services/MenuService"
 import { setMenuSlice } from "../Store/Menu/menuSlice"
 import { reset, setFilteringList } from "../Store/List/listSlice"
-import { setMenuSidebarSlice } from "../Store/Menu/menuSidebarSlice"
+import {
+  setMenuSidebarSlice,
+  setSearchMenu,
+} from "../Store/Menu/menuSidebarSlice"
 
 const metaTags = document.getElementsByTagName("meta")
 const metaTagsArray = Array.from(metaTags)
@@ -79,22 +82,26 @@ function SideBar() {
 
   const handleMenuClick = (data, treeviewId) => {
     const hasChild = data.child || false
+    const { menuDesc, menuId, trackId, path } = data
     if (!hasChild) {
-      const { menuDesc, menuId, trackId, path } = data
       // set active menu
-      setSearchParams({
-        menuId,
-        trackId,
-      })
+      // setSearchParams({
+      //   menuId,
+      //   trackId,
+      // })
       dispatch(setFilteringList([]))
-      console.log(data)
+      // console.log(data)
       dispatch(setMenuSlice({ menuId, trackId, menuDesc, path }))
       dispatch(reset())
+      dispatch(setSearchMenu(""))
       document.getElementById("body").classList.add("sidebar-collapse")
     }
     // console.log(treeviewId)
-    if (treeviewId && hasChild) {
-      document.getElementById(treeviewId).classList.toggle("menu-open")
+    if (hasChild) {
+      const menu = document.getElementById(menuId)
+      if (menu) {
+        menu.classList.toggle("menu-open")
+      }
     }
   }
 
@@ -137,7 +144,7 @@ function SideBar() {
           >
             {filteredMenu?.map((data, index) => {
               return (
-                <li className="nav-item" key={index} id={`treeview${index}`}>
+                <li className="nav-item" key={index} id={data.menuId}>
                   {/* parent menu */}
                   <NavLink
                     // to={`${data.path}/${data.menuId}`}
@@ -152,7 +159,7 @@ function SideBar() {
                       data.child ? "#" : data.path
                     }`}
                     state={data.path !== "/" ? { param: [] } : state}
-                    onClick={() => handleMenuClick(data, `treeview${index}`)}
+                    onClick={() => handleMenuClick(data)}
                     className={() => {
                       if (data.menuId === activeMenuId) {
                         return "nav-link active"
