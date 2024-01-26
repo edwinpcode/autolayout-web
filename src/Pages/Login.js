@@ -48,6 +48,8 @@ function Login() {
   const [address, setAddress] = useState("")
   const devMode = useSelector((state) => state.devMode)
   const [border, setBorder] = useState("")
+  const [height, setHeight] = useState(0)
+  const [width, setWidth] = useState(0)
 
   const navigate = useNavigate()
   const {
@@ -119,8 +121,8 @@ function Login() {
   useEffect(() => {
     handleCanvas()
     if (process.env.NODE_ENV === "development") {
-      // setDevMode(true)
       dispatch(setDevMode(true))
+      setValue("userId", "mt_dev")
     }
   }, [])
 
@@ -350,6 +352,24 @@ function Login() {
       }
     }
   }
+
+  useEffect(() => {
+    const updateParentSize = () => {
+      const parent = document.getElementById("videoParent")
+      if (parent) {
+        const { offsetWidth, offsetHeight } = parent
+        setHeight(offsetHeight)
+        setWidth(offsetWidth)
+      }
+    }
+
+    updateParentSize()
+    window.addEventListener("resize", updateParentSize)
+
+    return () => {
+      window.removeEventListener("resize", updateParentSize)
+    }
+  }, [])
 
   const dataURItoBlob = (dataURI) => {
     const byteString = atob(dataURI.split(",")[1])
@@ -776,6 +796,7 @@ function Login() {
                         width: "100%",
                         display: showVideo ? "block" : "none",
                       }}
+                      id="videoParent"
                     >
                       <video
                         ref={videoRef}
@@ -793,10 +814,16 @@ function Login() {
                           top: "50%",
                           left: "50%",
                           transform: "translate(-50%, -50%)",
-                          width: "60%",
-                          height: "80%",
+                          width:
+                            window.innerHeight < window.innerWidth
+                              ? window.innerHeight / 2
+                              : window.innerWidth / 2,
+                          height:
+                            window.innerHeight < window.innerWidth
+                              ? window.innerHeight / 2
+                              : window.innerWidth / 2,
                           borderRadius: "50%",
-                          border: "5px solid red",
+                          border: "2px solid white",
                           boxSizing: "border-box",
                         }}
                       />
