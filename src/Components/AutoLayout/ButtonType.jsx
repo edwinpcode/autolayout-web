@@ -16,7 +16,7 @@ function ButtonType({
   setValue,
   info,
   index,
-  resetTab,
+  resetTab = () => {},
   pageSize = 10,
   pageIndex = 0,
   fetchData = () => {},

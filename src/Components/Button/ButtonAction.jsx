@@ -74,7 +74,7 @@ function ButtonAction({
   setStructures,
   setFilterData,
   info,
-  resetTab,
+  resetTab = () => {},
   pageIndex,
   pageSize,
   fetchData,
@@ -176,6 +176,8 @@ function ButtonAction({
       if (setTab) {
         setTab(null)
       }
+    } else if (resetTab) {
+      resetTab()
     }
     if (actionItem.isRedirect === "1") {
       const payload = {}
