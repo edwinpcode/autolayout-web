@@ -157,9 +157,6 @@ function AutoLayout({ className }) {
     let paramValue = ""
     if (param.length) {
       paramValue = param[0].value
-    } else {
-      console.log("stop")
-      return
     }
     const payload = {
       menuId: menu.activeMenuId,
