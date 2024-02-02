@@ -174,6 +174,11 @@ function ButtonAction({
     // showLoader()
     // available action:
     // redirect, save, submit, cancel
+    console.log(actionItem)
+    if (actionItem.url.param.length) {
+      const param = handleParamValues(actionItem.url.param, getValues, info)
+      dispatch(setParam(param))
+    }
     if (pathname == actionItem.url.path) {
       if (setTab) {
         setTab(null)
@@ -187,7 +192,6 @@ function ButtonAction({
         const param = handleParamValues(actionItem.url.param, getValues, info)
         Object.assign(payload, { param })
         dispatch(setInbox(param))
-        dispatch(setParam(param))
         return navigate(actionItem?.url?.path, { state: payload })
       }
     }
