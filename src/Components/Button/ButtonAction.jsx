@@ -26,6 +26,7 @@ import { getFieldByFieldId } from "../../Utils/FieldReferenceUtils"
 import { setFormAction, setFormPanel } from "../../Store/Form/FormSlice"
 import { setLoadingField } from "../../Store/Loading/LoadingSlice"
 import { setInbox } from "../../Store/Inbox/InboxStore"
+import { setParam } from "../../Store/Param/ParamSlice"
 
 const openInNewTab = (url) => {
   window.open(url, "_blank", "noreferrer")
@@ -83,13 +84,14 @@ function ButtonAction({
   ...props
 }) {
   const navigate = useNavigate()
-  const { state, pathname } = useLocation()
+  const { pathname } = useLocation()
   const dispatch = useDispatch()
   // loading
   const [loader, showLoader, hideLoader] = Load()
   // redux
   const user = useSelector((state) => state.user)
   const menu = useSelector((state) => state.menu)
+  const param = useSelector((state) => state.param)
   const hiddenField = useSelector((state) => state.hiddenElement.hiddenField)
   const currentListPayload = useSelector((state) => state.list.currentPayload)
   // const lastFormPayload = useSelector((state) => state.form.lastPayload)
@@ -185,7 +187,7 @@ function ButtonAction({
         const param = handleParamValues(actionItem.url.param, getValues, info)
         Object.assign(payload, { param })
         dispatch(setInbox(param))
-        // navigate(`/${menu.activeMenuId}/${param[0].id}/${param[0].value}`)
+        dispatch(setParam(param))
         return navigate(actionItem?.url?.path, { state: payload })
       }
     }
@@ -482,7 +484,7 @@ function ButtonAction({
         tabId: menu.activeTabId,
         tc: menu.activeTrackId,
         userId: user.id,
-        param: [{ id: state.id, value: state.value }],
+        param: [{ id: param[0]?.id || "", value: param[0]?.value || "" }],
       }
       // get field by payload
       await getField(payload).then((res) => {

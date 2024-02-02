@@ -22,7 +22,7 @@ import Inbox from "../Components/Inbox"
 function AutoLayout({ className }) {
   const navigate = useNavigate()
   const dispatch = useDispatch()
-  const { state, pathname } = useLocation()
+  const { pathname } = useLocation()
   // prettier-ignore
   const { register, handleSubmit, formState: { errors }, setValue, getValues, resetField, watch, clearErrors, control, unregister } = useForm({ mode: 'onChange' })
   // state
@@ -31,6 +31,7 @@ function AutoLayout({ className }) {
   // redux state
   const panelData = useSelector((state) => state.form.panel)
   const actionData = useSelector((state) => state.form.action)
+  const param = useSelector((state) => state.param)
   const user = useSelector((state) => state.user)
   const menu = useSelector((state) => state.menu)
   const loading = useSelector((state) => state.loading.field)
@@ -125,16 +126,16 @@ function AutoLayout({ className }) {
     // handle form reload by menuId condition
     if (menu.activeMenuId === "") return navigate("/dashboard")
     // handle tab
-    let param = ""
-    if (state && state.param && state.param.length) {
-      param = state.param[0].value
+    let paramValue = ""
+    if (param.length) {
+      paramValue = param[0].value
     } else if (pathname != "/form") {
       return
     }
     const payload = {
       menuId: menu.activeMenuId,
       moduleId: user.activeModule.id,
-      param: param,
+      param: paramValue,
     }
     getTab(payload)
       .then((res) => {
@@ -153,16 +154,17 @@ function AutoLayout({ className }) {
   }, [menu.activeMenuId, tab])
 
   const reset = () => {
-    let param = ""
-    if (state && state.param && state.param.length) {
-      param = state.param[0].value
+    let paramValue = ""
+    if (param.length) {
+      paramValue = param[0].value
     } else {
+      console.log("stop")
       return
     }
     const payload = {
       menuId: menu.activeMenuId,
       moduleId: user.activeModule.id,
-      param: param,
+      param: paramValue,
     }
     getTab(payload)
       .then((res) => {
@@ -192,7 +194,7 @@ function AutoLayout({ className }) {
         tabId: activeTabId,
         tc: menu.activeTrackId,
         userId: user.id,
-        param: state?.param || [],
+        param: param,
       }
       // if (id && value) {
       //   payload = {
@@ -245,7 +247,7 @@ function AutoLayout({ className }) {
           <div className="overflow-auto h-100 card card-success">
             <div className="card-header">
               <div className="">
-                <h3 className="card-title">{state && state.param[0]?.value}</h3>
+                <h3 className="card-title">{param[0]?.value}</h3>
                 {/* <span className="info-box-icon">
                 <i className="far fa-bookmark"></i>
               </span> */}

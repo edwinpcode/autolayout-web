@@ -17,6 +17,7 @@ import devReducer from "./Dev/DevModeSlice"
 import { inboxReducer } from "./Inbox/InboxStore"
 import LogoReducer from "./LogoSlice"
 import { flowchartModalReducer } from "./Flowchart/flowchartModalSlice"
+import { paramReducer } from "./Param/ParamSlice"
 
 const persistConfig = {
   key: "root",
@@ -41,6 +42,7 @@ const reducer = combineReducers({
   inbox: inboxReducer,
   logo: LogoReducer,
   flowchartModal: flowchartModalReducer,
+  param: paramReducer,
 })
 
 const persistedReducer = persistReducer(persistConfig, reducer)
