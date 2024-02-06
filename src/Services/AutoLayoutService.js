@@ -98,6 +98,10 @@ export const getDataActionWithButton = async (path, payload) => {
   return await APIClient.post(path, payload)
 }
 
+export const dataExport = async (payload) => {
+  return await APIClient.post("/exportlistdata", payload)
+}
+
 export const axiosPost = async (endpoint, payload) => {
   try {
     return await APIClient.post(endpoint, payload)

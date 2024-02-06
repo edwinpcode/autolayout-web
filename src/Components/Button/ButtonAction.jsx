@@ -2,6 +2,7 @@ import { useSelector, useDispatch } from "react-redux"
 import { useLocation, useNavigate } from "react-router-dom"
 import {
   axiosPost,
+  dataExport,
   deleteData,
   getField,
   saveDataAndUpload,
@@ -175,13 +176,13 @@ function ButtonAction({
     // available action:
     // redirect, save, submit, cancel
     console.log(actionItem)
-    if (actionItem.url.param.length) {
+    if (actionItem.url?.param?.length) {
       const param = handleParamValues(actionItem.url.param, getValues, info)
       dispatch(setParam(param))
     } else {
       dispatch(setParam([]))
     }
-    if (pathname == actionItem.url.path) {
+    if (pathname == actionItem.url?.path) {
       if (setTab) {
         setTab(null)
       }
@@ -363,15 +364,19 @@ function ButtonAction({
         ...currentListPayload,
         fileType: fileType.toLowerCase(),
       }
-      await axiosPost("/exportlistdata", payload).then((res) => {
-        if (res.data.status != "1") {
-          hideLoader()
-          return window.Swal.fire("", res.data.message, "error")
-        }
-        const data = res.data.data
-        downloadFile(data.base64, data.fileName, data.fileType)
-        window.Swal.fire("", res.data.message, "success")
-      })
+      await dataExport(payload)
+        .then((res) => {
+          if (res.data.status != "1") {
+            hideLoader()
+            return window.Swal.fire("", res.data.message, "error")
+          }
+          const data = res.data.data
+          downloadFile(data.base64, data.fileName, data.fileType)
+          window.Swal.fire("", res.data.message, "success")
+        })
+        .catch((e) => {
+          window.Swal.fire("Kesalahan", e.message, "error")
+        })
     }
 
     // upload
