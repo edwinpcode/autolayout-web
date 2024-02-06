@@ -6,10 +6,12 @@ import { useLocation, useParams } from "react-router-dom"
 import AutoLayout from "./AutoLayout"
 import Inbox from "../Components/Inbox"
 import FullLoad from "./FullLoad"
+import TableComponent from "../Components/Table/TableComponent"
 
 function TableList() {
   const [loader, showLoader, hideLoader] = FullLoad()
   // const { menuId } = useParams()
+
   const dispatch = useDispatch()
   const [structures, setStructures] = useState({})
   const menuSlice = useSelector((res) => res.menu)
@@ -70,30 +72,36 @@ function TableList() {
       fetchData(menuSlice.activeMenuId, pageIndex, pageSize, filtering)
   }, [menuSlice, pageIndex, pageSize, filtering])
 
+  useEffect(() => {}, [])
+
   return (
     <div>
       <div className="d-md-flex">
-        <Inbox
-          // className={"col-md-3"}
-          pageIndex={pageIndex}
-          pageSize={pageSize}
-          fetchData={fetchData}
-          setPagination={setPagination}
-          dataQuery={dataQuery}
-          setDataQuery={setDataQuery}
-          structures={structures}
-          setStructures={setStructures}
-        />
-        {/* <TableComponent
-          dataQuery={dataQuery}
-          pageIndex={pageIndex}
-          pageSize={pageSize}
-          setDataQuery={setDataQuery}
-          setPagination={setPagination}
-          fetchData={fetchData}
-          structures={structures}
-          setStructures={setStructures}
-        /> */}
+        {pathname != "/report" && (
+          <Inbox
+            // className={"col-md-3"}
+            pageIndex={pageIndex}
+            pageSize={pageSize}
+            fetchData={fetchData}
+            setPagination={setPagination}
+            dataQuery={dataQuery}
+            setDataQuery={setDataQuery}
+            structures={structures}
+            setStructures={setStructures}
+          />
+        )}
+        {pathname == "/report" && (
+          <TableComponent
+            dataQuery={dataQuery}
+            pageIndex={pageIndex}
+            pageSize={pageSize}
+            setDataQuery={setDataQuery}
+            setPagination={setPagination}
+            fetchData={fetchData}
+            structures={structures}
+            setStructures={setStructures}
+          />
+        )}
         {pathname == "/form" && (
           <AutoLayout
             className="ml-md-3 mt-3 mt-md-0"

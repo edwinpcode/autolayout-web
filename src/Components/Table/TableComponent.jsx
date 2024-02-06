@@ -80,7 +80,7 @@ function TableComponent({
   })
 
   return (
-    <>
+    <div className="col-12">
       {!dataQuery ? (
         <SkeletonTable />
       ) : (
@@ -214,7 +214,7 @@ function TableComponent({
           )}
         </div>
       )}
-    </>
+    </div>
   )
 }
 

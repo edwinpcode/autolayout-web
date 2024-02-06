@@ -60,6 +60,9 @@ const Chart = () => {
       yAxis: {
         title: {
           text: "Name",
+          align: "center",
+          verticalAlign: "middle",
+          y: 0,
         },
       },
       loading: {
@@ -72,6 +75,22 @@ const Chart = () => {
       },
       chart: {
         type: "pie",
+        // events: {
+        //   load: function () {
+        //     const chart = this
+        //     const name = chart.series[0].name
+        //     const middleX = chart.plotWidth / 2 + chart.plotLeft
+        //     const middleY = chart.plotHeight / 2 + chart.plotTop
+        //     chart.renderer
+        //       .text(name, middleX - 20, middleY + 20)
+        //       .css({
+        //         color: "#000",
+        //         fontSize: "20px",
+        //         fontWeight: "bold",
+        //       })
+        //       .add()
+        //   },
+        // },
       },
       plotOptions: {
         pie: {
@@ -102,6 +121,7 @@ const Chart = () => {
     for (let i = 0; i < 3; i++) {
       const opt = setData({
         index: i + 1,
+        title: `chart ${i}`,
       })
       setArrayOptions1((array) => [...array, opt])
     }
@@ -137,7 +157,10 @@ const Chart = () => {
         <div className="card-body">
           <div className="d-flex row">
             {arrayOptions1.map((data, index) => (
-              <div className="col-lg-6 col-xl-4 border" key={index}>
+              <div
+                className="col-lg-6 col-xl-4 border position-relative"
+                key={index}
+              >
                 <HighchartsReact highcharts={Highcharts} options={data} />
               </div>
             ))}

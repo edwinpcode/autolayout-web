@@ -444,7 +444,7 @@ function Dashboard() {
           )
         })}
       </div>
-      <Chart />
+      {/* <Chart /> */}
       {/* {loader} */}
     </div>
   )
