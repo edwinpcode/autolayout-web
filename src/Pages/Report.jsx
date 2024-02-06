@@ -59,7 +59,7 @@ function Report() {
       {activeTabId === "chart" ? (
         <div className="row">
           {options.map((item, index) => (
-            <div className="col-md-4 col-sm-6" key={index}>
+            <div className="col-xl-4 col-md-6 border" key={index}>
               <HighchartsReact highcharts={Highcharts} options={item} />
             </div>
           ))}
