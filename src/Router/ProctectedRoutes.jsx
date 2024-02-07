@@ -6,6 +6,7 @@ import { AuthLogout } from "../Services/AuthService"
 import { GetUserById } from "../Services/UserService"
 import { setUser, setUserData } from "../Store/User/userSlice"
 import { setDevMode } from "../Store/Dev/DevModeSlice"
+import { setModule } from "../Store/Module/ModuleSlide"
 
 const sessionTime = 60000 * parseInt(process.env.REACT_APP_SESSION_TIME)
 
@@ -39,6 +40,10 @@ function ProtectedRoutes() {
             activeRole: { id: roleId, desc: roleDesc },
           }),
         )
+        if (res.data.data) {
+          const { module } = res.data.data
+          dispatch(setModule(module))
+        }
         dispatch(setUserData(res.data))
       })
       .catch((e) => {

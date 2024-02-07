@@ -18,6 +18,7 @@ import { inboxReducer } from "./Inbox/InboxStore"
 import LogoReducer from "./LogoSlice"
 import { flowchartModalReducer } from "./Flowchart/flowchartModalSlice"
 import { paramReducer } from "./Param/ParamSlice"
+import moduleReducer from "./Module/ModuleSlide"
 
 const persistConfig = {
   key: "root",
@@ -43,6 +44,7 @@ const reducer = combineReducers({
   logo: LogoReducer,
   flowchartModal: flowchartModalReducer,
   param: paramReducer,
+  module: moduleReducer,
 })
 
 const persistedReducer = persistReducer(persistConfig, reducer)

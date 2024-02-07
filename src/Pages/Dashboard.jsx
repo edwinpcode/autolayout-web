@@ -38,7 +38,8 @@ function Dashboard() {
   const [location, setLocation] = useState("")
   const [longitude, setLongitude] = useState(0)
   const [latitude, setLatitude] = useState(0)
-  const [module, setModule] = useState([])
+  // const [module, setModule] = useState([])
+  const module = useSelector((state) => state.module)
   const [activeStep, setActiveStep] = useState(0)
   const [selectedModule, setSelectedModule] = useState({})
   const [selectedRole, setSelectedRole] = useState({})
@@ -55,18 +56,19 @@ function Dashboard() {
       if (res.data.content) {
         setDashboardBox(res.data.content)
       }
-      if (res.data.data?.module) {
-        setModule(res.data.data.module)
-      }
+      // if (res.data.data?.module) {
+      //   setModule(res.data.data.module)
+      // }
     } catch (error) {
       console.log(error.message)
     } finally {
       hideLoader()
     }
   }
-  useEffect(() => {
-    console.log(module)
-  }, [module])
+
+  // useEffect(() => {
+  //   console.log(module)
+  // }, [module])
 
   const handleSelectModule = (data) => {
     setSelectedModule(data)
@@ -255,81 +257,80 @@ function Dashboard() {
     <div>
       <h3>Dashboard</h3>
       <div className="row">
-        <div className="border rounded-lg shadow-lg col-lg-6 p-2">
-          <div className="d-flex justify-content-between text-bold p-2">
-            <span>Presensi</span>
-            <span>{date?.format("LL")}</span>
-          </div>
-          <div className="d-flex justify-content-center text-bold text-xl text-capitalize border-bottom">
-            <span>
-              {date?.format("hh:mm a")} - {status}
-            </span>
-          </div>
-          <div className="d-flex p-2 align-items-center">
-            <i className="fas fa-map-marker text-green text-lg"></i>
-            <span>{location}</span>
-          </div>
-          <div className="d-flex pt-3 justify-content-around">
-            <button
-              onClick={checkIn}
-              disabled={
-                status == ""
-                  ? true
-                  : status.toLowerCase().includes("already")
+        <div className="col-lg-6">
+          <div className="p-2 rounded-lg border shadow-sm h-100 mb-3">
+            <div className="d-flex justify-content-between text-bold p-2">
+              <span>Presensi</span>
+              <span>{date?.format("LL")}</span>
+            </div>
+            <div className="d-flex justify-content-center text-bold text-xl text-capitalize border-bottom">
+              <span>
+                {date?.format("hh:mm a")} - {status}
+              </span>
+            </div>
+            <div className="d-flex p-2 align-items-center">
+              <i className="fas fa-map-marker text-green text-lg"></i>
+              <span>{location}</span>
+            </div>
+            <div className="d-flex pt-3 justify-content-around">
+              <button
+                onClick={checkIn}
+                disabled={
+                  status == ""
                     ? true
-                    : status.toLocaleLowerCase().includes("check in berhasil")
+                    : status.toLowerCase().includes("already")
                       ? true
-                      : false
-              }
-              className={`btn ${
-                status == ""
-                  ? "btn-secondary"
-                  : status.toLowerCase().includes("already")
+                      : status.toLocaleLowerCase().includes("check in berhasil")
+                        ? true
+                        : false
+                }
+                className={`btn ${
+                  status == ""
                     ? "btn-secondary"
-                    : status.toLocaleLowerCase().includes("check in berhasil")
+                    : status.toLowerCase().includes("already")
                       ? "btn-secondary"
-                      : "btn-success"
-              }`}
-            >
-              CHECK IN
-            </button>
-            <button
-              onClick={checkOut}
-              disabled={
-                status == ""
-                  ? true
-                  : status.toLowerCase().includes("please")
+                      : status.toLocaleLowerCase().includes("check in berhasil")
+                        ? "btn-secondary"
+                        : "btn-success"
+                }`}
+              >
+                CHECK IN
+              </button>
+              <button
+                onClick={checkOut}
+                disabled={
+                  status == ""
                     ? true
-                    : status.toLowerCase().includes("check out")
+                    : status.toLowerCase().includes("please")
                       ? true
-                      : false
-              }
-              className={`btn ${
-                status == ""
-                  ? "btn-secondary"
-                  : status.toLowerCase().includes("please")
+                      : status.toLowerCase().includes("check out")
+                        ? true
+                        : false
+                }
+                className={`btn ${
+                  status == ""
                     ? "btn-secondary"
-                    : status.toLocaleLowerCase().includes("check out")
+                    : status.toLowerCase().includes("please")
                       ? "btn-secondary"
-                      : "btn-success"
-              }`}
-            >
-              CHECK OUT
-            </button>
+                      : status.toLocaleLowerCase().includes("check out")
+                        ? "btn-secondary"
+                        : "btn-success"
+                }`}
+              >
+                CHECK OUT
+              </button>
+            </div>
           </div>
         </div>
         <div className="col-lg-6">
           <div className="card card-success">
             <div className="card-header">
-              <span className="card-title">Summary</span>
+              <span className="card-title">Modul</span>
             </div>
             <div className="card-body">
               <div className="mb-3">
                 <Stepper
-                  steps={[
-                    { title: "Select Application" },
-                    { title: "Select Role" },
-                  ]}
+                  steps={[{ title: "Pilih Modul" }, { title: "Pilih Jabatan" }]}
                   activeStep={activeStep}
                   activeColor="#5cb85c"
                   completeColor="#c0c0c0"

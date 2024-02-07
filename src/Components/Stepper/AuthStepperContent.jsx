@@ -30,6 +30,7 @@ function AuthStepperContent() {
     await SetActiveGroup({ userId, moduleId, roleId })
       .then((res) => {
         if (res.data.status == 1) {
+          console.log(res.data)
           dispatch(
             setUser({
               userId,
@@ -79,7 +80,7 @@ function AuthStepperContent() {
     <>
       <div className="mb-3">
         <Stepper
-          steps={[{ title: "Select Application" }, { title: "Select Role" }]}
+          steps={[{ title: "Pilih Modul" }, { title: "Pilih Jabatan" }]}
           activeStep={activeStep}
           activeColor="#5cb85c"
           completeColor="#c0c0c0"
