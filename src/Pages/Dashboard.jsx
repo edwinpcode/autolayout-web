@@ -17,6 +17,7 @@ import classNames from "classnames"
 import { useNavigate } from "react-router-dom"
 import { SetActiveGroup } from "../Services/UserService"
 import { setUser, setPhotoProfile } from "../Store/User/userSlice"
+import Speedometer from "../Components/Dashboard/Speedometer"
 
 function Dashboard() {
   const dispatch = useDispatch()
@@ -447,6 +448,7 @@ function Dashboard() {
       </div>
       {/* <Chart /> */}
       {/* {loader} */}
+      {userId == "admin_dev" && <Speedometer />}
     </div>
   )
 }
