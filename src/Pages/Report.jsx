@@ -5,6 +5,7 @@ import Tab from "../Components/AutoLayout/Tab"
 import TableList from "./TableList"
 import { axiosPost } from "../Services/AutoLayoutService"
 import { useSelector } from "react-redux"
+import ReactSpeedometer from "react-d3-speedometer"
 
 const tab = [
   { id: "chart", label: "Chart" },
@@ -60,7 +61,25 @@ function Report() {
         <div className="row">
           {options.map((item, index) => (
             <div className="col-xl-4 col-md-6 border" key={index}>
-              <HighchartsReact highcharts={Highcharts} options={item} />
+              {/* <HighchartsReact highcharts={Highcharts} options={item} /> */}
+              <div>
+                <div>{item.title}</div>
+              </div>
+              <ReactSpeedometer
+                maxValue={item.maxValue}
+                value={item.value}
+                currentValueText={item.label}
+                needleHeightRatio={0.5}
+                maxSegmentLabels={5}
+                needleTransitionDuration={4000}
+                needleTransition="easeElastic"
+                customSegmentLabels={item.segment}
+                height={250}
+                width={400}
+              />
+              <div>
+                <div>{item.description}</div>
+              </div>
             </div>
           ))}
         </div>
