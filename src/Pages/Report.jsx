@@ -19,7 +19,7 @@ function Report() {
   const user = useSelector((state) => state.user)
   const menu = useSelector((state) => state.menu)
 
-  const getChartOption = async () => {
+  const getChartOption = async (menu) => {
     const payload = {
       userId: user.id,
       menuId: menu.activeMenuId,
@@ -39,13 +39,13 @@ function Report() {
       })
   }
 
-  useEffect(() => {
-    console.log(options)
-  }, [options])
+  // useEffect(() => {
+  //   console.log(options)
+  // }, [options])
 
   useEffect(() => {
-    getChartOption()
-  }, [])
+    getChartOption(menu)
+  }, [menu])
 
   return (
     <div>
