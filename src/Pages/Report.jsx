@@ -75,7 +75,6 @@ function Report() {
         for (let j = 0; j < newData[i].segment.length; j++) {
           let value =
             (newData[i].maxValue / newData[i].segment.length) * (j + 1)
-          console.log(value)
           if (j + 1 == newData[i].segment.length) {
             value = newData[i].maxValue
           }

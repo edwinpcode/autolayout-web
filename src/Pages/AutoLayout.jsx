@@ -119,9 +119,10 @@ function AutoLayout({ className }) {
   }
 
   useEffect(() => {
-    if (tab) {
-      return
-    }
+    // console.log(tab, menu)
+    // if (tab) {
+    //   return
+    // }
     dispatch(setFormPanel([]))
     // handle form reload by menuId condition
     if (menu.activeMenuId === "") return navigate("/dashboard")
@@ -151,7 +152,7 @@ function AutoLayout({ className }) {
         // console.log(error)
         window.Swal.fire("Error", error.message, "error")
       })
-  }, [menu.activeMenuId, tab])
+  }, [menu.activeMenuId])
 
   const reset = () => {
     let paramValue = ""
