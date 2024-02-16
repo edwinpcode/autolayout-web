@@ -13,6 +13,8 @@ import {
 import { converttoNewScale } from "../Utils/ConvertUtil"
 import { reset, setFilteringList } from "../Store/List/listSlice"
 import { useSearchParams } from "react-router-dom"
+import AuthStepperContent from "../Components/Stepper/AuthStepperContent"
+import Modul from "../Components/Modul"
 
 function Header() {
   const dispatch = useDispatch()
@@ -413,7 +415,16 @@ function Header() {
               Dashboard
             </Link>
           </li>
-          <li className="nav-item dropdown">
+          <li className="nav-item">
+            <Link
+              className="nav-link"
+              data-toggle="modal"
+              data-target="#authStepperModal"
+            >
+              Modul
+            </Link>
+          </li>
+          {/* <li className="nav-item dropdown">
             <a
               className="nav-link"
               href="#"
@@ -471,7 +482,7 @@ function Header() {
                 </div>
               ))}
             </div>
-          </li>
+          </li> */}
           {/* Notifications Dropdown Menu */}
           <li className="nav-item dropdown">
             <a className="nav-link" href="#" data-toggle="dropdown">
@@ -607,6 +618,31 @@ function Header() {
               >
                 Upload
               </button> */}
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        className="modal fade"
+        id="authStepperModal"
+        aria-labelledby="authStepperModalLabel"
+        aria-hidden="true"
+      >
+        <div className="modal-dialog">
+          <div className="modal-content">
+            <div className="modal-header">
+              <h5 className="modal-title">Modul</h5>
+              <button
+                type="button"
+                className="close"
+                data-dismiss="modal"
+                aria-label="Close"
+              >
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div className="modal-body">
+              <Modul />
             </div>
           </div>
         </div>

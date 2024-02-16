@@ -55,23 +55,6 @@ function Home() {
           </div>
         </section>
         <BackTop />
-        <div
-          className="modal fade"
-          id="authStepperModal"
-          aria-labelledby="authStepperModalLabel"
-          aria-hidden="true"
-        >
-          <div className="modal-dialog">
-            <div className="modal-content">
-              <div className="modal-body">
-                <div id="authStepperHeader" className="bs-stepper">
-                  <AuthStepperContent />
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        {/* .modal */}
       </div>
       {loader}
     </div>

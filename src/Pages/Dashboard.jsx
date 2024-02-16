@@ -1,23 +1,16 @@
-import React, { useMemo, useState, useEffect } from "react"
+import React, { useState, useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { getDashboard } from "../Services/AuthService"
 import { setMenuSlice } from "../Store/Menu/menuSlice"
 import { Link } from "react-router-dom"
-import { SkeletonDashboard } from "../Components/AutoLayout/Skeleton"
 import { reset } from "../Store/List/listSlice"
-import socket from "../Utils/SocketUtils"
 import FullLoad from "./FullLoad"
 import moment from "moment"
-import Chart from "../Components/Dashboard/Chart"
 import axios from "axios"
 import { userStatus } from "../Services/UserService"
-import { setDevMode } from "../Store/Dev/DevModeSlice"
-import Stepper from "react-stepper-horizontal"
-import classNames from "classnames"
 import { useNavigate } from "react-router-dom"
-import { SetActiveGroup } from "../Services/UserService"
-import { setUser, setPhotoProfile } from "../Store/User/userSlice"
 import Speedometer from "../Components/Dashboard/Speedometer"
+import Modul from "../Components/Modul"
 
 function Dashboard() {
   const dispatch = useDispatch()
@@ -40,11 +33,6 @@ function Dashboard() {
   const [longitude, setLongitude] = useState(0)
   const [latitude, setLatitude] = useState(0)
   // const [module, setModule] = useState([])
-  const module = useSelector((state) => state.module)
-  const [activeStep, setActiveStep] = useState(0)
-  const [selectedModule, setSelectedModule] = useState({})
-  const [selectedRole, setSelectedRole] = useState({})
-  const [loading, setloading] = useState(false)
 
   const fetch = async ({ activeModuleId, activeRoleId }) => {
     try {
@@ -65,56 +53,6 @@ function Dashboard() {
     } finally {
       hideLoader()
     }
-  }
-
-  // useEffect(() => {
-  //   console.log(module)
-  // }, [module])
-
-  const handleSelectModule = (data) => {
-    setSelectedModule(data)
-    // if (data.role.length === 1) {
-    //   handleSelectedGroup(
-    //     userId,
-    //     data.role[0].groupId,
-    //     data.role[0].groupName,
-    //     data.id,
-    //     data.name,
-    //   )
-    // }
-    setActiveStep(1)
-  }
-
-  const handleSelectedGroup = async (
-    userId,
-    roleId,
-    roleDescr,
-    moduleId,
-    moduleDescr,
-  ) => {
-    setloading(true)
-    await SetActiveGroup({ userId, moduleId, roleId })
-      .then((res) => {
-        if (res.data.status == 1) {
-          dispatch(
-            setUser({
-              userId,
-              activeModule: { id: moduleId, desc: moduleDescr },
-              activeRole: { id: roleId, desc: roleDescr },
-            }),
-          )
-          dispatch(setPhotoProfile(res.data.photoProfile))
-          window.location.reload()
-          window.$("#authStepperModal").modal("hide")
-        }
-      })
-      .catch((e) => {
-        console.log(e)
-        window.Swal.fire("Error", e.message, "error")
-      })
-      .finally(() => {
-        setloading(false)
-      })
   }
 
   const cekStatus = async (presensiType) => {
@@ -329,94 +267,7 @@ function Dashboard() {
               <span className="card-title">Modul</span>
             </div>
             <div className="card-body">
-              <div className="mb-3">
-                <Stepper
-                  steps={[{ title: "Pilih Modul" }, { title: "Pilih Jabatan" }]}
-                  activeStep={activeStep}
-                  activeColor="#5cb85c"
-                  completeColor="#c0c0c0"
-                />
-              </div>
-              {!module.length && <span>Loading...</span>}
-              <div>
-                {activeStep === 0 && (
-                  <section>
-                    <div className="row">
-                      {module.map((data) => (
-                        <div className="col my-2" key={data.id}>
-                          <button
-                            onClick={() => handleSelectModule(data)}
-                            className={classNames(
-                              "btn-select-module btn btn-success w-100 h-100",
-                              {
-                                "btn-success": data.id != activeModuleId,
-                                "btn-default": data.id == activeModuleId,
-                              },
-                            )}
-                          >
-                            <span className="badge badge-danger navbar-badge position-absolute text-lg">
-                              {data.totalTaskList}
-                            </span>
-                            <i
-                              className={`${data.icon} mb-1`}
-                              style={{ fontSize: 24 }}
-                            ></i>
-                            <div>{data.name}</div>
-                          </button>
-                        </div>
-                      ))}
-                    </div>
-                  </section>
-                )}
-                {!loading && activeStep === 1 && (
-                  <section>
-                    <div className="row">
-                      {selectedModule.role &&
-                        selectedModule.role.map((role, index) => (
-                          <div className="col my-2" key={index}>
-                            <button
-                              onClick={() =>
-                                handleSelectedGroup(
-                                  userId,
-                                  role.groupId,
-                                  role.groupName,
-                                  selectedModule.id,
-                                  selectedModule.name,
-                                )
-                              }
-                              className={classNames("btn w-100 h-100", {
-                                "btn-success": selectedRole != role,
-                                "btn-default": selectedRole == role,
-                              })}
-                            >
-                              <span className="badge badge-danger navbar-badge position-absolute text-lg">
-                                {role.totalTaskList}
-                              </span>
-                              <i
-                                className="fal fa-user mb-1"
-                                style={{ fontSize: 24 }}
-                              ></i>
-                              <div>{role.groupName}</div>
-                            </button>
-                          </div>
-                        ))}
-                    </div>
-                    <div className="row">
-                      <div className="col mt-3">
-                        <button
-                          type="button"
-                          className="btn btn-sm btn-success"
-                          onClick={() => setActiveStep(0)}
-                        >
-                          <i className="fal fa-arrow-left"></i>
-                          Kembali
-                        </button>
-                      </div>
-                    </div>
-                  </section>
-                )}
-                {loading && <span className="text-sx">Loading...</span>}
-              </div>
+              <Modul />
             </div>
           </div>
         </div>
