@@ -538,7 +538,7 @@ function Login() {
     const timestamp = new Date().toISOString().replace(/[-:.]/g, "")
     const randomString = Math.random().toString(36).substring(2, 5)
     const fileName = `audio_${timestamp}_${randomString}.webm`
-    console.log(audioBlob)
+    // console.log(audioBlob)
     formData.append("file", audioBlob, fileName)
     formData.append("removewhitespace", "1")
     try {
