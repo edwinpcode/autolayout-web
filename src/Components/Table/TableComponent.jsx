@@ -105,11 +105,11 @@ function TableComponent({
               <thead>
                 {table.getHeaderGroups().map((headerGroup, index) => (
                   <tr key={headerGroup.id + "_" + index}>
-                    {headerGroup.headers.map((header) => {
+                    {headerGroup.headers.map((header, index) => {
                       return (
                         <th
                           className="text-center"
-                          key={header.id}
+                          key={header.id + "_" + index}
                           colSpan={header.colSpan}
                           style={
                             header.column.columnDef.header === ""
@@ -142,9 +142,9 @@ function TableComponent({
                     </td>
                   </tr>
                 )}
-                {table.getRowModel().rows.map((row) => {
+                {table.getRowModel().rows.map((row, index) => {
                   return (
-                    <tr key={row.id}>
+                    <tr key={row.id + "_" + index}>
                       {row.getVisibleCells().map((cell, index) => {
                         return (
                           <td key={index}>

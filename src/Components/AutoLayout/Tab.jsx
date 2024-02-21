@@ -1,4 +1,4 @@
-import * as React from "react"
+import React, { useEffect, useState } from "react"
 import Tabs from "@mui/material/Tabs"
 import Tab from "@mui/material/Tab"
 import Box from "@mui/material/Box"
@@ -10,9 +10,9 @@ import { useLocation } from "react-router-dom"
 import { CheckBox, CheckBoxOutlineBlank } from "@mui/icons-material"
 
 export default function Tabw({ data, activeTabId, setActiveTabId, reset }) {
-  const { state } = useLocation()
+  // const { state } = useLocation()
   const dispatch = useDispatch()
-  const [value, setValue] = React.useState(0)
+  const [value, setValue] = useState(0)
   const loading = useSelector((state) => state.loading.field)
 
   const handleChange = (event, newValue) => {
@@ -39,8 +39,9 @@ export default function Tabw({ data, activeTabId, setActiveTabId, reset }) {
               key={item.id}
               id={item.id}
               style={{
-                display:
-                  index > 0 && state?.param.length === 0 ? "none" : "block",
+                display: "block",
+                // display:
+                //   index > 0 && state?.param.length === 0 ? "none" : "block",
                 color: loading ? "GrayText" : "#5cb85c",
                 fontFamily: "SourceSansPro",
                 textTransform: "capitalize",

@@ -158,7 +158,7 @@ function SideBar() {
                       //   : data.menuId
                       data.child ? "#" : data.path
                     }`}
-                    state={data.path !== "/" ? { param: [] } : state}
+                    // state={data.path !== "/" ? { param: [] } : state}
                     onClick={() => handleMenuClick(data)}
                     className={() => {
                       if (data.menuId === activeMenuId) {

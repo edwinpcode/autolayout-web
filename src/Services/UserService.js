@@ -1,5 +1,3 @@
-import axios from "axios"
-import { useQuery } from "react-query"
 import APIClient, { formDataConfig } from "./APIClient"
 
 export const SetActiveGroup = async ({ userId, moduleId, roleId }) => {

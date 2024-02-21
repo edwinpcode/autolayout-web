@@ -26,7 +26,7 @@ import { handleParamValues } from "../../Utils/ParamUtils"
 import { getFieldByFieldId } from "../../Utils/FieldReferenceUtils"
 import { setFormAction, setFormPanel } from "../../Store/Form/FormSlice"
 import { setLoadingField } from "../../Store/Loading/LoadingSlice"
-import { setInbox } from "../../Store/Inbox/InboxStore"
+import { setInboxParam } from "../../Store/Inbox/InboxStore"
 import { setParam } from "../../Store/Param/ParamSlice"
 import { setTab } from "../../Store/tabSlice"
 
@@ -129,7 +129,6 @@ function ButtonAction({
         const parentValue = document.getElementById(parentId).value
         payload.param.push({ id: parentId, value: parentValue })
       })
-      // console.log(3)
       await handleGetGridData(payload, setDataQuery)
     }
   }
@@ -185,15 +184,13 @@ function ButtonAction({
     }
     if (pathname == actionItem.url?.path) {
       dispatch(setTab([]))
-    } else if (resetTab) {
-      resetTab()
     }
     if (actionItem.isRedirect === "1") {
       const payload = {}
       if (actionItem.url.param) {
         const param = handleParamValues(actionItem.url.param, getValues, info)
         Object.assign(payload, { param })
-        dispatch(setInbox(param))
+        dispatch(setInboxParam(param))
         return navigate(actionItem?.url?.path, { state: payload })
       }
     }
@@ -220,7 +217,7 @@ function ButtonAction({
           if (fieldItem.fieldSave === "0") notSavedFields.push(fieldItem.id)
         })
       })
-      notSavedFields.length && console.log("not saved field", notSavedFields)
+      // notSavedFields.length && console.log("not saved field", notSavedFields)
       // mapping form data to payload
       for (let [fieldId, fieldValue] of Object.entries(data)) {
         // not include in notSavedFields & hiddenField
@@ -536,6 +533,7 @@ function ButtonAction({
       // })
     }
     fetchData(menu.activeMenuId, pageIndex, pageSize, filtering)
+    resetTab()
     hideLoader()
   }
 

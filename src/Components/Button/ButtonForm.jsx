@@ -9,13 +9,15 @@ function ButtonForm({ fieldItem }) {
   // redux
   const menu = useSelector((state) => state.menu)
   const userId = useSelector((state) => state.user.id)
+  const param = useSelector((state) => state.param)
 
   const handleButtonClick = async () => {
     const payload = {
       tabId: [],
       tc: menu.activeTrackId,
       userId: userId,
-      param: [{ id: state.id, value: state.value }],
+      // param: [{ id: state.id, value: state.value }],
+      param,
     }
     // push tab id
     payload.tabId.push(menu.activeTabId)

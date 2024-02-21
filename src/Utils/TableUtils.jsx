@@ -7,6 +7,7 @@ import ButtonType from "../Components/AutoLayout/ButtonType"
 import InputCheckbox from "../Components/AutoLayout/Input/InputCheckbox"
 import { handleParamValues } from "./ParamUtils"
 import InputSelectItem from "../Components/AutoLayout/Input/InputSelectItem"
+import { useDispatch } from "@reduxjs/toolkit"
 
 export const addRowSelectionColumn = (defaultColumn, columnHelper) => {
   defaultColumn.unshift(
@@ -37,7 +38,6 @@ let values = []
 export const handleColumnType = ({
   info,
   header,
-  item,
   setDataQuery,
   fetchData,
   pageIndex,
@@ -233,6 +233,7 @@ export const handleGetListData = async (payload, setDataQuery) => {
   try {
     const res = await getListData(payload)
     if (res.data.status != "1") {
+      console.log(res.data)
       setDataQuery({
         rows: [],
         pageCount: 1,

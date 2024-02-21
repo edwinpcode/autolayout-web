@@ -19,8 +19,10 @@ import { setCurrentPayload, setFilteringList } from "../Store/List/listSlice"
 import FullLoad from "./FullLoad"
 import Inbox from "../Components/Inbox"
 import { setTab } from "../Store/tabSlice"
+import { setInboxData } from "../Store/Inbox/InboxStore"
+import { getListData } from "../Services/ListService"
 
-function AutoLayout({ className }) {
+function AutoLayout({ className, pageIndex, pageSize, fetchData }) {
   const navigate = useNavigate()
   const dispatch = useDispatch()
   const { pathname } = useLocation()
@@ -43,64 +45,60 @@ function AutoLayout({ className }) {
     desciption: "",
   })
   const [loader, showLoader, hideLoader] = FullLoad()
-  const [dataQuery, setDataQuery] = useState()
-  const filtering = useSelector((state) => state.list.filtering)
-  const [structures, setStructures] = useState({})
+  // const [dataQuery, setDataQuery] = useState()
+  // const filtering = useSelector((state) => state.inbox.filter)
+  // const inboxData = useSelector((state) => state.inbox.data)
+  // const [structures, setStructures] = useState({})
 
-  const [{ pageIndex, pageSize }, setPagination] = useState({
-    pageIndex: 0,
-    pageSize: 10,
-  })
+  // const [{ pageIndex, pageSize }, setPagination] = useState({
+  //   pageIndex: 0,
+  //   pageSize: 10,
+  // })
 
-  const fetchData = async (menuId, pageIndex, pageSize, filtering) => {
-    try {
-      const payload = {
-        userId: user.id,
-        menuId: menuId,
-        moduleId: user.activeModule.id,
-        roleId: user.activeRole.id,
-        filtering: filtering?.length ? filtering : [{ id: "", value: "" }],
-        pagination: {
-          pageIndex: pageIndex + 1,
-          perPage: pageSize,
-        },
-      }
-      dispatch(setCurrentPayload(payload))
-      await handleGetListData(payload, setDataQuery)
-    } catch (error) {
-    } finally {
-      hideLoader()
-    }
-  }
+  // useEffect(() => {
+  //   console.log(dataQuery, structures)
+  // }, [])
 
-  const pagination = useMemo(
-    () => ({ pageIndex, pageSize }),
-    [pageIndex, pageSize],
-  )
+  // const fetchData = async (menuId, pageIndex, pageSize, filtering) => {
+  //   try {
+  //     const payload = {
+  //       userId: user.id,
+  //       menuId: menuId,
+  //       moduleId: user.activeModule.id,
+  //       roleId: user.activeRole.id,
+  //       filtering: filtering?.length ? filtering : [{ id: "", value: "" }],
+  //       pagination: {
+  //         pageIndex: pageIndex + 1,
+  //         perPage: pageSize,
+  //       },
+  //     }
+  //     dispatch(setCurrentPayload(payload))
+  //     await handleGetListData(payload, setDataQuery)
+  //   } catch (error) {
+  //   } finally {
+  //     hideLoader()
+  //   }
+  // }
 
-  useEffect(() => {
-    return () => {
-      dispatch(setFilteringList([])) // reset filter when the component unmounts
-    }
-  }, [dispatch])
+  // useEffect(() => {
+  //   return () => {
+  //     dispatch(setFilteringList([])) // reset filter when the component unmounts
+  //   }
+  // }, [dispatch])
 
   // get structure
-  useEffect(() => {
-    if (menu && menu.path != "/form" && !tab) {
-      setPagination({ pageIndex: 0, pageSize: 10 })
-      handleGetListStructure(user, menu.activeMenuId, setStructures)
-    }
-  }, [menu, user, tab])
-
-  useEffect(() => {
-    console.log(tab)
-  }, [tab])
+  // useEffect(() => {
+  //   if (menu && menu.path != "/form" && !tab) {
+  //     setPagination({ pageIndex: 0, pageSize: 10 })
+  //     handleGetListStructure(user, menu.activeMenuId, setStructures)
+  //   }
+  // }, [menu, user, tab])
 
   // get data
-  useEffect(() => {
-    if (menu && menu.path != "/form" && !tab)
-      fetchData(menu.activeMenuId, pageIndex, pageSize, filtering)
-  }, [menu, pageIndex, pageSize, filtering, !tab])
+  // useEffect(() => {
+  //   if (menu && menu.path != "/form" && !tab)
+  //     fetchData(menu.activeMenuId, pageIndex, pageSize, filtering)
+  // }, [menu, pageIndex, pageSize, filtering, !tab])
 
   const getFieldByForm = async (payload) => {
     await getField(payload)
@@ -186,9 +184,11 @@ function AutoLayout({ className }) {
       })
   }
 
-  // useEffect(() => {
-  //   console.log("panel: ", panelData, "tab: ", tab)
-  // }, [panelData, tab])
+  useEffect(() => {
+    if (!tab.length) {
+      reset()
+    }
+  }, [tab])
 
   // handle get field
   useEffect(() => {
@@ -200,45 +200,28 @@ function AutoLayout({ className }) {
         userId: user.id,
         param: param,
       }
-      // if (id && value) {
-      //   payload = {
-      //     ...payload,
-      //     param: [
-      //       {
-      //         id,
-      //         value,
-      //       },
-      //     ],
-      //   }
-      // }
-      // if (pathname != "/form" && !id && !value) {
-      //   return
-      // }
-      // get field by payload
       getFieldByForm(payload)
     }
   }, [activeTabId, menu.activeMenuId, tab])
 
   return (
-    <div className="d-md-flex">
-      {menu.path != "/form" && (
+    <div className={`col-md-9 ${className}`}>
+      {/* {menu.path != "/form" && (
         <Inbox
           // className={"col-md-3"}
           pageIndex={pageIndex}
           pageSize={pageSize}
           fetchData={fetchData}
           setPagination={setPagination}
-          dataQuery={dataQuery}
+          dataQuery={inboxData}
           setDataQuery={setDataQuery}
           structures={structures}
           setStructures={setStructures}
           // setTab={setTab}
         />
-      )}
+      )} */}
       <div
-        className={`overflow-y-auto bg-white ${
-          menu.path != "/form" ? "col-md-9" : "col-md-12"
-        }`}
+        className={`overflow-y-auto bg-white col-12`}
         style={{
           height: "85vh",
           // width: '100%',

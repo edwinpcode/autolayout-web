@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useRef } from "react"
 import { useDispatch, useSelector } from "react-redux"
-import { NavLink, Link, useNavigate, useLocation } from "react-router-dom"
+import { NavLink, Link, useNavigate } from "react-router-dom"
 import { setMenuSlice } from "../Store/Menu/menuSlice"
 import { AuthLogout } from "../Services/AuthService"
 import Load from "../Pages/FullLoad"
@@ -25,7 +25,6 @@ function Header() {
   const activeModuleId = useSelector((state) => state.user.activeModule.id)
   const activeRoleId = useSelector((state) => state.user.activeRole.id)
   const [photoProfile, setPhotoProfile] = useState()
-  const { state } = useLocation()
   const devMode = useSelector((state) => state.devMode)
 
   const { setValue, register, handleSubmit } = useForm()

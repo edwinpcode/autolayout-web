@@ -33,7 +33,14 @@ export const GetAuthModule = async (userId) => {
   return await APIClient.post("/user", { userId })
 }
 
-export function AuthLogout({ userId, moduleId, groupId }) {
+export function AuthLogout({
+  userId,
+  moduleId,
+  groupId,
+  address,
+  latitude,
+  longitude,
+}) {
   const param = {
     loginType: "logoutuser",
     userid: userId,

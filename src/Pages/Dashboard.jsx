@@ -11,6 +11,7 @@ import { userStatus } from "../Services/UserService"
 import { useNavigate } from "react-router-dom"
 import Speedometer from "../Components/Dashboard/Speedometer"
 import Modul from "../Components/Modul"
+import { setAddress, setLatitude, setLongitude } from "../Store/locationSlice"
 
 function Dashboard() {
   const dispatch = useDispatch()
@@ -29,9 +30,12 @@ function Dashboard() {
   const roleId = useSelector((state) => state.user.activeRole.id)
   const [date, setDate] = useState(null)
   const [status, setStatus] = useState("")
-  const [location, setLocation] = useState("")
-  const [longitude, setLongitude] = useState(0)
-  const [latitude, setLatitude] = useState(0)
+  const latitude = useSelector((state) => state.location.latitude)
+  const longitude = useSelector((state) => state.location.longitude)
+  const address = useSelector((state) => state.location.address)
+  // const [location, setLocation] = useState("")
+  // const [longitude, setLongitude] = useState(0)
+  // const [latitude, setLatitude] = useState(0)
   // const [module, setModule] = useState([])
 
   const fetch = async ({ activeModuleId, activeRoleId }) => {
@@ -129,8 +133,8 @@ function Dashboard() {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
         (position) => {
-          setLatitude(position.coords.latitude)
-          setLongitude(position.coords.longitude)
+          dispatch(setLatitude(position.coords.latitude))
+          dispatch(setLongitude(position.coords.longitude))
         },
         (err) => {
           console.log(err.message)
@@ -173,7 +177,7 @@ function Dashboard() {
         `https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${latitude}&lon=${longitude}`,
       )
       if (res.data && res.data.display_name) {
-        setLocation(res.data.display_name)
+        dispatch(setAddress(res.data.display_name))
       }
     } catch (error) {
       console.error("Error fetching address:", error)
@@ -209,7 +213,7 @@ function Dashboard() {
             </div>
             <div className="d-flex p-2 align-items-center">
               <i className="fas fa-map-marker text-green text-lg"></i>
-              <span>{location}</span>
+              <span>{address}</span>
             </div>
             <div className="d-flex pt-3 justify-content-around">
               <button

@@ -1,12 +1,10 @@
-import React, { useEffect, useState } from "react"
+import React, { useEffect } from "react"
 import { Outlet, useNavigate } from "react-router-dom"
 import { useSelector } from "react-redux"
 import Header from "../Layout/Header"
 import SideBar from "../Layout/SideBar"
-import AuthStepperContent from "../Components/Stepper/AuthStepperContent"
 import BackTop from "./BackTop"
 import Load from "../Pages/FullLoad"
-import Inbox from "../Components/Inbox"
 
 function Home() {
   const navigate = useNavigate()

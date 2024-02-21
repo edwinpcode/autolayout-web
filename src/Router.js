@@ -16,7 +16,7 @@ import PreviewDocument from "./Pages/PreviewDocument"
 import PublicRoutes from "./Router/PublicRoutes"
 import Chart from "./Components/Dashboard/Chart"
 
-const AppRouter = () => {
+const Router = () => {
   return (
     <Routes history={BrowserRouter}>
       {/* <Route element={<Chart />} path="/chart" /> */}
@@ -29,7 +29,7 @@ const AppRouter = () => {
           <Route path="/" element={<TableList />} />
           {/* <Route path="/:menuId" element={<TableList />} /> */}
           {/* <Route path="/:menuId/:id/:value" element={<TableList />} /> */}
-          <Route path="/form" element={<AutoLayout />} />
+          <Route path="/form" element={<TableList />} />
           {/* <Route path="/chart" element={<Chart />} /> */}
           <Route path="/profile" element={<Profile />} />
           <Route path="/dashboard" element={<Dashboard />} />
@@ -48,4 +48,4 @@ const AppRouter = () => {
   )
 }
 
-export default AppRouter
+export default Router

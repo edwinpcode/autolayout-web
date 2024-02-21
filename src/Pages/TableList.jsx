@@ -7,6 +7,7 @@ import AutoLayout from "./AutoLayout"
 import Inbox from "../Components/Inbox"
 import FullLoad from "./FullLoad"
 import TableComponent from "../Components/Table/TableComponent"
+import { setInboxData } from "../Store/Inbox/InboxStore"
 
 function TableList() {
   const [loader, showLoader, hideLoader] = FullLoad()
@@ -15,10 +16,13 @@ function TableList() {
   const dispatch = useDispatch()
   const [structures, setStructures] = useState({})
   const menuSlice = useSelector((res) => res.menu)
-  const { state, pathname } = useLocation()
+  const { pathname } = useLocation()
+
+  const tab = useSelector((state) => state.tab)
 
   // state
   const [dataQuery, setDataQuery] = useState()
+  const inboxData = useSelector((state) => state.inbox.data)
   const [{ pageIndex, pageSize }, setPagination] = useState({
     pageIndex: 0,
     pageSize: 10,
@@ -46,6 +50,12 @@ function TableList() {
       hideLoader()
     }
   }
+
+  useEffect(() => {
+    if (dataQuery) {
+      dispatch(setInboxData(dataQuery))
+    }
+  }, [dataQuery])
 
   const pagination = useMemo(
     () => ({ pageIndex, pageSize }),
@@ -77,14 +87,14 @@ function TableList() {
   return (
     <div>
       <div className="d-md-flex">
-        {pathname != "/report" && (
+        {pathname != "/report" && menuSlice.path != "/form" && (
           <Inbox
             // className={"col-md-3"}
             pageIndex={pageIndex}
             pageSize={pageSize}
             fetchData={fetchData}
             setPagination={setPagination}
-            dataQuery={dataQuery}
+            dataQuery={inboxData}
             setDataQuery={setDataQuery}
             structures={structures}
             setStructures={setStructures}

@@ -7,17 +7,26 @@ const initialState = {
       value: "",
     },
   ],
+  data: {},
+  filter: [],
 }
 const inboxSlice = createSlice({
   name: "inbox",
   initialState,
   reducers: {
-    setInbox: (state, action) => {
+    setInboxParam: (state, action) => {
       state.param = action.payload
+    },
+    setInboxData: (state, action) => {
+      state.data = action.payload
+    },
+    setInboxFilter: (state, action) => {
+      state.filter = action.payload
     },
   },
 })
 
-export const { setInbox } = inboxSlice.actions
+export const { setInboxParam, setInboxData, setInboxFilter } =
+  inboxSlice.actions
 
 export const inboxReducer = inboxSlice.reducer

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react"
 import FullLoad from "../../../Pages/FullLoad"
 import { useDispatch, useSelector } from "react-redux"
-import { useLocation, useNavigate } from "react-router-dom"
+import { useNavigate } from "react-router-dom"
 import { getDataActionWithButton } from "../../../Services/AutoLayoutService"
 import { setFormAction, setFormPanel } from "../../../Store/Form/FormSlice"
 import { resetDropdown, setDropdown } from "../../../Store/Input/DropdownSlice"
@@ -28,7 +28,6 @@ const InputTextboxWithButton = ({
   width,
   ...props
 }) => {
-  const { state } = useLocation()
   const dispatch = useDispatch()
   const navigate = useNavigate()
   // prettier-ignore

@@ -1,11 +1,6 @@
 import { useEffect, useMemo, useState } from "react"
-import { useDispatch, useSelector } from "react-redux"
-import {
-  handleGetListData,
-  handleGetListStructure,
-  handleStructureHeader,
-} from "../Utils/TableUtils"
-import { setCurrentPayload, setFilteringList } from "../Store/List/listSlice"
+import { useSelector } from "react-redux"
+import { handleStructureHeader } from "../Utils/TableUtils"
 import {
   createColumnHelper,
   flexRender,
@@ -77,6 +72,10 @@ const Inbox = ({
   useEffect(() => {
     setSelected([])
   }, [dataQuery])
+
+  // useEffect(() => {
+  //   console.log(dataQuery)
+  // }, [dataQuery])
 
   const table = useReactTable({
     data: dataQuery?.rows ?? [],
