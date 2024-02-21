@@ -28,7 +28,7 @@ const Inbox = ({
   structures,
   setStructures,
   className,
-  setTab,
+  // setTab,
 }) => {
   const columnHelper = createColumnHelper()
   const [loader, showLoader, hideLoader] = FullLoad()
@@ -53,7 +53,7 @@ const Inbox = ({
       pageIndex,
       pageSize,
       setSelected,
-      setTab,
+      // setTab,
     })
   }, [structures])
 
@@ -150,7 +150,7 @@ const Inbox = ({
               filterData={filterData}
               filterDataLabel={filterDataLabel}
               selected={selected}
-              setTab={setTab}
+              // setTab={setTab}
             />
           )}
           {dataQuery?.total > 10 && (

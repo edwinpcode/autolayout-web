@@ -28,6 +28,7 @@ import { setFormAction, setFormPanel } from "../../Store/Form/FormSlice"
 import { setLoadingField } from "../../Store/Loading/LoadingSlice"
 import { setInbox } from "../../Store/Inbox/InboxStore"
 import { setParam } from "../../Store/Param/ParamSlice"
+import { setTab } from "../../Store/tabSlice"
 
 const openInNewTab = (url) => {
   window.open(url, "_blank", "noreferrer")
@@ -81,7 +82,7 @@ function ButtonAction({
   pageSize,
   fetchData,
   selected = [],
-  setTab = (value) => {},
+  // setTab = (value) => {},
   ...props
 }) {
   const navigate = useNavigate()
@@ -183,9 +184,7 @@ function ButtonAction({
       dispatch(setParam([]))
     }
     if (pathname == actionItem.url?.path) {
-      if (setTab) {
-        setTab(null)
-      }
+      dispatch(setTab([]))
     } else if (resetTab) {
       resetTab()
     }

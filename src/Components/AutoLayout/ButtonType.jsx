@@ -21,7 +21,7 @@ function ButtonType({
   pageIndex = 0,
   fetchData = () => {},
   selected = [],
-  setTab = (value) => {},
+  // setTab = (value) => {},
 }) {
   return (
     <>
@@ -44,7 +44,7 @@ function ButtonType({
           pageSize={pageSize}
           fetchData={fetchData}
           selected={selected}
-          setTab={setTab}
+          // setTab={setTab}
         />
       )}
       {buttonItem.type === "buttonDropdown" && (

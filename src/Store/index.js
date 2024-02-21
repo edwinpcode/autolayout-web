@@ -19,6 +19,7 @@ import LogoReducer from "./LogoSlice"
 import { flowchartModalReducer } from "./Flowchart/flowchartModalSlice"
 import { paramReducer } from "./Param/ParamSlice"
 import moduleReducer from "./Module/ModuleSlide"
+import tabReducers from "./tabSlice"
 
 const persistConfig = {
   key: "root",
@@ -45,6 +46,7 @@ const reducer = combineReducers({
   flowchartModal: flowchartModalReducer,
   param: paramReducer,
   module: moduleReducer,
+  tab: tabReducers,
 })
 
 const persistedReducer = persistReducer(persistConfig, reducer)

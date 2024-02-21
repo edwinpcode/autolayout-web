@@ -44,7 +44,7 @@ export const handleColumnType = ({
   pageSize,
   setSelected,
   gridItem,
-  setTab,
+  // setTab,
 }) => {
   // hardcode
   const setActionSelectValue = (selectValue) => {
@@ -126,7 +126,7 @@ export const handleColumnType = ({
               fetchData={fetchData}
               pageIndex={pageIndex}
               pageSize={pageSize}
-              setTab={setTab}
+              // setTab={setTab}
             />
           ))}
         </div>
@@ -196,7 +196,7 @@ export const handleStructureHeader = ({
   pageSize,
   setSelected,
   gridItem,
-  setTab,
+  // setTab,
 }) => {
   if (!structures.header) return []
   // for (let i = 0; i < structures.header.length; i++) {
@@ -216,7 +216,7 @@ export const handleStructureHeader = ({
           pageIndex,
           setSelected,
           gridItem,
-          setTab,
+          // setTab,
         }),
       type: header.type,
     }),

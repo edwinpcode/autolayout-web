@@ -18,6 +18,7 @@ import { handleGetListData, handleGetListStructure } from "../Utils/TableUtils"
 import { setCurrentPayload, setFilteringList } from "../Store/List/listSlice"
 import FullLoad from "./FullLoad"
 import Inbox from "../Components/Inbox"
+import { setTab } from "../Store/tabSlice"
 
 function AutoLayout({ className }) {
   const navigate = useNavigate()
@@ -26,7 +27,8 @@ function AutoLayout({ className }) {
   // prettier-ignore
   const { register, handleSubmit, formState: { errors }, setValue, getValues, resetField, watch, clearErrors, control, unregister } = useForm({ mode: 'onChange' })
   // state
-  const [tab, setTab] = useState()
+  // const [tab, setTab] = useState()
+  const tab = useSelector((state) => state.tab)
   const [activeTabId, setActiveTabId] = useState("")
   // redux state
   const panelData = useSelector((state) => state.form.panel)
@@ -90,6 +92,10 @@ function AutoLayout({ className }) {
     }
   }, [menu, user, tab])
 
+  useEffect(() => {
+    console.log(tab)
+  }, [tab])
+
   // get data
   useEffect(() => {
     if (menu && menu.path != "/form" && !tab)
@@ -143,7 +149,7 @@ function AutoLayout({ className }) {
         if (res.data.status != "1") {
           return window.Swal.fire("Kesalahan", res.data.response, "error")
         }
-        setTab(res.data.data)
+        dispatch(setTab(res.data.data))
         // by default, set active tab = first tab index
         dispatch(setTabId(res.data.data[0].id))
         setActiveTabId(res.data.data[0].id)
@@ -169,7 +175,7 @@ function AutoLayout({ className }) {
         if (res.data.status != "1") {
           return window.Swal.fire("Kesalahan", res.data.response, "error")
         }
-        setTab(res.data.data)
+        dispatch(setTab(res.data.data))
         // by default, set active tab = first tab index
         // dispatch(setTabId(res.data.data[0].id))
         // setActiveTabId(res.data.data[0].id)
@@ -226,7 +232,7 @@ function AutoLayout({ className }) {
           setDataQuery={setDataQuery}
           structures={structures}
           setStructures={setStructures}
-          setTab={setTab}
+          // setTab={setTab}
         />
       )}
       <div

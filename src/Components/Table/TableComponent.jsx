@@ -103,8 +103,8 @@ function TableComponent({
           <div className="table-responsive">
             <table className="bg-white table table-sm table-striped table-bordered">
               <thead>
-                {table.getHeaderGroups().map((headerGroup) => (
-                  <tr key={headerGroup.id}>
+                {table.getHeaderGroups().map((headerGroup, index) => (
+                  <tr key={headerGroup.id + "_" + index}>
                     {headerGroup.headers.map((header) => {
                       return (
                         <th

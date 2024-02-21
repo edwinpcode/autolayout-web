@@ -94,7 +94,8 @@ function InputDate({
         },
         minDate: handleMinDate(),
         maxDate: handleMaxDate(),
-        drops: fieldItem.type === "date" ? "up" : "down",
+        // drops: fieldItem.type === "date" ? "up" : "down",
+        drops: "auto",
       })
       // on apply
       window
