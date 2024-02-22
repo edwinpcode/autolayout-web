@@ -96,7 +96,10 @@ function Report() {
 
   return (
     <div>
-      <div className="mb-3">
+      <div>
+        <span className="text-lg text-bold">{menu.activeMenuDesc}</span>
+      </div>
+      <div className="mb-3 mt-3">
         <Tab
           data={tab}
           activeTabId={activeTabId}

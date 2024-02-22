@@ -70,7 +70,7 @@ function TableList() {
 
   // get structure
   useEffect(() => {
-    if (menuSlice) {
+    if (menuSlice.path != "/form") {
       setPagination({ pageIndex: 0, pageSize: 10 })
       handleGetListStructure(user, menuSlice.activeMenuId, setStructures)
     }
@@ -78,7 +78,7 @@ function TableList() {
 
   // get data
   useEffect(() => {
-    if (menuSlice)
+    if (menuSlice.path != "/form")
       fetchData(menuSlice.activeMenuId, pageIndex, pageSize, filtering)
   }, [menuSlice, pageIndex, pageSize, filtering])
 
@@ -87,7 +87,7 @@ function TableList() {
   return (
     <div>
       <div className="d-md-flex">
-        {pathname != "/report" && menuSlice.path != "/form" && (
+        {pathname != "/report" && menuSlice.path == "/" && (
           <Inbox
             // className={"col-md-3"}
             pageIndex={pageIndex}

@@ -15,6 +15,7 @@ import TableList from "./Pages/TableList"
 import PreviewDocument from "./Pages/PreviewDocument"
 import PublicRoutes from "./Router/PublicRoutes"
 import Chart from "./Components/Dashboard/Chart"
+import DataTablePage from "Pages/DataTablePage"
 
 const Router = () => {
   return (
@@ -36,6 +37,7 @@ const Router = () => {
           {/* <Route path="/flowchart" element={<Flowchart />} /> */}
           {/* <Route path="/flowchart/:id" element={<Flowchart />} /> */}
           <Route path="/report" element={<Report />} />
+          <Route path="/datatable" element={<DataTablePage />} />
           {/* <Route path="/report/:menuId" element={<Report />} /> */}
         </Route>
       </Route>
