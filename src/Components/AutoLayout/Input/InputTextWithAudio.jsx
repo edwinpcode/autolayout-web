@@ -16,6 +16,7 @@ import InputCommon from "./InputCommon"
 import { useForm } from "react-hook-form"
 import { ErrorMessage } from "@hookform/error-message"
 import ConvertUtil from "Utils/ConvertUtil"
+import AIService from "Services/AIService"
 
 const InputTextWithAudio = ({
   button = [],
@@ -140,58 +141,31 @@ const InputTextWithAudio = ({
     }
   }
 
-  const search = (audioBlob) => {
+  const search = async (audioBlob) => {
     dispatch(setFormPanel([]))
     dispatch(setFormAction([]))
     dispatch(setLoadingField(true))
     dispatch(setLoadingSpin(true))
-    if (button.length) {
-      const param = [{ id: fieldItem.id, value: getValues(fieldItem.id) }]
-      const formData = new FormData()
-      const timestamp = new Date().toISOString().replace(/[-:.]/g, "")
-      const randomString = Math.random().toString(36).substring(2, 5)
-      const fileName = `audio_${timestamp}_${randomString}.webm`
-      formData.append("file", audioBlob, fileName)
-      formData.append("removewhitespace", "0")
-      formData.append("type", button[0].id)
-      formData.append("tabId", menu.activeTabId)
-      formData.append("tc", menu.activeTrackId)
-      formData.append("userId", userId)
-      formData.append("param", param)
-      // for (var pair of formData.entries()) {
-      //   console.log(pair[0] + ", " + pair[1])
-      // }
-      getDataActionWithFormData({
-        path: button[0].path,
-        formData,
-      })
-        .then((res) => {
-          dispatch(setLoadingSpin(false))
-          dispatch(setLoadingField(false))
-          // nik baru (tidak ditemukan)
-          if (res.data.status == "0") {
-            // navigate(`/${menuId}/${id}/${value}`, { state: { param: [] } })
-            // navigate("/", { state: { param: [] } })
-            dispatch(setFormPanel(res.data.panel))
-            dispatch(setFormAction(res.data.action))
-            return window.Swal.fire("", res.data.message, "warning")
-          }
-          // nik ditemukan
-          if (res.data.status == "1") {
-            dispatch(setFormPanel(res.data.panel))
-            dispatch(setFormAction(res.data.action))
-            return window.Swal.fire("", res.data.message, "success")
-          }
-          // nik dalam pengajuan
-          if (res.data.status == "2") {
-            // navigate(`/${menuId}`)
-            navigate("/")
-            return window.Swal.fire("", res.data.message, "warning")
-          }
-        })
-        .catch((error) => {
-          window.Swal.fire("Kesalahan", error.message, "error")
-        })
+    const param = [{ id: fieldItem.id, value: getValues(fieldItem.id) }]
+    const formData = new FormData()
+    const timestamp = new Date().toISOString().replace(/[-:.]/g, "")
+    const randomString = Math.random().toString(36).substring(2, 5)
+    const fileName = `audio_${timestamp}_${randomString}.webm`
+    formData.append("file", audioBlob, fileName)
+    formData.append("removewhitespace", "0")
+    try {
+      setRecordingStatus("search")
+      const res = await AIService.voiceToText(formData)
+      if (res.data.status == "1") {
+        setValue(fieldItem.id, res.data.message)
+      }
+      URL.revokeObjectURL(audioUrl)
+      setAudioUrl(null)
+      setAudioBlob(null)
+    } catch (error) {
+      // window.Swal.fire("Kesalahan", error.message, "error")
+    } finally {
+      setRecordingStatus("inactive")
     }
   }
 
