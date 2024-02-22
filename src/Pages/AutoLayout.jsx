@@ -205,7 +205,11 @@ function AutoLayout({ className, pageIndex, pageSize, fetchData }) {
   }, [activeTabId, menu.activeMenuId, tab])
 
   return (
-    <div className={`col-md-9 ${className}`}>
+    <div
+      className={`${
+        menu.path == "/form" ? "col-md-12" : "col-md-9"
+      } ${className}`}
+    >
       {/* {menu.path != "/form" && (
         <Inbox
           // className={"col-md-3"}
