@@ -1,56 +1,228 @@
 import React, { useEffect, useRef, useState } from "react"
-import FullLoad from "../../../Pages/FullLoad"
-import { useDispatch, useSelector } from "react-redux"
-import { useNavigate } from "react-router-dom"
-import {
-  getDataActionWithButton,
-  getDataActionWithFormData,
-} from "../../../Services/AutoLayoutService"
-import { setFormAction, setFormPanel } from "../../../Store/Form/FormSlice"
-import { resetDropdown, setDropdown } from "../../../Store/Input/DropdownSlice"
-import {
-  setLoadingField,
-  setLoadingSpin,
-} from "../../../Store/Loading/LoadingSlice"
-import InputCommon from "./InputCommon"
-import { useForm } from "react-hook-form"
-import { ErrorMessage } from "@hookform/error-message"
-import ConvertUtil from "Utils/ConvertUtil"
+import { useMemo } from "react"
+import { NumericFormat } from "react-number-format"
+import { getChildValueByChildParent } from "../../../Utils/FieldReferenceUtils"
+import { handleFieldRule } from "../../../Utils/FieldRuleUtils"
+import InputGroup from "../../InputGroup"
 import AIService from "Services/AIService"
+import ConvertUtil from "Utils/ConvertUtil"
+
+const numericRules = [
+  "currencyAbsolute",
+  "currency",
+  "numericAbsolute",
+  "numeric",
+]
+
+function InputFormat({
+  id,
+  fieldItem,
+  register,
+  watch,
+  rule,
+  setValue,
+  handleOnBlur,
+  handleKeyDown,
+  defaultValue,
+  className,
+}) {
+  const watchHiddenInput = watch(id, defaultValue)
+  return (
+    <>
+      {fieldItem?.groupInput ? (
+        <InputGroup fieldItem={fieldItem}>
+          <input type="hidden" id={id} {...register} />
+          <NumericFormat
+            value={
+              watchHiddenInput === ""
+                ? ""
+                : rule === "numericAbsolute"
+                  ? watchHiddenInput
+                  : +watchHiddenInput
+            }
+            type="text"
+            allowNegative={
+              ["numericAbsolute", "currencyAbsolute"].includes(rule)
+                ? false
+                : true
+            }
+            allowLeadingZeros={rule === "numericAbsolute" ? true : false}
+            className={"form-control " + className}
+            thousandsGroupStyle="thousand"
+            thousandSeparator={
+              ["numericAbsolute", "numeric"].includes(rule) ? false : ","
+            }
+            onBlur={handleOnBlur}
+            onValueChange={(values) => {
+              setValue(id, values.value, { shouldValidate: true })
+              const hiddenInput = document.getElementById(id)
+              hiddenInput.dispatchEvent(new Event("change"))
+            }}
+            readOnly={fieldItem?.isReadOnly === "1" || false}
+            onKeyDown={handleKeyDown}
+          />
+        </InputGroup>
+      ) : (
+        <>
+          <input type="hidden" id={id} {...register} />
+          <NumericFormat
+            value={
+              watchHiddenInput === ""
+                ? ""
+                : rule === "numericAbsolute"
+                  ? watchHiddenInput
+                  : +watchHiddenInput
+            }
+            type="text"
+            allowNegative={
+              ["numericAbsolute", "currencyAbsolute"].includes(rule)
+                ? false
+                : true
+            }
+            allowLeadingZeros={rule === "numericAbsolute" ? true : false}
+            className={"form-control " + className}
+            thousandsGroupStyle="thousand"
+            thousandSeparator={
+              ["numericAbsolute", "numeric"].includes(rule) ? false : ","
+            }
+            onBlur={handleOnBlur}
+            onValueChange={(values) => {
+              setValue(id, values.value, { shouldValidate: true })
+              const hiddenInput = document.getElementById(id)
+              hiddenInput.dispatchEvent(new Event("change"))
+              if (["Persentase", "Nominal Biaya"].includes(fieldItem?.label)) {
+                handleOnBlur()
+              }
+            }}
+            readOnly={fieldItem?.isReadOnly === "1" || false}
+            onKeyDown={handleKeyDown}
+          />
+        </>
+      )}
+    </>
+  )
+}
 
 const InputTextWithAudio = ({
-  button = [],
-  child,
-  defaultValue,
-  flag,
   fieldItem,
   fieldList,
-  isMandatory,
+  panelList,
   label,
-  panel,
+  id,
+  register,
+  control,
+  setValue,
+  resetField,
+  getValues,
+  watch,
+  hide,
   parent,
-  path,
-  width,
+  child,
+  defaultValue,
+  filter,
+  showLabel,
+  className,
   ...props
 }) => {
-  const dispatch = useDispatch()
-  const navigate = useNavigate()
-  // prettier-ignore
-  const { register, handleSubmit, formState: { errors }, getValues, setValue, resetField, watch, clearErrors, } = useForm()
-  // redux
-  const userId = useSelector((state) => state.user.id)
-  const menu = useSelector((state) => state.menu)
-
-  // audio
   const [mediaStreamAudio, setMediaStreamAudio] = useState(null)
   const [mediaRecorder, setMediaRecorder] = useState(null)
   const [recordingStatus, setRecordingStatus] = useState("inactive")
   const [audioUrl, setAudioUrl] = useState(null)
+  const [audioBlob, setAudioBlob] = useState(null)
   const [audioChunks, setAudioChunks] = useState([])
   const [isRecording, setIsRecording] = useState(false)
-  const [border, setBorder] = useState("")
   const debounceTimeoutRef = useRef(null)
-  const [audioBlob, setAudioBlob] = useState(null)
+  const [border, setBorder] = useState("")
+
+  const fieldRule = useMemo(() => handleFieldRule(fieldItem), [])
+  // console.log(fieldItem)
+  const handleOnBlur = () => {
+    // if has child
+    if (child.length) {
+      child.forEach((childId) => {
+        // console.log('get child')
+        getChildValueByChildParent(childId, panelList, getValues, setValue)
+      })
+    }
+  }
+
+  useEffect(() => {
+    defaultValue && setValue(id, defaultValue)
+
+    // hide field
+    if (fieldItem?.hide === "1") {
+      const currentEl = document.getElementById(id)
+      if (currentEl) {
+        currentEl.parentElement.parentElement.style.display = "none"
+      }
+    }
+
+    if (parent && parent.length) {
+      parent.forEach((parentId) => {
+        const parentEl = document.getElementById(parentId)
+        if (parentEl) {
+          let eventType = parentEl.tagName === "INPUT" ? "input" : "change"
+          parentEl.addEventListener(eventType, () => {
+            // reset current field value
+            resetField(id)
+            const currentFieldEl = document.getElementById(id)
+            currentFieldEl.dispatchEvent(new Event("change"))
+            // reset child value
+            if (child.length) {
+              child.forEach((childId) => {
+                resetField(childId)
+                const childEl = document.getElementById(childId)
+                childEl.dispatchEvent(new Event("change"))
+              })
+            }
+          })
+        }
+      })
+    }
+
+    if (fieldItem?.isReadOnly === "1") {
+      const elementId = document.getElementById(id)
+      if (elementId) {
+        document.getElementById(id).addEventListener("change", handleOnBlur)
+      }
+    }
+  }, [])
+
+  // handle on type
+  const handleKeyDown = (e) => {
+    if (fieldItem?.maxLength) {
+      const maxLength = Number(fieldItem.maxLength) // set maximum length here
+      const allowedKeys = ["Backspace", "Delete", "Tab"]
+      const isCtrlA = e.ctrlKey && e.key === "a"
+      // all allowed key
+      const isAllowed =
+        e.target.value.length < maxLength ||
+        allowedKeys.includes(e.key) ||
+        isCtrlA
+      // if not allowed
+      if (!isAllowed) {
+        e.preventDefault()
+      }
+    }
+  }
+
+  useEffect(() => {
+    if (defaultValue) {
+      setValue(id, defaultValue)
+      // hardcode
+      if (id === "VDCD10001_002_029_001") {
+        const nomorKtpDebitur = getValues("VDCD10001_001_001")
+        setValue(id, nomorKtpDebitur)
+      }
+    }
+  }, [defaultValue])
+
+  const watchNoKtp = watch("PA10001_001_001")
+  useEffect(() => {
+    if (document.getElementById("PA10001_002_001_001")) {
+      setValue("PA10001_002_001_001", watchNoKtp)
+    }
+  }, [watchNoKtp])
 
   useEffect(() => {
     if (!mediaStreamAudio) return
@@ -121,7 +293,7 @@ const InputTextWithAudio = ({
 
   const stopRecord = () => {
     if (mediaRecorder) {
-      console.log("stop")
+      // console.log("stop")
       setIsRecording(false)
       mediaRecorder.stop()
       setRecordingStatus("inactive")
@@ -142,15 +314,11 @@ const InputTextWithAudio = ({
   }
 
   const search = async (audioBlob) => {
-    dispatch(setFormPanel([]))
-    dispatch(setFormAction([]))
-    dispatch(setLoadingField(true))
-    dispatch(setLoadingSpin(true))
-    const param = [{ id: fieldItem.id, value: getValues(fieldItem.id) }]
     const formData = new FormData()
     const timestamp = new Date().toISOString().replace(/[-:.]/g, "")
     const randomString = Math.random().toString(36).substring(2, 5)
     const fileName = `audio_${timestamp}_${randomString}.webm`
+    // console.log(audioBlob)
     formData.append("file", audioBlob, fileName)
     formData.append("removewhitespace", "0")
     try {
@@ -177,30 +345,75 @@ const InputTextWithAudio = ({
 
   return (
     <>
-      <label className={`${fieldItem.hide ? "hidden" : ""}`}>
-        {label}
-        {isMandatory && (
-          <span className="text-danger font-weight-bold"> *</span>
-        )}
-      </label>
+      {showLabel && (
+        <label onClick={() => console.log(fieldItem)}>
+          {fieldItem.label}
+          {fieldItem?.isMandatory === "1" && (
+            <span className="text-danger font-weight-bold"> *</span>
+          )}
+        </label>
+      )}
       <div className="input-group">
-        <InputCommon
-          showLabel={false}
-          fieldItem={fieldItem}
-          fieldList={fieldList}
-          panelList={panel}
-          id={fieldItem.id}
-          parent={[]}
-          child={[]}
-          defaultValue={fieldItem.value}
-          getValues={getValues}
-          setValue={setValue}
-          watch={watch}
-          resetField={resetField}
-          hide={fieldItem.hide == "1" || false}
-          register={register}
-          className={border}
-        />
+        {numericRules.includes(fieldItem?.rule) ? (
+          <InputFormat
+            id={id}
+            fieldItem={fieldItem}
+            rule={fieldItem?.rule}
+            register={register(id, fieldRule)}
+            watch={watch}
+            setValue={setValue}
+            handleOnBlur={handleOnBlur}
+            handleKeyDown={handleKeyDown}
+            defaultValue={defaultValue}
+            className={className}
+          />
+        ) : (
+          <>
+            {fieldItem?.groupInput ? (
+              <InputGroup fieldItem={fieldItem}>
+                <input
+                  id={id}
+                  type="text"
+                  className={
+                    "form-control form-control-sm " + border + className
+                  }
+                  defaultValue={defaultValue || ""}
+                  {...register(id, fieldRule)}
+                  onBlur={handleOnBlur}
+                  readOnly={fieldItem?.isReadOnly == "1" || false}
+                />
+              </InputGroup>
+            ) : (
+              <>
+                {fieldItem?.rule === "alphaonly" ? (
+                  <input
+                    id={id}
+                    type="text"
+                    className={
+                      "form-control form-control-sm " + border + className
+                    }
+                    defaultValue={defaultValue || ""}
+                    {...register(id, fieldRule)}
+                    onBlur={handleOnBlur}
+                    onKeyDown={handleKeyDown}
+                    readOnly={fieldItem?.isReadOnly == "1" || false}
+                  />
+                ) : (
+                  <input
+                    id={id}
+                    type="text"
+                    className="form-control form-control-sm"
+                    defaultValue={defaultValue || ""}
+                    {...register(id, fieldRule)}
+                    onBlur={handleOnBlur}
+                    onKeyDown={handleKeyDown}
+                    readOnly={fieldItem?.isReadOnly == "1" || false}
+                  />
+                )}
+              </>
+            )}
+          </>
+        )}
         <div
           className="input-group-append"
           onClick={recordingStatus == "inactive" ? startRecord : stopRecord}
@@ -217,12 +430,6 @@ const InputTextWithAudio = ({
           </div>
         </div>
       </div>
-      <ErrorMessage
-        errors={errors}
-        name={fieldItem.id}
-        as="div"
-        style={{ color: "red", marginTop: "5px" }}
-      />
     </>
   )
 }

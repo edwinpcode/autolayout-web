@@ -17,23 +17,8 @@ function TopAction({
   selected = [],
   setTab,
 }) {
-  // state
-  // const [filterData, setFilterData] = useState([])
-  // redux
   const activeMenuId = useSelector((state) => state.menu.activeMenuId)
   const activeTabId = useSelector((state) => state.menu.activeTabId)
-
-  // const filterDataLabel = useMemo(() => {
-  //   const searchCriteria = []
-  //   if (filterData) {
-  //     filterData.forEach(({ label, value }) => {
-  //       if (value !== '') searchCriteria.push(`${label} = ${value}`)
-  //     })
-  //     const res = searchCriteria.join(', ')
-  //     return res
-  //   }
-  //   return filterData
-  // }, [filterData])
 
   useEffect(() => {
     setFilterData([])

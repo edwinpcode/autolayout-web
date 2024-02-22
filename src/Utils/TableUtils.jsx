@@ -233,7 +233,6 @@ export const handleGetListData = async (payload, setDataQuery) => {
   try {
     const res = await getListData(payload)
     if (res.data.status != "1") {
-      console.log(res.data)
       setDataQuery({
         rows: [],
         pageCount: 1,

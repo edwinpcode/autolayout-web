@@ -80,7 +80,7 @@ function ButtonAction({
   resetTab = () => {},
   pageIndex,
   pageSize,
-  fetchData,
+  fetchData = () => {},
   selected = [],
   // setTab = (value) => {},
   ...props
@@ -175,7 +175,7 @@ function ButtonAction({
     // showLoader()
     // available action:
     // redirect, save, submit, cancel
-    console.log(actionItem)
+    // console.log(actionItem)
     if (actionItem.url?.param?.length) {
       const param = handleParamValues(actionItem.url.param, getValues, info)
       dispatch(setParam(param))
@@ -200,7 +200,6 @@ function ButtonAction({
         param: selected,
         flagAction: actionItem.flagAction,
       }
-      console.log(payload)
     }
 
     // save
@@ -399,6 +398,7 @@ function ButtonAction({
           },
         }
         let filtering = []
+        console.log("data: ", data)
         for (const [id, value] of Object.entries(data)) {
           // with id
           payload.filtering.push({ id, value: value || "" })
@@ -406,6 +406,7 @@ function ButtonAction({
           let { label } = getFieldByFieldId(id, panelList)
           filtering.push({ label, value: value || "" })
         }
+        console.log(filtering)
         // dispatch dipake nanti ketika filter pagination sudah fix
         dispatch(setFilteringList(payload.filtering))
         setFilterData(filtering)

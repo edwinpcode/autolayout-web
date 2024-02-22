@@ -298,19 +298,22 @@ function FieldType({
         <div className={`col-md-${fieldItem.width || "12"}`} key={fieldItem.id}>
           <div className="form-group">
             <InputTextWithAudio
+              showLabel={true}
               fieldItem={fieldItem}
               fieldList={fieldList}
-              panel={panel}
-              button={fieldItem.button}
+              panelList={panel}
+              id={fieldItem.id}
+              parent={fieldItem.reference?.parent || []}
               child={fieldItem.reference?.child || []}
               defaultValue={fieldItem.value}
-              flag={fieldItem.flag}
-              isMandatory={fieldItem.isMandatory === "1" ? true : false}
-              label={fieldItem.label}
-              parent={fieldItem.reference?.parent || []}
-              path={fieldItem.path}
-              readOnly={fieldItem.isReadOnly === "1" || false}
-              width={fieldItem.width}
+              getValues={getValues}
+              setValue={setValue}
+              watch={watch}
+              resetField={resetField}
+              hide={fieldItem.hide == "1" || false}
+              register={register}
+              filter={filter}
+              className={fieldItem.className || ""}
             />
           </div>
         </div>

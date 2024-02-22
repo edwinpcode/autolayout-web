@@ -1,12 +1,12 @@
-import { useEffect, useState } from 'react'
-import { useSelector } from 'react-redux'
+import { useEffect, useState } from "react"
+import { useSelector } from "react-redux"
 import {
   axiosPost,
   getCancelModal,
   getViewDoc,
-} from '../../Services/AutoLayoutService'
-import { getFieldByGrid } from '../../Services/StructureService'
-import ModalWithButton from '../Modal/ModalWithButton'
+} from "../../Services/AutoLayoutService"
+import { getFieldByGrid } from "../../Services/StructureService"
+import ModalWithButton from "../Modal/ModalWithButton"
 
 function ButtonModal({
   dataTarget,
@@ -34,7 +34,7 @@ function ButtonModal({
 
   const handleButtonClick = async (item) => {
     // console.log('button: ', buttonItem)
-    console.log('grid : ', gridItem)
+    // console.log('grid : ', gridItem)
     // if has content (filter modal)
     if (item.contents?.data?.length >= 1) {
       setLoading(false)
@@ -45,7 +45,7 @@ function ButtonModal({
     }
 
     // cancel modal
-    if (item.flagType === 'cancel') {
+    if (item.flagType === "cancel") {
       // window.$('.modal').modal('hide')
       const payload = {
         cancelId: item.actionId,
@@ -63,7 +63,7 @@ function ButtonModal({
     }
 
     // button proses modal
-    if (item.flagAction === 'detailMenuFasilitas') {
+    if (item.flagAction === "detailMenuFasilitas") {
       const payload = {
         gridID: gridItem?.id || buttonItem?.id,
         flag: item.flagAction,
@@ -75,9 +75,9 @@ function ButtonModal({
         payload.param.push({ id: paramId, value: paramValue })
       })
       // get menu fasilitas
-      await axiosPost('/listtabproduct', payload).then((res) => {
-        if (res.data.status != '1') {
-          return window.Swal.fire('', res.data.message, 'error')
+      await axiosPost("/listtabproduct", payload).then((res) => {
+        if (res.data.status != "1") {
+          return window.Swal.fire("", res.data.message, "error")
         }
         setFieldList(res.data.data)
         setLoading(false)
@@ -86,13 +86,13 @@ function ButtonModal({
     }
 
     // view modal
-    if (['View', 'Lihat'].includes(item.label)) {
+    if (["View", "Lihat"].includes(item.label)) {
       const payload = {
         param: [],
       }
       // handle param
       item.url.param.forEach((paramId) => {
-        const paramFieldValue = window.$('#' + paramId).val()
+        const paramFieldValue = window.$("#" + paramId).val()
         if (paramFieldValue) {
           payload.param.push({ id: paramId, value: paramFieldValue })
         } else {
@@ -101,8 +101,8 @@ function ButtonModal({
         }
       })
       await getViewDoc(payload).then((res) => {
-        if (res.data.status != '1') {
-          return window.Swal.fire('Error', res.data.message, 'error')
+        if (res.data.status != "1") {
+          return window.Swal.fire("Error", res.data.message, "error")
         }
         setFieldList(res.data)
         setLoading(false)
@@ -128,10 +128,10 @@ function ButtonModal({
     //   return
     // }
 
-    if (item.flagType === 'detail') {
+    if (item.flagType === "detail") {
       const payload = {
         gridId: gridItem?.id || buttonItem?.id,
-        isNew: item.isNew == '1' ? '1' : '0',
+        isNew: item.isNew == "1" ? "1" : "0",
         tc: menu.activeTrackId,
         userId: userId,
         param: [],
@@ -141,7 +141,7 @@ function ButtonModal({
       }
       // set param by paramId
       item.url.param.forEach((paramId) => {
-        const paramFieldValue = window.$('#' + paramId).val()
+        const paramFieldValue = window.$("#" + paramId).val()
         if (paramFieldValue !== undefined) {
           payload.param.push({ id: paramId, value: paramFieldValue })
         } else {
@@ -150,9 +150,9 @@ function ButtonModal({
         }
       })
       await getFieldByGrid(payload).then((res) => {
-        if (res.data.status != '1') {
+        if (res.data.status != "1") {
           setLoading(false)
-          return window.Swal.fire('', res.data.message, 'error')
+          return window.Swal.fire("", res.data.message, "error")
         }
         setFieldList(res.data)
         setActionList(res.data.action)
@@ -162,7 +162,7 @@ function ButtonModal({
   }
 
   useEffect(() => {
-    window.$('#' + dataTarget).on('hide.bs.modal', function () {
+    window.$("#" + dataTarget).on("hide.bs.modal", function () {
       setFieldList([])
       setActionList([])
       setLoading(true)
@@ -176,7 +176,7 @@ function ButtonModal({
       <button
         type="button"
         data-toggle="modal"
-        data-target={'#' + dataTarget}
+        data-target={"#" + dataTarget}
         onClick={() => handleButtonClick(buttonItem)}
         {...props}
       >

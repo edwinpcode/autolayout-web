@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react"
+import { useEffect, useMemo, useState } from "react"
 // prettier-ignore
 import { createColumnHelper, flexRender, getCoreRowModel, useReactTable, } from '@tanstack/react-table'
 import classNames from "classnames"
@@ -78,6 +78,10 @@ function TableComponent({
     manualPagination: true,
     debugTable: false,
   })
+
+  // useEffect(() => {
+  //   console.log("filter: ", filterData)
+  // }, [filterData])
 
   return (
     <div className="col-12">
