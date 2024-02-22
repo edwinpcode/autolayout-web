@@ -1,5 +1,5 @@
 import axios from "axios"
-import APIClient from "./APIClient"
+import APIClient, { formDataConfig } from "./APIClient"
 import APILocal from "./APILocal"
 
 export const retrieveData = (param) => {
@@ -96,6 +96,10 @@ export const updateStatus = async (payload) => {
 
 export const getDataActionWithButton = async (path, payload) => {
   return await APIClient.post(path, payload)
+}
+
+export const getDataActionWithFormData = async ({ path, formData }) => {
+  return await APIClient.post(path, formData, formDataConfig)
 }
 
 export const dataExport = async (payload) => {

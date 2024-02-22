@@ -12,6 +12,7 @@ import { useNavigate } from "react-router-dom"
 import Speedometer from "../Components/Dashboard/Speedometer"
 import Modul from "../Components/Modul"
 import { setAddress, setLatitude, setLongitude } from "../Store/locationSlice"
+import InputTextWithAudio from "Components/AutoLayout/Input/InputTextWithAudio"
 
 function Dashboard() {
   const dispatch = useDispatch()
@@ -37,6 +38,18 @@ function Dashboard() {
   // const [longitude, setLongitude] = useState(0)
   // const [latitude, setLatitude] = useState(0)
   // const [module, setModule] = useState([])
+
+  const [fieldItem, setFieldItem] = useState({
+    hide: "0",
+    id: "123123",
+    value: "",
+    button: [
+      {
+        id: "123123",
+        path: "/sample",
+      },
+    ],
+  })
 
   const fetch = async ({ activeModuleId, activeRoleId }) => {
     try {
@@ -276,6 +289,9 @@ function Dashboard() {
           </div>
         </div>
       </div>
+      {/* <div className="row pt-3">
+        <InputTextWithAudio fieldItem={fieldItem} button={fieldItem.button} />
+      </div> */}
       <div className="row pt-3">
         {dashboardBox.map((dashboardItem, index) => {
           return (
