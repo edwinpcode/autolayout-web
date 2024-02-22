@@ -21,6 +21,8 @@ function ButtonType({
   pageIndex = 0,
   fetchData = () => {},
   selected = [],
+  setAutoOpenFirstItem,
+  ...props
   // setTab = (value) => {},
 }) {
   return (
@@ -44,6 +46,7 @@ function ButtonType({
           pageSize={pageSize}
           fetchData={fetchData}
           selected={selected}
+          setAutoOpenFirstItem={setAutoOpenFirstItem}
           // setTab={setTab}
         />
       )}
@@ -72,6 +75,7 @@ function ButtonType({
           pageIndex={pageIndex}
           pageSize={pageSize}
           fetchData={fetchData}
+          setAutoOpenFirstItem={setAutoOpenFirstItem}
         />
       )}
       {buttonItem.type === "buttonOpenPanel" && (

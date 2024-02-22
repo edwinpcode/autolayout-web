@@ -21,6 +21,7 @@ function ButtonModal({
   pageIndex,
   pageSize,
   fetchData,
+  setAutoOpenFirstItem,
   ...props
 }) {
   // state
@@ -195,6 +196,7 @@ function ButtonModal({
         pageIndex={pageIndex}
         pageSize={pageSize}
         fetchData={fetchData}
+        setAutoOpenFirstItem={setAutoOpenFirstItem}
       />
     </>
   )

@@ -1,4 +1,4 @@
-import { createSlice } from '@reduxjs/toolkit'
+import { createSlice } from "@reduxjs/toolkit"
 
 const initialState = {
   filtering: [],
@@ -8,7 +8,7 @@ const initialState = {
 }
 
 export const listSlice = createSlice({
-  name: 'list',
+  name: "list",
   initialState,
   reducers: {
     setFilteringList: (state, action) => {

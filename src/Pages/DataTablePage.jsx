@@ -3,11 +3,18 @@ import { useDispatch, useSelector } from "react-redux"
 import FullLoad from "./FullLoad"
 import TableComponent from "Components/Table/TableComponent"
 import { setCurrentPayload, setFilteringList } from "Store/List/listSlice"
-import { setInboxData } from "Store/Inbox/InboxStore"
+import {
+  setInboxData,
+  setInboxFilter,
+  setInboxParam,
+} from "Store/Inbox/InboxStore"
 import { handleGetListData, handleGetListStructure } from "Utils/TableUtils"
+import { useLocation, useNavigate } from "react-router-dom"
 
 const DataTablePage = () => {
   const dispatch = useDispatch()
+  const navigate = useNavigate()
+  const { pathname } = useLocation()
   const [loader, showLoader, hideLoader] = FullLoad()
   const [structures, setStructures] = useState({})
   const menu = useSelector((res) => res.menu)
@@ -19,6 +26,7 @@ const DataTablePage = () => {
   })
   const user = useSelector((state) => state.user)
   const filtering = useSelector((state) => state.list.filtering)
+  const [autoOpenFirstItem, setAutoOpenFirstItem] = useState("0")
 
   const fetchData = async (menuId, pageIndex, pageSize, filtering) => {
     try {
@@ -34,12 +42,42 @@ const DataTablePage = () => {
         },
       }
       dispatch(setCurrentPayload(payload))
-      await handleGetListData(payload, setDataQuery)
+      await handleGetListData({ payload, setDataQuery, setAutoOpenFirstItem })
     } catch (error) {
     } finally {
       hideLoader()
     }
   }
+
+  useEffect(() => {
+    if (
+      dataQuery?.rows?.length == 1 &&
+      autoOpenFirstItem == "1" &&
+      structures?.header?.length
+    )
+      for (let i = 0; i < structures.header.length; i++) {
+        if (structures.header[i].type == "button") {
+          for (let j = 0; j < structures.header[i].item.length; j++) {
+            const item = structures.header[i].item[j]
+            if (item.isRedirect == "1") {
+              const data = dataQuery.rows[0]
+              const param = []
+              item.url.param.forEach((element) => {
+                for (let [id, value] of Object.entries(data)) {
+                  if (id == element)
+                    param.push({
+                      id: element,
+                      value: value,
+                    })
+                }
+              })
+              dispatch(setInboxParam(param))
+              navigate(item.url?.path)
+            }
+          }
+        }
+      }
+  }, [autoOpenFirstItem, dataQuery, structures])
 
   useEffect(() => {
     if (dataQuery) {

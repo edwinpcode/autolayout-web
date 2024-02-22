@@ -1,3 +1,4 @@
+import React from "react"
 import { useSelector, useDispatch } from "react-redux"
 import { useLocation, useNavigate } from "react-router-dom"
 import {
@@ -83,6 +84,7 @@ function ButtonAction({
   fetchData = () => {},
   selected = [],
   // setTab = (value) => {},
+  setAutoOpenFirstItem,
   ...props
 }) {
   const navigate = useNavigate()
@@ -191,6 +193,7 @@ function ButtonAction({
         const param = handleParamValues(actionItem.url.param, getValues, info)
         Object.assign(payload, { param })
         dispatch(setInboxParam(param))
+        // console.log("to form")
         return navigate(actionItem?.url?.path, { state: payload })
       }
     }
@@ -411,9 +414,10 @@ function ButtonAction({
         dispatch(setFilteringList(payload.filtering))
         setFilterData(filtering)
         // hideLoader() ga jalan?
-        handleGetListData(payload, setDataQuery)
+        handleGetListData({ payload, setDataQuery, setAutoOpenFirstItem })
         window.$(".modal").modal("hide")
       }
+      return
     }
 
     // use / pakai

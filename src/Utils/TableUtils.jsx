@@ -7,7 +7,6 @@ import ButtonType from "../Components/AutoLayout/ButtonType"
 import InputCheckbox from "../Components/AutoLayout/Input/InputCheckbox"
 import { handleParamValues } from "./ParamUtils"
 import InputSelectItem from "../Components/AutoLayout/Input/InputSelectItem"
-import { useDispatch } from "@reduxjs/toolkit"
 
 export const addRowSelectionColumn = (defaultColumn, columnHelper) => {
   defaultColumn.unshift(
@@ -229,7 +228,11 @@ export const handleStructureHeader = ({
   return defaultColumn
 }
 
-export const handleGetListData = async (payload, setDataQuery) => {
+export const handleGetListData = async ({
+  payload,
+  setDataQuery,
+  setAutoOpenFirstItem,
+}) => {
   try {
     const res = await getListData(payload)
     if (res.data.status != "1") {
@@ -239,12 +242,15 @@ export const handleGetListData = async (payload, setDataQuery) => {
       })
       return
     }
+    if (setAutoOpenFirstItem && res.data.data?.autoOpenFirstItem) {
+      setAutoOpenFirstItem(res.data.data?.autoOpenFirstItem)
+    }
     setDataQuery({
-      rows: res.data.data.list,
+      rows: res.data.data?.list,
       pageCount: Math.ceil(
-        parseInt(res.data.data.total) / payload.pagination.perPage,
+        parseInt(res.data.data?.total) / payload.pagination.perPage,
       ),
-      total: parseInt(res.data.data.total),
+      total: parseInt(res.data.data?.total),
     })
   } catch (error) {
     return window.Swal.fire("Error", error.message, "error")

@@ -9,6 +9,7 @@ const initialState = {
   ],
   data: {},
   filter: [],
+  autoOpenFirstItem: "0",
 }
 const inboxSlice = createSlice({
   name: "inbox",
@@ -23,10 +24,21 @@ const inboxSlice = createSlice({
     setInboxFilter: (state, action) => {
       state.filter = action.payload
     },
+    setAutoOpenFirstItem: (state, action) => {
+      state.autoOpenFirstItem = action.payload
+    },
+    resetInbox: () => {
+      return initialState
+    },
   },
 })
 
-export const { setInboxParam, setInboxData, setInboxFilter } =
-  inboxSlice.actions
+export const {
+  setInboxParam,
+  setInboxData,
+  setInboxFilter,
+  setAutoOpenFirstItem,
+  resetInbox,
+} = inboxSlice.actions
 
 export const inboxReducer = inboxSlice.reducer

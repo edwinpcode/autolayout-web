@@ -73,7 +73,7 @@ function AutoLayout({ className, pageIndex, pageSize, fetchData }) {
   //       },
   //     }
   //     dispatch(setCurrentPayload(payload))
-  //     await handleGetListData(payload, setDataQuery)
+  //     await handleGetListData({payload, setDataQuery})
   //   } catch (error) {
   //   } finally {
   //     hideLoader()

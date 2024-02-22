@@ -1,10 +1,10 @@
-import { useForm } from 'react-hook-form'
-import { useSelector } from 'react-redux'
-import Panel from '../AutoLayout/Panel'
-import FieldType from '../AutoLayout/FieldType'
-import { SkeletonModal } from '../AutoLayout/Skeleton'
-import ButtonType from '../AutoLayout/ButtonType'
-import FieldWithPanel from '../AutoLayout/FieldWithPanel'
+import { useForm } from "react-hook-form"
+import { useSelector } from "react-redux"
+import Panel from "../AutoLayout/Panel"
+import FieldType from "../AutoLayout/FieldType"
+import { SkeletonModal } from "../AutoLayout/Skeleton"
+import ButtonType from "../AutoLayout/ButtonType"
+import FieldWithPanel from "../AutoLayout/FieldWithPanel"
 
 function ModalWithButton({
   buttonItem,
@@ -18,6 +18,8 @@ function ModalWithButton({
   pageSize = 10,
   pageIndex = 0,
   fetchData = () => {},
+  setAutoOpenFirstItem,
+  ...props
 }) {
   // prettier-ignore
   const { register, control, handleSubmit, formState: { errors }, setValue, resetField, getValues, watch, unregister, clearErrors } = useForm({ mode: 'onChange' })
@@ -41,7 +43,7 @@ function ModalWithButton({
                 type="button"
                 className="close"
                 onClick={() => {
-                  window.$('.modal').modal('hide')
+                  window.$(".modal").modal("hide")
                 }}
               >
                 <span aria-hidden="true">&times;</span>
@@ -88,131 +90,131 @@ function ModalWithButton({
                     />
                   )}
                   {/* view document */}
-                  {fieldList?.data?.ext === '.pdf' ? (
+                  {fieldList?.data?.ext === ".pdf" ? (
                     <div
                       style={{
-                        textAlign: 'center',
-                        margin: '0 auto',
+                        textAlign: "center",
+                        margin: "0 auto",
                       }}
                     >
                       <i
                         className="fas fa-file-pdf"
                         style={{
                           fontSize: 100,
-                          margin: '10px 5px',
-                          color: '#b30b00',
+                          margin: "10px 5px",
+                          color: "#b30b00",
                         }}
                       ></i>
                       <h5>{fieldList.data.docDesc}</h5>
                     </div>
-                  ) : fieldList?.data?.ext === '.doc' ? (
+                  ) : fieldList?.data?.ext === ".doc" ? (
                     <div
                       style={{
-                        textAlign: 'center',
-                        margin: '0 auto',
+                        textAlign: "center",
+                        margin: "0 auto",
                       }}
                     >
                       <i
                         className="fas fa-file-word"
                         style={{
                           fontSize: 100,
-                          margin: '10px 5px',
-                          color: '#2b5796',
+                          margin: "10px 5px",
+                          color: "#2b5796",
                         }}
                       ></i>
                       <h5>{fieldList.data.docDesc}</h5>
                     </div>
-                  ) : fieldList?.data?.ext === '.docx' ? (
+                  ) : fieldList?.data?.ext === ".docx" ? (
                     <div
                       style={{
-                        textAlign: 'center',
-                        margin: '0 auto',
+                        textAlign: "center",
+                        margin: "0 auto",
                       }}
                     >
                       <i
                         className="fas fa-file-word"
                         style={{
                           fontSize: 100,
-                          margin: '10px 5px',
-                          color: '#2b5796',
+                          margin: "10px 5px",
+                          color: "#2b5796",
                         }}
                       ></i>
                       <h5>{fieldList.data.docDesc}</h5>
                     </div>
-                  ) : fieldList?.data?.ext === '.xls' ? (
+                  ) : fieldList?.data?.ext === ".xls" ? (
                     <div
                       style={{
-                        textAlign: 'center',
-                        margin: '0 auto',
+                        textAlign: "center",
+                        margin: "0 auto",
                       }}
                     >
                       <i
                         className="fas fa-file-excel"
                         style={{
                           fontSize: 100,
-                          margin: '10px 5px',
-                          color: '#01723a',
+                          margin: "10px 5px",
+                          color: "#01723a",
                         }}
                       ></i>
                       <h5>{fieldList.data.docDesc}</h5>
                     </div>
-                  ) : fieldList?.data?.ext === '.xlsx' ? (
+                  ) : fieldList?.data?.ext === ".xlsx" ? (
                     <div
                       style={{
-                        textAlign: 'center',
-                        margin: '0 auto',
+                        textAlign: "center",
+                        margin: "0 auto",
                       }}
                     >
                       <i
                         className="fas fa-file-excel"
                         style={{
                           fontSize: 100,
-                          margin: '10px 5px',
-                          color: '#01723a',
+                          margin: "10px 5px",
+                          color: "#01723a",
                         }}
                       ></i>
                       <h5>{fieldList.data.docDesc}</h5>
                     </div>
-                  ) : fieldList?.data?.ext === '.csv' ? (
+                  ) : fieldList?.data?.ext === ".csv" ? (
                     <div
                       style={{
-                        textAlign: 'center',
-                        margin: '0 auto',
+                        textAlign: "center",
+                        margin: "0 auto",
                       }}
                     >
                       <i
                         className="fas fa-file-csv"
                         style={{
                           fontSize: 100,
-                          margin: '10px 5px',
-                          color: '#01723a',
+                          margin: "10px 5px",
+                          color: "#01723a",
                         }}
                       ></i>
                       <h5>{fieldList.data.docDesc}</h5>
                     </div>
-                  ) : fieldList?.data?.ext === '.txt' ? (
+                  ) : fieldList?.data?.ext === ".txt" ? (
                     <div
                       style={{
-                        textAlign: 'center',
-                        margin: '0 auto',
+                        textAlign: "center",
+                        margin: "0 auto",
                       }}
                     >
                       <i
                         className="fas fa-file-alt"
                         style={{
                           fontSize: 100,
-                          margin: '10px 5px',
+                          margin: "10px 5px",
                         }}
                       ></i>
                       <h5>{fieldList.data.docDesc}</h5>
                     </div>
-                  ) : fieldList?.data?.ext === '.png' ? (
+                  ) : fieldList?.data?.ext === ".png" ? (
                     <>
                       {fieldList?.data?.result && (
                         <div
                           style={{
-                            textAlign: 'center',
-                            margin: '0 auto',
+                            textAlign: "center",
+                            margin: "0 auto",
                           }}
                         >
                           <img
@@ -220,7 +222,7 @@ function ModalWithButton({
                             alt=""
                             className="img-fluid"
                             style={{
-                              width: '100%',
+                              width: "100%",
                               marginBottom: 10,
                             }}
                           />
@@ -228,13 +230,13 @@ function ModalWithButton({
                         </div>
                       )}
                     </>
-                  ) : fieldList?.data?.ext === '.jpg' ? (
+                  ) : fieldList?.data?.ext === ".jpg" ? (
                     <>
                       {fieldList?.data?.result && (
                         <div
                           style={{
-                            textAlign: 'center',
-                            margin: '0 auto',
+                            textAlign: "center",
+                            margin: "0 auto",
                           }}
                         >
                           <img
@@ -242,7 +244,7 @@ function ModalWithButton({
                             alt=""
                             className="img-fluid"
                             style={{
-                              width: '100%',
+                              width: "100%",
                               marginBottom: 10,
                             }}
                           />
@@ -250,13 +252,13 @@ function ModalWithButton({
                         </div>
                       )}
                     </>
-                  ) : fieldList?.data?.ext === '.jpeg' ? (
+                  ) : fieldList?.data?.ext === ".jpeg" ? (
                     <>
                       {fieldList?.data?.result && (
                         <div
                           style={{
-                            textAlign: 'center',
-                            margin: '0 auto',
+                            textAlign: "center",
+                            margin: "0 auto",
                           }}
                         >
                           <img
@@ -264,7 +266,7 @@ function ModalWithButton({
                             alt=""
                             className="img-fluid"
                             style={{
-                              width: '100%',
+                              width: "100%",
                               marginBottom: 10,
                             }}
                           />
@@ -277,8 +279,8 @@ function ModalWithButton({
                       {fieldList?.data?.result && (
                         <div
                           style={{
-                            textAlign: 'center',
-                            margin: '0 auto',
+                            textAlign: "center",
+                            margin: "0 auto",
                           }}
                         >
                           <i
@@ -310,9 +312,10 @@ function ModalWithButton({
                     fetchData={fetchData}
                     pageIndex={pageIndex}
                     pageSize={pageSize}
+                    setAutoOpenFirstItem={setAutoOpenFirstItem}
                   />
                 ))}
-                {fieldList?.data?.ext === '.pdf' ? (
+                {fieldList?.data?.ext === ".pdf" ? (
                   <div>
                     <a
                       className="btn btn-sm btn-danger"
@@ -322,7 +325,7 @@ function ModalWithButton({
                       <i className="fas fa-arrow-down"></i> Download
                     </a>
                   </div>
-                ) : fieldList?.data?.ext === '.doc' ? (
+                ) : fieldList?.data?.ext === ".doc" ? (
                   <div>
                     <a
                       className="btn btn-sm btn-danger"
@@ -332,7 +335,7 @@ function ModalWithButton({
                       <i className="fas fa-arrow-down"></i> Download
                     </a>
                   </div>
-                ) : fieldList?.data?.ext === '.docx' ? (
+                ) : fieldList?.data?.ext === ".docx" ? (
                   <div>
                     <a
                       className="btn btn-sm btn-danger"
@@ -342,7 +345,7 @@ function ModalWithButton({
                       <i className="fas fa-arrow-down"></i> Download
                     </a>
                   </div>
-                ) : fieldList?.data?.ext === '.xls' ? (
+                ) : fieldList?.data?.ext === ".xls" ? (
                   <div>
                     <a
                       className="btn btn-sm btn-danger"
@@ -352,7 +355,7 @@ function ModalWithButton({
                       <i className="fas fa-arrow-down"></i> Download
                     </a>
                   </div>
-                ) : fieldList?.data?.ext === '.xlsx' ? (
+                ) : fieldList?.data?.ext === ".xlsx" ? (
                   <div>
                     <a
                       className="btn btn-sm btn-danger"
@@ -362,7 +365,7 @@ function ModalWithButton({
                       <i className="fas fa-arrow-down"></i> Download
                     </a>
                   </div>
-                ) : fieldList?.data?.ext === '.csv' ? (
+                ) : fieldList?.data?.ext === ".csv" ? (
                   <div>
                     <a
                       className="btn btn-sm btn-danger"
@@ -372,7 +375,7 @@ function ModalWithButton({
                       <i className="fas fa-arrow-down"></i> Download
                     </a>
                   </div>
-                ) : fieldList?.data?.ext === '.txt' ? (
+                ) : fieldList?.data?.ext === ".txt" ? (
                   <div>
                     <a
                       className="btn btn-sm btn-danger"

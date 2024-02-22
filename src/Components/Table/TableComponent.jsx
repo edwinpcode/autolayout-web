@@ -17,6 +17,8 @@ function TableComponent({
   setStructures,
   setPagination,
   fetchData,
+  setAutoOpenFirstItem,
+  ...props
 }) {
   const columnHelper = createColumnHelper()
   // state

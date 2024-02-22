@@ -16,6 +16,8 @@ function TopAction({
   filterDataLabel,
   selected = [],
   setTab,
+  setAutoOpenFirstItem,
+  ...props
 }) {
   const activeMenuId = useSelector((state) => state.menu.activeMenuId)
   const activeTabId = useSelector((state) => state.menu.activeTabId)
@@ -49,6 +51,7 @@ function TopAction({
             fetchData={fetchData}
             selected={selected}
             setTab={setTab}
+            setAutoOpenFirstItem={setAutoOpenFirstItem}
           />
         ))}
       </div>
