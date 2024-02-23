@@ -35,7 +35,7 @@ function AutoLayout({ className, pageIndex, pageSize, fetchData }) {
   // redux state
   const panelData = useSelector((state) => state.form.panel)
   const actionData = useSelector((state) => state.form.action)
-  const param = useSelector((state) => state.param)
+  const param = useSelector((state) => state.inbox.param)
   const user = useSelector((state) => state.user)
   const menu = useSelector((state) => state.menu)
   const loading = useSelector((state) => state.loading.field)

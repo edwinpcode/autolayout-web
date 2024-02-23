@@ -17,7 +17,6 @@ import devReducer from "./Dev/DevModeSlice"
 import { inboxReducer } from "./Inbox/InboxStore"
 import LogoReducer from "./LogoSlice"
 import { flowchartModalReducer } from "./Flowchart/flowchartModalSlice"
-import { paramReducer } from "./Param/ParamSlice"
 import moduleReducer from "./Module/ModuleSlide"
 import tabReducers from "./tabSlice"
 import locationReducers from "./locationSlice"
@@ -45,7 +44,6 @@ const reducer = combineReducers({
   inbox: inboxReducer,
   logo: LogoReducer,
   flowchartModal: flowchartModalReducer,
-  param: paramReducer,
   module: moduleReducer,
   tab: tabReducers,
   location: locationReducers,

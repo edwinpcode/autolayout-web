@@ -28,7 +28,6 @@ import { getFieldByFieldId } from "../../Utils/FieldReferenceUtils"
 import { setFormAction, setFormPanel } from "../../Store/Form/FormSlice"
 import { setLoadingField } from "../../Store/Loading/LoadingSlice"
 import { setInboxParam } from "../../Store/Inbox/InboxStore"
-import { setParam } from "../../Store/Param/ParamSlice"
 import { setTab } from "../../Store/tabSlice"
 
 const openInNewTab = (url) => {
@@ -95,7 +94,7 @@ function ButtonAction({
   // redux
   const user = useSelector((state) => state.user)
   const menu = useSelector((state) => state.menu)
-  const param = useSelector((state) => state.param)
+  const param = useSelector((state) => state.inbox.param)
   const hiddenField = useSelector((state) => state.hiddenElement.hiddenField)
   const currentListPayload = useSelector((state) => state.list.currentPayload)
   // const lastFormPayload = useSelector((state) => state.form.lastPayload)
@@ -180,9 +179,11 @@ function ButtonAction({
     // console.log(actionItem)
     if (actionItem.url?.param?.length) {
       const param = handleParamValues(actionItem.url.param, getValues, info)
-      dispatch(setParam(param))
+      // dispatch(setParam(param))
+      dispatch(setInboxParam(param))
     } else {
-      dispatch(setParam([]))
+      // dispatch(setParam([]))
+      dispatch(setInboxParam(param))
     }
     if (pathname == actionItem.url?.path) {
       dispatch(setTab([]))
@@ -380,7 +381,7 @@ function ButtonAction({
     // upload
     if (actionItem.flagType === "upload") {
       const payload = {}
-      console.log("perlu edit")
+      // console.log("perlu edit")
     }
 
     // search / filter
@@ -401,7 +402,7 @@ function ButtonAction({
           },
         }
         let filtering = []
-        console.log("data: ", data)
+        // console.log("data: ", data)
         for (const [id, value] of Object.entries(data)) {
           // with id
           payload.filtering.push({ id, value: value || "" })
@@ -409,7 +410,7 @@ function ButtonAction({
           let { label } = getFieldByFieldId(id, panelList)
           filtering.push({ label, value: value || "" })
         }
-        console.log(filtering)
+        // console.log(filtering)
         // dispatch dipake nanti ketika filter pagination sudah fix
         dispatch(setFilteringList(payload.filtering))
         setFilterData(filtering)

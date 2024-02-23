@@ -9,7 +9,7 @@ function ButtonForm({ fieldItem }) {
   // redux
   const menu = useSelector((state) => state.menu)
   const userId = useSelector((state) => state.user.id)
-  const param = useSelector((state) => state.param)
+  const param = useSelector((state) => state.inbox.param)
 
   const handleButtonClick = async () => {
     const payload = {
