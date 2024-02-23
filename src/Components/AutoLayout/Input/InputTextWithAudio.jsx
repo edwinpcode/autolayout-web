@@ -148,14 +148,14 @@ const InputTextWithAudio = ({
   }
 
   useEffect(() => {
-    defaultValue && setValue(id, defaultValue)
-
     for (let i = 0; i < filter.length; i++) {
       if (filter[i].id == id) {
         setValue(id, filter[i].value)
         break
       }
     }
+
+    defaultValue && setValue(id, defaultValue)
 
     // hide field
     if (fieldItem?.hide === "1") {

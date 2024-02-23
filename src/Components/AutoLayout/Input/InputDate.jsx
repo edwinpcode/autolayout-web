@@ -121,17 +121,17 @@ function InputDate({
   }, [inputWatch])
 
   useEffect(() => {
-    if (defaultValue && defaultValue !== "") {
-      setValue(
-        id,
-        dateValue(defaultValue, process.env.REACT_APP_DATE_FORMATVAL),
-      )
-    }
     for (let i = 0; i < filter.length; i++) {
       if (filter[i].id == id) {
         setValue(id, filter[i].value)
         break
       }
+    }
+    if (defaultValue && defaultValue !== "") {
+      setValue(
+        id,
+        dateValue(defaultValue, process.env.REACT_APP_DATE_FORMATVAL),
+      )
     }
   }, [])
 

@@ -53,17 +53,16 @@ function DropdownSelect({
   }, [dropdownData])
 
   useEffect(() => {
-    // handle default value
-    if (defaultValue && defaultValue.length) {
-      setCascadeData(defaultValue)
-      setValue(id, defaultValue[0].value)
-    }
-
     for (let i = 0; i < filter.length; i++) {
       if (filter[i].id == id) {
         setValue(id, filter[i].value)
         break
       }
+    }
+
+    if (defaultValue && defaultValue.length) {
+      setCascadeData(defaultValue)
+      setValue(id, defaultValue[0].value)
     }
 
     const dropdownEl = window.$("#" + id)
