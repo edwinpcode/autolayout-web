@@ -9,6 +9,7 @@ import {
 import moment from "moment"
 import "moment/locale/id"
 import FieldCascadingUtil from "../../../Utils/FieldCascadingUtil"
+import { useSelector } from "react-redux"
 moment.locale(process.env.REACT_APP_DATE_LANG)
 
 function InputDate({
@@ -29,6 +30,7 @@ function InputDate({
   ...props
 }) {
   const [displayValue, setDisplayValue] = useState("")
+  const filter = useSelector((state) => state.list.filtering)
 
   const clear = () => {
     resetField(id)
@@ -124,6 +126,12 @@ function InputDate({
         id,
         dateValue(defaultValue, process.env.REACT_APP_DATE_FORMATVAL),
       )
+    }
+    for (let i = 0; i < filter.length; i++) {
+      if (filter[i].id == id) {
+        setValue(id, filter[i].value)
+        break
+      }
     }
   }, [])
 

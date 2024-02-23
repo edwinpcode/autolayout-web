@@ -6,6 +6,7 @@ import { handleFieldRule } from "../../../Utils/FieldRuleUtils"
 import InputGroup from "../../InputGroup"
 import AIService from "Services/AIService"
 import ConvertUtil from "Utils/ConvertUtil"
+import { useSelector } from "react-redux"
 
 const numericRules = [
   "currencyAbsolute",
@@ -119,7 +120,6 @@ const InputTextWithAudio = ({
   parent,
   child,
   defaultValue,
-  filter,
   showLabel,
   className,
   ...props
@@ -133,6 +133,7 @@ const InputTextWithAudio = ({
   const [isRecording, setIsRecording] = useState(false)
   const debounceTimeoutRef = useRef(null)
   const [border, setBorder] = useState("")
+  const filter = useSelector((state) => state.list.filtering)
 
   const fieldRule = useMemo(() => handleFieldRule(fieldItem), [])
   // console.log(fieldItem)
@@ -148,6 +149,13 @@ const InputTextWithAudio = ({
 
   useEffect(() => {
     defaultValue && setValue(id, defaultValue)
+
+    for (let i = 0; i < filter.length; i++) {
+      if (filter[i].id == id) {
+        setValue(id, filter[i].value)
+        break
+      }
+    }
 
     // hide field
     if (fieldItem?.hide === "1") {

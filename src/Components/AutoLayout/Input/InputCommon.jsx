@@ -4,6 +4,7 @@ import { NumericFormat } from "react-number-format"
 import { getChildValueByChildParent } from "../../../Utils/FieldReferenceUtils"
 import { handleFieldRule } from "../../../Utils/FieldRuleUtils"
 import InputGroup from "../../InputGroup"
+import { useSelector } from "react-redux"
 
 const numericRules = [
   "currencyAbsolute",
@@ -117,12 +118,13 @@ export default function InputCommon({
   parent,
   child,
   defaultValue,
-  filter,
   showLabel,
   className,
   ...props
 }) {
   const fieldRule = useMemo(() => handleFieldRule(fieldItem), [])
+  const filter = useSelector((state) => state.list.filtering)
+
   // console.log(fieldItem)
   const handleOnBlur = () => {
     // if has child
@@ -136,6 +138,13 @@ export default function InputCommon({
 
   useEffect(() => {
     defaultValue && setValue(id, defaultValue)
+
+    for (let i = 0; i < filter.length; i++) {
+      if (filter[i].id == id) {
+        setValue(id, filter[i].value)
+        break
+      }
+    }
 
     // hide field
     if (fieldItem?.hide === "1") {
