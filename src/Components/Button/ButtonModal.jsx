@@ -26,6 +26,7 @@ function ButtonModal({
 }) {
   // state
   const [data, setData] = useState()
+  const [list, setList] = useState([])
   const [actionList, setActionList] = useState([])
   const [loading, setLoading] = useState(true)
 
@@ -34,13 +35,9 @@ function ButtonModal({
   const userId = useSelector((state) => state.user.id)
 
   const handleButtonClick = async (item) => {
-    // console.log('button: ', buttonItem)
-    // console.log('grid : ', gridItem)
-    // if has content (filter modal)
     if (item.contents?.data?.length >= 1) {
       setLoading(false)
-      // note: nanti contents dibagi 2 jadi data & action
-      setData(item.contents.data)
+      setData(item.contents)
       setActionList(item.contents.action)
       return
     }
@@ -171,6 +168,10 @@ function ButtonModal({
       // window.$('#' + dataTarget).off('hide.bs.modal')
     })
   }, [])
+
+  // useEffect(() => {
+  //   console.log(data)
+  // }, [data])
 
   return (
     <>

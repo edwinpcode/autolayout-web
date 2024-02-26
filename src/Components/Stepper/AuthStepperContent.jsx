@@ -30,7 +30,7 @@ function AuthStepperContent() {
     await SetActiveGroup({ userId, moduleId, roleId })
       .then((res) => {
         if (res.data.status == 1) {
-          console.log(res.data)
+          // console.log(res.data)
           dispatch(
             setUser({
               userId,

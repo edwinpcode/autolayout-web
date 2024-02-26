@@ -28,11 +28,11 @@ function ModalWithButton({
   // fltering from redux
   const filter = useSelector((state) => state.list.filtering)
 
-  useEffect(() => {
-    if (data) {
-      console.log(data)
-    }
-  }, [data])
+  // useEffect(() => {
+  //   if (data) {
+  //     console.log(data)
+  //   }
+  // }, [data])
 
   return (
     <>
@@ -62,23 +62,24 @@ function ModalWithButton({
                 {loading && <SkeletonModal />}
                 <div className="row">
                   {/* non panel */}
-                  {data?.listField?.map((fieldItem) => (
-                    <FieldType
-                      key={fieldItem.id}
-                      fieldItem={fieldItem}
-                      data={data.data}
-                      register={register}
-                      getValues={getValues}
-                      setValue={setValue}
-                      resetField={resetField}
-                      errors={errors}
-                      control={control}
-                      watch={watch}
-                      unregister={unregister}
-                      filter={filter}
-                      setFilterData={setFilterData}
-                    />
-                  ))}
+                  {data?.data &&
+                    data.data.map((fieldItem) => (
+                      <FieldType
+                        key={fieldItem.id}
+                        fieldItem={fieldItem}
+                        data={data.data}
+                        register={register}
+                        getValues={getValues}
+                        setValue={setValue}
+                        resetField={resetField}
+                        errors={errors}
+                        control={control}
+                        watch={watch}
+                        unregister={unregister}
+                        filter={filter}
+                        setFilterData={setFilterData}
+                      />
+                    ))}
                   {/* if has panel */}
                   {data?.panel?.length > 0 && (
                     <FieldWithPanel
