@@ -361,22 +361,34 @@ function ButtonAction({
 
     if (actionItem?.flagType == "download") {
       if (actionItem.url?.path) {
-        axios
-          .get(actionItem.url.path, {
-            responseType: "blob",
-          })
-          .then((response) => {
-            const url = window.URL.createObjectURL(new Blob([response.data]))
-            const link = document.createElement("a")
-            link.href = url
-            link.setAttribute("download", "file.pdf")
-            document.body.appendChild(link)
-            link.click()
-            link.parentNode.removeChild(link)
-          })
-          .catch((error) => {
-            console.error("Error downloading file: ", error)
-          })
+        const url = actionItem.url.path
+        const link = document.createElement("a")
+        link.href = url
+        link.target = "_blank"
+        link.setAttribute("download", "file.pdf")
+        document.body.appendChild(link)
+        link.click()
+        link.parentNode.removeChild(link)
+        // axios
+        //   .get(actionItem.url.path, {
+        //     responseType: "blob",
+        //     headers: {
+        //       "Access-Control-Allow-Origin": "*",
+        //     },
+        //   })
+        //   .then((response) => {
+        //     const url = window.URL.createObjectURL(new Blob([response.data]))
+        //     const link = document.createElement("a")
+        //     link.href = url
+        //     link.target = "_blank"
+        //     link.setAttribute("download", "file.pdf")
+        //     document.body.appendChild(link)
+        //     link.click()
+        //     link.parentNode.removeChild(link)
+        //   })
+        //   .catch((error) => {
+        //     console.error("Error downloading file: ", error)
+        //   })
       }
     }
 
