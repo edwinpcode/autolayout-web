@@ -29,6 +29,7 @@ import { setFormAction, setFormPanel } from "../../Store/Form/FormSlice"
 import { setLoadingField } from "../../Store/Loading/LoadingSlice"
 import { setInboxParam } from "../../Store/Inbox/InboxStore"
 import { setTab } from "../../Store/tabSlice"
+import axios from "axios"
 
 const openInNewTab = (url) => {
   window.open(url, "_blank", "noreferrer")
@@ -354,6 +355,29 @@ function ButtonAction({
       })
       // refresh grid data
       refreshGridData()
+    }
+
+    //download
+
+    if (actionItem?.flagType == "download") {
+      if (actionItem.url?.path) {
+        axios
+          .get(actionItem.url.path, {
+            responseType: "blob",
+          })
+          .then((response) => {
+            const url = window.URL.createObjectURL(new Blob([response.data]))
+            const link = document.createElement("a")
+            link.href = url
+            link.setAttribute("download", "file.pdf")
+            document.body.appendChild(link)
+            link.click()
+            link.parentNode.removeChild(link)
+          })
+          .catch((error) => {
+            console.error("Error downloading file: ", error)
+          })
+      }
     }
 
     // export
