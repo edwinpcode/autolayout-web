@@ -1,3 +1,4 @@
+import { useEffect } from "react"
 import { useForm } from "react-hook-form"
 import { useSelector } from "react-redux"
 import Panel from "../AutoLayout/Panel"
@@ -8,7 +9,6 @@ import FieldWithPanel from "../AutoLayout/FieldWithPanel"
 
 function ModalWithButton({
   buttonItem,
-  fieldList,
   actionList,
   dataTarget,
   gridItem,
@@ -19,6 +19,7 @@ function ModalWithButton({
   pageIndex = 0,
   fetchData = () => {},
   setAutoOpenFirstItem,
+  data,
   ...props
 }) {
   // prettier-ignore
@@ -26,6 +27,12 @@ function ModalWithButton({
 
   // fltering from redux
   const filter = useSelector((state) => state.list.filtering)
+
+  useEffect(() => {
+    if (data) {
+      console.log(data)
+    }
+  }, [data])
 
   return (
     <>
@@ -55,11 +62,11 @@ function ModalWithButton({
                 {loading && <SkeletonModal />}
                 <div className="row">
                   {/* non panel */}
-                  {fieldList?.map((fieldItem) => (
+                  {data?.listField?.map((fieldItem) => (
                     <FieldType
                       key={fieldItem.id}
                       fieldItem={fieldItem}
-                      fieldList={fieldList.data}
+                      data={data.data}
                       register={register}
                       getValues={getValues}
                       setValue={setValue}
@@ -73,9 +80,9 @@ function ModalWithButton({
                     />
                   ))}
                   {/* if has panel */}
-                  {fieldList?.panel?.length > 0 && (
+                  {data?.panel?.length > 0 && (
                     <FieldWithPanel
-                      panelData={fieldList.panel}
+                      panelData={data.panel}
                       register={register}
                       handleSubmit={handleSubmit}
                       unregister={unregister}
@@ -89,7 +96,7 @@ function ModalWithButton({
                     />
                   )}
                   {/* view document */}
-                  {fieldList?.data?.ext === ".pdf" ? (
+                  {data?.data?.ext === ".pdf" ? (
                     <div
                       style={{
                         textAlign: "center",
@@ -104,9 +111,9 @@ function ModalWithButton({
                           color: "#b30b00",
                         }}
                       ></i>
-                      <h5>{fieldList.data.docDesc}</h5>
+                      <h5>{data.data.docDesc}</h5>
                     </div>
-                  ) : fieldList?.data?.ext === ".doc" ? (
+                  ) : data?.data?.ext === ".doc" ? (
                     <div
                       style={{
                         textAlign: "center",
@@ -121,9 +128,9 @@ function ModalWithButton({
                           color: "#2b5796",
                         }}
                       ></i>
-                      <h5>{fieldList.data.docDesc}</h5>
+                      <h5>{data.data.docDesc}</h5>
                     </div>
-                  ) : fieldList?.data?.ext === ".docx" ? (
+                  ) : data?.data?.ext === ".docx" ? (
                     <div
                       style={{
                         textAlign: "center",
@@ -138,9 +145,9 @@ function ModalWithButton({
                           color: "#2b5796",
                         }}
                       ></i>
-                      <h5>{fieldList.data.docDesc}</h5>
+                      <h5>{data.data.docDesc}</h5>
                     </div>
-                  ) : fieldList?.data?.ext === ".xls" ? (
+                  ) : data?.data?.ext === ".xls" ? (
                     <div
                       style={{
                         textAlign: "center",
@@ -155,9 +162,9 @@ function ModalWithButton({
                           color: "#01723a",
                         }}
                       ></i>
-                      <h5>{fieldList.data.docDesc}</h5>
+                      <h5>{data.data.docDesc}</h5>
                     </div>
-                  ) : fieldList?.data?.ext === ".xlsx" ? (
+                  ) : data?.data?.ext === ".xlsx" ? (
                     <div
                       style={{
                         textAlign: "center",
@@ -172,9 +179,9 @@ function ModalWithButton({
                           color: "#01723a",
                         }}
                       ></i>
-                      <h5>{fieldList.data.docDesc}</h5>
+                      <h5>{data.data.docDesc}</h5>
                     </div>
-                  ) : fieldList?.data?.ext === ".csv" ? (
+                  ) : data?.data?.ext === ".csv" ? (
                     <div
                       style={{
                         textAlign: "center",
@@ -189,9 +196,9 @@ function ModalWithButton({
                           color: "#01723a",
                         }}
                       ></i>
-                      <h5>{fieldList.data.docDesc}</h5>
+                      <h5>{data.data.docDesc}</h5>
                     </div>
-                  ) : fieldList?.data?.ext === ".txt" ? (
+                  ) : data?.data?.ext === ".txt" ? (
                     <div
                       style={{
                         textAlign: "center",
@@ -205,11 +212,11 @@ function ModalWithButton({
                           margin: "10px 5px",
                         }}
                       ></i>
-                      <h5>{fieldList.data.docDesc}</h5>
+                      <h5>{data.data.docDesc}</h5>
                     </div>
-                  ) : fieldList?.data?.ext === ".png" ? (
+                  ) : data?.data?.ext === ".png" ? (
                     <>
-                      {fieldList?.data?.result && (
+                      {data?.data?.result && (
                         <div
                           style={{
                             textAlign: "center",
@@ -217,7 +224,7 @@ function ModalWithButton({
                           }}
                         >
                           <img
-                            src={`data:image/png;base64,${fieldList.data.result}`}
+                            src={`data:image/png;base64,${data.data.result}`}
                             alt=""
                             className="img-fluid"
                             style={{
@@ -225,13 +232,13 @@ function ModalWithButton({
                               marginBottom: 10,
                             }}
                           />
-                          <h5>{fieldList.data.docDesc}</h5>
+                          <h5>{data.data.docDesc}</h5>
                         </div>
                       )}
                     </>
-                  ) : fieldList?.data?.ext === ".jpg" ? (
+                  ) : data?.data?.ext === ".jpg" ? (
                     <>
-                      {fieldList?.data?.result && (
+                      {data?.data?.result && (
                         <div
                           style={{
                             textAlign: "center",
@@ -239,7 +246,7 @@ function ModalWithButton({
                           }}
                         >
                           <img
-                            src={`data:image/png;base64,${fieldList.data.result}`}
+                            src={`data:image/png;base64,${data.data.result}`}
                             alt=""
                             className="img-fluid"
                             style={{
@@ -247,13 +254,13 @@ function ModalWithButton({
                               marginBottom: 10,
                             }}
                           />
-                          <h5>{fieldList.data.docDesc}</h5>
+                          <h5>{data.data.docDesc}</h5>
                         </div>
                       )}
                     </>
-                  ) : fieldList?.data?.ext === ".jpeg" ? (
+                  ) : data?.data?.ext === ".jpeg" ? (
                     <>
-                      {fieldList?.data?.result && (
+                      {data?.data?.result && (
                         <div
                           style={{
                             textAlign: "center",
@@ -261,7 +268,7 @@ function ModalWithButton({
                           }}
                         >
                           <img
-                            src={`data:image/png;base64,${fieldList.data.result}`}
+                            src={`data:image/png;base64,${data.data.result}`}
                             alt=""
                             className="img-fluid"
                             style={{
@@ -269,13 +276,13 @@ function ModalWithButton({
                               marginBottom: 10,
                             }}
                           />
-                          <h5>{fieldList.data.docDesc}</h5>
+                          <h5>{data.data.docDesc}</h5>
                         </div>
                       )}
                     </>
                   ) : (
                     <>
-                      {fieldList?.data?.result && (
+                      {data?.data?.result && (
                         <div
                           style={{
                             textAlign: "center",
@@ -289,7 +296,7 @@ function ModalWithButton({
                               marginBottom: 10,
                             }}
                           ></i>
-                          <h5>{fieldList.data.docDesc}</h5>
+                          <h5>{data.data.docDesc}</h5>
                         </div>
                       )}
                     </>
@@ -306,7 +313,7 @@ function ModalWithButton({
                     gridItem={gridItem}
                     setFilterData={setFilterData}
                     setDataQuery={setDataQuery}
-                    panelList={fieldList.panel || [{ listField: fieldList }]}
+                    panelList={data.panel || [{ listField: data }]}
                     saveEndpoint="/savedatamodal"
                     fetchData={fetchData}
                     pageIndex={pageIndex}
@@ -314,84 +321,84 @@ function ModalWithButton({
                     setAutoOpenFirstItem={setAutoOpenFirstItem}
                   />
                 ))}
-                {fieldList?.data?.ext === ".pdf" ? (
+                {data?.data?.ext === ".pdf" ? (
                   <div>
                     <a
                       className="btn btn-sm btn-danger"
-                      download={fieldList.data.docDesc}
-                      href={`data:application/pdf;base64,${fieldList.data.result}`}
+                      download={data.data.docDesc}
+                      href={`data:application/pdf;base64,${data.data.result}`}
                     >
                       <i className="fas fa-arrow-down"></i> Download
                     </a>
                   </div>
-                ) : fieldList?.data?.ext === ".doc" ? (
+                ) : data?.data?.ext === ".doc" ? (
                   <div>
                     <a
                       className="btn btn-sm btn-danger"
-                      download={fieldList.data.docDesc}
-                      href={`data:application/msword;base64,${fieldList.data.result}`}
+                      download={data.data.docDesc}
+                      href={`data:application/msword;base64,${data.data.result}`}
                     >
                       <i className="fas fa-arrow-down"></i> Download
                     </a>
                   </div>
-                ) : fieldList?.data?.ext === ".docx" ? (
+                ) : data?.data?.ext === ".docx" ? (
                   <div>
                     <a
                       className="btn btn-sm btn-danger"
-                      download={fieldList.data.docDesc}
-                      href={`data:application/vnd.openxmlformats-officedocument.wordprocessingml.document;base64,${fieldList.data.result}`}
+                      download={data.data.docDesc}
+                      href={`data:application/vnd.openxmlformats-officedocument.wordprocessingml.document;base64,${data.data.result}`}
                     >
                       <i className="fas fa-arrow-down"></i> Download
                     </a>
                   </div>
-                ) : fieldList?.data?.ext === ".xls" ? (
+                ) : data?.data?.ext === ".xls" ? (
                   <div>
                     <a
                       className="btn btn-sm btn-danger"
-                      download={fieldList.data.docDesc}
-                      href={`data:application/vnd.ms-excel;base64,${fieldList.data.result}`}
+                      download={data.data.docDesc}
+                      href={`data:application/vnd.ms-excel;base64,${data.data.result}`}
                     >
                       <i className="fas fa-arrow-down"></i> Download
                     </a>
                   </div>
-                ) : fieldList?.data?.ext === ".xlsx" ? (
+                ) : data?.data?.ext === ".xlsx" ? (
                   <div>
                     <a
                       className="btn btn-sm btn-danger"
-                      download={fieldList.data.docDesc}
-                      href={`data:application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8;base64,${fieldList.data.result}`}
+                      download={data.data.docDesc}
+                      href={`data:application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8;base64,${data.data.result}`}
                     >
                       <i className="fas fa-arrow-down"></i> Download
                     </a>
                   </div>
-                ) : fieldList?.data?.ext === ".csv" ? (
+                ) : data?.data?.ext === ".csv" ? (
                   <div>
                     <a
                       className="btn btn-sm btn-danger"
-                      download={fieldList.data.docDesc}
-                      href={`data:text/csv;base64,${fieldList.data.result}`}
+                      download={data.data.docDesc}
+                      href={`data:text/csv;base64,${data.data.result}`}
                     >
                       <i className="fas fa-arrow-down"></i> Download
                     </a>
                   </div>
-                ) : fieldList?.data?.ext === ".txt" ? (
+                ) : data?.data?.ext === ".txt" ? (
                   <div>
                     <a
                       className="btn btn-sm btn-danger"
-                      download={fieldList.data.docDesc}
-                      href={`data:text/plain;base64,${fieldList.data.result}`}
+                      download={data.data.docDesc}
+                      href={`data:text/plain;base64,${data.data.result}`}
                     >
                       <i className="fas fa-arrow-down"></i> Download
                     </a>
                   </div>
                 ) : (
                   <>
-                    {fieldList?.data?.result && (
+                    {data?.data?.result && (
                       <div>
                         <a
                           className="btn btn-sm btn-danger"
-                          download={fieldList.data.docDesc}
-                          href={`data:image/png;base64,${fieldList.data.result}`}
+                          download={data.data.docDesc}
+                          href={`data:image/png;base64,${data.data.result}`}
                         >
                           <i className="fas fa-arrow-down"></i> Download
                         </a>

@@ -25,7 +25,7 @@ function ButtonModal({
   ...props
 }) {
   // state
-  const [fieldList, setFieldList] = useState([])
+  const [data, setData] = useState()
   const [actionList, setActionList] = useState([])
   const [loading, setLoading] = useState(true)
 
@@ -40,7 +40,7 @@ function ButtonModal({
     if (item.contents?.data?.length >= 1) {
       setLoading(false)
       // note: nanti contents dibagi 2 jadi data & action
-      setFieldList(item.contents.data)
+      setData(item.contents.data)
       setActionList(item.contents.action)
       return
     }
@@ -57,7 +57,7 @@ function ButtonModal({
         payload.param.push({ id: paramId, value: paramValue })
       })
       await getCancelModal(payload).then((res) => {
-        setFieldList(res.data.data.listField)
+        setData(res.data.data.listField)
         setActionList(res.data.data.action)
         setLoading(false)
       })
@@ -80,7 +80,7 @@ function ButtonModal({
         if (res.data.status != "1") {
           return window.Swal.fire("", res.data.message, "error")
         }
-        setFieldList(res.data.data)
+        setData(res.data.data)
         setLoading(false)
       })
       return
@@ -105,7 +105,7 @@ function ButtonModal({
         if (res.data.status != "1") {
           return window.Swal.fire("Error", res.data.message, "error")
         }
-        setFieldList(res.data)
+        setData(res.data)
         setLoading(false)
       })
       return
@@ -122,7 +122,7 @@ function ButtonModal({
     //     payload.param.push({ id: paramId, value: paramValue })
     //   })
     //   await getCancelModal(payload).then((res) => {
-    //     setFieldList(res.data.data.listField)
+    //     setData(res.data.data.listField)
     //     setActionList(res.data.data.action)
     //     setModalCancel(res.data)
     //   })
@@ -155,7 +155,7 @@ function ButtonModal({
           setLoading(false)
           return window.Swal.fire("", res.data.message, "error")
         }
-        setFieldList(res.data)
+        setData(res.data)
         setActionList(res.data.action)
         setLoading(false)
       })
@@ -164,7 +164,7 @@ function ButtonModal({
 
   useEffect(() => {
     window.$("#" + dataTarget).on("hide.bs.modal", function () {
-      setFieldList([])
+      setData(null)
       setActionList([])
       setLoading(true)
       // window.$('.modal').modal('hide')
@@ -185,7 +185,7 @@ function ButtonModal({
         <span>{label}.</span>
       </button>
       <ModalWithButton
-        fieldList={fieldList}
+        data={data}
         dataTarget={dataTarget}
         actionList={actionList}
         setFilterData={setFilterData}
