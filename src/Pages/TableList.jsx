@@ -55,8 +55,8 @@ function TableList() {
 
   useEffect(() => {
     if (
-      dataQuery?.rows?.length == 1 &&
-      // autoOpenFirstItem == "1" &&
+      dataQuery?.rows?.length &&
+      autoOpenFirstItem == "1" &&
       structures?.header?.length
     )
       for (let i = 0; i < structures.header.length; i++) {

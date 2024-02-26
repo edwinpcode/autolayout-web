@@ -51,7 +51,7 @@ const DataTablePage = () => {
 
   useEffect(() => {
     if (
-      dataQuery?.rows?.length == 1 &&
+      dataQuery?.rows?.length &&
       autoOpenFirstItem == "1" &&
       structures?.header?.length
     )
