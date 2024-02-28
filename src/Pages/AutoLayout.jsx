@@ -130,6 +130,7 @@ function AutoLayout({ className, pageIndex, pageSize, fetchData }) {
     dispatch(setFormPanel([]))
     // handle form reload by menuId condition
     if (menu.activeMenuId === "") return navigate("/dashboard")
+    if (menu.activeMenuId !== "") setActiveTabId("")
     // handle tab
     let paramValue = ""
     if (param.length) {
@@ -192,7 +193,9 @@ function AutoLayout({ className, pageIndex, pageSize, fetchData }) {
 
   // handle get field
   useEffect(() => {
-    if (activeTabId !== "" && menu.activeMenuId !== "") {
+    if (activeTabId !== "") {
+      console.log("gettab")
+      console.log(activeTabId, menu, tab)
       dispatch(setLoadingField(true))
       let payload = {
         tabId: activeTabId,
@@ -202,7 +205,13 @@ function AutoLayout({ className, pageIndex, pageSize, fetchData }) {
       }
       getFieldByForm(payload)
     }
-  }, [activeTabId, menu.activeMenuId, tab])
+  }, [activeTabId, tab])
+
+  // useEffect(() => {
+  //   if (menu.activeMenuId !== "") {
+  //     setActiveTabId("")
+  //   }
+  // }, [menu.activeMenuId])
 
   return (
     <div
