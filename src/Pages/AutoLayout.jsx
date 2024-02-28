@@ -194,8 +194,8 @@ function AutoLayout({ className, pageIndex, pageSize, fetchData }) {
   // handle get field
   useEffect(() => {
     if (activeTabId !== "") {
-      console.log("gettab")
-      console.log(activeTabId, menu, tab)
+      // console.log("gettab")
+      // console.log(activeTabId, menu, tab)
       dispatch(setLoadingField(true))
       let payload = {
         tabId: activeTabId,
@@ -206,12 +206,6 @@ function AutoLayout({ className, pageIndex, pageSize, fetchData }) {
       getFieldByForm(payload)
     }
   }, [activeTabId, tab])
-
-  // useEffect(() => {
-  //   if (menu.activeMenuId !== "") {
-  //     setActiveTabId("")
-  //   }
-  // }, [menu.activeMenuId])
 
   return (
     <div
