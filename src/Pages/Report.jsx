@@ -17,6 +17,7 @@ function Report() {
   const [data, setData] = useState([])
   const [type, setType] = useState("")
   const [activeTabId, setActiveTabId] = useState("chart")
+  const [loading, setLoading] = useState(false)
   // redux
   const user = useSelector((state) => state.user)
   const menu = useSelector((state) => state.menu)
@@ -53,7 +54,8 @@ function Report() {
       moduleId: user.activeModule.id,
       roleId: user.activeRole.id,
     }
-    await axiosPost("/reportchart", payload)
+    setLoading(true)
+    axiosPost("/reportchart", payload)
       .then((res) => {
         if (res.data.status == "1") {
           setData(res.data.data)
@@ -64,6 +66,9 @@ function Report() {
       })
       .catch((e) => {
         window.Swal.fire("Kesalahan", e.message, "error")
+      })
+      .finally(() => {
+        setLoading(false)
       })
   }
 
@@ -86,10 +91,6 @@ function Report() {
     }
   }, [data, type])
 
-  // useEffect(() => {
-  //   console.log(type)
-  // }, [type])
-
   useEffect(() => {
     getChartOption(menu)
   }, [menu])
@@ -106,42 +107,50 @@ function Report() {
           setActiveTabId={setActiveTabId}
         />
       </div>
-      {activeTabId === "chart" ? (
-        <div className="row">
-          {type == "speedometer" &&
-            options.map((item, index) => (
-              <div className="col-xl-4 col-md-6 border" key={index}>
-                <div>
-                  <div>{item.title}</div>
-                </div>
-                <ReactSpeedometer
-                  maxValue={item.maxValue}
-                  value={item.value}
-                  currentValueText={item.label}
-                  needleHeightRatio={0.5}
-                  segments={item.segment.length}
-                  needleTransitionDuration={4000}
-                  needleTransition="easeElastic"
-                  customSegmentStops={item.customSegmentStops}
-                  customSegmentLabels={item.segment}
-                  height={250}
-                  width={400}
-                />
-                <div>
-                  <div>{item.description}</div>
-                </div>
+      <div>
+        {activeTabId === "chart" ? (
+          <div>
+            {loading ? (
+              <div>Loading...</div>
+            ) : (
+              <div className="row">
+                {type == "speedometer" &&
+                  options.map((item, index) => (
+                    <div className="col-xl-4 col-md-6 border" key={index}>
+                      <div>
+                        <div>{item.title}</div>
+                      </div>
+                      <ReactSpeedometer
+                        maxValue={item.maxValue}
+                        value={item.value}
+                        currentValueText={item.label}
+                        needleHeightRatio={0.5}
+                        segments={item.segment.length}
+                        needleTransitionDuration={4000}
+                        needleTransition="easeElastic"
+                        customSegmentStops={item.customSegmentStops}
+                        customSegmentLabels={item.segment}
+                        height={250}
+                        width={400}
+                      />
+                      <div>
+                        <div>{item.description}</div>
+                      </div>
+                    </div>
+                  ))}
+                {type == "chart" &&
+                  data.map((item, index) => (
+                    <div className="col-xl-4 col-md-6 border" key={index}>
+                      <HighchartsReact highcharts={Highcharts} options={item} />
+                    </div>
+                  ))}
               </div>
-            ))}
-          {type == "chart" &&
-            data.map((item, index) => (
-              <div className="col-xl-4 col-md-6 border" key={index}>
-                <HighchartsReact highcharts={Highcharts} options={item} />
-              </div>
-            ))}
-        </div>
-      ) : (
-        <TableList />
-      )}
+            )}
+          </div>
+        ) : (
+          <TableList />
+        )}
+      </div>
     </div>
   )
 }
