@@ -173,6 +173,12 @@ function ButtonAction({
     return panelId
   }
 
+  const reset = () => {
+    fetchData(menu.activeMenuId, pageIndex, pageSize, filtering)
+    resetTab()
+    hideLoader()
+  }
+
   const handleButtonClick = async ({ data, selected }) => {
     // showLoader()
     // available action:
@@ -237,25 +243,29 @@ function ButtonAction({
         Object.assign(payload, { param })
       }
       // save data
-      await saveForm(saveEndpoint, payload).then((res) => {
-        showLoader()
-        if (res.data.status != "1") {
+      saveForm(saveEndpoint, payload)
+        .then((res) => {
+          showLoader()
+          if (res.data.status != "1") {
+            hideLoader()
+            return window.Swal.fire("Kesalahan", res.data.message, "error")
+          }
           hideLoader()
-          return window.Swal.fire("Kesalahan", res.data.message, "error")
-        }
-        hideLoader()
-        window.$(".modal").modal("hide")
-        window.Swal.fire("Berhasil", res.data.message, "success")
-        refreshGridData()
-        if (res?.data?.key?.length) {
-          // navigate(`/${menuId}`, { state: { param: res.data.key } })
-        }
-        if (res?.data?.field?.length) {
-          res.data.field.forEach((field) => {
-            setValue(field.id, field.value)
-          })
-        }
-      })
+          window.$(".modal").modal("hide")
+          window.Swal.fire("Berhasil", res.data.message, "success")
+          refreshGridData()
+          if (res?.data?.key?.length) {
+            // navigate(`/${menuId}`, { state: { param: res.data.key } })
+          }
+          if (res?.data?.field?.length) {
+            res.data.field.forEach((field) => {
+              setValue(field.id, field.value)
+            })
+          }
+        })
+        .finally(() => {
+          reset()
+        })
       // hardcode (simpan jaminan)
       if (actionItem.flagAction === "saveJaminan") {
         dispatch(triggerRefreshGrid())
@@ -290,16 +300,19 @@ function ButtonAction({
       formData.append("lat", "hardcode") // hardcode
       formData.append("lon", "hardcode")
       formData.append("addr", "hardcode")
-      await saveDataAndUpload(formData).then((res) => {
-        if (res.data.status != "1") {
-          hideLoader()
-          return window.Swal.fire("Error", res.data.message, "error")
-        }
-        window.$(".modal").modal("hide")
-        window.Swal.fire("Berhasil", res.data.message, "success")
-      })
-      refreshGridData()
-      hideLoader()
+      saveDataAndUpload(formData)
+        .then((res) => {
+          if (res.data.status != "1") {
+            hideLoader()
+            return window.Swal.fire("Error", res.data.message, "error")
+          }
+          window.$(".modal").modal("hide")
+          window.Swal.fire("Berhasil", res.data.message, "success")
+        })
+        .finally(() => {
+          reset()
+          refreshGridData()
+        })
     }
 
     // submit & cancel
@@ -315,23 +328,31 @@ function ButtonAction({
         Object.assign(payload, { param })
       }
       // alert('tinggal kirim payload. NOTE : ada code loading juga nanti disini')
-      updateStatus(payload).then((res) => {
-        if (res.data.status != "1") {
-          hideLoader()
-          if (res.data.message != "") {
-            return window.Swal.fire("Kesalahan", res.data.message, "error")
+      updateStatus(payload)
+        .then((res) => {
+          if (res.data.status != "1") {
+            hideLoader()
+            if (res.data.message != "") {
+              return window.Swal.fire("Kesalahan", res.data.message, "error")
+            }
+            return window.Swal.fire(
+              "Kesalahan",
+              "Something went wrong",
+              "error",
+            )
           }
-          return window.Swal.fire("Kesalahan", "Something went wrong", "error")
-        }
-        window.Swal.fire("Berhasil", res.data.message, "success")
-        window.$(".modal").modal("hide")
-        hideLoader()
-        if (res.data.isBackToInbox === "1") {
-          // navigate(`/${menuId}`)
-          navigate("/")
-        }
-        refreshGridData()
-      })
+          window.Swal.fire("Berhasil", res.data.message, "success")
+          window.$(".modal").modal("hide")
+          hideLoader()
+          if (res.data.isBackToInbox === "1") {
+            // navigate(`/${menuId}`)
+            navigate("/")
+          }
+        })
+        .finally(() => {
+          refreshGridData()
+          reset()
+        })
     }
 
     // delete
@@ -345,16 +366,19 @@ function ButtonAction({
       Object.assign(payload, { flagType: actionItem.flagType })
       Object.assign(payload, { flagAction: actionItem.flagAction })
       // delete action
-      await deleteData(payload).then((res) => {
-        if (res.data.status != "1") {
+      deleteData(payload)
+        .then((res) => {
+          if (res.data.status != "1") {
+            hideLoader()
+            return window.Swal.fire("", res.data.message, "error")
+          }
           hideLoader()
-          return window.Swal.fire("", res.data.message, "error")
-        }
-        hideLoader()
-        window.Swal.fire("", res.data.message, "success")
-      })
-      // refresh grid data
-      refreshGridData()
+          window.Swal.fire("", res.data.message, "success")
+        })
+        .finally(() => {
+          reset()
+          refreshGridData()
+        })
     }
 
     //download
@@ -399,7 +423,7 @@ function ButtonAction({
         ...currentListPayload,
         fileType: fileType.toLowerCase(),
       }
-      await dataExport(payload)
+      dataExport(payload)
         .then((res) => {
           if (res.data.status != "1") {
             hideLoader()
@@ -412,6 +436,7 @@ function ButtonAction({
         .catch((e) => {
           window.Swal.fire("Kesalahan", e.message, "error")
         })
+        .finally(() => {})
     }
 
     // upload
@@ -467,14 +492,18 @@ function ButtonAction({
         const param = handleParamValues(actionItem.url.param, getValues, info)
         Object.assign(payload, { param })
       }
-      await axiosPost("/usedata", payload).then((res) => {
-        if (res.data.status !== "1") {
-          hideLoader()
-          return window.Swal.fire("Error", res.data.message, "error")
-        }
-        window.Swal.fire("", res.data.message, "success")
-      })
-      refreshGridData()
+      axiosPost("/usedata", payload)
+        .then((res) => {
+          if (res.data.status !== "1") {
+            hideLoader()
+            return window.Swal.fire("Error", res.data.message, "error")
+          }
+          window.Swal.fire("", res.data.message, "success")
+        })
+        .finally(() => {
+          reset()
+          refreshGridData()
+        })
     }
 
     // generate
@@ -487,15 +516,18 @@ function ButtonAction({
         const param = handleParamValues(actionItem.url.param, getValues, info)
         Object.assign(payload, { param })
       }
-      await axiosPost("/generatedocument", payload).then((res) => {
-        if (res.data.status !== "1") {
-          hideLoader()
-          return window.Swal.fire("Error", res.data.message, "error")
-        }
-        window.Swal.fire("", res.data.message, "success")
-      })
-      refreshGridStructure()
-      refreshGridData()
+      axiosPost("/generatedocument", payload)
+        .then((res) => {
+          if (res.data.status !== "1") {
+            hideLoader()
+            return window.Swal.fire("Error", res.data.message, "error")
+          }
+          window.Swal.fire("", res.data.message, "success")
+        })
+        .finally(() => {
+          refreshGridStructure()
+          refreshGridData()
+        })
     }
 
     // preview
@@ -536,15 +568,19 @@ function ButtonAction({
         param: [{ id: param[0]?.id || "", value: param[0]?.value || "" }],
       }
       // get field by payload
-      await getField(payload).then((res) => {
-        if (res.data.status != "1") {
-          hideLoader()
-          return window.Swal.fire("Kesalahan", res.data.message, "error")
-        }
-        dispatch(setFormPanel(res.data.panel))
-        dispatch(setFormAction(res.data.action))
-        dispatch(setLoadingField(false))
-      })
+      getField(payload)
+        .then((res) => {
+          if (res.data.status != "1") {
+            hideLoader()
+            return window.Swal.fire("Kesalahan", res.data.message, "error")
+          }
+          dispatch(setFormPanel(res.data.panel))
+          dispatch(setFormAction(res.data.action))
+          dispatch(setLoadingField(false))
+        })
+        .finally(() => {
+          reset()
+        })
     }
 
     // change
@@ -574,9 +610,6 @@ function ButtonAction({
       //   window.Swal.fire('Berhasil', res.data.message, 'success')
       // })
     }
-    fetchData(menu.activeMenuId, pageIndex, pageSize, filtering)
-    resetTab()
-    hideLoader()
   }
 
   const confirmButtonClick = (data, alert) => {

@@ -25,6 +25,7 @@ function TableList() {
   const [dataQuery, setDataQuery] = useState()
   const [autoOpenFirstItem, setAutoOpenFirstItem] = useState("0")
   const inboxData = useSelector((state) => state.inbox.data)
+  const [loading, setLoading] = useState(false)
   const [{ pageIndex, pageSize }, setPagination] = useState({
     pageIndex: 0,
     pageSize: 10,
@@ -33,6 +34,7 @@ function TableList() {
   const filtering = useSelector((state) => state.list.filtering)
 
   const fetchData = async (menuId, pageIndex, pageSize, filtering) => {
+    setLoading(true)
     try {
       const payload = {
         userId: user.id,
@@ -49,7 +51,7 @@ function TableList() {
       await handleGetListData({ payload, setDataQuery, setAutoOpenFirstItem })
     } catch (error) {
     } finally {
-      hideLoader()
+      setLoading(false)
     }
   }
 
@@ -130,6 +132,7 @@ function TableList() {
             setDataQuery={setDataQuery}
             structures={structures}
             setStructures={setStructures}
+            loading={loading}
           />
         )}
         {pathname == "/report" && (

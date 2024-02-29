@@ -23,10 +23,10 @@ const Inbox = ({
   structures,
   setStructures,
   className,
+  loading,
   // setTab,
 }) => {
   const columnHelper = createColumnHelper()
-  const [loader, showLoader, hideLoader] = FullLoad()
   const [filterData, setFilterData] = useState([])
   const menu = useSelector((state) => state.menu)
   const [open, setOpen] = useState(true)
@@ -134,135 +134,140 @@ const Inbox = ({
             </button>
           </div>
         </div>
-        <div className="card-body" id="inboxBody">
-          {structures?.topAction?.length > 0 && (
-            <TopAction
-              structures={structures}
-              setStructures={setStructures}
-              setDataQuery={setDataQuery}
-              gridItem={gridItem}
-              getValues={getValues}
-              pageIndex={pageIndex}
-              pageSize={pageSize}
-              fetchData={fetchData}
-              setFilterData={setFilterData}
-              filterData={filterData}
-              filterDataLabel={filterDataLabel}
-              selected={selected}
-              // setTab={setTab}
-            />
-          )}
-          {dataQuery?.total > 10 && (
-            <section className="">
-              <div className="d-flex justify-content-between">
-                <div className="pr-2 text-sm">
-                  Halaman {table.getState().pagination.pageIndex + 1} dari{" "}
-                  {table.getPageCount()}
-                </div>
-                <select
-                  className="form-control form-control-sm"
-                  style={{ width: 120 }}
-                  value={table.getState().pagination.pageSize}
-                  onChange={(e) => {
-                    table.setPageSize(Number(e.target.value))
-                  }}
-                >
-                  {[10, 25, 50, 75, 100].map((pageSize) => (
-                    <option key={pageSize} value={pageSize}>
-                      Tampilkan {pageSize}
-                    </option>
-                  ))}
-                </select>
-              </div>
-              <div className="d-flex justify-content-between mt-1">
-                <div
-                  className={classNames("page-item w-100", {
-                    disabled: !table.getCanPreviousPage(),
-                  })}
-                  onClick={() => table.previousPage()}
-                >
-                  <button
-                    type="button"
-                    className="page-link w-100"
-                    tabIndex="-1"
-                    aria-disabled="true"
-                  >
-                    Sebelumnya
-                  </button>
-                </div>
-                <div
-                  className={classNames("page-item w-100", {
-                    disabled: !table.getCanNextPage(),
-                  })}
-                  onClick={() => table.nextPage()}
-                >
-                  <button type="button" className="page-link w-100">
-                    Selanjutnya
-                  </button>
-                </div>
-              </div>
-            </section>
-          )}
-          <div
-            className="mt-3"
-            style={{
-              height: filterDataLabel ? "50vh" : "60vh",
-            }}
-          >
-            <div className="overflow-auto h-100">
-              {table.getRowModel().rows.length <= 0 && (
-                <div>
-                  <div
-                    colSpan={100}
-                    className="text-center text-gray text-sm py-2"
-                  >
-                    Tidak ada data untuk ditampilkan
+        {loading ? (
+          <div className="card-body" id="inboxBody">
+            <div>Loading...</div>
+          </div>
+        ) : (
+          <div className="card-body" id="inboxBody">
+            {structures?.topAction?.length > 0 && (
+              <TopAction
+                structures={structures}
+                setStructures={setStructures}
+                setDataQuery={setDataQuery}
+                gridItem={gridItem}
+                getValues={getValues}
+                pageIndex={pageIndex}
+                pageSize={pageSize}
+                fetchData={fetchData}
+                setFilterData={setFilterData}
+                filterData={filterData}
+                filterDataLabel={filterDataLabel}
+                selected={selected}
+                // setTab={setTab}
+              />
+            )}
+            {dataQuery?.total > 10 && (
+              <section className="">
+                <div className="d-flex justify-content-between">
+                  <div className="pr-2 text-sm">
+                    Halaman {table.getState().pagination.pageIndex + 1} dari{" "}
+                    {table.getPageCount()}
                   </div>
-                </div>
-              )}
-              {table.getRowModel().rows.map((row, index) => {
-                let id = "0"
-                let value = "0"
-                if (param.length) {
-                  id = param[0].id
-                  value = param[0].value
-                }
-                return (
-                  <div
-                    key={index}
-                    className={`border ${
-                      row.original[id] == value ? "bg-light" : ""
-                    }`}
+                  <select
+                    className="form-control form-control-sm"
+                    style={{ width: 120 }}
+                    value={table.getState().pagination.pageSize}
+                    onChange={(e) => {
+                      table.setPageSize(Number(e.target.value))
+                    }}
                   >
-                    {row.getVisibleCells().map((cell, index) => {
-                      let right = false
-                      if (cell.getContext().cell.id.includes("action")) {
-                        right = true
-                      }
-                      return (
-                        <div
-                          key={index}
-                          className={`flex-fill d-flex ${
-                            right
-                              ? "justify-content-end"
-                              : "justify-content-evenly"
-                          } p-1`}
-                        >
-                          {flexRender(
-                            cell.column.columnDef.cell,
-                            cell.getContext(),
-                          )}
-                        </div>
-                      )
+                    {[10, 25, 50, 75, 100].map((pageSize) => (
+                      <option key={pageSize} value={pageSize}>
+                        Tampilkan {pageSize}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+                <div className="d-flex justify-content-between mt-1">
+                  <div
+                    className={classNames("page-item w-100", {
+                      disabled: !table.getCanPreviousPage(),
                     })}
+                    onClick={() => table.previousPage()}
+                  >
+                    <button
+                      type="button"
+                      className="page-link w-100"
+                      tabIndex="-1"
+                      aria-disabled="true"
+                    >
+                      Sebelumnya
+                    </button>
                   </div>
-                )
-              })}
+                  <div
+                    className={classNames("page-item w-100", {
+                      disabled: !table.getCanNextPage(),
+                    })}
+                    onClick={() => table.nextPage()}
+                  >
+                    <button type="button" className="page-link w-100">
+                      Selanjutnya
+                    </button>
+                  </div>
+                </div>
+              </section>
+            )}
+            <div
+              className="mt-3"
+              style={{
+                height: filterDataLabel ? "50vh" : "60vh",
+              }}
+            >
+              <div className="overflow-auto h-100">
+                {table.getRowModel().rows.length <= 0 && (
+                  <div>
+                    <div
+                      colSpan={100}
+                      className="text-center text-gray text-sm py-2"
+                    >
+                      Tidak ada data untuk ditampilkan
+                    </div>
+                  </div>
+                )}
+                {table.getRowModel().rows.map((row, index) => {
+                  let id = "0"
+                  let value = "0"
+                  if (param.length) {
+                    id = param[0].id
+                    value = param[0].value
+                  }
+                  return (
+                    <div
+                      key={index}
+                      className={`border ${
+                        row.original[id] == value ? "bg-light" : ""
+                      }`}
+                    >
+                      {row.getVisibleCells().map((cell, index) => {
+                        let right = false
+                        if (cell.getContext().cell.id.includes("action")) {
+                          right = true
+                        }
+                        return (
+                          <div
+                            key={index}
+                            className={`flex-fill d-flex ${
+                              right
+                                ? "justify-content-end"
+                                : "justify-content-evenly"
+                            } p-1`}
+                          >
+                            {flexRender(
+                              cell.column.columnDef.cell,
+                              cell.getContext(),
+                            )}
+                          </div>
+                        )
+                      })}
+                    </div>
+                  )
+                })}
+              </div>
             </div>
           </div>
-        </div>
+        )}
       </div>
-      {loader}
     </div>
   )
 }
