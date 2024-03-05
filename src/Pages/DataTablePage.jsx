@@ -90,11 +90,11 @@ const DataTablePage = () => {
     [pageIndex, pageSize],
   )
 
-  useEffect(() => {
-    return () => {
-      dispatch(setFilteringList([])) // reset filter when the component unmounts
-    }
-  }, [dispatch])
+  // useEffect(() => {
+  //   return () => {
+  //     dispatch(setFilteringList([])) // reset filter when the component unmounts
+  //   }
+  // }, [dispatch])
 
   // get structure
   useEffect(() => {

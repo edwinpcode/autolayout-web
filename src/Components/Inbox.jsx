@@ -10,6 +10,7 @@ import {
 import classNames from "classnames"
 import FullLoad from "../Pages/FullLoad"
 import TopAction from "./Table/TopAction"
+import { getFieldByFieldId } from "Utils/FieldReferenceUtils"
 
 const Inbox = ({
   getValues,
@@ -33,6 +34,25 @@ const Inbox = ({
   const [selected, setSelected] = useState([])
   const [rowSelection, setRowSelection] = useState({})
   const { param } = useSelector((state) => state.inbox)
+  const filter = useSelector((state) => state.list.filtering)
+  const [type, setType] = useState("inbox")
+
+  useEffect(() => {
+    if (filter.length && structures?.topAction?.length) {
+      const topAction = structures?.topAction?.find(
+        (item) => item.dataTarget == "filterModal",
+      )
+      let filtering = []
+      let panelList = [{ listField: topAction.contents }]
+      for (let i = 0; i < filter.length; i++) {
+        for (const [id, value] of Object.entries(filter[i])) {
+          let res = getFieldByFieldId(id, panelList)
+          filtering.push({ label: res.label, value: value || "" })
+        }
+      }
+      setFilterData(filtering)
+    }
+  }, [filter, structures])
 
   const columnVisibility = useMemo(
     () => structures.headerVisibility,
@@ -119,12 +139,33 @@ const Inbox = ({
   //   }
   // }, [open])
 
+  const onFullscreen = () => {
+    if (type == "inbox") {
+      setType("table")
+    }
+    if (type == "table") {
+      setType("inbox")
+    }
+  }
+
+  useEffect(() => {
+    console.log(type)
+  }, [type])
+
   return (
     <div className={`${className} col-md-3`}>
       <div className="card card-success" id="inboxCard">
         <div className="card-header">
           <span className="card-title">{menu.activeMenuDesc}</span>
           <div className="card-tools">
+            <button
+              type="button"
+              className="btn btn-tool"
+              onClick={() => onFullscreen()}
+              data-card-widget="maximize"
+            >
+              <i className="fas fa-expand"></i>
+            </button>
             <button
               className="btn btn-tool"
               onClick={() => setOpen((state) => !state)}

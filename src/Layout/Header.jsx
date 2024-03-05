@@ -44,6 +44,7 @@ function Header() {
   const [searchParams, setSearchParams] = useSearchParams()
   const menuSideBar = useSelector((state) => state.menuSidebar)
   const [menu, setMenu] = useState([])
+  const [filter, setFilter] = useState([])
   const searchMenu = menuSideBar.searchMenu
   // loading
   const [loader, showLoader, hideLoader] = Load()
@@ -187,11 +188,12 @@ function Header() {
       setRecordingStatus("searching")
       const res = await AIService.speechToFindMenu(formData)
       if (res.data.status == "1") {
-        // setSearchText(res.data.message)
         dispatch(setSearchMenu(res.data.message))
         if (res.data.data.length) {
-          // dispatch(setMenuSidebarSlice(res.data.data))
           setMenu(res.data.data)
+          if (res.data.filter) {
+            setFilter(res.data.filter)
+          }
         } else {
           setMenu([])
         }
@@ -221,23 +223,15 @@ function Header() {
 
   const goBack = (e) => {
     e.preventDefault()
-    // navigate(`/${menuId}`)
     navigate("/", { state: { param: [] } })
   }
 
   const handleMenuClick = (data) => {
-    // console.log(data)
     const hasChild = data.child || false
     const { menuDesc, menuId, trackId, path } = data
     if (!hasChild) {
-      // console.log("no child")
-      // setSearchParams({
-      //   menuId,
-      //   trackId,
-      // })
-      dispatch(setFilteringList([]))
       dispatch(setMenuSlice({ menuId, trackId, menuDesc, path }))
-      dispatch(reset())
+      // dispatch(reset())
       document.getElementById("body").classList.add("sidebar-collapse")
       navigate(path)
     }
@@ -250,15 +244,18 @@ function Header() {
   }
 
   useEffect(() => {
+    if (filter.length) {
+      dispatch(setFilteringList(filter))
+    }
+  }, [menuSideBar, filter])
+
+  useEffect(() => {
     if (menu.length && searchMenu != "") {
       if (menu.length && menu[0].child) {
-        // console.log("shild", menu[0].child[0])
         if (menu[0].child?.length && menu[0].child[0]?.menuId != "") {
-          // console.log("child")
           handleMenuClick(menu[0].child[0])
         }
       } else if (menu.length && menu[0].menuId != "") {
-        // console.log("parent")
         handleMenuClick(menu[0])
       }
     } else if (searchMenu != "") {
@@ -268,7 +265,6 @@ function Header() {
       iloop: for (let i = 0; i < data.length; i++) {
         if (data[i].child) {
           let child = data[i].child
-          // console.log("if", child, i)
           for (let k = 0; k < child.length; k++) {
             const menuDesc = child[k].menuDesc.toLowerCase()
             if (search.includes(menuDesc)) {
@@ -276,17 +272,6 @@ function Header() {
               break iloop
             }
           }
-          // for (let j = 0; j < menuSideBar.data[i].child[j].length; j++) {
-          //   console.log("asd")
-          //   console.log("loop j: ", j)
-          //   const menuDesc = menuSideBar.data[i].child[j].menuDesc.toLowerCase()
-          //   console.log(menuDesc)
-          //   if (searchText.includes(menuDesc)) {
-          //     console.log("child")
-          //     item = menuSideBar.data[i].child[j]
-          //     break iloop
-          //   }
-          // }
         } else {
           const menuDesc = data[i].menuDesc.toLowerCase()
           if (search.includes(menuDesc)) {
@@ -295,7 +280,6 @@ function Header() {
           }
         }
       }
-      // console.log(item)
       if (item) {
         handleMenuClick(item)
       }

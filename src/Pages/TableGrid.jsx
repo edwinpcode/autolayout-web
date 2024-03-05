@@ -27,11 +27,11 @@ function TableGrid({ gridItem, activeTabId, watch, getValues }) {
     [structures],
   )
 
-  useEffect(() => {
-    return () => {
-      dispatch(setFilteringList([])) // reset filter when the component unmounts
-    }
-  }, [dispatch])
+  // useEffect(() => {
+  //   return () => {
+  //     dispatch(setFilteringList([])) // reset filter when the component unmounts
+  //   }
+  // }, [dispatch])
 
   // get structure
   useEffect(() => {

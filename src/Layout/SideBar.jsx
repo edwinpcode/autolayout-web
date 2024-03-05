@@ -89,9 +89,9 @@ function SideBar() {
       //   menuId,
       //   trackId,
       // })
-      dispatch(setFilteringList([]))
       // console.log(data)
       dispatch(setMenuSlice({ menuId, trackId, menuDesc, path }))
+      dispatch(setFilteringList([]))
       dispatch(reset())
       dispatch(setSearchMenu(""))
       document.getElementById("body").classList.add("sidebar-collapse")

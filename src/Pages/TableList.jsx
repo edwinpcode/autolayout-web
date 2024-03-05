@@ -108,15 +108,14 @@ function TableList() {
       setPagination({ pageIndex: 0, pageSize: 10 })
       handleGetListStructure(user, menuSlice.activeMenuId, setStructures)
     }
-  }, [menuSlice, user])
+  }, [menuSlice.activeMenuId, user])
 
   // get data
   useEffect(() => {
-    if (menuSlice.path != "/form")
+    if (menuSlice.path != "/form") {
       fetchData(menuSlice.activeMenuId, pageIndex, pageSize, filtering)
-  }, [menuSlice, pageIndex, pageSize, filtering])
-
-  useEffect(() => {}, [])
+    }
+  }, [menuSlice.activeMenuId, pageIndex, pageSize, filtering])
 
   return (
     <div>
