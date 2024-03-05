@@ -45,9 +45,15 @@ const Inbox = ({
       let filtering = []
       let panelList = [{ listField: topAction.contents }]
       for (let i = 0; i < filter.length; i++) {
-        for (const [id, value] of Object.entries(filter[i])) {
-          let res = getFieldByFieldId(id, panelList)
-          filtering.push({ label: res.label, value: value || "" })
+        // for (const [id, value] of Object.entries(filter[i])) {
+        //   console.log(id, value, filter[i])
+        //   let res = getFieldByFieldId(id, panelList)
+        // }
+        // console.log(filter[i].id)
+        let res = getFieldByFieldId(filter[i].id, panelList)
+        // console.log(res)
+        if (res.value != "") {
+          filtering.push({ label: res.label, value: filter[i].value || "" })
         }
       }
       setFilterData(filtering)
