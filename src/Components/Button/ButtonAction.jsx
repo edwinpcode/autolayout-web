@@ -474,9 +474,9 @@ function ButtonAction({
         // console.log(filtering)
         // dispatch dipake nanti ketika filter pagination sudah fix
         dispatch(setFilteringList(payload.filtering))
-        setFilterData(filtering)
+        // setFilterData(filtering)
         // hideLoader() ga jalan?
-        handleGetListData({ payload, setDataQuery, setAutoOpenFirstItem })
+        // handleGetListData({ payload, setDataQuery, setAutoOpenFirstItem })
         window.$(".modal").modal("hide")
       }
       return

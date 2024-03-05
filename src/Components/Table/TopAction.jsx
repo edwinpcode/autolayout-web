@@ -22,9 +22,9 @@ function TopAction({
   const activeMenuId = useSelector((state) => state.menu.activeMenuId)
   const activeTabId = useSelector((state) => state.menu.activeTabId)
 
-  useEffect(() => {
-    setFilterData([])
-  }, [activeMenuId])
+  // useEffect(() => {
+  //   setFilterData([])
+  // }, [activeMenuId])
 
   return (
     <div className="mb-2 row">
