@@ -18,6 +18,7 @@ function TableComponent({
   setPagination,
   fetchData,
   setAutoOpenFirstItem,
+  hideAction,
   ...props
 }) {
   const columnHelper = createColumnHelper()
@@ -91,7 +92,7 @@ function TableComponent({
         <SkeletonTable />
       ) : (
         <div>
-          {structures?.topAction?.length > 0 && (
+          {!hideAction && structures?.topAction?.length > 0 && (
             <TopAction
               structures={structures}
               setStructures={setStructures}

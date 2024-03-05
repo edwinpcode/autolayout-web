@@ -37,15 +37,18 @@ function ModalWithButton({
   return (
     <>
       <div
-        className="modal"
-        id={dataTarget}
-        data-backdrop="static"
+        className="modal fade"
+        id={`${dataTarget}_${buttonItem.id}`}
         aria-hidden="true"
+        tabIndex="-1"
+        role="dialog"
       >
-        <div className="modal-dialog modal-lg">
+        <div className="modal-dialog modal-lg" role="document">
           <div className="modal-content">
             <div className="modal-header">
-              <h5 className="modal-title">{buttonItem.label}</h5>
+              <h5 className="modal-title" id={`modalLabel_${buttonItem.id}`}>
+                {buttonItem.label}
+              </h5>
               <button
                 type="button"
                 className="close"

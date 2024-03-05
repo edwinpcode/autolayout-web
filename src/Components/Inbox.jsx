@@ -349,16 +349,19 @@ const Inbox = ({
                 </div>
               </div>
             ) : (
-              <TableComponent
-                dataQuery={dataQuery}
-                pageIndex={pageIndex}
-                pageSize={pageSize}
-                setDataQuery={setDataQuery}
-                setPagination={setPagination}
-                fetchData={fetchData}
-                structures={structures}
-                setStructures={setStructures}
-              />
+              <div>
+                <TableComponent
+                  dataQuery={dataQuery}
+                  pageIndex={pageIndex}
+                  pageSize={pageSize}
+                  setDataQuery={setDataQuery}
+                  setPagination={setPagination}
+                  fetchData={fetchData}
+                  structures={structures}
+                  setStructures={setStructures}
+                  hideAction={true}
+                />
+              </div>
             )}
           </div>
         )}

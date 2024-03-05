@@ -178,7 +178,7 @@ function ButtonModal({
       <button
         type="button"
         data-toggle="modal"
-        data-target={"#" + dataTarget}
+        data-target={"#" + dataTarget + "_" + buttonItem.id}
         onClick={() => handleButtonClick(buttonItem)}
         {...props}
       >
