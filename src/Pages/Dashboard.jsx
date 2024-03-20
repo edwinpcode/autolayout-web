@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react"
+import React, { useState, useEffect, lazy, Suspense } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { getDashboard } from "../Services/AuthService"
 import { setMenuSlice } from "../Store/Menu/menuSlice"
@@ -9,10 +9,10 @@ import moment from "moment"
 import axios from "axios"
 import { userStatus } from "../Services/UserService"
 import { useNavigate } from "react-router-dom"
-import Speedometer from "../Components/Dashboard/Speedometer"
-import Modul from "../Components/Modul"
+// import Modul from "../Components/Modul"
 import { setAddress, setLatitude, setLongitude } from "../Store/locationSlice"
-import InputTextWithAudio from "Components/AutoLayout/Input/InputTextWithAudio"
+
+const Modul = lazy(()  => import("Components/Modul"))
 
 function Dashboard() {
   const dispatch = useDispatch()
@@ -284,7 +284,9 @@ function Dashboard() {
               <span className="card-title">Modul</span>
             </div>
             <div className="card-body">
-              <Modul />
+              <Suspense>
+                <Modul />
+              </Suspense>
             </div>
           </div>
         </div>
@@ -319,7 +321,7 @@ function Dashboard() {
       </div>
       {/* <Chart /> */}
       {/* {loader} */}
-      {userId == "admin_dev" && <Speedometer />}
+      {/* {userId == "admin_dev" && <Speedometer />} */}
     </div>
   )
 }

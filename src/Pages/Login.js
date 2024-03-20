@@ -1,36 +1,19 @@
 import { ErrorMessage } from "@hookform/error-message"
 import moment from "moment"
-import React, { useEffect, useState, useRef } from "react"
+import React, { useEffect, useState, useRef, lazy, Suspense } from "react"
 import { useForm } from "react-hook-form"
 import { useNavigate } from "react-router-dom"
 import { AuthLogin } from "../Services/AuthService"
 import { encryptAES } from "../Utils/EncryptUtils"
-import Logo from "./Logo"
 import { useDispatch, useSelector } from "react-redux"
-import { setUser, setUserData, setUserId } from "../Store/User/userSlice"
+import { setUserData, setUserId } from "../Store/User/userSlice"
 import axios from "axios"
 import AIService from "../Services/AIService"
 import { setDevMode } from "../Store/Dev/DevModeSlice"
-// import {
-//   loadCaptchaEnginge,
-//   LoadCanvasTemplate,
-//   LoadCanvasTemplateNoReload,
-//   validateCaptcha,
-// } from 'react-simple-captcha'
-
-const metaTags = document.getElementsByTagName("meta")
-const metaTagsArray = Array.from(metaTags)
-
-const applicationNameTag = metaTagsArray.find((tag) => {
-  return tag.getAttribute("name") === "login-application-name"
-})
-
-const loginApplicationName = applicationNameTag.getAttribute("content")
+const Logo = lazy(() => import('./Logo'))
 
 function Login() {
-  // load login
   const [isLoading, setLoading] = useState(false)
-  // show hide password
   const [passwordShown, setPasswordShown] = useState(false)
   const togglePasswordVisiblity = () => {
     setPasswordShown(passwordShown ? false : true)
@@ -39,7 +22,6 @@ function Login() {
   const canvasAudioRef = useRef(null)
   const canvasContextRef = useRef(null)
   const [compareCaptcha, setCompareCaptcha] = useState("")
-  // const [devMode, setDevMode] = useState(false)
   const [photoURI, setPhotoURI] = useState(null)
   const [photoURI2, setPhotoURI2] = useState(null)
   const [showVideo, setShowVideo] = useState(false)
@@ -123,6 +105,7 @@ function Login() {
     if (process.env.NODE_ENV === "development") {
       dispatch(setDevMode(true))
       setValue("userId", "mt_dev")
+      setUseCamera(false)
     }
   }, [])
 
@@ -582,7 +565,9 @@ function Login() {
           <div className={`row rounded bg-white p-4 shadow-lg`}>
             <div className={`${userId && useCamera ? "col-md-6" : "w-100"}`}>
               <div className="login-logo">
-                <Logo />
+                <Suspense>
+                  <Logo />
+                </Suspense>
               </div>
               <form onSubmit={handleSubmit(handleLogin)} autoComplete="off">
                 {!useCamera && (

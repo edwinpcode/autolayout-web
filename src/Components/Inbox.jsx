@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react"
+import { Suspense, lazy, useEffect, useMemo, useState } from "react"
 import { useSelector } from "react-redux"
 import { handleStructureHeader } from "../Utils/TableUtils"
 import {
@@ -8,10 +8,12 @@ import {
   useReactTable,
 } from "@tanstack/react-table"
 import classNames from "classnames"
-import FullLoad from "../Pages/FullLoad"
+// import FullLoad from "../Pages/FullLoad"
 import TopAction from "./Table/TopAction"
 import { getFieldByFieldId } from "Utils/FieldReferenceUtils"
-import TableComponent from "./Table/TableComponent"
+// import TableComponent from "./Table/TableComponent"
+
+const TableComponent = lazy(() => import('./Table/IndeterminateCheckbox'))
 
 const Inbox = ({
   getValues,
@@ -349,19 +351,21 @@ const Inbox = ({
                 </div>
               </div>
             ) : (
-              <div>
-                <TableComponent
-                  dataQuery={dataQuery}
-                  pageIndex={pageIndex}
-                  pageSize={pageSize}
-                  setDataQuery={setDataQuery}
-                  setPagination={setPagination}
-                  fetchData={fetchData}
-                  structures={structures}
-                  setStructures={setStructures}
-                  hideAction={true}
-                />
-              </div>
+              <Suspense fallback={<span>Loading...</span>}>
+                <div>
+                  <TableComponent
+                    dataQuery={dataQuery}
+                    pageIndex={pageIndex}
+                    pageSize={pageSize}
+                    setDataQuery={setDataQuery}
+                    setPagination={setPagination}
+                    fetchData={fetchData}
+                    structures={structures}
+                    setStructures={setStructures}
+                    hideAction={true}
+                    />
+                </div>
+              </Suspense>
             )}
           </div>
         )}

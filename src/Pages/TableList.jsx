@@ -1,13 +1,18 @@
-import { useEffect, useMemo, useState } from "react"
+import { Suspense, lazy, useEffect, useMemo, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { handleGetListData, handleGetListStructure } from "../Utils/TableUtils"
 import { setCurrentPayload, setFilteringList } from "../Store/List/listSlice"
 import { useLocation, useParams, useNavigate } from "react-router-dom"
-import AutoLayout from "./AutoLayout"
-import Inbox from "../Components/Inbox"
+// import AutoLayout from "./AutoLayout"
+// import Inbox from "../Components/Inbox"
 import FullLoad from "./FullLoad"
-import TableComponent from "../Components/Table/TableComponent"
+// import TableComponent from "../Components/Table/TableComponent"
 import { setInboxData, setInboxParam } from "../Store/Inbox/InboxStore"
+import { wait } from "Router"
+
+const TableComponent = lazy(() => wait(1000).then(() => import('Components/Table/TableComponent')))
+const Inbox = lazy(() => wait(1000).then(() => import('Components/Inbox')))
+const AutoLayout = lazy(() => wait(1000).then(() => import('./AutoLayout')))
 
 function TableList() {
   const [loader, showLoader, hideLoader] = FullLoad()
@@ -121,38 +126,44 @@ function TableList() {
     <div>
       <div className="d-md-flex">
         {pathname != "/report" && menuSlice.path == "/" && (
-          <Inbox
-            // className={"col-md-3"}
-            pageIndex={pageIndex}
-            pageSize={pageSize}
-            fetchData={fetchData}
-            setPagination={setPagination}
-            dataQuery={inboxData}
-            setDataQuery={setDataQuery}
-            structures={structures}
-            setStructures={setStructures}
-            loading={loading}
-          />
+          <Suspense>
+            <Inbox
+              // className={"col-md-3"}
+              pageIndex={pageIndex}
+              pageSize={pageSize}
+              fetchData={fetchData}
+              setPagination={setPagination}
+              dataQuery={inboxData}
+              setDataQuery={setDataQuery}
+              structures={structures}
+              setStructures={setStructures}
+              loading={loading}
+              />
+          </Suspense>
         )}
         {pathname == "/report" && (
-          <TableComponent
-            dataQuery={dataQuery}
-            pageIndex={pageIndex}
-            pageSize={pageSize}
-            setDataQuery={setDataQuery}
-            setPagination={setPagination}
-            fetchData={fetchData}
-            structures={structures}
-            setStructures={setStructures}
-          />
+          <Suspense>
+            <TableComponent
+              dataQuery={dataQuery}
+              pageIndex={pageIndex}
+              pageSize={pageSize}
+              setDataQuery={setDataQuery}
+              setPagination={setPagination}
+              fetchData={fetchData}
+              structures={structures}
+              setStructures={setStructures}
+            />
+          </Suspense>
         )}
         {pathname == "/form" && (
-          <AutoLayout
-            className="ml-md-3 mt-3 mt-md-0"
-            fetchData={fetchData}
-            pageIndex={pageIndex}
-            pageSize={pageSize}
-          />
+          <Suspense>
+            <AutoLayout
+              className="ml-md-3 mt-3 mt-md-0"
+              fetchData={fetchData}
+              pageIndex={pageIndex}
+              pageSize={pageSize}
+            />
+          </Suspense>
         )}
       </div>
     </div>

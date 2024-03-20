@@ -1,10 +1,15 @@
-import React, { useEffect } from "react"
+import React, { Suspense, lazy, useEffect } from "react"
 import { Outlet, useNavigate } from "react-router-dom"
 import { useSelector } from "react-redux"
-import Header from "../Layout/Header"
-import SideBar from "../Layout/SideBar"
-import BackTop from "./BackTop"
+// import Header from "../Layout/Header"
+// import SideBar from "../Layout/SideBar"
+// import BackTop from "./BackTop"
 import Load from "../Pages/FullLoad"
+import { wait } from "Router"
+
+const BackTop = lazy(() => import('./BackTop'))
+const Header = lazy(() => wait(1000).then(() => import('Layout/Header')))
+const Sidebar = lazy(() => wait(1000).then(() => import('Layout/SideBar')))
 
 function Home() {
   const navigate = useNavigate()
@@ -31,8 +36,10 @@ function Home() {
 
   return (
     <div className="wrapper">
-      <Header />
-      <SideBar />
+      <Suspense fallback={<span>Loading...</span>}>
+        <Header />
+        <Sidebar />
+      </Suspense>
       <div className="content-wrapper flex-fill">
         {/* <div className="content-header pb-0">
           <div className="container-fluid">
@@ -47,12 +54,16 @@ function Home() {
           <div className="container-fluid">
             <div className="card">
               <div className="card-body" style={{ minHeight: "90vh" }}>
-                <Outlet />
+                <Suspense fallback={<h1>Loading...</h1>}>
+                  <Outlet />
+                </Suspense>
               </div>
             </div>
           </div>
         </section>
-        <BackTop />
+        <Suspense>
+          <BackTop />
+        </Suspense>
       </div>
       {loader}
     </div>
