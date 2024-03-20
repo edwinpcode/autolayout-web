@@ -60,7 +60,7 @@ function Login() {
 
   const handleCanvas = () => {
     var charsArray =
-      '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ@!#$%^&*'
+      '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'
     var lengthOtp = 6
     var captcha = []
     for (var i = 0; i < lengthOtp; i++) {

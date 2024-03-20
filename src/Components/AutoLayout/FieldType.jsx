@@ -1,24 +1,41 @@
 import { ErrorMessage } from '@hookform/error-message'
-import DropdownSelect from './Input/DropdownSelect'
-import InputCommon from './Input/InputCommon'
-import InputDate from './Input/InputDate'
-import InputFile from './Input/InputFile'
-import Flowchart from '../../Pages/Flowchart'
-import InputRadio from './Input/InputRadio'
-import InputTextboxWithButton from './Input/InputTextboxWithButton'
-import InputDatetime from './Input/InputDatetime'
-import InputTime from './Input/InputTime'
-import TableGrid from '../../Pages/TableGrid'
-import InputTextareaWithCheckbox from './Input/InputTextareaWithCheckbox'
-import CheckboxCopyValue from './Input/CheckboxCopyValue'
-import BoxForm from './Box/BoxForm'
-import ReportForm from '../AutoLayout/Chart/ReportForm'
-import ChartForm from '../AutoLayout/Chart/ChartForm'
-import ButtonForm from '../Button/ButtonForm'
+// import DropdownSelect from './Input/DropdownSelect'
+// import InputCommon from './Input/InputCommon'
+// import InputDate from './Input/InputDate'
+// import InputFile from './Input/InputFile'
+// import Flowchart from '../../Pages/Flowchart'
+// import InputRadio from './Input/InputRadio'
+// import InputTextboxWithButton from './Input/InputTextboxWithButton'
+// import InputDatetime from './Input/InputDatetime'
+// import InputTime from './Input/InputTime'
+// import TableGrid from '../../Pages/TableGrid'
+// import InputTextareaWithCheckbox from './Input/InputTextareaWithCheckbox'
+// import CheckboxCopyValue from './Input/CheckboxCopyValue'
+// import BoxForm from './Box/BoxForm'
+// import ReportForm from '../AutoLayout/Chart/ReportForm'
 import { handleFieldRule } from '../../Utils/FieldRuleUtils'
 import ButtonType from './ButtonType'
-import InputPassword from './Input/InputPassword'
-import InputTextArea from './Input/InputTextArea'
+// import InputPassword from './Input/InputPassword'
+// import InputTextArea from './Input/InputTextArea'
+import { Suspense, lazy } from 'react'
+
+const InputCommon = lazy(() => import('./Input/InputCommon'))
+const InputDate = lazy(() => import('./Input/InputDate'))
+const InputFile = lazy(() => import('./Input/InputFile'))
+const InputRadio = lazy(() => import('./Input/InputRadio'))
+const InputTextboxWithButton = lazy(() => import('./Input/InputTextboxWithButton'))
+const InputDatetime = lazy(() => import('./Input/InputDatetime'))
+const InputTime = lazy(() => import('./Input/InputTime'))
+const InputTextareaWithCheckbox = lazy(() => import('./Input/InputTextareaWithCheckbox'))
+const CheckboxCopyValue = lazy(() => import('./Input/CheckboxCopyValue'))
+const InputPassword = lazy(() => import('./Input/InputPassword'))
+const InputTextArea = lazy(() => import('./Input/InputTextArea'))
+const DropdownSelect = lazy(() => import('./Input/DropdownSelect'))
+
+const Flowchart = lazy(() => import('../../Pages/Flowchart'))
+const BoxForm = lazy(() => import('./Box/BoxForm'))
+const TableGrid = lazy(() => import('../../Pages/TableGrid'))
+const ReportForm = lazy(() => import('../AutoLayout/Chart/ReportForm'))
 
 /* 
   note:
@@ -45,7 +62,7 @@ function FieldType({
   filter,
 }) {
   return (
-    <>
+    <Suspense>
       {['textbox', 'email'].includes(fieldItem.type) && (
         <div className={`col-md-${fieldItem.width || '12'}`}>
           <div className="form-group">
@@ -386,7 +403,7 @@ function FieldType({
           </div>
         </div>
       )}
-    </>
+    </Suspense>
   )
 }
 
