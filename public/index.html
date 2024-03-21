@@ -7,8 +7,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="application-name" content="1UP" />
     <meta name="login-application-name" content="1UP" />
-
+    <meta name="description" content="Autolayout Cloufina - 1UP" />
+    <meta name="theme-color" content="#000000" />
     <link rel="icon" href="%PUBLIC_URL%/images/logo_1up_sidebar.png" />
+    <link rel="apple-touch-icon" href="./images/logo_1up_sidebar.png" />
+    <link rel="manifest" href="./manifest.json" />
     <link
       rel="stylesheet"
       href="%PUBLIC_URL%/plugins/fontawesome/css/all.min.css"
@@ -68,5 +71,12 @@
     <script src="%PUBLIC_URL%/plugins/bootstrap4-scrolling-tabs/jquery.bs4-scrolling-tabs.min.js"></script>
     <script src="%PUBLIC_URL%/plugins/bootstrap-select/js/bootstrap-select.min.js"></script>
     <script src="%PUBLIC_URL%/custom/js/custom.js" type="text/babel"></script>
+    <script>
+      if('serviceWorker' in navigator){
+        window.addEventListener('load', () => {
+          navigator.serviceWorker.register('./serviceWorker.js').then((reg) => console.log('Success', reg.scope)).catch(err => console.log('Failure', err))
+        })
+      }
+    </script>
   </body>
 </html>
