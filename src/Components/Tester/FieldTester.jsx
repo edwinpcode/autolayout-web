@@ -1,75 +1,75 @@
-import { useForm } from 'react-hook-form'
-import FieldType from '../AutoLayout/FieldType'
+import { useForm } from "react-hook-form"
+import FieldType from "../AutoLayout/FieldType"
 
 const fieldList = [
   {
-    id: 'curabs',
-    label: 'Currency Absolute',
-    type: 'textbox',
-    maxLength: '100',
-    isMandatory: '1',
-    rule: 'currencyAbsolute',
-    isReadOnly: '1',
-    width: '6',
-    isMultiple: '',
-    hide: '',
-    value: '10000000',
+    id: "curabs",
+    label: "Currency Absolute",
+    type: "textbox",
+    maxLength: "100",
+    isMandatory: "1",
+    rule: "currencyAbsolute",
+    isReadOnly: "1",
+    width: "6",
+    isMultiple: "",
+    hide: "",
+    value: "10000000",
     reference: {},
   },
   {
-    id: 'cur',
-    label: 'Currency',
-    type: 'textbox',
-    maxLength: '100',
-    isMandatory: '1',
-    rule: 'currency',
-    isReadOnly: '1',
-    width: '6',
-    isMultiple: '',
-    hide: '',
-    value: '-12345',
+    id: "cur",
+    label: "Currency",
+    type: "textbox",
+    maxLength: "100",
+    isMandatory: "1",
+    rule: "currency",
+    isReadOnly: "1",
+    width: "6",
+    isMultiple: "",
+    hide: "",
+    value: "-12345",
     reference: {},
   },
   {
-    id: 'numabs',
-    label: 'Numeric Absolute',
-    type: 'textbox',
-    maxLength: '20',
-    isMandatory: '1',
-    rule: 'numericAbsolute',
-    isReadOnly: '1',
-    width: '6',
-    isMultiple: '',
-    hide: '',
-    value: '1241242141',
+    id: "numabs",
+    label: "Numeric Absolute",
+    type: "textbox",
+    maxLength: "20",
+    isMandatory: "1",
+    rule: "numericAbsolute",
+    isReadOnly: "1",
+    width: "6",
+    isMultiple: "",
+    hide: "",
+    value: "1241242141",
     reference: {},
   },
   {
-    id: 'num',
-    label: 'Numeric',
-    type: 'textbox',
-    maxLength: '20',
-    isMandatory: '1',
-    rule: 'numeric',
-    isReadOnly: '1',
-    width: '6',
-    isMultiple: '',
-    hide: '',
-    value: '987655776',
+    id: "num",
+    label: "Numeric",
+    type: "textbox",
+    maxLength: "20",
+    isMandatory: "1",
+    rule: "numeric",
+    isReadOnly: "1",
+    width: "6",
+    isMultiple: "",
+    hide: "",
+    value: "987655776",
     reference: {},
   },
   {
-    id: 'biasa',
-    label: 'Input Biasa',
-    type: 'textbox',
-    maxLength: '20',
-    isMandatory: '1',
-    rule: '',
-    isReadOnly: '0',
-    width: '6',
-    isMultiple: '',
-    hide: '',
-    value: '987655776',
+    id: "biasa",
+    label: "Input Biasa",
+    type: "textbox",
+    maxLength: "20",
+    isMandatory: "1",
+    rule: "",
+    isReadOnly: "0",
+    width: "6",
+    isMultiple: "",
+    hide: "",
+    value: "987655776",
     reference: {},
   },
 ]
@@ -85,7 +85,7 @@ function FieldTester({ pageIndex = 0, pageSize = 10, fetchData = () => {} }) {
     watch,
     clearErrors,
     control,
-  } = useForm({ mode: 'onChange' })
+  } = useForm({ mode: "onChange" })
 
   const onSubmit = (data) => {
     console.log(data)
@@ -94,7 +94,7 @@ function FieldTester({ pageIndex = 0, pageSize = 10, fetchData = () => {} }) {
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <div className="row">
-        {fieldList.map((fieldItem) => (
+        {fieldList.map((fieldItem, index) => (
           <FieldType
             key={fieldItem.id}
             fieldItem={fieldItem}
@@ -110,6 +110,7 @@ function FieldTester({ pageIndex = 0, pageSize = 10, fetchData = () => {} }) {
             pageIndex={pageIndex}
             pageSize={pageSize}
             fetchData={fetchData}
+            index={index}
           />
         ))}
       </div>

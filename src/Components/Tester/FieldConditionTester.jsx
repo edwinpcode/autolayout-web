@@ -1,6 +1,6 @@
-import { useForm } from 'react-hook-form'
-import { condition } from '../../Data/Field/condition'
-import FieldType from '../AutoLayout/FieldType'
+import { useForm } from "react-hook-form"
+import { condition } from "../../Data/Field/condition"
+import FieldType from "../AutoLayout/FieldType"
 
 function FieldConditionTester({
   pageIndex = 0,
@@ -18,7 +18,7 @@ function FieldConditionTester({
     <form onSubmit={handleSubmit(onSubmit)}>
       <h3>Field Condition</h3>
       <div className="row">
-        {condition.map((fieldItem) => (
+        {condition.map((fieldItem, index) => (
           <FieldType
             key={fieldItem.id}
             fieldItem={fieldItem}
@@ -34,6 +34,7 @@ function FieldConditionTester({
             pageIndex={pageIndex}
             pageSize={pageSize}
             fetchData={fetchData}
+            index={index}
           />
         ))}
       </div>

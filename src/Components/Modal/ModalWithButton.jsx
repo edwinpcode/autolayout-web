@@ -66,7 +66,7 @@ function ModalWithButton({
                 <div className="row">
                   {/* non panel */}
                   {data?.data &&
-                    data.data.map((fieldItem) => (
+                    data.data.map((fieldItem, index) => (
                       <FieldType
                         key={fieldItem.id}
                         fieldItem={fieldItem}
@@ -81,6 +81,7 @@ function ModalWithButton({
                         unregister={unregister}
                         filter={filter}
                         setFilterData={setFilterData}
+                        index={index}
                       />
                     ))}
                   {/* if has panel */}

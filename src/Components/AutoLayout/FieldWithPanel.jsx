@@ -1,8 +1,8 @@
-import React, { useEffect } from 'react'
-import { useForm } from 'react-hook-form'
-import { useSelector } from 'react-redux'
-import FieldType from './FieldType'
-import Panel from './Panel'
+import React, { useEffect } from "react"
+import { useForm } from "react-hook-form"
+import { useSelector } from "react-redux"
+import FieldType from "./FieldType"
+import Panel from "./Panel"
 
 function FieldWithPanel({
   panelData,
@@ -34,7 +34,7 @@ function FieldWithPanel({
     clearErrors: clearErrorsPanel,
     control: controlPanel,
     unregister: unregisterPanel,
-  } = useForm({ mode: 'onChange' })
+  } = useForm({ mode: "onChange" })
   // redux
   const hiddenField = useSelector((state) => state.hiddenElement.hiddenField)
 
@@ -62,7 +62,7 @@ function FieldWithPanel({
           fetchData={fetchData}
           gridItem={gridItem}
         >
-          {panelItem.listField.map((fieldItem) => (
+          {panelItem.listField.map((fieldItem, index) => (
             <React.Fragment key={fieldItem.id}>
               {!hiddenField.includes(fieldItem.id) && (
                 <FieldType
@@ -82,6 +82,7 @@ function FieldWithPanel({
                   control={panelItem.action ? controlPanel : control}
                   unregister={panelItem.action ? unregisterPanel : unregister}
                   gridItem={gridItem}
+                  index={index}
                 />
               )}
             </React.Fragment>

@@ -38,10 +38,12 @@ function SideBar() {
   const [searchParams, setSearchParams] = useSearchParams()
   const [show, setShow] = useState(false)
   const [hover, setHover] = useState(false)
+  const [loading, setLoading] = useState(true)
 
   useEffect(() => {
     if (activeModuleId && activeRoleId) {
       // handle menu data
+      setLoading(true)
       getMenu(userId, activeModuleId, activeRoleId)
         .then((res) => {
           if (res.data.status != "1") {
@@ -51,6 +53,7 @@ function SideBar() {
           dispatch(setMenuSidebarSlice(res.data.data))
         })
         .catch((e) => window.Swal.fire("Kesalahan", e.message, "error"))
+        .finally(() => setLoading(false))
     }
   }, [activeModuleId, activeRoleId])
 
@@ -128,6 +131,7 @@ function SideBar() {
       </a>
 
       <div className="sidebar">
+        {loading && <span>Loading...</span>}
         <nav className="my-3">
           {/* <div className="px-3 mb-3">
             <input

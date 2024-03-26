@@ -2,24 +2,28 @@ import { ErrorMessage } from "@hookform/error-message"
 import { handleFieldRule } from "../../Utils/FieldRuleUtils"
 import { Suspense, lazy } from "react"
 
-const DropdownSelect = lazy(() => import('./Input/DropdownSelect'))
-const InputCommon = lazy(() => import('./Input/InputCommon'))
-const InputDate = lazy(() => import('./Input/InputDate'))
-const InputFile = lazy(() => import('./Input/InputFile'))
-const InputRadio = lazy(() => import('./Input/InputRadio'))
-const InputTextboxWithButton = lazy(() => import('./Input/InputTextboxWithButton'))
-const InputDatetime = lazy(() => import('./Input/InputDatetime'))
-const InputTime = lazy(() => import('./Input/InputTime'))
-const InputTextareaWithCheckbox = lazy(() => import('./Input/InputTextareaWithCheckbox'))
-const CheckboxCopyValue = lazy(() => import('./Input/CheckboxCopyValue'))
-const InputPassword = lazy(() => import('./Input/InputPassword'))
-const InputTextArea = lazy(() => import('./Input/InputTextArea'))
-const InputTextWithAudio = lazy(() => import('./Input/InputCommon'))
-const BoxForm = lazy(()=> import('./Box/BoxForm'))
+const DropdownSelect = lazy(() => import("./Input/DropdownSelect"))
+const InputCommon = lazy(() => import("./Input/InputCommon"))
+const InputDate = lazy(() => import("./Input/InputDate"))
+const InputFile = lazy(() => import("./Input/InputFile"))
+const InputRadio = lazy(() => import("./Input/InputRadio"))
+const InputTextboxWithButton = lazy(
+  () => import("./Input/InputTextboxWithButton"),
+)
+const InputDatetime = lazy(() => import("./Input/InputDatetime"))
+const InputTime = lazy(() => import("./Input/InputTime"))
+const InputTextareaWithCheckbox = lazy(
+  () => import("./Input/InputTextareaWithCheckbox"),
+)
+const CheckboxCopyValue = lazy(() => import("./Input/CheckboxCopyValue"))
+const InputPassword = lazy(() => import("./Input/InputPassword"))
+const InputTextArea = lazy(() => import("./Input/InputTextArea"))
+const InputTextWithAudio = lazy(() => import("./Input/InputCommon"))
+const BoxForm = lazy(() => import("./Box/BoxForm"))
 const ReportForm = lazy(() => import("../AutoLayout/Chart/ChartForm"))
-const Flowchart = lazy(() => import('Pages/Flowchart'))
-const TableGrid = lazy(() => import('Pages/TableGrid'))
-const ButtonType = lazy(() => import('./ButtonType'))
+const Flowchart = lazy(() => import("Pages/Flowchart"))
+const TableGrid = lazy(() => import("Pages/TableGrid"))
+const ButtonType = lazy(() => import("./ButtonType"))
 
 /* 
   note:
@@ -48,12 +52,17 @@ function FieldType({
   pageIndex = 0,
   fetchData = () => {},
   gridItem,
+  index,
 }) {
   // console.log(panel)
   return (
     <Suspense>
       {["textbox", "email"].includes(fieldItem.type) && (
-        <div className={`col-md-${fieldItem.width || "12"}`}>
+        <div
+          className={`col-md-${fieldItem.width || "12"} ${
+            fieldItem.hide == "1" ? "d-none" : ""
+          }`}
+        >
           <div className="form-group">
             <InputCommon
               showLabel={true}
@@ -83,7 +92,11 @@ function FieldType({
         </div>
       )}
       {fieldItem.type === "textarea" && (
-        <div className={`col-md-${fieldItem.width || "12"}`}>
+        <div
+          className={`col-md-${fieldItem.width || "12"} ${
+            fieldItem.hide == "1" ? "d-none" : ""
+          }`}
+        >
           <div className="form-group">
             <InputTextArea
               fieldItem={fieldItem}
@@ -100,7 +113,11 @@ function FieldType({
         </div>
       )}
       {fieldItem.type === "radio" && (
-        <div className={`col-md-${fieldItem.width}`}>
+        <div
+          className={`col-md-${fieldItem.width || "12"} ${
+            fieldItem.hide == "1" ? "d-none" : ""
+          }`}
+        >
           <InputRadio
             data={fieldItem}
             id={fieldItem.id}
@@ -127,7 +144,7 @@ function FieldType({
       {fieldItem.type === "dropdown" && (
         <div
           className={`col-md-${fieldItem.width || "12"} ${
-            fieldItem.hide == "1" ? "hidden" : ""
+            fieldItem.hide == "1" ? "d-none" : ""
           }`}
         >
           <div className="form-group">
@@ -149,6 +166,7 @@ function FieldType({
               isReadOnly={fieldItem.isReadOnly === "1" || false}
               unregister={unregister}
               register={register(fieldItem.id, handleFieldRule(fieldItem))}
+              index={index}
             />
             <ErrorMessage
               errors={errors}
@@ -160,7 +178,11 @@ function FieldType({
         </div>
       )}
       {fieldItem.type === "datetime" && (
-        <div className={`col-md-${fieldItem.width || "12"}`}>
+        <div
+          className={`col-md-${fieldItem.width || "12"} ${
+            fieldItem.hide == "1" ? "d-none" : ""
+          }`}
+        >
           <div className="form-group">
             <InputDatetime
               child={fieldItem.reference?.child || []}
@@ -185,7 +207,11 @@ function FieldType({
         </div>
       )}
       {["date", "dateDown"].includes(fieldItem.type) && (
-        <div className={`col-md-${fieldItem.width || "12"}`}>
+        <div
+          className={`col-md-${fieldItem.width || "12"} ${
+            fieldItem.hide == "1" ? "d-none" : ""
+          }`}
+        >
           <div className="form-group">
             <InputDate
               fieldItem={fieldItem}
@@ -215,7 +241,11 @@ function FieldType({
         </div>
       )}
       {fieldItem.type === "time" && (
-        <div className={`col-md-${fieldItem.width || "12"}`}>
+        <div
+          className={`col-md-${fieldItem.width || "12"} ${
+            fieldItem.hide == "1" ? "d-none" : ""
+          }`}
+        >
           <div className="form-group">
             <InputTime
               child={fieldItem.reference?.child || []}
@@ -239,7 +269,11 @@ function FieldType({
         </div>
       )}
       {fieldItem.type === "file" && (
-        <div className={`col-md-${fieldItem.width || "12"}`}>
+        <div
+          className={`col-md-${fieldItem.width || "12"} ${
+            fieldItem.hide == "1" ? "d-none" : ""
+          }`}
+        >
           <InputFile
             fieldItem={fieldItem}
             register={register}
@@ -274,7 +308,11 @@ function FieldType({
         </div>
       )}
       {fieldItem.type === "textboxwithbutton" && (
-        <div className={`col-md-${fieldItem.width || "12"}`} key={fieldItem.id}>
+        <div
+          className={`col-md-${fieldItem.width || "12"} ${
+            fieldItem.hide == "1" ? "d-none" : ""
+          }`}
+        >
           <div className="form-group">
             <InputTextboxWithButton
               fieldItem={fieldItem}
@@ -295,7 +333,11 @@ function FieldType({
         </div>
       )}
       {fieldItem.type === "textboxwithaudio" && (
-        <div className={`col-md-${fieldItem.width || "12"}`} key={fieldItem.id}>
+        <div
+          className={`col-md-${fieldItem.width || "12"} ${
+            fieldItem.hide == "1" ? "d-none" : ""
+          }`}
+        >
           <div className="form-group">
             <InputTextWithAudio
               showLabel={true}
@@ -319,7 +361,11 @@ function FieldType({
         </div>
       )}
       {fieldItem.type === "textareawithcheckbox" && (
-        <div className={`col-md-${fieldItem.width || "12"}`} key={fieldItem.id}>
+        <div
+          className={`col-md-${fieldItem.width || "12"} ${
+            fieldItem.hide == "1" ? "d-none" : ""
+          }`}
+        >
           <div className="form-group">
             <InputTextareaWithCheckbox
               child={fieldItem.reference?.child || []}
@@ -350,7 +396,11 @@ function FieldType({
         </div>
       )}
       {fieldItem.type === "checkboxcopyvalue" && (
-        <div className={`col-md-${fieldItem.width || "12"}`} key={fieldItem.id}>
+        <div
+          className={`col-md-${fieldItem.width || "12"} ${
+            fieldItem.hide == "1" ? "d-none" : ""
+          }`}
+        >
           <div className="form-group">
             <CheckboxCopyValue
               child={fieldItem.reference?.child || []}
@@ -374,7 +424,11 @@ function FieldType({
         </div>
       )}
       {fieldItem.type === "box" && (
-        <div className={`col-${fieldItem.width}`}>
+        <div
+          className={`col-md-${fieldItem.width || "12"} ${
+            fieldItem.hide == "1" ? "d-none" : ""
+          }`}
+        >
           <BoxForm
             level={fieldItem.dataset[0].level}
             fieldId={fieldItem.dataset[0].fieldId}
@@ -384,7 +438,11 @@ function FieldType({
         </div>
       )}
       {fieldItem.type === "chart" && (
-        <div className={`col-${fieldItem.width}`}>
+        <div
+          className={`col-md-${fieldItem.width || "12"} ${
+            fieldItem.hide == "1" ? "d-none" : ""
+          }`}
+        >
           <ReportForm
             level={fieldItem.dataset[0].level}
             fieldId={fieldItem.id}
@@ -404,7 +462,11 @@ function FieldType({
         />
       )}
       {fieldItem.type === "password" && (
-        <div className={`col-md-${fieldItem.width || "12"}`}>
+        <div
+          className={`col-md-${fieldItem.width || "12"} ${
+            fieldItem.hide == "1" ? "d-none" : ""
+          }`}
+        >
           <div className="form-group">
             <InputPassword
               id={fieldItem.id}
@@ -415,7 +477,11 @@ function FieldType({
         </div>
       )}
       {fieldItem.type === "linkmaps" && (
-        <div className={`col-md-${fieldItem.width || "12"}`}>
+        <div
+          className={`col-md-${fieldItem.width || "12"} ${
+            fieldItem.hide == "1" ? "d-none" : ""
+          }`}
+        >
           <div className="form-group">
             <ButtonType
               buttonItem={fieldItem}

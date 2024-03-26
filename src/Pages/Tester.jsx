@@ -1,21 +1,21 @@
-import React, { useState } from 'react'
-import { useForm } from 'react-hook-form'
-import { useSelector } from 'react-redux'
-import FieldType from '../Components/AutoLayout/FieldType'
-import Panel from '../Components/AutoLayout/Panel'
-import ExportDocxTester from '../Components/Tester/ExportDocxTester'
-import FieldConditionTester from '../Components/Tester/FieldConditionTester'
-import FieldTester from '../Components/Tester/FieldTester'
-import SocketTester from '../Components/Tester/SocketTester'
-import TableTester from '../Components/Tester/TableTester'
+import React, { useState } from "react"
+import { useForm } from "react-hook-form"
+import { useSelector } from "react-redux"
+import FieldType from "../Components/AutoLayout/FieldType"
+import Panel from "../Components/AutoLayout/Panel"
+import ExportDocxTester from "../Components/Tester/ExportDocxTester"
+import FieldConditionTester from "../Components/Tester/FieldConditionTester"
+import FieldTester from "../Components/Tester/FieldTester"
+import SocketTester from "../Components/Tester/SocketTester"
+import TableTester from "../Components/Tester/TableTester"
 // import { condition } from '../Data/Field/condition'
-import { panelCondition } from '../Data/Panel/condition'
-import socket from '../Utils/SocketUtils'
+import { panelCondition } from "../Data/Panel/condition"
+import socket from "../Utils/SocketUtils"
 // import { listField } from '../Data/Field/response'
 
 function Tester({
   defaultValue = 10000,
-  rule = 'numericAbsolute',
+  rule = "numericAbsolute",
   hide = false,
   pageIndex,
   pageSize,
@@ -38,11 +38,11 @@ function Tester({
 
   const unregisterField = () => {
     setShow(false)
-    unregister('coba')
+    unregister("coba")
   }
 
   const onSubmit = (data) => {
-    console.log('ini data', data)
+    console.log("ini data", data)
   }
 
   return (
@@ -72,7 +72,7 @@ function Tester({
             fetchData={fetchData}
           >
             <>
-              {panelItem.listField.map((fieldItem) => (
+              {panelItem.listField.map((fieldItem, index) => (
                 <React.Fragment key={fieldItem.id}>
                   {!hiddenField.includes(fieldItem.id) && (
                     <FieldType
@@ -90,6 +90,7 @@ function Tester({
                       pageIndex={pageIndex}
                       pageSize={pageSize}
                       fetchData={fetchData}
+                      index={index}
                     />
                   )}
                 </React.Fragment>

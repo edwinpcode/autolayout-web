@@ -381,6 +381,7 @@ function Modal({ code, idParent, parent, panelId }) {
                   register={register}
                   errors={errors}
                   setValue={setValue}
+                  index={index}
                 />
               ))}
             </div>
