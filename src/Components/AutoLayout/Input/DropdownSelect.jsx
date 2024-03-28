@@ -103,22 +103,24 @@ function DropdownSelect({
       parent.forEach((parentId) => {
         const parentEl = document.getElementById(parentId)
         // if dropdown parent is changed
-        parentEl.addEventListener("change", () => {
-          // console.log(`parent ${parentId} change`)
-          // set empty current cascade data
-          setCascadeData([])
-          // reset current field value
-          resetField(id)
-          const currentDropdown = document.getElementById(id)
-          // currentDropdown.value = '' // set selected value to default label
-          currentDropdown.dispatchEvent(new Event("change"))
-          // reset child field
-          if (child.length) {
-            child.forEach((childId) => {
-              resetField(childId)
-            })
-          }
-        })
+        // console.log(parentEl)
+        if (parentEl)
+          parentEl.addEventListener("change", () => {
+            // console.log(`parent ${parentId} change`)
+            // set empty current cascade data
+            setCascadeData([])
+            // reset current field value
+            resetField(id)
+            const currentDropdown = document.getElementById(id)
+            // currentDropdown.value = '' // set selected value to default label
+            currentDropdown.dispatchEvent(new Event("change"))
+            // reset child field
+            if (child.length) {
+              child.forEach((childId) => {
+                resetField(childId)
+              })
+            }
+          })
       })
     }
 
