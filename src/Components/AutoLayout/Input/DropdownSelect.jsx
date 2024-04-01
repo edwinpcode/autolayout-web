@@ -179,8 +179,8 @@ function DropdownSelect({
           Pilih {label}
         </option>
         {cascadeData?.length > 0 &&
-          cascadeData?.map((data) => (
-            <option key={data.value} value={data.value}>
+          cascadeData?.map((data, index) => (
+            <option key={index} value={data.value}>
               {data.label}
             </option>
           ))}
