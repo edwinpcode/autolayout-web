@@ -1,9 +1,16 @@
-function InputTextArea({ fieldItem, register, defaultValue }) {
+import { useEffect } from "react"
+import { handleFieldRule } from "Utils/FieldRuleUtils"
+
+function InputTextArea({ fieldItem, register, defaultValue, setValue }) {
+  useEffect(() => {
+    setValue(fieldItem.id, defaultValue)
+  }, [defaultValue])
+
   return (
     <>
       <label onClick={() => console.log(fieldItem)}>
-        {fieldItem.label}{' '}
-        {fieldItem.isMandatory === '1' && (
+        {fieldItem.label}{" "}
+        {fieldItem.isMandatory === "1" && (
           <span className="text-danger font-weight-bold"> *</span>
         )}
       </label>
@@ -12,9 +19,9 @@ function InputTextArea({ fieldItem, register, defaultValue }) {
         className="form-control"
         rows="3"
         placeholder={`Masukkan ${fieldItem.label}`}
-        readOnly={fieldItem.isReadOnly === '1'}
-        defaultValue={defaultValue}
-        {...register}
+        readOnly={fieldItem.isReadOnly === "1"}
+        defaultValue={defaultValue || ""}
+        {...register(fieldItem.id, handleFieldRule(fieldItem))}
       ></textarea>
     </>
   )

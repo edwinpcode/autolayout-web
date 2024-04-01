@@ -101,7 +101,8 @@ function FieldType({
             <InputTextArea
               fieldItem={fieldItem}
               defaultValue={fieldItem.value}
-              register={register(fieldItem.id, handleFieldRule(fieldItem))}
+              register={register}
+              setValue={setValue}
             />
             <ErrorMessage
               errors={errors}

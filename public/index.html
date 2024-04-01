@@ -72,9 +72,12 @@
     <script src="%PUBLIC_URL%/plugins/bootstrap-select/js/bootstrap-select.min.js"></script>
     <script src="%PUBLIC_URL%/custom/js/custom.js" type="text/babel"></script>
     <script>
-      if('serviceWorker' in navigator){
-        window.addEventListener('load', () => {
-          navigator.serviceWorker.register('./serviceWorker.js').then((reg) => console.log('Success', reg.scope)).catch(err => console.log('Failure', err))
+      if ("serviceWorker" in navigator) {
+        window.addEventListener("load", () => {
+          navigator.serviceWorker
+            .register("./serviceWorker.js")
+            .then((reg) => console.log("Success", reg.scope))
+            .catch((err) => console.log("Failure", err))
         })
       }
     </script>

@@ -10,9 +10,11 @@ import FullLoad from "./FullLoad"
 import { setInboxData, setInboxParam } from "../Store/Inbox/InboxStore"
 import { wait } from "Router"
 
-const TableComponent = lazy(() => wait(1000).then(() => import('Components/Table/TableComponent')))
-const Inbox = lazy(() => wait(1000).then(() => import('Components/Inbox')))
-const AutoLayout = lazy(() => wait(1000).then(() => import('./AutoLayout')))
+const TableComponent = lazy(() =>
+  wait(1000).then(() => import("Components/Table/TableComponent")),
+)
+const Inbox = lazy(() => wait(1000).then(() => import("Components/Inbox")))
+const AutoLayout = lazy(() => wait(1000).then(() => import("./AutoLayout")))
 
 function TableList() {
   const [loader, showLoader, hideLoader] = FullLoad()
@@ -138,7 +140,7 @@ function TableList() {
               structures={structures}
               setStructures={setStructures}
               loading={loading}
-              />
+            />
           </Suspense>
         )}
         {pathname == "/report" && (
