@@ -85,6 +85,7 @@ function ButtonAction({
   selected = [],
   // setTab = (value) => {},
   setAutoOpenFirstItem,
+  reset,
   ...props
 }) {
   const navigate = useNavigate()
@@ -173,9 +174,10 @@ function ButtonAction({
     return panelId
   }
 
-  const reset = () => {
+  const resetData = () => {
     fetchData(menu.activeMenuId, pageIndex, pageSize, filtering)
     resetTab()
+    if (reset) reset()
     hideLoader()
   }
 
@@ -264,7 +266,7 @@ function ButtonAction({
           }
         })
         .finally(() => {
-          reset()
+          resetData()
         })
       // hardcode (simpan jaminan)
       if (actionItem.flagAction === "saveJaminan") {
@@ -310,7 +312,7 @@ function ButtonAction({
           window.Swal.fire("Berhasil", res.data.message, "success")
         })
         .finally(() => {
-          reset()
+          resetData()
           refreshGridData()
         })
     }
@@ -351,7 +353,7 @@ function ButtonAction({
         })
         .finally(() => {
           refreshGridData()
-          reset()
+          resetData()
         })
     }
 
@@ -376,7 +378,7 @@ function ButtonAction({
           window.Swal.fire("", res.data.message, "success")
         })
         .finally(() => {
-          reset()
+          resetData()
           refreshGridData()
         })
     }
@@ -501,7 +503,7 @@ function ButtonAction({
           window.Swal.fire("", res.data.message, "success")
         })
         .finally(() => {
-          reset()
+          resetData()
           refreshGridData()
         })
     }
@@ -579,7 +581,7 @@ function ButtonAction({
           dispatch(setLoadingField(false))
         })
         .finally(() => {
-          reset()
+          resetData()
         })
     }
 

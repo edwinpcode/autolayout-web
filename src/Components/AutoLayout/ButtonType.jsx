@@ -22,6 +22,7 @@ function ButtonType({
   fetchData = () => {},
   selected = [],
   setAutoOpenFirstItem,
+  reset,
   ...props
   // setTab = (value) => {},
 }) {
@@ -48,6 +49,7 @@ function ButtonType({
           selected={selected}
           setAutoOpenFirstItem={setAutoOpenFirstItem}
           // setTab={setTab}
+          reset={reset}
         />
       )}
       {buttonItem.type === "buttonDropdown" && (

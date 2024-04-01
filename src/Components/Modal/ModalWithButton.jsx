@@ -23,7 +23,7 @@ function ModalWithButton({
   ...props
 }) {
   // prettier-ignore
-  const { register, control, handleSubmit, formState: { errors }, setValue, resetField, getValues, watch, unregister, clearErrors } = useForm({ mode: 'onChange' })
+  const { register, control, handleSubmit, formState: { errors }, setValue, resetField, getValues, watch, unregister, clearErrors, reset } = useForm({ mode: 'onChange' })
 
   // fltering from redux
   const filter = useSelector((state) => state.list.filtering)
@@ -324,6 +324,7 @@ function ModalWithButton({
                     pageIndex={pageIndex}
                     pageSize={pageSize}
                     setAutoOpenFirstItem={setAutoOpenFirstItem}
+                    reset={reset}
                   />
                 ))}
                 {data?.data?.ext === ".pdf" ? (
