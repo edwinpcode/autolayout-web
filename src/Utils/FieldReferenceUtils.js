@@ -8,6 +8,8 @@ export const getFieldByFieldId = (fieldId, panelList) => {
       (fieldItem) => fieldItem.id === fieldId,
     )
     if (findField) resultField = findField
+    let field = panelItem.listField.find((item) => item.id === fieldId)
+    if (field) resultField = field
   })
   return resultField
 }
@@ -21,15 +23,19 @@ export const getChildValueByChildParent = (
   let emptyField = false
   const payload = { referenceName: childId, param: [] }
   // find child field
+  // console.log(childId, panelList)
   let childField = getFieldByFieldId(childId, panelList)
   // get child parent
-  childField.reference.parent.forEach((parentId) => {
-    const parentValue = getValues(parentId)
-    payload.param.push({ id: parentId, value: parentValue })
-    if (!parentValue || parentValue === "") {
-      emptyField = true
-    }
-  })
+  // console.log(childField)
+  if (childField && childField.reference) {
+    childField.reference?.parent.forEach((parentId) => {
+      const parentValue = getValues(parentId)
+      payload.param.push({ id: parentId, value: parentValue })
+      if (!parentValue || parentValue === "") {
+        emptyField = true
+      }
+    })
+  }
   // if doenst has empty field value
   if (!emptyField) {
     // get child value by payload
