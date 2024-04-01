@@ -13,7 +13,7 @@ import TopAction from "./Table/TopAction"
 import { getFieldByFieldId } from "Utils/FieldReferenceUtils"
 // import TableComponent from "./Table/TableComponent"
 
-const TableComponent = lazy(() => import('./Table/IndeterminateCheckbox'))
+const TableComponent = lazy(() => import("./Table/IndeterminateCheckbox"))
 
 const Inbox = ({
   getValues,
@@ -68,9 +68,13 @@ const Inbox = ({
     }
   }, [filter, structures])
 
+  // useEffect(() => {
+  //   console.log(filterData)
+  // }, [filterData])
+
   useEffect(() => {
-    console.log(filterData)
-  }, [filterData])
+    console.log(structures)
+  }, [structures])
 
   const columnVisibility = useMemo(
     () => structures.headerVisibility,
@@ -174,7 +178,9 @@ const Inbox = ({
     <div className={`${className} col-md-3`}>
       <div className="card card-success" id="inboxCard">
         <div className="card-header">
-          <span className="card-title">{menu.activeMenuDesc}</span>
+          <span className="card-title">
+            {structures.caption || menu.activeMenuDesc}
+          </span>
           <div className="card-tools">
             <button
               type="button"
@@ -363,7 +369,7 @@ const Inbox = ({
                     structures={structures}
                     setStructures={setStructures}
                     hideAction={true}
-                    />
+                  />
                 </div>
               </Suspense>
             )}

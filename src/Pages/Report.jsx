@@ -12,6 +12,8 @@ const tab = [
   { id: "table", label: "Table" },
 ]
 
+require("highcharts/modules/accessibility")(Highcharts)
+
 function Report() {
   const [options, setOptions] = useState([])
   const [data, setData] = useState([])
