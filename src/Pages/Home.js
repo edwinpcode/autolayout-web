@@ -7,9 +7,9 @@ import { useSelector } from "react-redux"
 import Load from "../Pages/FullLoad"
 import { wait } from "Router"
 
-const BackTop = lazy(() => import('./BackTop'))
-const Header = lazy(() => wait(1000).then(() => import('Layout/Header')))
-const Sidebar = lazy(() => wait(1000).then(() => import('Layout/SideBar')))
+const BackTop = lazy(() => import("./BackTop"))
+const Header = lazy(() => wait(1000).then(() => import("Layout/Header")))
+const Sidebar = lazy(() => wait(1000).then(() => import("Layout/SideBar")))
 
 function Home() {
   const navigate = useNavigate()
@@ -30,7 +30,7 @@ function Home() {
     // if menu not selected
     if (menu.activeMenuId === "") {
       // hideLoader()
-      return navigate("/dashboard")
+      return navigate("/beranda")
     }
   }, [])
 

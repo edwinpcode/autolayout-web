@@ -14,7 +14,7 @@ import { converttoNewScale } from "../Utils/ConvertUtil"
 import { reset, setFilteringList } from "../Store/List/listSlice"
 import { useSearchParams } from "react-router-dom"
 import AuthStepperContent from "../Components/Stepper/AuthStepperContent"
-import Modul from "../Components/Modul"
+import Modul from "../Components/Modul/Modul"
 
 function Header() {
   const dispatch = useDispatch()
@@ -379,7 +379,7 @@ function Header() {
               </div>
             </div>
           </li>
-          <li className="nav-item">
+          {/* <li className="nav-item">
             <Link
               className="nav-link"
               onClick={(e) => {
@@ -395,9 +395,9 @@ function Header() {
                 navigate("/dashboard")
               }}
             >
-              Dashboard
+              Beranda
             </Link>
-          </li>
+          </li> */}
           <li className="nav-item">
             <Link
               className="nav-link"

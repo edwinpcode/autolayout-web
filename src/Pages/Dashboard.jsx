@@ -12,7 +12,8 @@ import { useNavigate } from "react-router-dom"
 // import Modul from "../Components/Modul"
 import { setAddress, setLatitude, setLongitude } from "../Store/locationSlice"
 
-const Modul = lazy(()  => import("Components/Modul"))
+const Modul = lazy(() => import("Components/Modul/Modul"))
+const ModulAll = lazy(() => import("Components/Modul/ModulAll"))
 
 function Dashboard() {
   const dispatch = useDispatch()
@@ -211,7 +212,7 @@ function Dashboard() {
 
   return (
     <div>
-      <h3>Dashboard</h3>
+      <h3>Beranda</h3>
       <div className="row">
         <div className="col-lg-6">
           <div className="p-2 rounded-lg border shadow-sm h-100 mb-3">
@@ -281,11 +282,12 @@ function Dashboard() {
         <div className="col-lg-6">
           <div className="card card-success">
             <div className="card-header">
-              <span className="card-title">Modul</span>
+              <span className="card-title">Role</span>
             </div>
             <div className="card-body">
               <Suspense>
-                <Modul />
+                {/* <Modul /> */}
+                <ModulAll />
               </Suspense>
             </div>
           </div>

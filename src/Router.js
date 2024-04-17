@@ -3,9 +3,10 @@ import { Route, Routes, BrowserRouter } from "react-router-dom"
 import Home from "./Pages/Home"
 import ProtectedRoutes from "./Router/ProctectedRoutes"
 import PublicRoutes from "./Router/PublicRoutes"
+import { NotFoundPage } from "Pages/NotFoundPage"
 
 export const wait = (time) => {
-  return new Promise(res => {
+  return new Promise((res) => {
     setTimeout(res, time)
   })
 }
@@ -16,7 +17,9 @@ const Dashboard = lazy(() => wait(1000).then(() => import("Pages/Dashboard")))
 const TableList = lazy(() => wait(1000).then(() => import("Pages/TableList")))
 const Auth = lazy(() => wait(1000).then(() => import("Pages/Auth")))
 const Login = lazy(() => wait(1000).then(() => import("Pages/Login")))
-const DataTablePage = lazy(() => wait(1000).then(() => import('Pages/DataTablePage')) )
+const DataTablePage = lazy(() =>
+  wait(1000).then(() => import("Pages/DataTablePage")),
+)
 
 const Router = () => {
   return (
@@ -34,7 +37,8 @@ const Router = () => {
           <Route path="/form" element={<TableList />} />
           {/* <Route path="/chart" element={<Chart />} /> */}
           <Route path="/profile" element={<Profile />} />
-          <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/dashboard" element={<TableList />} />
+          <Route path="/beranda" element={<Dashboard />} />
           {/* <Route path="/flowchart" element={<Flowchart />} /> */}
           {/* <Route path="/flowchart/:id" element={<Flowchart />} /> */}
           <Route path="/report" element={<Report />} />
@@ -45,6 +49,7 @@ const Router = () => {
       <Route element={<PublicRoutes />}>
         <Route path="/login" element={<Login />} />
       </Route>
+      <Route path="*" element={<NotFoundPage />} />
     </Routes>
   )
 }

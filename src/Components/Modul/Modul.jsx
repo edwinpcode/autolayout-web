@@ -1,9 +1,9 @@
 import React, { useState } from "react"
-import { SetActiveGroup } from "../Services/UserService"
+import { SetActiveGroup } from "Services/UserService"
 import classNames from "classnames"
 import { useDispatch, useSelector } from "react-redux"
 import Stepper from "react-stepper-horizontal"
-import { setPhotoProfile, setUser } from "../Store/User/userSlice"
+import { setPhotoProfile, setUser } from "Store/User/userSlice"
 
 const Modul = ({ step }) => {
   const dispatch = useDispatch()
