@@ -111,7 +111,7 @@ function TableList() {
 
   // get structure
   useEffect(() => {
-    if (menuSlice.path != "/form") {
+    if (menuSlice.path != "/form" && menuSlice.path != "/dashboard") {
       setPagination({ pageIndex: 0, pageSize: 10 })
       handleGetListStructure(user, menuSlice.activeMenuId, setStructures)
     }
@@ -119,7 +119,7 @@ function TableList() {
 
   // get data
   useEffect(() => {
-    if (menuSlice.path != "/form") {
+    if (menuSlice.path != "/form" && menuSlice.path != "/dashboard") {
       fetchData(menuSlice.activeMenuId, pageIndex, pageSize, filtering)
     }
   }, [menuSlice.activeMenuId, pageIndex, pageSize, filtering])
@@ -157,7 +157,7 @@ function TableList() {
             />
           </Suspense>
         )}
-        {pathname == "/form" && (
+        {(pathname == "/form" || pathname == "/dashboard") && (
           <Suspense>
             <AutoLayout
               className="ml-md-3 mt-3 mt-md-0"

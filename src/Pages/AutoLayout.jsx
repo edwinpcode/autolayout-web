@@ -129,13 +129,13 @@ function AutoLayout({ className, pageIndex, pageSize, fetchData }) {
     // }
     dispatch(setFormPanel([]))
     // handle form reload by menuId condition
-    if (menu.activeMenuId === "") return navigate("/dashboard")
+    if (menu.activeMenuId === "") return navigate("/beranda")
     if (menu.activeMenuId !== "") setActiveTabId("")
     // handle tab
     let paramValue = ""
     if (param.length) {
       paramValue = param[0].value
-    } else if (pathname != "/form") {
+    } else if (pathname != "/form" && pathname != "/dashboard") {
       return
     }
     const payload = {
@@ -210,7 +210,9 @@ function AutoLayout({ className, pageIndex, pageSize, fetchData }) {
   return (
     <div
       className={`${
-        menu.path == "/form" ? "col-md-12" : "col-md-9"
+        menu.path == "/form" || menu.path == "/dashboard"
+          ? "col-md-12"
+          : "col-md-9"
       } ${className}`}
     >
       {/* {menu.path != "/form" && (
