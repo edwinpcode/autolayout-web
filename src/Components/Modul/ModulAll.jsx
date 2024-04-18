@@ -54,10 +54,10 @@ const ModulAll = ({ className }) => {
         <div className="mt-3">
           <div className="text-bold text-lg">Pilih</div>
           {module.map((data, index) => (
-            <div key={data.id}>
+            <div key={data.id + "_" + index}>
               <div className="text-bold">{data.name}</div>
               {data.role.map((role, i) => (
-                <div className="col my-2" key={role.id}>
+                <div className="col my-2" key={role.id + "_" + i}>
                   <button
                     onClick={() =>
                       handleSelectedGroup(

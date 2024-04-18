@@ -56,7 +56,8 @@ export const handleColumnType = ({
         data: info.row.original.ap_regno,
         actionBulk: selectValue,
       })
-    else dataIsExist.map((value) => (value.actionBulk = selectValue))
+    else if (dataIsExist)
+      dataIsExist.map((value) => (value.actionBulk = selectValue))
     return (window.values = values)
   }
   // Text
@@ -114,7 +115,7 @@ export const handleColumnType = ({
     if (buttonList === undefined) {
       return (
         <div className="d-flex align-items-center justify-content-center">
-          {header.item.map((headerItem, key) => (
+          {header.item?.map((headerItem, key) => (
             <ButtonType
               buttonItem={headerItem}
               gridItem={gridItem}
