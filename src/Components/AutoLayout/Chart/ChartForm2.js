@@ -20,18 +20,20 @@ const ChartForm2 = ({ fieldItem }) => {
   const fetchData = () => {
     const payload = {
       userId: user.id,
-      menuId: id,
+      fieldId: id,
       moduleId: user.activeModule.id,
       roleId: user.activeRole.id,
     }
     console.log(payload)
     setLoading(true)
-    ChartService.formChart(payload)
+    ChartService.formChart({ payload })
       .then((res) => {
         setError(false)
         console.log(res)
+        if (res.data.data) setData(res.data.data)
       })
       .catch((e) => {
+        console.log(e)
         window.Swal.fire("Kesalahan", e.message, "error")
         setError(true)
       })
@@ -67,11 +69,13 @@ const ChartForm2 = ({ fieldItem }) => {
         </div>
       )}
       <div className="mt-3">
-        {data.map((item, index) => (
-          <div key={item.id}>
-            <HighchartsReact highcharts={Highcharts} options={item} />
-          </div>
-        ))}
+        <div className="row">
+          {data.map((item, index) => (
+            <div key={item.id} className="col-xl-4 col-md-6 border">
+              <HighchartsReact highcharts={Highcharts} options={item} />
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   )

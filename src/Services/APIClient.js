@@ -37,7 +37,8 @@ APIClient.interceptors.request.use(
       id = uuid
     }
     config.headers["x-identity"] = id
-    config.headers["Accept"] = "application/json"
+    if (!config.headers["Content-Type"])
+      config.headers["content-type"] = "application/json"
     if (accessToken) {
       config.headers = {
         ...config.headers,
