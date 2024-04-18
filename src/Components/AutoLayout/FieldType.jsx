@@ -1,6 +1,7 @@
 import { ErrorMessage } from "@hookform/error-message"
 import { handleFieldRule } from "../../Utils/FieldRuleUtils"
 import { Suspense, lazy } from "react"
+import ChartForm2 from "./Chart/ChartForm2"
 
 const DropdownSelect = lazy(() => import("./Input/DropdownSelect"))
 const InputCommon = lazy(() => import("./Input/InputCommon"))
@@ -449,6 +450,15 @@ function FieldType({
             fieldId={fieldItem.id}
             path={fieldItem.dataset[0].path}
           />
+        </div>
+      )}
+      {fieldItem.type === "chartreport" && (
+        <div
+          className={`col-md-${fieldItem.width || "12"} ${
+            fieldItem.hide == "1" ? "d-none" : ""
+          }`}
+        >
+          <ChartForm2 fieldItem={fieldItem} />
         </div>
       )}
       {fieldItem.type === "button" && (
