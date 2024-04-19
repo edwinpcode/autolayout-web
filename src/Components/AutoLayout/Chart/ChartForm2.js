@@ -51,7 +51,7 @@ const ChartForm2 = ({ fieldItem }) => {
   //   }, [fieldItem])
 
   return (
-    <div className={`col-md-12 ${hide == "1" ? "d-none" : ""}`}>
+    <div className={`col-md-${width || "12"} ${hide == "1" ? "d-none" : ""}`}>
       {label}
       {loading && (
         <div>
@@ -77,7 +77,9 @@ const ChartForm2 = ({ fieldItem }) => {
           {data.map((item, index) => (
             <div
               key={item.id}
-              className={`col-md-6 col-xl-${item.width || "4"} border`}
+              className={`col-md-${item.width == "12" ? "12" : "6"} col-xl-${
+                item.width || "4"
+              } border`}
             >
               <HighchartsReact highcharts={Highcharts} options={item} />
             </div>
