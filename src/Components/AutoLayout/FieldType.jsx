@@ -452,11 +452,7 @@ function FieldType({
           />
         </div>
       )}
-      {fieldItem.type === "chartreport" && (
-        <div className={`col-md-12 ${fieldItem.hide == "1" ? "d-none" : ""}`}>
-          <ChartForm2 fieldItem={fieldItem} />
-        </div>
-      )}
+      {fieldItem.type === "chartreport" && <ChartForm2 fieldItem={fieldItem} />}
       {fieldItem.type === "button" && (
         <ButtonType
           buttonItem={fieldItem}

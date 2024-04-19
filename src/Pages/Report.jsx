@@ -49,6 +49,81 @@ function Report() {
     ],
   }
 
+  const sample2 = {
+    subtitle: {
+      text: "",
+    },
+    exporting: {
+      enabled: false,
+    },
+    credits: {
+      enabled: false,
+    },
+    title: {
+      text: "Jumlah Penduduk",
+    },
+    series: [
+      {
+        name: "Tahun 2000",
+        data: [120, 148, 163, 110], // value setiap kota (yAxis)
+      },
+      {
+        name: "Tahun 2005",
+        data: [135, 160, 172, 121], // value setiap kota (yAxis)
+      },
+      {
+        name: "Tahun 2010",
+        data: [140, 173, 180, 133], // value setiap kota (yAxis)
+      },
+    ],
+    xAxis: {
+      categories: ["Yogyakarta", "Jakarta", "Bandung", "Semarang"], // posisi kiri
+    },
+    yAxis: {
+      title: {
+        text: "Banyak (Ribuan)", // posisi bawah
+      },
+    },
+    loading: {
+      labelStyle: {
+        color: "white",
+      },
+      style: {
+        backgroundColor: "gray",
+      },
+    },
+    chart: {
+      type: "bar", // ini tipe nya
+    },
+    plotOptions: {
+      bar: {
+        // bar style
+        dataLabels: {
+          enabled: true,
+        },
+        groupPadding: 0.1,
+      },
+    },
+    tooltip: {
+      // hover di bar
+      pointFormat: "{series.name}: {point.y}",
+      valueSuffix: " Ribu",
+    },
+    legend: {
+      // Kotak informasi di kanan
+      layout: "vertical",
+      align: "right",
+      verticalAlign: "top",
+      x: -40,
+      y: 80,
+      floating: true,
+      borderWidth: 1,
+      backgroundColor:
+        Highcharts.defaultOptions.legend.backgroundColor || "#FFFFFF",
+      shadow: true,
+    },
+  }
+
   const getChartOption = async (menu) => {
     const payload = {
       userId: user.id,

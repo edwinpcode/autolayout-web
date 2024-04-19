@@ -7,7 +7,7 @@ import HighchartsReact from "highcharts-react-official"
 require("highcharts/modules/accessibility")(Highcharts)
 
 const ChartForm2 = ({ fieldItem }) => {
-  const { id, label } = fieldItem
+  const { id, label, width, hide } = fieldItem
 
   const user = useSelector((state) => state.user)
 
@@ -46,8 +46,12 @@ const ChartForm2 = ({ fieldItem }) => {
     if (id) fetchData()
   }, [id])
 
+  //   useEffect(() => {
+  //     console.log(fieldItem)
+  //   }, [fieldItem])
+
   return (
-    <div>
+    <div className={`col-md-12 ${hide == "1" ? "d-none" : ""}`}>
       {label}
       {loading && (
         <div>
@@ -71,7 +75,10 @@ const ChartForm2 = ({ fieldItem }) => {
       <div className="mt-3">
         <div className="row">
           {data.map((item, index) => (
-            <div key={item.id} className="col-xl-4 col-md-6 border">
+            <div
+              key={item.id}
+              className={`col-md-6 col-xl-${item.width || "4"} border`}
+            >
               <HighchartsReact highcharts={Highcharts} options={item} />
             </div>
           ))}
