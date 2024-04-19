@@ -15,6 +15,7 @@ const ChartForm2 = ({ fieldItem }) => {
   const [error, setError] = useState(false)
 
   const [data, setData] = useState([])
+  const [temp, setTemp] = useState([])
   const [type, setType] = useState("")
 
   const fetchData = () => {
@@ -24,13 +25,11 @@ const ChartForm2 = ({ fieldItem }) => {
       moduleId: user.activeModule.id,
       roleId: user.activeRole.id,
     }
-    console.log(payload)
     setLoading(true)
     ChartService.formChart({ payload })
       .then((res) => {
         setError(false)
-        console.log(res)
-        if (res.data.data) setData(res.data.data)
+        if (res.data.data) setTemp(res.data.data)
       })
       .catch((e) => {
         console.log(e)
@@ -43,12 +42,28 @@ const ChartForm2 = ({ fieldItem }) => {
   }
 
   useEffect(() => {
+    if (temp.length) {
+      const data = temp.map((item) => {
+        const res = {
+          ...item,
+          xAxis: {
+            ...item.xAxis,
+            labels: {
+              style: {
+                fontSize: "8px",
+              },
+            },
+          },
+        }
+        return res
+      })
+      setData(data)
+    }
+  }, [temp])
+
+  useEffect(() => {
     if (id) fetchData()
   }, [id])
-
-  //   useEffect(() => {
-  //     console.log(fieldItem)
-  //   }, [fieldItem])
 
   return (
     <div className={`col-md-${width || "12"} ${hide == "1" ? "d-none" : ""}`}>
@@ -76,7 +91,7 @@ const ChartForm2 = ({ fieldItem }) => {
         <div className="row">
           {data.map((item, index) => (
             <div
-              key={item.id}
+              key={item.id + "_" + index}
               className={`col-md-${item.width == "12" ? "12" : "6"} col-xl-${
                 item.width || "4"
               } border`}
