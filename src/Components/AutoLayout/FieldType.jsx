@@ -169,6 +169,7 @@ function FieldType({
               unregister={unregister}
               register={register(fieldItem.id, handleFieldRule(fieldItem))}
               index={index}
+              watch={watch}
             />
             <ErrorMessage
               errors={errors}
@@ -452,7 +453,9 @@ function FieldType({
           />
         </div>
       )}
-      {fieldItem.type === "chartreport" && <ChartForm2 fieldItem={fieldItem} />}
+      {fieldItem.type === "chartreport" && (
+        <ChartForm2 fieldItem={fieldItem} watch={watch} />
+      )}
       {fieldItem.type === "button" && (
         <ButtonType
           buttonItem={fieldItem}

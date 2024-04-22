@@ -6,7 +6,7 @@ import HighchartsReact from "highcharts-react-official"
 
 require("highcharts/modules/accessibility")(Highcharts)
 
-const ChartForm2 = ({ fieldItem }) => {
+const ChartForm2 = ({ fieldItem, watch }) => {
   const { id, label, width, hide } = fieldItem
 
   const user = useSelector((state) => state.user)
@@ -18,10 +18,12 @@ const ChartForm2 = ({ fieldItem }) => {
   const [temp, setTemp] = useState([])
   const [type, setType] = useState("")
 
+  const value = watch("DBS1001_005_002")
+
   const fetchData = () => {
     const payload = {
       userId: user.id,
-      fieldId: id,
+      fieldId: value ? value : id,
       moduleId: user.activeModule.id,
       roleId: user.activeRole.id,
     }
@@ -62,8 +64,12 @@ const ChartForm2 = ({ fieldItem }) => {
   }, [temp])
 
   useEffect(() => {
-    if (id) fetchData()
-  }, [id])
+    if (value) fetchData()
+  }, [value])
+
+  useEffect(() => {
+    fetchData()
+  }, [])
 
   return (
     <div className={`col-md-${width || "12"} ${hide == "1" ? "d-none" : ""}`}>

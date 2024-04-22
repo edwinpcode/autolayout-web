@@ -26,6 +26,7 @@ function DropdownSelect({
   getValues,
   setValue,
   unregister,
+  watch,
 }) {
   const dispatch = useDispatch()
   const [cascadeData, setCascadeData] = useState([])
