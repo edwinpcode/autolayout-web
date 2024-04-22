@@ -122,7 +122,7 @@ function AuthStepperContent() {
             <div className="row">
               {selectedModule.role &&
                 selectedModule.role.map((role, index) => {
-                  if (role.active != "1") return null
+                  // if (role.active != "1") return null
                   return (
                     <div className="col my-2" key={index}>
                       <button
@@ -146,6 +146,7 @@ function AuthStepperContent() {
                           "bg-success": selectedRole != role,
                           "bg-default": selectedRole == role,
                         })}
+                        disabled={role.active != "1"}
                       >
                         <span className="badge badge-danger text-lg">
                           {role.totalTaskList}

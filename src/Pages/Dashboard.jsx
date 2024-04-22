@@ -321,7 +321,7 @@ function Dashboard() {
                           <p>{dashboardItem.description}</p>
                         </div>
                         <div className="icon">
-                          <i className={dashboardItem.icon}></i>
+                          <i className={`${dashboardItem.icon}`}></i>
                         </div>
                         <Link
                           to={"/"}
