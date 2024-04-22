@@ -42,7 +42,7 @@ function Auth() {
         style={{ backgroundColor: "#e9ecef" }}
         className="vh-100 d-flex justify-content-center align-items-center"
       >
-        <div className="card w-100" style={{ maxWidth: 600 }}>
+        <div className="card w-75">
           <div style={{ width: 250, margin: "30px auto" }}>
             <Logo />
           </div>

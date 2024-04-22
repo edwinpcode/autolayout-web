@@ -121,34 +121,44 @@ function AuthStepperContent() {
           <section>
             <div className="row">
               {selectedModule.role &&
-                selectedModule.role.map((role, index) => (
-                  <div className="col my-2" key={index}>
-                    <button
-                      onClick={() =>
-                        handleSelectedGroup(
-                          user.id,
-                          role.groupId,
-                          role.groupName,
-                          selectedModule.id,
-                          selectedModule.name,
-                        )
-                      }
-                      className={classNames("btn w-100 h-100", {
-                        "btn-success": selectedRole != role,
-                        "btn-default": selectedRole == role,
-                      })}
-                    >
-                      <span className="badge badge-danger navbar-badge position-absolute text-lg">
-                        {role.totalTaskList}
-                      </span>
-                      <i
-                        className="fal fa-user mb-1"
-                        style={{ fontSize: 24 }}
-                      ></i>
-                      <div>{role.groupName}</div>
-                    </button>
-                  </div>
-                ))}
+                selectedModule.role.map((role, index) => {
+                  if (role.active != "1") return null
+                  return (
+                    <div className="col my-2" key={index}>
+                      <button
+                        onClick={() => {
+                          if (role.active != "1")
+                            window.Swal.fire(
+                              "Peringatan",
+                              "Pilih Role Aktif",
+                              "warning",
+                            )
+                          else
+                            handleSelectedGroup(
+                              user.id,
+                              role.groupId,
+                              role.groupName,
+                              selectedModule.id,
+                              selectedModule.name,
+                            )
+                        }}
+                        className={classNames("btn btn-app h-100", {
+                          "bg-success": selectedRole != role,
+                          "bg-default": selectedRole == role,
+                        })}
+                      >
+                        <span className="badge badge-danger text-lg">
+                          {role.totalTaskList}
+                        </span>
+                        <i
+                          className="fal fa-user mb-1"
+                          style={{ fontSize: 24 }}
+                        ></i>
+                        <div>{role.groupName}</div>
+                      </button>
+                    </div>
+                  )
+                })}
             </div>
             <div className="row">
               <div className="col mt-3">

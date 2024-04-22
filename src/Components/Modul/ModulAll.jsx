@@ -60,15 +60,22 @@ const ModulAll = ({ className }) => {
                 {data.role.map((role, i) => (
                   <div className="my-2" key={role.id + "_" + i} id={role.id}>
                     <button
-                      onClick={() =>
-                        handleSelectedGroup(
-                          userId,
-                          role.groupId,
-                          role.groupName,
-                          data.id,
-                          data.name,
-                        )
-                      }
+                      onClick={() => {
+                        if (role.active != "1")
+                          window.Swal.fire(
+                            "Peringatan",
+                            "Pilih Role Aktif",
+                            "warning",
+                          )
+                        else
+                          handleSelectedGroup(
+                            userId,
+                            role.groupId,
+                            role.groupName,
+                            data.id,
+                            data.name,
+                          )
+                      }}
                       className={`btn btn-app ${
                         roleId == role.groupId && data.id == moduleId
                           ? "bg-success"
@@ -76,13 +83,6 @@ const ModulAll = ({ className }) => {
                       }`}
                       disabled={role.active != "1"}
                     >
-                      <span
-                        className={`badge text-lg ${
-                          role.active == "1" ? "bg-info" : "bg-danger"
-                        }`}
-                      >
-                        {role.totalTaskList}
-                      </span>
                       {/* <i
                         className="fal fa-user mb-1"
                         style={{ fontSize: 24 }}

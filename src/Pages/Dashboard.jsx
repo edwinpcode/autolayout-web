@@ -235,18 +235,22 @@ function Dashboard() {
                 disabled={
                   status == ""
                     ? true
-                    : status.toLowerCase().includes("already")
+                    : status?.toLowerCase().includes("already")
                       ? true
-                      : status.toLocaleLowerCase().includes("check in berhasil")
+                      : status
+                            ?.toLocaleLowerCase()
+                            .includes("check in berhasil")
                         ? true
                         : false
                 }
                 className={`btn ${
                   status == ""
                     ? "btn-secondary"
-                    : status.toLowerCase().includes("already")
+                    : status?.toLowerCase().includes("already")
                       ? "btn-secondary"
-                      : status.toLocaleLowerCase().includes("check in berhasil")
+                      : status
+                            ?.toLocaleLowerCase()
+                            .includes("check in berhasil")
                         ? "btn-secondary"
                         : "btn-success"
                 }`}
@@ -258,18 +262,18 @@ function Dashboard() {
                 disabled={
                   status == ""
                     ? true
-                    : status.toLowerCase().includes("please")
+                    : status?.toLowerCase().includes("please")
                       ? true
-                      : status.toLowerCase().includes("check out")
+                      : status?.toLowerCase().includes("check out")
                         ? true
                         : false
                 }
                 className={`btn ${
                   status == ""
                     ? "btn-secondary"
-                    : status.toLowerCase().includes("please")
+                    : status?.toLowerCase().includes("please")
                       ? "btn-secondary"
-                      : status.toLocaleLowerCase().includes("check out")
+                      : status?.toLocaleLowerCase().includes("check out")
                         ? "btn-secondary"
                         : "btn-success"
                 }`}
@@ -278,9 +282,28 @@ function Dashboard() {
               </button>
             </div>
           </div>
+        </div>
+        <div className="col-12">
           <div className="card card-success">
             <div className="card-header">
-              <div className="card-title"></div>
+              <span className="card-title">Role</span>
+              <div className="card-tools">
+                <button className="btn btn-tool" data-card-widget="collapse">
+                  <i className="fas fa-minus" id="collapseButton"></i>
+                </button>
+              </div>
+            </div>
+            <div className="card-body">
+              <Suspense>
+                <ModulAll />
+              </Suspense>
+            </div>
+          </div>
+        </div>
+        <div className="col-12">
+          <div className="card card-success">
+            <div className="card-header">
+              <div className="card-title">Tasklist</div>
               <div className="card-tools">
                 <button className="btn btn-tool" data-card-widget="collapse">
                   <i className="fas fa-minus" id="collapseButton"></i>
@@ -316,32 +339,7 @@ function Dashboard() {
             </div>
           </div>
         </div>
-        <div className="col-lg-6">
-          <div className="card card-success">
-            <div className="card-header">
-              <span className="card-title">Role</span>
-              <div className="card-tools">
-                <button className="btn btn-tool" data-card-widget="collapse">
-                  <i className="fas fa-minus" id="collapseButton"></i>
-                </button>
-              </div>
-            </div>
-            <div className="card-body">
-              <Suspense>
-                {/* <Modul /> */}
-                <ModulAll />
-              </Suspense>
-            </div>
-          </div>
-        </div>
       </div>
-      {/* <div className="row pt-3">
-        <InputTextWithAudio fieldItem={fieldItem} button={fieldItem.button} />
-      </div> */}
-
-      {/* <Chart /> */}
-      {/* {loader} */}
-      {/* {userId == "admin_dev" && <Speedometer />} */}
     </div>
   )
 }
