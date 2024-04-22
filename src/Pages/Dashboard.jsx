@@ -215,7 +215,7 @@ function Dashboard() {
       <h3>Beranda</h3>
       <div className="row">
         <div className="col-lg-6">
-          <div className="p-2 rounded-lg border shadow-sm h-100 mb-3">
+          <div className="p-2 rounded-lg border shadow-sm mb-3">
             <div className="d-flex justify-content-between text-bold p-2">
               <span>Presensi</span>
               <span>{date?.format("LL")}</span>
@@ -278,11 +278,53 @@ function Dashboard() {
               </button>
             </div>
           </div>
+          <div className="card card-success">
+            <div className="card-header">
+              <div className="card-title"></div>
+              <div className="card-tools">
+                <button className="btn btn-tool" data-card-widget="collapse">
+                  <i className="fas fa-minus" id="collapseButton"></i>
+                </button>
+              </div>
+            </div>
+            <div className="card-body">
+              <div className="row pt-3">
+                {dashboardBox.map((dashboardItem, index) => {
+                  return (
+                    <div className="col-lg-3 col-md-6 col-12" key={index}>
+                      <div className={"small-box " + dashboardItem.class}>
+                        <div className="inner">
+                          <h3>{dashboardItem.total}</h3>
+                          <p>{dashboardItem.description}</p>
+                        </div>
+                        <div className="icon">
+                          <i className={dashboardItem.icon}></i>
+                        </div>
+                        <Link
+                          to={"/"}
+                          onClick={() => handleMenuClick(dashboardItem)}
+                          className="small-box-footer"
+                        >
+                          Click here to see the list
+                          <i className="fas fa-arrow-circle-right ml-2"></i>
+                        </Link>
+                      </div>
+                    </div>
+                  )
+                })}
+              </div>
+            </div>
+          </div>
         </div>
         <div className="col-lg-6">
           <div className="card card-success">
             <div className="card-header">
               <span className="card-title">Role</span>
+              <div className="card-tools">
+                <button className="btn btn-tool" data-card-widget="collapse">
+                  <i className="fas fa-minus" id="collapseButton"></i>
+                </button>
+              </div>
             </div>
             <div className="card-body">
               <Suspense>
@@ -296,31 +338,7 @@ function Dashboard() {
       {/* <div className="row pt-3">
         <InputTextWithAudio fieldItem={fieldItem} button={fieldItem.button} />
       </div> */}
-      <div className="row pt-3">
-        {dashboardBox.map((dashboardItem, index) => {
-          return (
-            <div className="col-lg-3 col-md-6 col-12" key={index}>
-              <div className={"small-box " + dashboardItem.class}>
-                <div className="inner">
-                  <h3>{dashboardItem.total}</h3>
-                  <p>{dashboardItem.description}</p>
-                </div>
-                <div className="icon">
-                  <i className={dashboardItem.icon}></i>
-                </div>
-                <Link
-                  to={"/"}
-                  onClick={() => handleMenuClick(dashboardItem)}
-                  className="small-box-footer"
-                >
-                  Click here to see the list
-                  <i className="fas fa-arrow-circle-right ml-2"></i>
-                </Link>
-              </div>
-            </div>
-          )
-        })}
-      </div>
+
       {/* <Chart /> */}
       {/* {loader} */}
       {/* {userId == "admin_dev" && <Speedometer />} */}

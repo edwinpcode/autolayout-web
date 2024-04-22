@@ -54,37 +54,45 @@ const ModulAll = ({ className }) => {
         <div className="mt-3">
           <div className="text-bold text-lg">Pilih</div>
           {module.map((data, index) => (
-            <div key={data.id + "_" + index}>
+            <div key={data.id + "_" + index} id={data.id}>
               <div className="text-bold">{data.name}</div>
-              {data.role.map((role, i) => (
-                <div className="col my-2" key={role.id + "_" + i}>
-                  <button
-                    onClick={() =>
-                      handleSelectedGroup(
-                        userId,
-                        role.groupId,
-                        role.groupName,
-                        data.id,
-                        data.name,
-                      )
-                    }
-                    className={`btn w-100 h-100 ${
-                      roleId == role.groupId && data.id == moduleId
-                        ? "btn-success"
-                        : "btn-default"
-                    }`}
-                  >
-                    <span className="badge badge-danger navbar-badge position-absolute text-lg">
-                      {role.totalTaskList}
-                    </span>
-                    <i
-                      className="fal fa-user mb-1"
-                      style={{ fontSize: 24 }}
-                    ></i>
-                    <div>{role.groupName}</div>
-                  </button>
-                </div>
-              ))}
+              <div className="row">
+                {data.role.map((role, i) => (
+                  <div className="my-2" key={role.id + "_" + i} id={role.id}>
+                    <button
+                      onClick={() =>
+                        handleSelectedGroup(
+                          userId,
+                          role.groupId,
+                          role.groupName,
+                          data.id,
+                          data.name,
+                        )
+                      }
+                      className={`btn btn-app ${
+                        roleId == role.groupId && data.id == moduleId
+                          ? "bg-success"
+                          : "bg-default"
+                      }`}
+                      disabled={role.active != "1"}
+                    >
+                      <span
+                        className={`badge text-lg ${
+                          role.active == "1" ? "bg-info" : "bg-danger"
+                        }`}
+                      >
+                        {role.totalTaskList}
+                      </span>
+                      {/* <i
+                        className="fal fa-user mb-1"
+                        style={{ fontSize: 24 }}
+                      ></i> */}
+                      <img src={role.icon} className="h-75 " />
+                      <div>{role.groupName}</div>
+                    </button>
+                  </div>
+                ))}
+              </div>
             </div>
           ))}
         </div>
