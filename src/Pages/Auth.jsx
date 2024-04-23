@@ -37,31 +37,27 @@ function Auth() {
   }
 
   return (
-    <>
-      <div
-        style={{ backgroundColor: "#e9ecef" }}
-        className="vh-100 d-flex justify-content-center align-items-center"
-      >
-        <div className="card w-75">
-          <div style={{ width: 250, margin: "30px auto" }}>
-            <Logo />
-          </div>
-          <div className="card-body">
-            <AuthStepperContent />
-          </div>
-          <div className="card-footer d-flex justify-content-center">
-            <button
-              type="button"
-              onClick={() => handleLogout()}
-              className="btn btn-link text-danger font-weight-bold"
-            >
-              Logout
-            </button>
-          </div>
+    <div
+      className="h-100 d-flex justify-content-center align-items-center"
+      style={{ backgroundColor: "#e9ecef", minHeight: "100vh" }}
+    >
+      <div className="container bg-white border rounded p-4">
+        <div style={{ width: 250, margin: "30px auto" }}>
+          <Logo />
+        </div>
+        <AuthStepperContent />
+        <div className="d-flex justify-content-center mt-4">
+          <button
+            type="button"
+            onClick={() => handleLogout()}
+            className="btn btn-link text-danger font-weight-bold"
+          >
+            Logout
+          </button>
         </div>
       </div>
       {loader}
-    </>
+    </div>
   )
 }
 

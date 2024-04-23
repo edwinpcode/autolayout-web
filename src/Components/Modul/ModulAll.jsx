@@ -58,7 +58,11 @@ const ModulAll = ({ className }) => {
               <div className="text-bold">{data.name}</div>
               <div className="row">
                 {data.role.map((role, i) => (
-                  <div className="my-2" key={role.id + "_" + i} id={role.id}>
+                  <div
+                    className="col-md-2 col-6 my-2"
+                    key={role.id + "_" + i}
+                    id={role.id}
+                  >
                     <button
                       onClick={() => {
                         if (role.active != "1")
@@ -76,10 +80,10 @@ const ModulAll = ({ className }) => {
                             data.name,
                           )
                       }}
-                      className={`btn btn-app ${
+                      className={`btn h-100 ${
                         roleId == role.groupId && data.id == moduleId
-                          ? "bg-success"
-                          : "bg-default"
+                          ? "btn-success"
+                          : "btn-default"
                       }`}
                       disabled={role.active != "1"}
                     >
@@ -87,7 +91,7 @@ const ModulAll = ({ className }) => {
                         className="fal fa-user mb-1"
                         style={{ fontSize: 24 }}
                       ></i> */}
-                      <img src={role.icon} className="h-75 " />
+                      <img src={role.icon} className="w-75 " />
                       <div>{role.groupName}</div>
                     </button>
                   </div>

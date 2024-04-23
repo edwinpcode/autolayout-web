@@ -96,16 +96,16 @@ function AuthStepperContent() {
                   <button
                     onClick={() => handleSelectModule(data)}
                     className={classNames(
-                      "btn-select-module btn btn-success w-100 h-100",
-                      {
-                        "btn-success": data.id != user.activeModule.id,
-                        "btn-default": data.id == user.activeModule.id,
-                      },
+                      "btn-select-module btn btn-default w-100 h-100",
+                      // {
+                      //   "btn-success": data.id != user.activeModule.id,
+                      //   "btn-default": data.id == user.activeModule.id,
+                      // },
                     )}
                   >
-                    <span className="badge badge-danger navbar-badge position-absolute text-lg">
+                    {/* <span className="badge badge-danger navbar-badge position-absolute text-lg">
                       {data.totalTaskList}
-                    </span>
+                    </span> */}
                     <i
                       className={`${data.icon} mb-1`}
                       style={{ fontSize: 24 }}
@@ -118,13 +118,13 @@ function AuthStepperContent() {
           </section>
         )}
         {activeStep === 1 && (
-          <section>
-            <div className="row">
+          <div>
+            <div className="d-flex flex-wrap overflow-y-scroll">
               {selectedModule.role &&
                 selectedModule.role.map((role, index) => {
                   // if (role.active != "1") return null
                   return (
-                    <div className="col my-2" key={index}>
+                    <div className="col-6 col-md-2 my-2" key={index}>
                       <button
                         onClick={() => {
                           if (role.active != "1")
@@ -142,19 +142,19 @@ function AuthStepperContent() {
                               selectedModule.name,
                             )
                         }}
-                        className={classNames("btn btn-app h-100", {
-                          "bg-success": selectedRole != role,
-                          "bg-default": selectedRole == role,
+                        className={classNames("btn w-100 h-100 btn-default", {
+                          "bg-success": role.active == "1",
                         })}
                         disabled={role.active != "1"}
                       >
-                        <span className="badge badge-danger text-lg">
+                        {/* <span className="badge badge-danger text-lg">
                           {role.totalTaskList}
-                        </span>
-                        <i
+                        </span> */}
+                        {/* <i
                           className="fal fa-user mb-1"
                           style={{ fontSize: 24 }}
-                        ></i>
+                        ></i> */}
+                        <img src={role.icon} className="w-75" />
                         <div>{role.groupName}</div>
                       </button>
                     </div>
@@ -173,7 +173,7 @@ function AuthStepperContent() {
                 </button>
               </div>
             </div>
-          </section>
+          </div>
         )}
       </div>
     </>

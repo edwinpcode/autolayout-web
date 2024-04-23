@@ -15,6 +15,7 @@ import { reset, setFilteringList } from "../Store/List/listSlice"
 import { useSearchParams } from "react-router-dom"
 import AuthStepperContent from "../Components/Stepper/AuthStepperContent"
 import Modul from "../Components/Modul/Modul"
+import ModulAll from "Components/Modul/ModulAll"
 
 function Header() {
   const dispatch = useDispatch()
@@ -611,7 +612,7 @@ function Header() {
         aria-labelledby="authStepperModalLabel"
         aria-hidden="true"
       >
-        <div className="modal-dialog">
+        <div className="modal-dialog modal-xl">
           <div className="modal-content">
             <div className="modal-header">
               <h5 className="modal-title">Modul</h5>
@@ -625,7 +626,8 @@ function Header() {
               </button>
             </div>
             <div className="modal-body">
-              <Modul />
+              {/* <Modul /> */}
+              <ModulAll />
             </div>
           </div>
         </div>
