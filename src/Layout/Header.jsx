@@ -16,6 +16,7 @@ import { useSearchParams } from "react-router-dom"
 import AuthStepperContent from "../Components/Stepper/AuthStepperContent"
 import Modul from "../Components/Modul/Modul"
 import ModulAll from "Components/Modul/ModulAll"
+import { toggleDarkMode } from "Store/theme/ThemeSlice"
 
 function Header() {
   const dispatch = useDispatch()
@@ -76,12 +77,13 @@ function Header() {
       })
   }
 
-  const toggleDarkMode = () => {
+  const toggleTheme = () => {
     if (darkMode) {
       document.body.classList.remove("dark-mode")
     } else {
       document.body.classList.add("dark-mode")
     }
+    dispatch(toggleDarkMode())
   }
 
   // useEffect(() => {
@@ -338,14 +340,14 @@ function Header() {
 
         {/* Right navbar links */}
         <ul className="navbar-nav ml-auto">
-          {/* <li>
-            <div className="form-group">
+          <li className="nav-item">
+            <div className="form-group px-3">
               <div className="custom-control custom-switch">
                 <input
                   type="checkbox"
                   className="custom-control-input"
                   id="customSwitch1"
-                  onClick={toggleDarkMode}
+                  onClick={toggleTheme}
                   value={darkMode}
                 />
                 <label className="custom-control-label" htmlFor="customSwitch1">
@@ -353,7 +355,7 @@ function Header() {
                 </label>
               </div>
             </div>
-          </li> */}
+          </li>
           <li className="nav-item">
             {/* <div
               className="input-group"
