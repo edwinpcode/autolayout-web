@@ -54,7 +54,7 @@ function DropdownSelect({
   }, [dropdownData])
 
   useEffect(() => {
-    if (defaultValue.length) {
+    if (defaultValue?.length) {
       setCascadeData(defaultValue)
       setValue(id, defaultValue[0].value)
     }

@@ -65,6 +65,24 @@ function ModalWithButton({
                 {loading && <SkeletonModal />}
                 <div className="row">
                   {/* non panel */}
+                  {data?.map((fieldItem, index) => (
+                    <FieldType
+                      key={fieldItem.id}
+                      fieldItem={fieldItem}
+                      data={data.data}
+                      register={register}
+                      getValues={getValues}
+                      setValue={setValue}
+                      resetField={resetField}
+                      errors={errors}
+                      control={control}
+                      watch={watch}
+                      unregister={unregister}
+                      filter={filter}
+                      setFilterData={setFilterData}
+                      index={index}
+                    />
+                  ))}
                   {data?.data &&
                     data.data.map((fieldItem, index) => (
                       <FieldType
