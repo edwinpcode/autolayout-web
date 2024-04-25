@@ -127,22 +127,24 @@ function TableList() {
   return (
     <div>
       <div className="d-md-flex">
-        {pathname != "/report" && menuSlice.path == "/" && (
-          <Suspense>
-            <Inbox
-              // className={"col-md-3"}
-              pageIndex={pageIndex}
-              pageSize={pageSize}
-              fetchData={fetchData}
-              setPagination={setPagination}
-              dataQuery={inboxData}
-              setDataQuery={setDataQuery}
-              structures={structures}
-              setStructures={setStructures}
-              loading={loading}
-            />
-          </Suspense>
-        )}
+        {pathname != "/report" &&
+          menuSlice.path != "/form" &&
+          menuSlice.path != "/dashboard" && (
+            <Suspense>
+              <Inbox
+                // className={"col-md-3"}
+                pageIndex={pageIndex}
+                pageSize={pageSize}
+                fetchData={fetchData}
+                setPagination={setPagination}
+                dataQuery={inboxData}
+                setDataQuery={setDataQuery}
+                structures={structures}
+                setStructures={setStructures}
+                loading={loading}
+              />
+            </Suspense>
+          )}
         {pathname == "/report" && (
           <Suspense>
             <TableComponent

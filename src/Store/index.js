@@ -20,6 +20,8 @@ import { flowchartModalReducer } from "./Flowchart/flowchartModalSlice"
 import moduleReducer from "./Module/ModuleSlide"
 import tabReducers from "./tabSlice"
 import locationReducers from "./locationSlice"
+import { theme } from "highcharts"
+import themeReducer from "./theme/ThemeSlice"
 
 const persistConfig = {
   key: "root",
@@ -47,6 +49,7 @@ const reducer = combineReducers({
   module: moduleReducer,
   tab: tabReducers,
   location: locationReducers,
+  theme: themeReducer,
 })
 
 // const persistedReducer = persistReducer(persistConfig, reducer)

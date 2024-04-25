@@ -27,6 +27,7 @@ function Header() {
   const activeRoleId = useSelector((state) => state.user.activeRole.id)
   const [photoProfile, setPhotoProfile] = useState()
   const devMode = useSelector((state) => state.devMode)
+  const darkMode = useSelector((state) => state.theme.darkMode)
 
   const { setValue, register, handleSubmit } = useForm()
   const [mediaRecorder, setMediaRecorder] = useState(null)
@@ -73,6 +74,14 @@ function Header() {
       .finally(() => {
         hideLoader()
       })
+  }
+
+  const toggleDarkMode = () => {
+    if (darkMode) {
+      document.body.classList.remove("dark-mode")
+    } else {
+      document.body.classList.add("dark-mode")
+    }
   }
 
   // useEffect(() => {
@@ -329,6 +338,22 @@ function Header() {
 
         {/* Right navbar links */}
         <ul className="navbar-nav ml-auto">
+          {/* <li>
+            <div className="form-group">
+              <div className="custom-control custom-switch">
+                <input
+                  type="checkbox"
+                  className="custom-control-input"
+                  id="customSwitch1"
+                  onClick={toggleDarkMode}
+                  value={darkMode}
+                />
+                <label className="custom-control-label" htmlFor="customSwitch1">
+                  Dark Mode
+                </label>
+              </div>
+            </div>
+          </li> */}
           <li className="nav-item">
             {/* <div
               className="input-group"
