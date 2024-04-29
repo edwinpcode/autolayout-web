@@ -307,7 +307,11 @@ function Header() {
 
   return (
     <>
-      <nav className="main-header navbar navbar-expand navbar-white navbar-light text-sm">
+      <nav
+        className={`main-header navbar navbar-expand text-sm ${
+          darkMode ? "navbar-dark" : "navbar-light"
+        }`}
+      >
         {/* Left navbar links */}
         <ul className="navbar-nav">
           <li className="nav-item">
@@ -347,7 +351,7 @@ function Header() {
 
         {/* Right navbar links */}
         <ul className="navbar-nav ml-auto">
-          <li className="nav-item">
+          {/* <li className="nav-item">
             <div className="form-group px-3">
               <div className="custom-control custom-switch">
                 <input
@@ -362,12 +366,12 @@ function Header() {
                 </label>
               </div>
             </div>
-          </li>
-          {/* <li className="nav-item mx-1">
-            <button className="btn btn-sm btn-success" onClick={assistant}>
-              Voice Assistant
-            </button>
           </li> */}
+          <li className="nav-item mx-1">
+            <button className="btn btn-sm btn-success" onClick={assistant}>
+              Assistant
+            </button>
+          </li>
           <li className="nav-item">
             {/* <div
               className="input-group"
@@ -542,6 +546,23 @@ function Header() {
               <NavLink to="/profile" className="dropdown-item">
                 <i className="fas fa-user mr-2"></i> Profile
               </NavLink>
+              <div className="form-group px-3">
+                <div className="custom-control custom-switch">
+                  <input
+                    type="checkbox"
+                    className="custom-control-input"
+                    id="customSwitch1"
+                    onClick={toggleTheme}
+                    value={darkMode}
+                  />
+                  <label
+                    className="custom-control-label"
+                    htmlFor="customSwitch1"
+                  >
+                    Dark Mode
+                  </label>
+                </div>
+              </div>
               <div className="dropdown-divider"></div>
               <a
                 href="#"

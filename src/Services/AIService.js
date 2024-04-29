@@ -22,7 +22,7 @@ const speechToFindMenu = async (formData) => {
 }
 
 const speecToTextVA = async (formData) => {
-  const res = await APIClient.post("SpeectotextVA", formData, formDataConfig)
+  const res = await APIClient.post("speechtotextva", formData, formDataConfig)
   return res
 }
 

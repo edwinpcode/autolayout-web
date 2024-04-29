@@ -313,7 +313,7 @@ function AutoLayout({ className, pageIndex, pageSize, fetchData }) {
                     ) : null}
                     <span>{checkStatus.desciption}</span>
                   </div>
-                  <div>
+                  <div className="row">
                     {actionData?.map((actionItem) => (
                       <ButtonType
                         resetTab={reset}

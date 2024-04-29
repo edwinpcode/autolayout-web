@@ -176,7 +176,13 @@ const Inbox = ({
 
   return (
     <div className={`${className} col-md-3`}>
-      <div className="card card-success h-100" id="inboxCard">
+      <div
+        className="card card-success"
+        style={{
+          height: "85vh",
+        }}
+        id="inboxCard"
+      >
         <div className="card-header">
           <span className="card-title">
             {structures.caption || menu.activeMenuDesc}

@@ -127,7 +127,7 @@ function TableList() {
 
   return (
     <div>
-      <div className="d-md-flex">
+      <div className="row">
         {pathname != "/report" &&
           menuSlice.path != "/form" &&
           menuSlice.path != "/dashboard" && (

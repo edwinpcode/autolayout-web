@@ -53,7 +53,10 @@ function Home() {
         <section className="content pt-3">
           <div className="container-fluid">
             <div className="card">
-              <div className="card-body" style={{ minHeight: "90vh" }}>
+              <div
+                className="card-body"
+                // style={{ minHeight: "90vh" }}
+              >
                 <Suspense fallback={<h1>Loading...</h1>}>
                   <Outlet />
                 </Suspense>

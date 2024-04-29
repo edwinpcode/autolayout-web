@@ -115,7 +115,7 @@ const VoiceAssistant = ({ className }) => {
 
   // WIP
   const search = async (audioBlob) => {
-    return window.Swal.fire("Informasi", "Currently WIP", "info")
+    // return window.Swal.fire("Informasi", "Currently WIP", "info")
     const formData = new FormData()
     const timestamp = new Date().toISOString().replace(/[-:.]/g, "")
     const randomString = Math.random().toString(36).substring(2, 5)
@@ -124,29 +124,37 @@ const VoiceAssistant = ({ className }) => {
     formData.append("removewhitespace", "0")
     formData.append("type", "virtualassistant")
     try {
-      setRecordingStatus("Please Wait...")
+      setRecordingStatus("searching")
       if (videoRef.current) {
         videoRef.current.play().catch((e) => {
           console.log("Error: ", e)
         })
       }
       const time = setTimeout(async () => {
-        const res = await AIService.speecToTextVA(formData)
-        URL.revokeObjectURL(audioUrl)
-        setAudioUrl(null)
-        setAudioBlob(null)
-        if (res.data.status == "1") {
-          setMessage((array) => [...array, ...res.data.message])
+        try {
+          const res = await AIService.speecToTextVA(formData)
+          URL.revokeObjectURL(audioUrl)
+          setAudioUrl(null)
+          setAudioBlob(null)
+          if (res.data.status == "1") {
+            setMessage((array) => [...array, ...res.data.message])
+          }
+          setRecordingStatus("inactive")
+        } catch (error) {
+          window.Swal.fire("Kesalahan", error.message, "error")
         }
-        setRecordingStatus("Click button to speak")
       }, 5000)
       return () => clearTimeout(time)
     } catch (error) {
       window.Swal.fire("Kesalahan", error.message, "error")
-      setRecordingStatus("Click button to speak")
+      setRecordingStatus("inactive")
     } finally {
       //   setRecordingStatus("Click button to speak")
     }
+  }
+
+  const clearData = () => {
+    setMessage([])
   }
 
   useEffect(() => {
@@ -156,11 +164,16 @@ const VoiceAssistant = ({ className }) => {
   }, [audioBlob])
 
   return (
-    <div className={`col-md-3 d-none ${className}`} id="assistant">
-      <div className="card card-success h-100">
+    <div className={`col-md-4 d-none ${className}`} id="assistant">
+      <div
+        className="card card-success"
+        style={{
+          height: "85vh",
+        }}
+      >
         <div className="card-header">
           <div className="card-title">Voice Assistant</div>
-          <div className="card-tools">
+          {/* <div className="card-tools">
             <button
               type="button"
               className="btn btn-tool"
@@ -168,9 +181,9 @@ const VoiceAssistant = ({ className }) => {
             >
               <i className="fas fa-minus"></i>
             </button>
-          </div>
+          </div> */}
         </div>
-        <div className="card-body">
+        <div className="card-body h-100">
           <form onSubmit={handleSubmit(onSubmit)}>
             <div className={`input-group`}>
               <div
@@ -194,6 +207,7 @@ const VoiceAssistant = ({ className }) => {
                 className={`form-control form-control-lg ${border}`}
                 placeholder="Ketik..."
                 {...register("question")}
+                disabled
               ></input>
               <div
                 className={`input-group-append`}
@@ -205,11 +219,48 @@ const VoiceAssistant = ({ className }) => {
               </div>
             </div>
           </form>
-          <div className="border mt-4">
-            <div className="text-lg p-2 text-bold border-bottom">Pesan</div>
-            <div className="mt-4 p-2">
+          <div
+            className="border mt-4 rounded"
+            style={{
+              height: "90%",
+            }}
+          >
+            <div className="p-2 border-bottom d-flex justify-content-between">
+              <div className="text-lg text-bold">Pesan</div>
+              <button className="btn btn-sm btn-secondary" onClick={clearData}>
+                Clear
+              </button>
+            </div>
+            <div
+              className="mt-4 p-2 overflow-auto"
+              style={{
+                height: "80%",
+              }}
+            >
               {message.map((item, index) => {
-                return <div key={index}>{item}</div>
+                if (item.toLowerCase().includes("jawaban")) {
+                  const res = item.split(":")
+                  if (res.length >= 2)
+                    return (
+                      <div
+                        key={index}
+                        className="text-left border rounded bg-success p-1 mb-1"
+                      >
+                        {res[1]}
+                      </div>
+                    )
+                } else {
+                  const res = item.split(":")
+                  if (res.length >= 2)
+                    return (
+                      <div
+                        key={index}
+                        className="text-right border rounded p-1 mb-1"
+                      >
+                        {res[1]}
+                      </div>
+                    )
+                }
               })}
             </div>
           </div>

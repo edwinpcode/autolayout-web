@@ -39,6 +39,7 @@ function SideBar() {
   const [show, setShow] = useState(false)
   const [hover, setHover] = useState(false)
   const [loading, setLoading] = useState(true)
+  const darkMode = useSelector((state) => state.theme.darkMode)
 
   useEffect(() => {
     if (activeModuleId && activeRoleId) {
@@ -110,7 +111,9 @@ function SideBar() {
 
   return (
     <aside
-      className="main-sidebar elevation-4 sidebar-light-success"
+      className={`main-sidebar elevation-4 ${
+        darkMode ? "sidebar-dark-success" : "sidebar-light-success"
+      }`}
       id={"sidebar"}
     >
       <a href="/" className="brand-link">
