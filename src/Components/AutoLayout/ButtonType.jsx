@@ -27,7 +27,7 @@ function ButtonType({
   // setTab = (value) => {},
 }) {
   return (
-    <>
+    <div className="mt-1 mr-1">
       {["button", "anchor", "linkmaps"].includes(buttonItem.type) && (
         <ButtonAction
           resetTab={resetTab}
@@ -87,7 +87,7 @@ function ButtonType({
           getValues={getValues}
         />
       )}
-    </>
+    </div>
   )
 }
 

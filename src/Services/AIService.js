@@ -21,11 +21,17 @@ const speechToFindMenu = async (formData) => {
   return res
 }
 
+const speecToTextVA = async (formData) => {
+  const res = await APIClient.post("SpeectotextVA", formData, formDataConfig)
+  return res
+}
+
 const AIService = {
   voiceToText,
   faceRecognize,
   faceRegister,
   speechToFindMenu,
+  speecToTextVA,
 }
 
 export default AIService

@@ -11,6 +11,7 @@ import { userStatus } from "../Services/UserService"
 import { useNavigate } from "react-router-dom"
 // import Modul from "../Components/Modul"
 import { setAddress, setLatitude, setLongitude } from "../Store/locationSlice"
+import VoiceAssistant from "Components/Voice/VoiceAssistant"
 
 const Modul = lazy(() => import("Components/Modul/Modul"))
 const ModulAll = lazy(() => import("Components/Modul/ModulAll"))
@@ -99,7 +100,9 @@ function Dashboard() {
           setDate(date)
         }
       } else {
-        window.Swal.fire("Peringatan", res.data.message, "warning")
+        if (!devMode) {
+          window.Swal.fire("Peringatan", res.data.message, "warning")
+        }
         setStatus(res.data.message)
         // if (res.data.message.toLowerCase().includes("already")) {
         //   window.Swal.fire("Peringatan", res.data.message, "warning")
@@ -283,6 +286,7 @@ function Dashboard() {
             </div>
           </div>
         </div>
+        {/* <VoiceAssistant /> */}
         <div className="col-12">
           <div className="card card-success">
             <div className="card-header">

@@ -176,7 +176,7 @@ const Inbox = ({
 
   return (
     <div className={`${className} col-md-3`}>
-      <div className="card card-success" id="inboxCard">
+      <div className="card card-success h-100" id="inboxCard">
         <div className="card-header">
           <span className="card-title">
             {structures.caption || menu.activeMenuDesc}
@@ -206,8 +206,8 @@ const Inbox = ({
         ) : (
           <div className="card-body" id="inboxBody">
             {type == "inbox" ? (
-              <div>
-                <div>
+              <div className="row">
+                <div className="col-12">
                   {structures?.topAction?.length > 0 && (
                     <TopAction
                       structures={structures}
@@ -226,9 +226,9 @@ const Inbox = ({
                     />
                   )}
                 </div>
-                <div>
+                <div className="col-12">
                   {dataQuery?.total > 10 && (
-                    <section className="">
+                    <div className="">
                       <div
                         className={`d-flex ${
                           type == "inbox" ? "justify-content-between" : ""
@@ -295,11 +295,11 @@ const Inbox = ({
                           </button>
                         </div>
                       </div>
-                    </section>
+                    </div>
                   )}
                 </div>
                 <div
-                  className="mt-3"
+                  className="col-12"
                   style={{
                     height: filterDataLabel ? "50vh" : "60vh",
                   }}

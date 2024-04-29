@@ -209,11 +209,12 @@ function AutoLayout({ className, pageIndex, pageSize, fetchData }) {
 
   return (
     <div
-      className={`${
-        menu.path == "/form" || menu.path == "/dashboard"
-          ? "col-md-12"
-          : "col-md-9"
-      } ${className}`}
+      className="flex-grow-1 col"
+      // className={`${
+      //   menu.path == "/form" || menu.path == "/dashboard"
+      //     ? "col-md-12"
+      //     : "col-md-9"
+      // } ${className}`}
     >
       {/* {menu.path != "/form" && (
         <Inbox
@@ -229,18 +230,17 @@ function AutoLayout({ className, pageIndex, pageSize, fetchData }) {
           // setTab={setTab}
         />
       )} */}
-      <div
-        className={`overflow-y-auto bg-white col-12`}
-        style={{
-          height: "85vh",
-          // width: '100%',
-        }}
-      >
+      <div className={`bg-white`}>
         {loadingSpin && <Loading />}
         {!panelData || !tab ? (
           <Skeleton />
         ) : (
-          <div className="overflow-auto h-100 card card-success">
+          <div
+            className="card card-success"
+            style={{
+              height: "85vh",
+            }}
+          >
             <div className="card-header">
               <div className="">
                 <h3 className="card-title">{param[0]?.value}</h3>
@@ -278,7 +278,7 @@ function AutoLayout({ className, pageIndex, pageSize, fetchData }) {
               setActiveTabId={setActiveTabId}
             />
 
-            <div className="pt-4">
+            <div className="pt-4 overflow-auto">
               {loading && <Skeleton />}
               <FieldWithPanel
                 panelData={panelData}

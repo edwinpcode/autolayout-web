@@ -298,6 +298,13 @@ function Header() {
     }
   }, [menu, searchMenu, menuSideBar])
 
+  const assistant = () => {
+    const va = document.getElementById("assistant")
+    if (va) {
+      va.classList.toggle("d-none")
+    }
+  }
+
   return (
     <>
       <nav className="main-header navbar navbar-expand navbar-white navbar-light text-sm">
@@ -355,6 +362,11 @@ function Header() {
                 </label>
               </div>
             </div>
+          </li>
+          <li className="nav-item mx-1">
+            <button className="btn btn-sm btn-success" onClick={assistant}>
+              Voice Assistant
+            </button>
           </li>
           <li className="nav-item">
             {/* <div

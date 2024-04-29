@@ -27,15 +27,15 @@ function TopAction({
   // }, [activeMenuId])
 
   return (
-    <div className="mb-2 row">
-      <div className="col-md-12">
+    <div className="mb-2">
+      <div className="">
         {filterDataLabel && (
           <div className="callout callout-danger">
             <p>{filterDataLabel}</p>
           </div>
         )}
       </div>
-      <div className="col-md-12 d-flex align-items-center justify-content-end">
+      <div className="d-flex align-items-center justify-content-end overflow-auto">
         {structures?.topAction?.map((buttonItem, index) => (
           <ButtonType
             key={index}

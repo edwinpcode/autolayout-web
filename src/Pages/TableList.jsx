@@ -15,6 +15,7 @@ const TableComponent = lazy(() =>
 )
 const Inbox = lazy(() => wait(1000).then(() => import("Components/Inbox")))
 const AutoLayout = lazy(() => wait(1000).then(() => import("./AutoLayout")))
+const VoiceAssistant = lazy(() => import("Components/Voice/VoiceAssistant"))
 
 function TableList() {
   const [loader, showLoader, hideLoader] = FullLoad()
@@ -162,13 +163,16 @@ function TableList() {
         {(pathname == "/form" || pathname == "/dashboard") && (
           <Suspense>
             <AutoLayout
-              className="ml-md-3 mt-3 mt-md-0"
+              // className="ml-md-3 mt-3 mt-md-0"
               fetchData={fetchData}
               pageIndex={pageIndex}
               pageSize={pageSize}
             />
           </Suspense>
         )}
+        <Suspense>
+          <VoiceAssistant className="" />
+        </Suspense>
       </div>
     </div>
   )
