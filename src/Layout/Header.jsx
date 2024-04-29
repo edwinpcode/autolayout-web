@@ -363,11 +363,11 @@ function Header() {
               </div>
             </div>
           </li>
-          <li className="nav-item mx-1">
+          {/* <li className="nav-item mx-1">
             <button className="btn btn-sm btn-success" onClick={assistant}>
               Voice Assistant
             </button>
-          </li>
+          </li> */}
           <li className="nav-item">
             {/* <div
               className="input-group"
