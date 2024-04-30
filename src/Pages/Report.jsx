@@ -6,6 +6,7 @@ import TableList from "./TableList"
 import { axiosPost } from "../Services/AutoLayoutService"
 import { useSelector } from "react-redux"
 import ReactSpeedometer from "react-d3-speedometer"
+import VoiceAssistant from "Components/Voice/VoiceAssistant"
 
 const tab = [
   { id: "chart", label: "Chart" },
@@ -184,49 +185,55 @@ function Report() {
           setActiveTabId={setActiveTabId}
         />
       </div>
-      <div>
-        {activeTabId === "chart" ? (
-          <div>
-            {loading ? (
-              <div>Loading...</div>
-            ) : (
-              <div className="row">
-                {type == "speedometer" &&
-                  options.map((item, index) => (
-                    <div className="col-xl-4 col-md-6 border" key={index}>
-                      <div>
-                        <div>{item.title}</div>
+      <div className="row">
+        <div className="col">
+          {activeTabId === "chart" ? (
+            <div>
+              {loading ? (
+                <div>Loading...</div>
+              ) : (
+                <div className="row">
+                  {type == "speedometer" &&
+                    options.map((item, index) => (
+                      <div className="col-xl-4 col-md-6 border" key={index}>
+                        <div>
+                          <div>{item.title}</div>
+                        </div>
+                        <ReactSpeedometer
+                          maxValue={item.maxValue}
+                          value={item.value}
+                          currentValueText={item.label}
+                          needleHeightRatio={0.5}
+                          segments={item.segment.length}
+                          needleTransitionDuration={4000}
+                          needleTransition="easeElastic"
+                          customSegmentStops={item.customSegmentStops}
+                          customSegmentLabels={item.segment}
+                          height={250}
+                          width={400}
+                        />
+                        <div>
+                          <div>{item.description}</div>
+                        </div>
                       </div>
-                      <ReactSpeedometer
-                        maxValue={item.maxValue}
-                        value={item.value}
-                        currentValueText={item.label}
-                        needleHeightRatio={0.5}
-                        segments={item.segment.length}
-                        needleTransitionDuration={4000}
-                        needleTransition="easeElastic"
-                        customSegmentStops={item.customSegmentStops}
-                        customSegmentLabels={item.segment}
-                        height={250}
-                        width={400}
-                      />
-                      <div>
-                        <div>{item.description}</div>
+                    ))}
+                  {type == "chart" &&
+                    data.map((item, index) => (
+                      <div className="col-xl-4 col-md-6 border" key={index}>
+                        <HighchartsReact
+                          highcharts={Highcharts}
+                          options={item}
+                        />
                       </div>
-                    </div>
-                  ))}
-                {type == "chart" &&
-                  data.map((item, index) => (
-                    <div className="col-xl-4 col-md-6 border" key={index}>
-                      <HighchartsReact highcharts={Highcharts} options={item} />
-                    </div>
-                  ))}
-              </div>
-            )}
-          </div>
-        ) : (
-          <TableList />
-        )}
+                    ))}
+                </div>
+              )}
+            </div>
+          ) : (
+            <TableList />
+          )}
+        </div>
+        <VoiceAssistant />
       </div>
     </div>
   )

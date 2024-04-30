@@ -214,135 +214,146 @@ function Dashboard() {
   }, [])
 
   return (
-    <div>
+    <div className="position-relative">
       <h3>Beranda</h3>
       <div className="row">
-        <div className="col-lg-6">
-          <div className="p-2 rounded-lg border shadow-sm mb-3">
-            <div className="d-flex justify-content-between text-bold p-2">
-              <span>Presensi</span>
-              <span>{date?.format("LL")}</span>
-            </div>
-            <div className="d-flex justify-content-center text-bold text-xl text-capitalize border-bottom">
-              <span>
-                {date?.format("hh:mm a")} - {status}
-              </span>
-            </div>
-            <div className="d-flex p-2 align-items-center">
-              <i className="fas fa-map-marker text-green text-lg"></i>
-              <span>{address}</span>
-            </div>
-            <div className="d-flex pt-3 justify-content-around">
-              <button
-                onClick={checkIn}
-                disabled={
-                  status == ""
-                    ? true
-                    : status?.toLowerCase().includes("already")
-                      ? true
-                      : status
-                            ?.toLocaleLowerCase()
-                            .includes("check in berhasil")
+        <div className="col">
+          <div className="row">
+            <div className="col-lg-6">
+              <div className="p-2 rounded-lg border shadow-sm mb-3">
+                <div className="d-flex justify-content-between text-bold p-2">
+                  <span>Presensi</span>
+                  <span>{date?.format("LL")}</span>
+                </div>
+                <div className="d-flex justify-content-center text-bold text-xl text-capitalize border-bottom">
+                  <span>
+                    {date?.format("hh:mm a")} - {status}
+                  </span>
+                </div>
+                <div className="d-flex p-2 align-items-center">
+                  <i className="fas fa-map-marker text-green text-lg"></i>
+                  <span>{address}</span>
+                </div>
+                <div className="d-flex pt-3 justify-content-around">
+                  <button
+                    onClick={checkIn}
+                    disabled={
+                      status == ""
                         ? true
-                        : false
-                }
-                className={`btn ${
-                  status == ""
-                    ? "btn-secondary"
-                    : status?.toLowerCase().includes("already")
-                      ? "btn-secondary"
-                      : status
-                            ?.toLocaleLowerCase()
-                            .includes("check in berhasil")
+                        : status?.toLowerCase().includes("already")
+                          ? true
+                          : status
+                                ?.toLocaleLowerCase()
+                                .includes("check in berhasil")
+                            ? true
+                            : false
+                    }
+                    className={`btn ${
+                      status == ""
                         ? "btn-secondary"
-                        : "btn-success"
-                }`}
-              >
-                CHECK IN
-              </button>
-              <button
-                onClick={checkOut}
-                disabled={
-                  status == ""
-                    ? true
-                    : status?.toLowerCase().includes("please")
-                      ? true
-                      : status?.toLowerCase().includes("check out")
+                        : status?.toLowerCase().includes("already")
+                          ? "btn-secondary"
+                          : status
+                                ?.toLocaleLowerCase()
+                                .includes("check in berhasil")
+                            ? "btn-secondary"
+                            : "btn-success"
+                    }`}
+                  >
+                    CHECK IN
+                  </button>
+                  <button
+                    onClick={checkOut}
+                    disabled={
+                      status == ""
                         ? true
-                        : false
-                }
-                className={`btn ${
-                  status == ""
-                    ? "btn-secondary"
-                    : status?.toLowerCase().includes("please")
-                      ? "btn-secondary"
-                      : status?.toLocaleLowerCase().includes("check out")
+                        : status?.toLowerCase().includes("please")
+                          ? true
+                          : status?.toLowerCase().includes("check out")
+                            ? true
+                            : false
+                    }
+                    className={`btn ${
+                      status == ""
                         ? "btn-secondary"
-                        : "btn-success"
-                }`}
-              >
-                CHECK OUT
-              </button>
-            </div>
-          </div>
-        </div>
-        {/* <VoiceAssistant /> */}
-        <div className="col-12">
-          <div className="card card-success">
-            <div className="card-header">
-              <span className="card-title">Role</span>
-              <div className="card-tools">
-                <button className="btn btn-tool" data-card-widget="collapse">
-                  <i className="fas fa-minus" id="collapseButton"></i>
-                </button>
+                        : status?.toLowerCase().includes("please")
+                          ? "btn-secondary"
+                          : status?.toLocaleLowerCase().includes("check out")
+                            ? "btn-secondary"
+                            : "btn-success"
+                    }`}
+                  >
+                    CHECK OUT
+                  </button>
+                </div>
               </div>
             </div>
-            <div className="card-body">
-              <Suspense>
-                <ModulAll />
-              </Suspense>
-            </div>
-          </div>
-        </div>
-        <div className="col-12">
-          <div className="card card-success">
-            <div className="card-header">
-              <div className="card-title">Tasklist</div>
-              <div className="card-tools">
-                <button className="btn btn-tool" data-card-widget="collapse">
-                  <i className="fas fa-minus" id="collapseButton"></i>
-                </button>
+            {/* <VoiceAssistant /> */}
+            <div className="col-12">
+              <div className="card card-success">
+                <div className="card-header">
+                  <span className="card-title">Role</span>
+                  <div className="card-tools">
+                    <button
+                      className="btn btn-tool"
+                      data-card-widget="collapse"
+                    >
+                      <i className="fas fa-minus" id="collapseButton"></i>
+                    </button>
+                  </div>
+                </div>
+                <div className="card-body">
+                  <Suspense>
+                    <ModulAll />
+                  </Suspense>
+                </div>
               </div>
             </div>
-            <div className="card-body">
-              <div className="row pt-3">
-                {dashboardBox.map((dashboardItem, index) => {
-                  return (
-                    <div className="col-lg-3 col-md-6 col-12" key={index}>
-                      <div className={"small-box " + dashboardItem.class}>
-                        <div className="inner">
-                          <h3>{dashboardItem.total}</h3>
-                          <p>{dashboardItem.description}</p>
+            <div className="col-12">
+              <div className="card card-success">
+                <div className="card-header">
+                  <div className="card-title">Tasklist</div>
+                  <div className="card-tools">
+                    <button
+                      className="btn btn-tool"
+                      data-card-widget="collapse"
+                    >
+                      <i className="fas fa-minus" id="collapseButton"></i>
+                    </button>
+                  </div>
+                </div>
+                <div className="card-body">
+                  <div className="row pt-3">
+                    {dashboardBox.map((dashboardItem, index) => {
+                      return (
+                        <div className="col-lg-3 col-md-6 col-12" key={index}>
+                          <div className={"small-box " + dashboardItem.class}>
+                            <div className="inner">
+                              <h3>{dashboardItem.total}</h3>
+                              <p>{dashboardItem.description}</p>
+                            </div>
+                            <div className="icon">
+                              <i className={`${dashboardItem.icon}`}></i>
+                            </div>
+                            <Link
+                              to={"/"}
+                              onClick={() => handleMenuClick(dashboardItem)}
+                              className="small-box-footer"
+                            >
+                              Click here to see the list
+                              <i className="fas fa-arrow-circle-right ml-2"></i>
+                            </Link>
+                          </div>
                         </div>
-                        <div className="icon">
-                          <i className={`${dashboardItem.icon}`}></i>
-                        </div>
-                        <Link
-                          to={"/"}
-                          onClick={() => handleMenuClick(dashboardItem)}
-                          className="small-box-footer"
-                        >
-                          Click here to see the list
-                          <i className="fas fa-arrow-circle-right ml-2"></i>
-                        </Link>
-                      </div>
-                    </div>
-                  )
-                })}
+                      )
+                    })}
+                  </div>
+                </div>
               </div>
             </div>
           </div>
         </div>
+        <VoiceAssistant />
       </div>
     </div>
   )

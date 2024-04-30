@@ -173,7 +173,7 @@ const VoiceAssistant = ({ className }) => {
   }, [audioBlob])
 
   return (
-    <div className={`col-md-4 d-none ${className}`} id="assistant">
+    <div className={`col-md-4 d-none sticky-top ${className}`} id="assistant">
       <div
         className="card card-success"
         style={{
@@ -236,7 +236,7 @@ const VoiceAssistant = ({ className }) => {
               </div>
             </div>
             <div
-              className="p-2 overflow-auto border"
+              className="p-2 overflow-auto border border-top-0"
               style={{
                 height: "90%",
               }}
