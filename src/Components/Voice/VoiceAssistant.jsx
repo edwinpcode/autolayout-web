@@ -109,18 +109,24 @@ const VoiceAssistant = ({ className }) => {
 
   // WIP
   const onSubmit = ({ question }) => {
-    return window.Swal.fire("Informasi", "Currently WIP", "info")
-    console.log(question)
+    // return window.Swal.fire("Informasi", "Currently WIP", "info")
+    search({ flag: "message", message: question })
   }
 
   // WIP
-  const search = async (audioBlob) => {
+  const search = async ({ audioBlob, flag, message }) => {
     // return window.Swal.fire("Informasi", "Currently WIP", "info")
     const formData = new FormData()
     const timestamp = new Date().toISOString().replace(/[-:.]/g, "")
     const randomString = Math.random().toString(36).substring(2, 5)
     const fileName = `audio_${timestamp}_${randomString}.webm`
-    formData.append("file", audioBlob, fileName)
+    formData.append("flag", flag)
+    if (audioBlob) {
+      formData.append("file", audioBlob, fileName)
+    }
+    if (message) {
+      formData.append("message", message)
+    }
     formData.append("removewhitespace", "0")
     formData.append("type", "virtualassistant")
     try {
@@ -130,36 +136,39 @@ const VoiceAssistant = ({ className }) => {
           console.log("Error: ", e)
         })
       }
-      const time = setTimeout(async () => {
-        try {
-          const res = await AIService.speecToTextVA(formData)
-          URL.revokeObjectURL(audioUrl)
-          setAudioUrl(null)
-          setAudioBlob(null)
-          if (res.data.status == "1") {
-            setMessage((array) => [...array, ...res.data.message])
-          }
-          setRecordingStatus("inactive")
-        } catch (error) {
-          window.Swal.fire("Kesalahan", error.message, "error")
-        }
-      }, 5000)
-      return () => clearTimeout(time)
+      // const time = setTimeout(async () => {
+      // try {
+      const res = await AIService.speecToTextVA(formData)
+      URL.revokeObjectURL(audioUrl)
+      setAudioUrl(null)
+      setAudioBlob(null)
+      if (res.data.status == "1") {
+        setMessage((array) => [...array, ...res.data.message])
+      }
+      setRecordingStatus("inactive")
+      // } catch (error) {
+      // window.Swal.fire("Kesalahan", error.message, "error")
+      // }
+      // }, 5000)
+      // return () => clearTimeout(time)
     } catch (error) {
       window.Swal.fire("Kesalahan", error.message, "error")
-      setRecordingStatus("inactive")
     } finally {
-      //   setRecordingStatus("Click button to speak")
+      setRecordingStatus("inactive")
+      reset()
     }
   }
 
   const clearData = () => {
+    URL.revokeObjectURL(audioUrl)
+    setAudioUrl(null)
+    setAudioBlob(null)
     setMessage([])
   }
 
   useEffect(() => {
     if (audioBlob) {
-      search(audioBlob)
+      search({ audioBlob, flag: "voice" })
     }
   }, [audioBlob])
 
@@ -183,17 +192,38 @@ const VoiceAssistant = ({ className }) => {
             </button>
           </div> */}
         </div>
-        <div className="card-body h-100">
-          <form onSubmit={handleSubmit(onSubmit)}>
-            <div className={`input-group`}>
-              <div
-                className="input-group-prepend"
-                onClick={
-                  recordingStatus == "inactive" ? startRecord : stopRecord
-                }
-                disabled={recordingStatus == "searching"}
-              >
-                <div className={`input-group-text`}>
+        <div className="card-body">
+          <div
+            className=""
+            style={{
+              height: "90%",
+            }}
+          >
+            <div className="p-2 border-bottom d-flex justify-content-between align-items-center border">
+              <div className="d-flex">
+                <div
+                  className="border overflow-hidden"
+                  style={{ borderRadius: "999px" }}
+                >
+                  <img src="images/icon/vaIcon.jpeg" height={32} width={32} />
+                </div>
+                <div className="text-lg text-bold ml-2">Alfon</div>
+              </div>
+              <div className="d-flex justify-content-between">
+                <button
+                  className="btn btn-sm btn-secondary mr-2"
+                  onClick={clearData}
+                >
+                  <i className="fas fa-trash"></i>
+                  Clear
+                </button>
+                <button
+                  className="btn btn-success btn-sm"
+                  onClick={
+                    recordingStatus == "inactive" ? startRecord : stopRecord
+                  }
+                  disabled={recordingStatus == "searching"}
+                >
                   {recordingStatus == "searching" ? (
                     <i className="fas fa-spinner fa-spin"></i>
                   ) : recordingStatus == "inactive" ? (
@@ -201,40 +231,14 @@ const VoiceAssistant = ({ className }) => {
                   ) : (
                     <i className="fas fa-stop"></i>
                   )}
-                </div>
+                  Record
+                </button>
               </div>
-              <input
-                className={`form-control form-control-lg ${border}`}
-                placeholder="Ketik..."
-                {...register("question")}
-                disabled
-              ></input>
-              <div
-                className={`input-group-append`}
-                onClick={handleSubmit(onSubmit)}
-              >
-                <div className="input-group-text">
-                  <i className="fas fa-search"></i>
-                </div>
-              </div>
-            </div>
-          </form>
-          <div
-            className="border mt-4 rounded"
-            style={{
-              height: "90%",
-            }}
-          >
-            <div className="p-2 border-bottom d-flex justify-content-between">
-              <div className="text-lg text-bold">Pesan</div>
-              <button className="btn btn-sm btn-secondary" onClick={clearData}>
-                Clear
-              </button>
             </div>
             <div
-              className="mt-4 p-2 overflow-auto"
+              className="p-2 overflow-auto border"
               style={{
-                height: "80%",
+                height: "90%",
               }}
             >
               {message.map((item, index) => {
@@ -264,6 +268,37 @@ const VoiceAssistant = ({ className }) => {
               })}
             </div>
           </div>
+          <form onSubmit={handleSubmit(onSubmit)} className="mt-2">
+            <div className="input-group">
+              <input
+                className={`form-control form-control-lg ${border}`}
+                placeholder={
+                  recordingStatus == "searching"
+                    ? "Loading..."
+                    : recordingStatus == "recording"
+                      ? "Recording..."
+                      : "Ketik..."
+                }
+                {...register("question")}
+              ></input>
+              <div
+                className={`input-group-append`}
+                onClick={handleSubmit(onSubmit)}
+              >
+                {recordingStatus == "searching" ? (
+                  <div className="input-group-text">
+                    <i className="fas fa-spinner fa-spin"></i>
+                    Loading...
+                  </div>
+                ) : (
+                  <div className="input-group-text">
+                    <i className="fas fa-paper-plane"></i>
+                    Send
+                  </div>
+                )}
+              </div>
+            </div>
+          </form>
         </div>
       </div>
     </div>

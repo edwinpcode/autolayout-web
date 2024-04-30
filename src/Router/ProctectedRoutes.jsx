@@ -87,13 +87,13 @@ function ProtectedRoutes() {
           allowOutsideClick: false,
           allowEscapeKey: false,
           allowEnterKey: false,
-          didOpen: () => {
-            timerInterval = setInterval(() => {
-              window.Swal.getHtmlContainer().querySelector(
-                "strong",
-              ).textContent = (window.Swal.getTimerLeft() / 1000).toFixed(0)
-            }, 100)
-          },
+          // didOpen: () => {
+          //   timerInterval = setInterval(() => {
+          //     window.Swal.getHtmlContainer().querySelector(
+          //       "strong",
+          //     ).textContent = (window.Swal.getTimerLeft() / 1000).toFixed(0)
+          //   }, 100)
+          // },
           willClose: () => {
             clearInterval(timerInterval)
           },
