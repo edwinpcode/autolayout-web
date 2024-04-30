@@ -177,7 +177,7 @@ const VoiceAssistant = ({ className }) => {
   useEffect(() => {
     const element = mainRef.current
 
-    if (element) {
+    if (element && !message.length) {
       const observer = new MutationObserver((mutationsList) => {
         mutationsList.forEach((mutation) => {
           if (mutation.attributeName === "class") {
@@ -198,7 +198,7 @@ const VoiceAssistant = ({ className }) => {
         observer.disconnect()
       }
     }
-  }, [])
+  }, [message])
 
   return (
     <div
@@ -239,7 +239,7 @@ const VoiceAssistant = ({ className }) => {
                 >
                   <img src="images/icon/vaIcon.jpeg" height={32} width={32} />
                 </div>
-                <div className="text-lg text-bold ml-2">Alfon</div>
+                <div className="text-lg text-bold ml-2">Pevita</div>
                 <audio id="welcomeGreeting" ref={audioWelcomeRef}>
                   <source src="audio/welcome.mp4" type="audio/mp4"></source>
                 </audio>

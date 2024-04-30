@@ -219,7 +219,7 @@ function Dashboard() {
       <div className="row">
         <div className="col">
           <div className="row">
-            <div className="col-lg-6">
+            <div className="col-lg-9">
               <div className="p-2 rounded-lg border shadow-sm mb-3">
                 <div className="d-flex justify-content-between text-bold p-2">
                   <span>Presensi</span>
@@ -288,7 +288,6 @@ function Dashboard() {
                 </div>
               </div>
             </div>
-            {/* <VoiceAssistant /> */}
             <div className="col-12">
               <div className="card card-success">
                 <div className="card-header">
