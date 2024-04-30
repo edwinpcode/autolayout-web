@@ -15,6 +15,9 @@ const VoiceAssistant = ({ className }) => {
   const videoRef = useRef()
   const [audioUrl, setAudioUrl] = useState(null)
   const [message, setMessage] = useState([])
+  const mainRef = useRef()
+  const audioWelcomeRef = useRef()
+  const audioWaitingRef = useRef()
 
   const { register, handleSubmit, reset } = useForm()
 
@@ -129,34 +132,33 @@ const VoiceAssistant = ({ className }) => {
     }
     formData.append("removewhitespace", "0")
     formData.append("type", "virtualassistant")
-    try {
-      setRecordingStatus("searching")
-      if (videoRef.current) {
-        videoRef.current.play().catch((e) => {
-          console.log("Error: ", e)
-        })
-      }
-      // const time = setTimeout(async () => {
-      // try {
-      const res = await AIService.speecToTextVA(formData)
-      URL.revokeObjectURL(audioUrl)
-      setAudioUrl(null)
-      setAudioBlob(null)
-      if (res.data.status == "1") {
-        setMessage((array) => [...array, ...res.data.message])
-      }
-      setRecordingStatus("inactive")
-      // } catch (error) {
-      // window.Swal.fire("Kesalahan", error.message, "error")
-      // }
-      // }, 5000)
-      // return () => clearTimeout(time)
-    } catch (error) {
-      window.Swal.fire("Kesalahan", error.message, "error")
-    } finally {
-      setRecordingStatus("inactive")
-      reset()
+    setRecordingStatus("searching")
+    if (videoRef.current) {
+      videoRef.current.play().catch((e) => {
+        console.log("Error: ", e)
+      })
     }
+    const audio = document.getElementById("waitingVoice")
+    if (audio) audio.play()
+    const time = setTimeout(async () => {
+      try {
+        const res = await AIService.speecToTextVA(formData)
+        URL.revokeObjectURL(audioUrl)
+        setAudioUrl(null)
+        setAudioBlob(null)
+        if (res.data.status == "1") {
+          setMessage((array) => [...array, ...res.data.message])
+        }
+        setRecordingStatus("inactive")
+      } catch (error) {
+        // window.Swal.fire("Kesalahan", error.message, "error")
+        setMessage((message) => [...message, "Jawaban : Something Went Wrong"])
+      } finally {
+        setRecordingStatus("inactive")
+        reset()
+      }
+    }, 5000)
+    return () => clearTimeout(time)
   }
 
   const clearData = () => {
@@ -172,8 +174,38 @@ const VoiceAssistant = ({ className }) => {
     }
   }, [audioBlob])
 
+  useEffect(() => {
+    const element = mainRef.current
+
+    if (element) {
+      const observer = new MutationObserver((mutationsList) => {
+        mutationsList.forEach((mutation) => {
+          if (mutation.attributeName === "class") {
+            const currentClassName = element.className
+            if (!currentClassName.includes("d-none")) {
+              const audio = document.getElementById("welcomeGreeting")
+              if (audio) {
+                audio.play()
+              }
+            }
+          }
+        })
+      })
+
+      observer.observe(element, { attributes: true })
+
+      return () => {
+        observer.disconnect()
+      }
+    }
+  }, [])
+
   return (
-    <div className={`col-md-4 d-none sticky-top ${className}`} id="assistant">
+    <div
+      className={`col-md-4 d-none sticky-top ${className}`}
+      id="assistant"
+      ref={mainRef}
+    >
       <div
         className="card card-success"
         style={{
@@ -186,9 +218,9 @@ const VoiceAssistant = ({ className }) => {
             <button
               type="button"
               className="btn btn-tool"
-              data-card-widget="collapse"
+              data-card-widget="maximize"
             >
-              <i className="fas fa-minus"></i>
+              <i className="fas fa-expand"></i>
             </button>
           </div> */}
         </div>
@@ -208,6 +240,12 @@ const VoiceAssistant = ({ className }) => {
                   <img src="images/icon/vaIcon.jpeg" height={32} width={32} />
                 </div>
                 <div className="text-lg text-bold ml-2">Alfon</div>
+                <audio id="welcomeGreeting" ref={audioWelcomeRef}>
+                  <source src="audio/welcome.mp4" type="audio/mp4"></source>
+                </audio>
+                <audio id="waitingVoice" ref={audioWaitingRef}>
+                  <source src="audio/waiting.mp4" type="audio/mp4"></source>
+                </audio>
               </div>
               <div className="d-flex justify-content-between">
                 <button
@@ -246,22 +284,20 @@ const VoiceAssistant = ({ className }) => {
                   const res = item.split(":")
                   if (res.length >= 2)
                     return (
-                      <div
-                        key={index}
-                        className="text-left border rounded bg-success p-1 mb-1"
-                      >
-                        {res[1]}
+                      <div key={index} className="d-flex mt-2">
+                        <div className="text-left border rounded bg-success p-1 mb-1">
+                          {res[1]}
+                        </div>
                       </div>
                     )
                 } else {
                   const res = item.split(":")
                   if (res.length >= 2)
                     return (
-                      <div
-                        key={index}
-                        className="text-right border rounded p-1 mb-1"
-                      >
-                        {res[1]}
+                      <div key={index} className="d-flex justify-content-end">
+                        <div className="text-right border rounded p-1 mb-1">
+                          {res[1]}
+                        </div>
                       </div>
                     )
                 }
