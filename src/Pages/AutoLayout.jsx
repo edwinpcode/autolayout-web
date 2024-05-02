@@ -278,14 +278,16 @@ function AutoLayout({ className, pageIndex, pageSize, fetchData }) {
               </div>
             </div>
             {/* )} */}
-            <div className="p-2">
-              <button
-                className="btn btn-sm btn-secondary"
-                onClick={toggleInbox}
-              >
-                Inbox
-              </button>
-            </div>
+            {menu.path != "/form" && menu.path != "/dashboard" && (
+              <div className="p-2">
+                <button
+                  className="btn btn-sm btn-secondary"
+                  onClick={toggleInbox}
+                >
+                  Inbox
+                </button>
+              </div>
+            )}
             <Tab
               reset={reset}
               data={tab}
