@@ -26,7 +26,7 @@ function ButtonModal({
 }) {
   // state
   const [data, setData] = useState()
-  const [list, setList] = useState([])
+  const [listField, setListField] = useState([])
   const [actionList, setActionList] = useState([])
   const [loading, setLoading] = useState(true)
 
@@ -54,7 +54,8 @@ function ButtonModal({
         payload.param.push({ id: paramId, value: paramValue })
       })
       await getCancelModal(payload).then((res) => {
-        setData(res.data.data.listField)
+        setListField(res.data.data.listField)
+        setData(res.data.data)
         setActionList(res.data.data.action)
         setLoading(false)
       })
@@ -187,6 +188,7 @@ function ButtonModal({
       </button>
       <ModalWithButton
         data={data}
+        listField={listField}
         dataTarget={dataTarget}
         actionList={actionList}
         setFilterData={setFilterData}

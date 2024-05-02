@@ -20,6 +20,7 @@ function ModalWithButton({
   fetchData = () => {},
   setAutoOpenFirstItem,
   data,
+  listField,
   ...props
 }) {
   // prettier-ignore
@@ -65,7 +66,7 @@ function ModalWithButton({
                 {loading && <SkeletonModal />}
                 <div className="row">
                   {/* non panel */}
-                  {data?.map((fieldItem, index) => (
+                  {listField?.map((fieldItem, index) => (
                     <FieldType
                       key={fieldItem.id}
                       fieldItem={fieldItem}
