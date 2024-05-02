@@ -175,7 +175,7 @@ const Inbox = ({
   // }, [type])
 
   return (
-    <div className={`${className} col-md-3`}>
+    <div className={`${className} col-md-3`} id="inbox">
       <div
         className="card card-success"
         style={{
@@ -196,13 +196,13 @@ const Inbox = ({
             >
               <i className="fas fa-expand"></i>
             </button>
-            <button
+            {/* <button
               className="btn btn-tool"
               onClick={() => setOpen((state) => !state)}
               data-card-widget="collapse"
             >
               <i className="fas fa-minus" id="collapseButton"></i>
-            </button>
+            </button> */}
           </div>
         </div>
         {loading ? (

@@ -202,7 +202,7 @@ const VoiceAssistant = ({ className }) => {
 
   return (
     <div
-      className={`col-md-4 d-none sticky-top ${className}`}
+      className={`col-md-4 d-none ${className}`}
       id="assistant"
       ref={mainRef}
     >
@@ -214,7 +214,7 @@ const VoiceAssistant = ({ className }) => {
       >
         <div className="card-header">
           <div className="card-title">Voice Assistant</div>
-          {/* <div className="card-tools">
+          <div className="card-tools">
             <button
               type="button"
               className="btn btn-tool"
@@ -222,7 +222,7 @@ const VoiceAssistant = ({ className }) => {
             >
               <i className="fas fa-expand"></i>
             </button>
-          </div> */}
+          </div>
         </div>
         <div className="card-body">
           <div

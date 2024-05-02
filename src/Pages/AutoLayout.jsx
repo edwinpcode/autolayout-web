@@ -122,6 +122,13 @@ function AutoLayout({ className, pageIndex, pageSize, fetchData }) {
       })
   }
 
+  const toggleInbox = () => {
+    const inbox = document.getElementById("inbox")
+    if (inbox) {
+      inbox.classList.toggle("d-none")
+    }
+  }
+
   useEffect(() => {
     // console.log(tab, menu)
     // if (tab) {
@@ -261,16 +268,24 @@ function AutoLayout({ className, pageIndex, pageSize, fetchData }) {
                 >
                   <i className="fas fa-expand"></i>
                 </button>
-                <button
+                {/* <button
                   type="button"
                   className="btn btn-tool"
                   data-card-widget="collapse"
                 >
                   <i className="fas fa-minus"></i>
-                </button>
+                </button> */}
               </div>
             </div>
             {/* )} */}
+            <div className="p-2">
+              <button
+                className="btn btn-sm btn-secondary"
+                onClick={toggleInbox}
+              >
+                Inbox
+              </button>
+            </div>
             <Tab
               reset={reset}
               data={tab}
