@@ -20,19 +20,39 @@ const BackTop = () => {
     })
   }
 
+  const assistant = () => {
+    const va = document.getElementById("assistant")
+    if (va) {
+      va.classList.toggle("d-none")
+    }
+  }
+
   return (
-    <div>
-      {showTopBtn && (
-        <button
-          id="back-to-top"
-          onClick={goToTop}
-          className="btn btn-success back-to-top"
-          role="button"
-          aria-label="Scroll to top"
-        >
-          <span className="fas fa-chevron-up"></span>
-        </button>
-      )}
+    <div className="back-to-top" id="back-to-top">
+      <div className="d-flex align-items-center">
+        <div>
+          {showTopBtn && (
+            <button
+              onClick={goToTop}
+              className="btn btn-success"
+              role="button"
+              aria-label="Scroll to top"
+            >
+              <span className="fas fa-chevron-up"></span>
+            </button>
+          )}
+        </div>
+        <div>
+          <img
+            src="images/assistant/ask_me_2.gif"
+            style={{
+              height: "80px",
+              width: "80px",
+            }}
+            onClick={assistant}
+          ></img>
+        </div>
+      </div>
     </div>
   )
 }

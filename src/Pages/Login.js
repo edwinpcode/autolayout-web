@@ -10,7 +10,7 @@ import { setUserData, setUserId } from "../Store/User/userSlice"
 import axios from "axios"
 import AIService from "../Services/AIService"
 import { setDevMode } from "../Store/Dev/DevModeSlice"
-const Logo = lazy(() => import('./Logo'))
+const Logo = lazy(() => import("./Logo"))
 
 function Login() {
   const [isLoading, setLoading] = useState(false)
