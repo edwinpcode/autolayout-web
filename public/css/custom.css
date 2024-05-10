@@ -326,3 +326,11 @@ button.btn-tool {
 .btn-app {
   height: 80px;
 }
+
+.cursor-pointer {
+  cursor: pointer;
+}
+
+.rounded-full {
+  border-radius: 999px;
+}

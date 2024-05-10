@@ -213,7 +213,7 @@ const VoiceAssistant = ({ className }) => {
         }}
       >
         <div className="card-header">
-          <div className="card-title">Voice Assistant</div>
+          <div className="card-title">Virtual Assistant</div>
           <div className="card-tools">
             <button
               type="button"

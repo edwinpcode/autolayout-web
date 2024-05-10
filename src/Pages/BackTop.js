@@ -44,10 +44,11 @@ const BackTop = () => {
         </div>
         <div>
           <img
-            src="images/assistant/ask_me_2.gif"
+            className="cursor-pointer"
+            src="images/assistant/ask_me_4.gif"
             style={{
-              height: "80px",
-              width: "80px",
+              height: "120px",
+              width: "120px",
             }}
             onClick={assistant}
           ></img>
