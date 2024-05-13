@@ -52,10 +52,11 @@ const ModulAll = ({ className }) => {
           Active Role: {moduleDesc}, {roleDesc}
         </div>
         <div className="mt-3">
-          <div className="text-bold text-lg">Pilih</div>
           {module.map((data, index) => (
             <div key={data.id + "_" + index} id={data.id}>
-              <div className="text-bold">{data.name}</div>
+              {data.role.length ? (
+                <div className="text-bold">{data.name}</div>
+              ) : null}
               <div className="row">
                 {data.role.map((role, i) => (
                   <div
