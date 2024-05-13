@@ -6,6 +6,8 @@ import { useSelector } from "react-redux"
 // import BackTop from "./BackTop"
 import Load from "../Pages/FullLoad"
 import { wait } from "Router"
+import SidebarRight from "Layout/SidebarRight"
+import Footer from "Layout/Footer"
 
 const BackTop = lazy(() => import("./BackTop"))
 const Header = lazy(() => wait(1000).then(() => import("Layout/Header")))
@@ -40,7 +42,7 @@ function Home() {
         <Header />
         <Sidebar />
       </Suspense>
-      <div className="content-wrapper flex-fill">
+      <div className="content-wrapper">
         {/* <div className="content-header pb-0">
           <div className="container-fluid">
             <div className="row mb-2">
@@ -64,10 +66,12 @@ function Home() {
             </div>
           </div>
         </section>
-        <Suspense>
-          <BackTop />
-        </Suspense>
       </div>
+      <Suspense>
+        <BackTop />
+      </Suspense>
+      <SidebarRight />
+      {/* <Footer /> */}
       {loader}
     </div>
   )

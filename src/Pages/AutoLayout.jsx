@@ -216,7 +216,7 @@ function AutoLayout({ className, pageIndex, pageSize, fetchData }) {
 
   return (
     <div
-      className="flex-grow-1 col"
+      className="col"
       // className={`${
       //   menu.path == "/form" || menu.path == "/dashboard"
       //     ? "col-md-12"

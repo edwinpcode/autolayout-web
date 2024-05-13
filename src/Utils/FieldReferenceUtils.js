@@ -2,13 +2,19 @@ import { getReference } from "../Services/AutoLayoutService"
 
 export const getFieldByFieldId = (fieldId, panelList) => {
   let resultField = {}
+  console.log(panelList)
   panelList.forEach((panelItem) => {
     // prettier-ignore
     let findField = panelItem.listField?.data?.find(
         (fieldItem) => fieldItem.id === fieldId,
       )
     if (findField) resultField = findField
-    let field = panelItem.listField.find((item) => item.id === fieldId)
+    let field
+    if (Array.isArray(panelItem.listField)) {
+      field = panelItem.listField.find((item) => item.id === fieldId)
+    } else {
+      field = panelItem.listField.data.find((item) => item.id === fieldId)
+    }
     if (field) resultField = field
   })
   return resultField

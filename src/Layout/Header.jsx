@@ -368,9 +368,14 @@ function Header() {
             </div>
           </li> */}
           {/* <li className="nav-item mx-1">
-            <button className="btn btn-sm btn-success" onClick={assistant}>
+            <a
+              href="#"
+              className="btn btn-sm btn-success"
+              // onClick={assistant}
+              data-widget="control-sidebar"
+            >
               Assistant
-            </button>
+            </a>
           </li> */}
           <li className="nav-item">
             {/* <div

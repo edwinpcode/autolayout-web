@@ -171,7 +171,7 @@ function TableList() {
           </Suspense>
         )}
         <Suspense>
-          <VoiceAssistant className="" />
+          <VoiceAssistant className="col-md-4" />
         </Suspense>
       </div>
     </div>

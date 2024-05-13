@@ -201,11 +201,7 @@ const VoiceAssistant = ({ className }) => {
   }, [message])
 
   return (
-    <div
-      className={`col-md-4 d-none ${className}`}
-      id="assistant"
-      ref={mainRef}
-    >
+    <div className={`d-none ${className}`} id="assistant" ref={mainRef}>
       <div
         className="card card-success"
         style={{

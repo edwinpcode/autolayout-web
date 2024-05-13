@@ -352,7 +352,7 @@ function Dashboard() {
             </div>
           </div>
         </div>
-        <VoiceAssistant />
+        <VoiceAssistant className={"col-md-4"} />
       </div>
     </div>
   )
