@@ -23,6 +23,111 @@ const applicationNameTag = metaTagsArray.find((tag) => {
 
 const applicationName = applicationNameTag.getAttribute("content")
 
+const MenuChild = ({ child, handleMenuClick }) => {
+  return (
+    <ul
+      className="nav nav-treeview "
+      data-widget="treeview"
+      data-accordion="false"
+    >
+      {child.map((item, index) => (
+        <Menu data={item} key={index} handleMenuClick={handleMenuClick} />
+      ))}
+    </ul>
+  )
+}
+
+const Menu = ({ data, handleMenuClick }) => {
+  const activeMenuId = useSelector((state) => state.menu.activeMenuId)
+  return (
+    <li className="nav-item" id={data.menuId}>
+      <NavLink
+        to={`${data.child ? "#" : data.path}`}
+        onClick={() => handleMenuClick(data)}
+        className={() => {
+          if (data.menuId === activeMenuId) {
+            return "nav-link active"
+          } else {
+            return "nav-link"
+          }
+        }}
+      >
+        {data.icon !== "" ? (
+          <i className={"nav-icon " + data.icon}></i>
+        ) : (
+          <i className={"nav-icon fal fa-circle"}></i>
+        )}
+        <p>
+          {data.menuDesc}
+          {data.child && <i className="right fas fa-angle-left"></i>}
+        </p>
+      </NavLink>
+      {data.child && (
+        <MenuChild child={data.child} handleMenuClick={handleMenuClick} />
+      )}
+    </li>
+  )
+}
+
+const MenuAll = ({ data, handleMenuClick }) => {
+  const activeMenuId = useSelector((state) => state.menu.activeMenuId)
+  return (
+    <li className="nav-item" id={data.menuId}>
+      <NavLink
+        to={`${data.child ? "#" : data.path}`}
+        onClick={() => handleMenuClick(data)}
+        className={() => {
+          if (data.menuId === activeMenuId) {
+            return "nav-link active"
+          } else {
+            return "nav-link"
+          }
+        }}
+      >
+        {data.icon !== "" ? (
+          <i className={"nav-icon " + data.icon}></i>
+        ) : (
+          <i className={"nav-icon fal fa-circle"}></i>
+        )}
+        <p>
+          {data.menuDesc}
+          {data.child && <i className="right fas fa-angle-left"></i>}
+        </p>
+      </NavLink>
+      {data.child && (
+        <ul
+          className="nav nav-treeview "
+          data-widget="treeview"
+          data-accordion="false"
+        >
+          {data.child.map((item, index) => (
+            <li className="nav-item" key={index}>
+              <NavLink
+                to={`${item.child ? "#" : item.path}`}
+                onClick={() => handleMenuClick(item)}
+                className={() => {
+                  if (item.menuId === activeMenuId) {
+                    return "nav-link active"
+                  } else {
+                    return "nav-link"
+                  }
+                }}
+              >
+                {item.icon !== "" ? (
+                  <i className={"nav-icon " + item?.icon}></i>
+                ) : (
+                  <i className={"nav-icon fal fa-circle"}></i>
+                )}
+                <p>{item.menuDesc}</p>
+              </NavLink>
+            </li>
+          ))}
+        </ul>
+      )}
+    </li>
+  )
+}
+
 function SideBar() {
   const dispatch = useDispatch()
   const { state } = useLocation()
@@ -109,49 +214,6 @@ function SideBar() {
     }
   }
 
-  const MenuChild = ({ child }) => {
-    return (
-      <ul
-        className="nav nav-treeview "
-        data-widget="treeview"
-        data-accordion="false"
-      >
-        {child.map((item, index) => (
-          <Menu data={item} key={index} />
-        ))}
-      </ul>
-    )
-  }
-
-  const Menu = ({ data }) => {
-    return (
-      <li className="nav-item" id={data.menuId}>
-        <NavLink
-          to={`${data.child ? "#" : data.path}`}
-          onClick={() => handleMenuClick(data)}
-          className={() => {
-            if (data.menuId === activeMenuId) {
-              return "nav-link active"
-            } else {
-              return "nav-link"
-            }
-          }}
-        >
-          {data.icon !== "" ? (
-            <i className={"nav-icon " + data.icon}></i>
-          ) : (
-            <i className={"nav-icon fal fa-circle"}></i>
-          )}
-          <p>
-            {data.menuDesc}
-            {data.child && <i className="right fas fa-angle-left"></i>}
-          </p>
-        </NavLink>
-        {data.child && <MenuChild child={data.child} />}
-      </li>
-    )
-  }
-
   return (
     <aside
       className={`main-sidebar elevation-4 ${
@@ -192,65 +254,9 @@ function SideBar() {
             // data-widget="treeview"
             // data-accordion="true"
           >
-            {filteredMenu?.map((data, index) => {
-              return (
-                <li className="nav-item" key={index} id={data.menuId}>
-                  <NavLink
-                    to={`${data.child ? "#" : data.path}`}
-                    onClick={() => handleMenuClick(data)}
-                    className={() => {
-                      if (data.menuId === activeMenuId) {
-                        return "nav-link active"
-                      } else {
-                        return "nav-link"
-                      }
-                    }}
-                  >
-                    {data.icon !== "" ? (
-                      <i className={"nav-icon " + data.icon}></i>
-                    ) : (
-                      <i className={"nav-icon fal fa-circle"}></i>
-                    )}
-                    <p>
-                      {data.menuDesc}
-                      {data.child && (
-                        <i className="right fas fa-angle-left"></i>
-                      )}
-                    </p>
-                  </NavLink>
-                  {data.child && (
-                    <ul
-                      className="nav nav-treeview "
-                      data-widget="treeview"
-                      data-accordion="false"
-                    >
-                      {data.child.map((item, index) => (
-                        <li className="nav-item" key={index}>
-                          <NavLink
-                            to={`${item.child ? "#" : item.path}`}
-                            onClick={() => handleMenuClick(item)}
-                            className={() => {
-                              if (item.menuId === activeMenuId) {
-                                return "nav-link active"
-                              } else {
-                                return "nav-link"
-                              }
-                            }}
-                          >
-                            {item.icon !== "" ? (
-                              <i className={"nav-icon " + item?.icon}></i>
-                            ) : (
-                              <i className={"nav-icon fal fa-circle"}></i>
-                            )}
-                            <p>{item.menuDesc}</p>
-                          </NavLink>
-                        </li>
-                      ))}
-                    </ul>
-                  )}
-                </li>
-              )
-            })}
+            {filteredMenu?.map((data, index) => (
+              <Menu data={data} key={index} handleMenuClick={handleMenuClick} />
+            ))}
           </ul>
         </nav>
       </div>
