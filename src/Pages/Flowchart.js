@@ -245,7 +245,7 @@ const Flow = ({ fieldItem, getValues, watch, panelId }) => {
 
   // Save FLowchart Data (with node and edge)
   const onSave = (e) => {
-    console.log(nodes, edges)
+    // console.log(nodes, edges)
     e.preventDefault()
     // set start / end event node empty data
     setNodes((nds) =>
@@ -354,7 +354,7 @@ const Flow = ({ fieldItem, getValues, watch, panelId }) => {
       updateFlowchart(data)
         .then((res) => {
           if (res.data.status === "0") {
-            console.log(res)
+            // console.log(res)
             window.Swal.fire("Gagal", "Terjadi Kesalahan, Coba Lagi", "error")
           } else {
             window.Swal.fire(

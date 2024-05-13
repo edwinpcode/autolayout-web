@@ -50,7 +50,7 @@ function AuthStepperContent() {
         }
       })
       .catch((e) => {
-        console.log(e)
+        // console.log(e)
         window.Swal.fire("Error", e.message, "error")
       })
   }

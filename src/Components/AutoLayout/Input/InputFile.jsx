@@ -1,5 +1,5 @@
-import { useEffect } from 'react'
-import bsCustomFileInput from 'bs-custom-file-input'
+import { useEffect } from "react"
+import bsCustomFileInput from "bs-custom-file-input"
 
 function InputFile({ fieldItem, maxLength, register, ...props }) {
   const maxSizeValidation = (value) => {
@@ -22,9 +22,9 @@ function InputFile({ fieldItem, maxLength, register, ...props }) {
 
   return (
     <div className="form-group">
-      <label onClick={() => console.log(fieldItem)}>
+      <label>
         {fieldItem.label}
-        {fieldItem.isMandatory === '1' && (
+        {fieldItem.isMandatory === "1" && (
           <span className="text-danger font-weight-bold"> *</span>
         )}
       </label>
@@ -32,7 +32,7 @@ function InputFile({ fieldItem, maxLength, register, ...props }) {
         <input
           {...register(fieldItem.id, {
             required:
-              fieldItem.isMandatory && fieldItem.isMandatory == '1'
+              fieldItem.isMandatory && fieldItem.isMandatory == "1"
                 ? `Pilih ${fieldItem.label} terlebih dahulu`
                 : false,
             validate: {

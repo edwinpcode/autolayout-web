@@ -175,7 +175,7 @@ function Login() {
       formData.append("image", blob, `photo_${timestamp}_${randomString}.png`)
       AIService.faceRecognize(formData)
         .then((res) => {
-          console.log(res.data)
+          // console.log(res.data)
           if (res.data.status === "1") {
             localStorage.setItem("accessToken", res.data.accessToken)
             localStorage.setItem("refreshToken", res.data.refreshToken)
@@ -373,7 +373,7 @@ function Login() {
           setLongitude(position.coords.longitude)
         },
         (err) => {
-          console.log(err.message)
+          // console.log(err.message)
         },
       )
     }
@@ -496,7 +496,7 @@ function Login() {
 
   const stopRecord = () => {
     if (mediaRecorder) {
-      console.log("stop")
+      // console.log("stop")
       setIsRecording(false)
       mediaRecorder.stop()
       setRecordingStatus("inactive")

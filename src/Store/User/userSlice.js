@@ -9,7 +9,7 @@ if (token) {
     const decodedToken = jwtDecode(token)
     userId = decodedToken.unique_name || ""
   } catch (error) {
-    console.log(error.message)
+    // console.log(error.message)
   }
 }
 

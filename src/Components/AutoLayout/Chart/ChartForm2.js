@@ -34,7 +34,7 @@ const ChartForm2 = ({ fieldItem, watch }) => {
         if (res.data.data) setTemp(res.data.data)
       })
       .catch((e) => {
-        console.log(e)
+        // console.log(e)
         window.Swal.fire("Kesalahan", e.message, "error")
         setError(true)
       })

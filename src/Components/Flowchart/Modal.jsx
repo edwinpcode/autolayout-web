@@ -168,7 +168,7 @@ function Modal({ code, idParent, parent, panelId }) {
       }
       setIsError(false)
     } catch (error) {
-      console.log(error)
+      // console.log(error)
       setIsError(true)
       setErrorMessage(error.message)
       window.Swal.fire("Kesalahan", error.message, "error")
@@ -183,8 +183,8 @@ function Modal({ code, idParent, parent, panelId }) {
 
   // save data to elementState and close modal
   const onClickSave = async (data) => {
-    console.log(data)
-    console.log(form)
+    // console.log(data)
+    // console.log(form)
     let id = ""
     for (let i = 0; i < form.length; i++) {
       if (i == 1) {
@@ -221,7 +221,7 @@ function Modal({ code, idParent, parent, panelId }) {
       id: code == "node" ? nodeState.id : edgeState.id,
     }
 
-    console.log(payload)
+    // console.log(payload)
     if (!form.length) {
       return window.Swal.fire("Peringatan", "No Data", "error")
     }

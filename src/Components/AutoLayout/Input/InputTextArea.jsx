@@ -8,7 +8,7 @@ function InputTextArea({ fieldItem, register, defaultValue, setValue }) {
 
   return (
     <>
-      <label onClick={() => console.log(fieldItem)}>
+      <label>
         {fieldItem.label}{" "}
         {fieldItem.isMandatory === "1" && (
           <span className="text-danger font-weight-bold"> *</span>

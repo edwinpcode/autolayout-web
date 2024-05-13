@@ -6,7 +6,7 @@ const FieldCascadingUtil = async (fieldList, id, getValues, setValue) => {
   const field = fieldList.find((item) => item.id === id)
   field.reference.parent.forEach((parentId) => {
     const parentValue = getValues(parentId)
-    console.log(parentValue)
+    // console.log(parentValue)
     const found = payload.param.find((item) => item.value == parentValue)
     if (!found) payload.param.push({ id: parentId, value: parentValue })
   })

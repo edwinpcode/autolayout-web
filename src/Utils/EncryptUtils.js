@@ -1,5 +1,5 @@
-import CryptoJS from 'crypto-js'
-import moment from 'moment'
+import CryptoJS from "crypto-js"
+import moment from "moment"
 
 var optionsRijndael = {
   mode: CryptoJS.mode.CBC,
@@ -7,11 +7,11 @@ var optionsRijndael = {
 }
 
 function getDateKey() {
-  const date = moment().locale('en')
-  const ddd = date.format('ddd')
-  const yyyy = date.format('YYYY')
-  const mmdd = date.format('MMDD')
-  const res = ddd + yyyy + mmdd + '00000'
+  const date = moment().locale("en")
+  const ddd = date.format("ddd")
+  const yyyy = date.format("YYYY")
+  const mmdd = date.format("MMDD")
+  const res = ddd + yyyy + mmdd + "00000"
   return res
 }
 
@@ -34,12 +34,12 @@ export const decryptAES = (TeksSingDiEnkrip) => {
     optionsRijndael.iv = getKeyAES(date)
     var aes = CryptoJS.algo.AES.createDecryptor(
       getKeyAES(date),
-      optionsRijndael
+      optionsRijndael,
     )
     let dataBase64Enkrip = CryptoJS.enc.Base64.parse(TeksSingDiEnkrip)
     var decrypted = aes.finalize(dataBase64Enkrip)
     return CryptoJS.enc.Utf8.stringify(decrypted)
   } catch (err) {
-    console.log('error dec = ' + err.message)
+    // console.log('error dec = ' + err.message)
   }
 }

@@ -68,7 +68,7 @@ function Dashboard() {
       //   setModule(res.data.data.module)
       // }
     } catch (error) {
-      console.log(error.message)
+      // console.log(error.message)
     } finally {
       hideLoader()
     }
@@ -154,11 +154,11 @@ function Dashboard() {
           dispatch(setLongitude(position.coords.longitude))
         },
         (err) => {
-          console.log(err.message)
+          // console.log(err.message)
         },
       )
     } else {
-      console.log("Location unavailable")
+      // console.log("Location unavailable")
     }
   }
 

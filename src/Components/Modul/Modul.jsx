@@ -47,7 +47,7 @@ const Modul = ({ step }) => {
         }
       })
       .catch((e) => {
-        console.log(e)
+        // console.log(e)
         window.Swal.fire("Error", e.message, "error")
       })
       .finally(() => {

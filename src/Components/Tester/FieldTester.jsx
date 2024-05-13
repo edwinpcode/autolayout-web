@@ -88,7 +88,7 @@ function FieldTester({ pageIndex = 0, pageSize = 10, fetchData = () => {} }) {
   } = useForm({ mode: "onChange" })
 
   const onSubmit = (data) => {
-    console.log(data)
+    // console.log(data)
   }
 
   return (

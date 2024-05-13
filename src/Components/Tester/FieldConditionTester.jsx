@@ -11,7 +11,7 @@ function FieldConditionTester({
   const { register, clearErrors, unregister, control, handleSubmit, setValue, resetField, getValues, watch, formState: { errors } } = useForm()
 
   const onSubmit = (data) => {
-    console.log(data)
+    // console.log(data)
   }
 
   return (

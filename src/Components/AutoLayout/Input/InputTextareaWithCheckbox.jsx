@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState } from "react"
 
 const InputTextareaWithCheckbox = ({
   checkbox,
@@ -31,16 +31,16 @@ const InputTextareaWithCheckbox = ({
       for (let i = 0; parentWatch.length; i++) {
         // resetField(child[i].id)
         // setValue(child[i], parentWatch[i])
-        console.log('childid: ', child[i])
-        console.log('parentid: ', parent[i])
-        console.log('parentvalue: ', parentWatch[i])
+        // console.log('childid: ', child[i])
+        // console.log('parentid: ', parent[i])
+        // console.log('parentvalue: ', parentWatch[i])
       }
     }
   }, [checked, parentWatch])
 
   return (
     <>
-      <label className={`${hide ? 'hidden' : ''}`}>
+      <label className={`${hide ? "hidden" : ""}`}>
         {label}
         {isMandatory && (
           <span className="text-danger font-weight-bold"> *</span>

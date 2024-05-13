@@ -162,7 +162,7 @@ function DropdownSelect({
 
   return (
     <>
-      <label onClick={() => console.log(fieldItem)}>
+      <label>
         {label}
         {isMandatory && (
           <span className="text-danger font-weight-bold"> *</span>

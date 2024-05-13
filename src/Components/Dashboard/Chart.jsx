@@ -139,9 +139,9 @@ const Chart = () => {
     }
   }, [])
 
-  useEffect(() => {
-    console.log(arrayOptions1)
-  }, [arrayOptions1])
+  // useEffect(() => {
+  //   console.log(arrayOptions1)
+  // }, [arrayOptions1])
 
   return (
     <div>

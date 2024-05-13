@@ -137,12 +137,7 @@ function InputDate({
 
   return (
     <>
-      <label
-        onClick={() => {
-          console.log(fieldItem)
-        }}
-        className={`${hide ? "hidden" : ""}`}
-      >
+      <label className={`${hide ? "hidden" : ""}`}>
         {label}
         {isMandatory && (
           <span className="text-danger font-weight-bold"> *</span>

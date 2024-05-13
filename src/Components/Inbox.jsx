@@ -72,9 +72,9 @@ const Inbox = ({
   //   console.log(filterData)
   // }, [filterData])
 
-  useEffect(() => {
-    console.log(structures)
-  }, [structures])
+  // useEffect(() => {
+  //   console.log(structures)
+  // }, [structures])
 
   const columnVisibility = useMemo(
     () => structures.headerVisibility,

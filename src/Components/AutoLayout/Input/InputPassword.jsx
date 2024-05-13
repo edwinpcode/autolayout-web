@@ -1,11 +1,11 @@
-import { handleFieldRule } from '../../../Utils/FieldRuleUtils'
+import { handleFieldRule } from "../../../Utils/FieldRuleUtils"
 
 function InputPassword({ id, fieldItem, register }) {
   return (
     <>
-      <label onClick={() => console.log(fieldItem)}>
+      <label>
         {fieldItem.label}
-        {fieldItem.isMandatory === '1' && (
+        {fieldItem.isMandatory === "1" && (
           <span className="text-danger font-weight-bold"> *</span>
         )}
       </label>

@@ -42,7 +42,7 @@ export const handleConditionValue = (
                 await dispatch(removeHiddenField(setting.id))
                 handleReadOnlySetting(setting.id, setting.property.isReadOnly)
               } catch (error) {
-                console.log(error.message)
+                // console.log(error.message)
               }
             }
             // show condition for panel element

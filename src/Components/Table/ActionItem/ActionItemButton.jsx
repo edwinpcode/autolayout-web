@@ -1,13 +1,13 @@
-import { useNavigate } from 'react-router-dom'
-import Docxtemplater from 'docxtemplater'
-import PizZip from 'pizzip'
-import PizZipUtils from 'pizzip/utils'
-import { saveAs } from 'file-saver'
-import APIClient from '../../../Services/APIClient'
-import { deleteData } from '../../../Services/AutoLayoutService'
-import { confirmSwal } from '../../../Utils/SwalUtils'
-import { handleGetGridData } from '../../../Utils/TableUtils'
-import { useSelector } from 'react-redux'
+import { useNavigate } from "react-router-dom"
+import Docxtemplater from "docxtemplater"
+import PizZip from "pizzip"
+import PizZipUtils from "pizzip/utils"
+import { saveAs } from "file-saver"
+import APIClient from "../../../Services/APIClient"
+import { deleteData } from "../../../Services/AutoLayoutService"
+import { confirmSwal } from "../../../Utils/SwalUtils"
+import { handleGetGridData } from "../../../Utils/TableUtils"
+import { useSelector } from "react-redux"
 
 function loadFile(url, callback) {
   PizZipUtils.getBinaryContent(url, callback)
@@ -32,20 +32,20 @@ function ActionItemButton({
     })
 
     // handle redirect
-    if (headerItem?.isRedirect == '1') {
+    if (headerItem?.isRedirect == "1") {
       return navigate(headerItem?.url?.path, { state: payload })
     }
 
-    if (headerItem?.flagType === 'delete') {
+    if (headerItem?.flagType === "delete") {
       // set flag to paylod
       Object.assign(payload, { flagType: headerItem.flagType })
       Object.assign(payload, { flagAction: headerItem.flagAction })
       // delete action
       await deleteData(payload).then((res) => {
-        if (res.data.status != '1') {
-          return window.Swal.fire('', res.data.message, 'error')
+        if (res.data.status != "1") {
+          return window.Swal.fire("", res.data.message, "error")
         }
-        window.Swal.fire('', res.data.message, 'success')
+        window.Swal.fire("", res.data.message, "success")
       })
       // refresh grid data
       const gridPayload = {
@@ -55,20 +55,20 @@ function ActionItemButton({
         tc: activeTrackId,
       }
       gridItem.reference.parent.forEach((parentId) => {
-        const parentValue = window.$('#' + parentId).val()
+        const parentValue = window.$("#" + parentId).val()
         gridPayload.param.push({ id: parentId, value: parentValue })
       })
       // console.log(2)
       await handleGetGridData(gridPayload, setDataQuery)
     }
 
-    if (headerItem?.flagType === 'export') {
+    if (headerItem?.flagType === "export") {
       // set flag to paylod
       Object.assign(payload, { flag: headerItem.flagAction })
-      const documentData = await APIClient.post('/gendocument', payload).then(
-        (res) => res.data
+      const documentData = await APIClient.post("/gendocument", payload).then(
+        (res) => res.data,
       )
-      loadFile('/Data/sample_dokumen.docx', function (error, content) {
+      loadFile("/Data/sample_dokumen.docx", function (error, content) {
         if (error) {
           throw error
         }
@@ -87,33 +87,32 @@ function ActionItemButton({
             if (value instanceof Error) {
               return Object.getOwnPropertyNames(value).reduce(function (
                 error,
-                key
+                key,
               ) {
                 error[key] = value[key]
                 return error
-              },
-              {})
+              }, {})
             }
             return value
           }
-          console.log(JSON.stringify({ error: error }, replaceErrors))
+          // console.log(JSON.stringify({ error: error }, replaceErrors))
 
           if (error.properties && error.properties.errors instanceof Array) {
             const errorMessages = error.properties.errors
               .map(function (error) {
                 return error.properties.explanation
               })
-              .join('\n')
-            console.log('errorMessages', errorMessages)
+              .join("\n")
+            // console.log('errorMessages', errorMessages)
             // errorMessages is a humanly readable message looking like this :
             // 'The tag beginning with "foobar" is unopened'
           }
           throw error
         }
         var out = doc.getZip().generate({
-          type: 'blob',
+          type: "blob",
           mimeType:
-            'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+            "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
         }) //Output the document using Data-URI
         saveAs(out, documentData.filename)
       })
@@ -123,14 +122,14 @@ function ActionItemButton({
   const confirmButtonClick = () => {
     // console.log(headerItem)
     // handle need confirm
-    if (headerItem?.needConfirm == '1')
+    if (headerItem?.needConfirm == "1")
       confirmSwal({ action: handleButtonClick })
     else handleButtonClick()
   }
 
   return (
     <>
-      {headerItem.type === 'button' && (
+      {headerItem.type === "button" && (
         <button
           type="button"
           className={`btn btn-xs ${buttonClass} order-${headerItem?.property?.order}`}
@@ -140,7 +139,7 @@ function ActionItemButton({
           <small>{headerItem?.label}</small>
         </button>
       )}
-      {headerItem.type === 'anchor' && (
+      {headerItem.type === "anchor" && (
         <div className="mx-auto">
           <button
             type="button"

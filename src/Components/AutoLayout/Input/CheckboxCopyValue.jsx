@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from 'react'
-import { useWatch } from 'react-hook-form'
-import { useDispatch } from 'react-redux'
-import { axiosPost } from '../../../Services/AutoLayoutService'
-import { resetDropdown, setDropdown } from '../../../Store/Input/DropdownSlice'
-import { setLoadingSpin } from '../../../Store/Loading/LoadingSlice'
-import { handleParamValues } from '../../../Utils/ParamUtils'
+import React, { useEffect, useState } from "react"
+import { useWatch } from "react-hook-form"
+import { useDispatch } from "react-redux"
+import { axiosPost } from "../../../Services/AutoLayoutService"
+import { resetDropdown, setDropdown } from "../../../Store/Input/DropdownSlice"
+import { setLoadingSpin } from "../../../Store/Loading/LoadingSlice"
+import { handleParamValues } from "../../../Utils/ParamUtils"
 
 const CheckboxCopyValue = ({
   child,
@@ -38,7 +38,7 @@ const CheckboxCopyValue = ({
       let dropdownData = []
       res.data.data.forEach((data) => {
         const el = document.getElementById(data.fieldId)
-        if (data.value || data.value === '') {
+        if (data.value || data.value === "") {
           setValue(data.fieldId, data.value)
           el.readOnly = true
         }
@@ -49,7 +49,7 @@ const CheckboxCopyValue = ({
           // set value dropdown
         }
       })
-      console.log(dropdownData)
+      // console.log(dropdownData)
       dispatch(setDropdown(dropdownData))
     })
     dispatch(setLoadingSpin(false))
@@ -63,11 +63,11 @@ const CheckboxCopyValue = ({
       let dropdownData = []
       child?.forEach((childId) => {
         const el = document.getElementById(childId)
-        if (el.tagName === 'SELECT') {
+        if (el.tagName === "SELECT") {
           dropdownData.push({ id: childId, valueList: [] })
           el.nextElementSibling.disabled = false
         } else {
-          setValue(childId, '')
+          setValue(childId, "")
           el.readOnly = false
         }
       })
@@ -77,7 +77,7 @@ const CheckboxCopyValue = ({
 
   useEffect(() => {
     parent.forEach((parentId) => {
-      document.getElementById(parentId).addEventListener('change', () => {
+      document.getElementById(parentId).addEventListener("change", () => {
         handleChange(false)
       })
     })

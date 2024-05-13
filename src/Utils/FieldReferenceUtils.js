@@ -2,7 +2,7 @@ import { getReference } from "../Services/AutoLayoutService"
 
 export const getFieldByFieldId = (fieldId, panelList) => {
   let resultField = {}
-  console.log(panelList)
+  // console.log(panelList)
   panelList.forEach((panelItem) => {
     // prettier-ignore
     let findField = panelItem.listField?.data?.find(

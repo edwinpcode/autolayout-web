@@ -595,8 +595,8 @@ function ButtonAction({
         hashedPassword,
         "Monday-2023-04-10-11",
       )
-      console.log(hashedPassword)
-      console.log(decryptPass)
+      // console.log(hashedPassword)
+      // console.log(decryptPass)
       // const payload = {
       //   type: actionItem.flagType,
       //   userid: user.id,
@@ -678,7 +678,7 @@ function ButtonAction({
       )}
       {actionItem.type === "linkmaps" && (
         <>
-          <label onClick={() => console.log(actionItem)}>
+          <label>
             {actionItem.label}{" "}
             {actionItem.isMandatory === "1" && (
               <span className="text-danger font-weight-bold"> *</span>

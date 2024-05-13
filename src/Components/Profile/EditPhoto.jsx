@@ -33,9 +33,9 @@ function EditPhoto() {
   const [flipped, setFlipped] = useState(false)
   const [imageSource, setImageSource] = useState("camera")
 
-  useEffect(() => {
-    console.log(photo)
-  }, [photo])
+  // useEffect(() => {
+  //   console.log(photo)
+  // }, [photo])
 
   const resetForm = () => {
     if (photoURI) {
@@ -133,7 +133,7 @@ function EditPhoto() {
     if (!photoURI && imageSource == "camera") {
       return window.Swal.fire("Peringatan", "Silahkan Ambil Foto", "warning")
     }
-    console.log(photo.length)
+    // console.log(photo.length)
     if (!photo.length && imageSource == "file") {
       return window.Swal.fire("Peringatan", "Silahkan Pilih Foto", "warning")
     }

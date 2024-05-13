@@ -135,7 +135,7 @@ const VoiceAssistant = ({ className }) => {
     setRecordingStatus("searching")
     if (videoRef.current) {
       videoRef.current.play().catch((e) => {
-        console.log("Error: ", e)
+        // console.log("Error: ", e)
       })
     }
     const audio = document.getElementById("waitingVoice")
