@@ -49,13 +49,15 @@ const ModulAll = ({ className }) => {
       {!module.length && <span>Loading...</span>}
       <div>
         <div className="text-bold">
-          Active Role: {moduleDesc} - {roleDesc}
+          Aktif: {moduleDesc} - {roleDesc}
         </div>
-        <div className="mt-3">
+        <div className="row mt-3">
           {module.map((data, index) => (
-            <div key={data.id + "_" + index} id={data.id}>
+            <div key={data.id + "_" + index} id={data.id} className="col">
               {data.role.length ? (
-                <div className="text-bold">{data.name}</div>
+                <div className="border-bottom">
+                  <div className="text-bold">{data.name}</div>
+                </div>
               ) : null}
               <div className="row">
                 {data.role.map((role, i) => (

@@ -29,6 +29,7 @@ function Header() {
   const [photoProfile, setPhotoProfile] = useState()
   const devMode = useSelector((state) => state.devMode)
   const darkMode = useSelector((state) => state.theme.darkMode)
+  const activeMenuDesc = useSelector((state) => state.menu.activeMenuDesc)
 
   const { setValue, register, handleSubmit } = useForm()
   const [mediaRecorder, setMediaRecorder] = useState(null)
@@ -305,6 +306,13 @@ function Header() {
     }
   }
 
+  const toggleInbox = () => {
+    const inbox = document.getElementById("inbox")
+    if (inbox) {
+      inbox.classList.toggle("d-none")
+    }
+  }
+
   return (
     <>
       <nav
@@ -324,6 +332,16 @@ function Header() {
               <i className="fas fa-bars"></i>
             </a>
           </li>
+          {/* <li className="nav-item">
+            <a
+              className="nav-link"
+              href="#"
+              role="button"
+              onClick={toggleInbox}
+            >
+              Inbox
+            </a>
+          </li> */}
           {/* <li className={`nav-item ${!state.param[0]?.id ? "hidden" : ""}`}>
             <Link className="nav-link" onClick={goBack}>
               <i className="fa fa-arrow-left"></i>
