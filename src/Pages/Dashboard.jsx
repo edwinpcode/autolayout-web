@@ -328,11 +328,19 @@ function Dashboard() {
                         <div className="col-lg-3 col-md-6 col-12" key={index}>
                           <div className={"small-box " + dashboardItem.class}>
                             <div className="inner">
-                              <h3>{dashboardItem.total}</h3>
-                              <p>{dashboardItem.description}</p>
+                              <div className="d-flex justify-content-between align-items-center flex-grow-1">
+                                <div>
+                                  <h3>{dashboardItem.total}</h3>
+                                  <p>{dashboardItem.description}</p>
+                                </div>
+                                <img
+                                  src={dashboardItem.icon}
+                                  className="w-25 h-50"
+                                />
+                              </div>
                             </div>
                             <div className="icon">
-                              <i className={`${dashboardItem.icon}`}></i>
+                              {/* <i className={`${dashboardItem.icon}`}></i> */}
                             </div>
                             <Link
                               to={"/"}
