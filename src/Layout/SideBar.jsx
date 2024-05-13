@@ -109,6 +109,49 @@ function SideBar() {
     }
   }
 
+  const MenuChild = ({ child }) => {
+    return (
+      <ul
+        className="nav nav-treeview "
+        data-widget="treeview"
+        data-accordion="false"
+      >
+        {child.map((item, index) => (
+          <Menu data={item} key={index} />
+        ))}
+      </ul>
+    )
+  }
+
+  const Menu = ({ data }) => {
+    return (
+      <li className="nav-item" id={data.menuId}>
+        <NavLink
+          to={`${data.child ? "#" : data.path}`}
+          onClick={() => handleMenuClick(data)}
+          className={() => {
+            if (data.menuId === activeMenuId) {
+              return "nav-link active"
+            } else {
+              return "nav-link"
+            }
+          }}
+        >
+          {data.icon !== "" ? (
+            <i className={"nav-icon " + data.icon}></i>
+          ) : (
+            <i className={"nav-icon fal fa-circle"}></i>
+          )}
+          <p>
+            {data.menuDesc}
+            {data.child && <i className="right fas fa-angle-left"></i>}
+          </p>
+        </NavLink>
+        {data.child && <MenuChild child={data.child} />}
+      </li>
+    )
+  }
+
   return (
     <aside
       className={`main-sidebar elevation-4 ${
@@ -152,20 +195,8 @@ function SideBar() {
             {filteredMenu?.map((data, index) => {
               return (
                 <li className="nav-item" key={index} id={data.menuId}>
-                  {/* parent menu */}
                   <NavLink
-                    // to={`${data.path}/${data.menuId}`}
-                    to={`${
-                      // data.path == '/form'
-                      //   ? data.path
-                      //   : data.path == '/report'
-                      //   ? `${data.path}/${data.menuId}`
-                      //   : data.child
-                      //   ? '#'
-                      //   : data.menuId
-                      data.child ? "#" : data.path
-                    }`}
-                    // state={data.path !== "/" ? { param: [] } : state}
+                    to={`${data.child ? "#" : data.path}`}
                     onClick={() => handleMenuClick(data)}
                     className={() => {
                       if (data.menuId === activeMenuId) {
@@ -187,39 +218,31 @@ function SideBar() {
                       )}
                     </p>
                   </NavLink>
-                  {/* child menu */}
                   {data.child && (
                     <ul
                       className="nav nav-treeview "
                       data-widget="treeview"
                       data-accordion="false"
                     >
-                      {data.child.map((child, index) => (
+                      {data.child.map((item, index) => (
                         <li className="nav-item" key={index}>
                           <NavLink
-                            to={`${
-                              // child.path == "/form"
-                              //   ? child.path
-                              //   : child.path == "/report"
-                              //     ? `${child.path}/${child.menuId}`
-                              //     : child.menuId
-                              child.path
-                            }`}
-                            onClick={() => handleMenuClick(child)}
+                            to={`${item.child ? "#" : item.path}`}
+                            onClick={() => handleMenuClick(item)}
                             className={() => {
-                              if (child.menuId === activeMenuId) {
+                              if (item.menuId === activeMenuId) {
                                 return "nav-link active"
                               } else {
                                 return "nav-link"
                               }
                             }}
                           >
-                            {child.icon !== "" ? (
-                              <i className={"nav-icon " + child?.icon}></i>
+                            {item.icon !== "" ? (
+                              <i className={"nav-icon " + item?.icon}></i>
                             ) : (
                               <i className={"nav-icon fal fa-circle"}></i>
                             )}
-                            <p>{child.menuDesc}</p>
+                            <p>{item.menuDesc}</p>
                           </NavLink>
                         </li>
                       ))}

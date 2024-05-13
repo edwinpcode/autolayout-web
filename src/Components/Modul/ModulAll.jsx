@@ -48,8 +48,8 @@ const ModulAll = ({ className }) => {
     <div className={`${className}`}>
       {!module.length && <span>Loading...</span>}
       <div>
-        <div>
-          Active Role: {moduleDesc}, {roleDesc}
+        <div className="text-bold">
+          Active Role: {moduleDesc} - {roleDesc}
         </div>
         <div className="mt-3">
           {module.map((data, index) => (
