@@ -51,9 +51,9 @@ const ModulAll = ({ className }) => {
         <div className="text-bold">
           Aktif: {moduleDesc} - {roleDesc}
         </div>
-        <div className="row mt-3">
+        <div className="mt-3">
           {module.map((data, index) => (
-            <div key={data.id + "_" + index} id={data.id} className="col">
+            <div key={data.id + "_" + index} id={data.id}>
               {data.role.length ? (
                 <div className="border-bottom">
                   <div className="text-bold">{data.name}</div>
