@@ -137,7 +137,7 @@ function SideBar() {
   const activeModuleId = useSelector((state) => state.user.activeModule.id)
   const activeRoleId = useSelector((state) => state.user.activeRole.id)
   // state
-  const [menu, setMenu] = useState()
+  const [menu, setMenu] = useState([])
   const [searchSidebarValue, setSearchSidebarValue] = useState("")
   const navigate = useNavigate()
   const [searchParams, setSearchParams] = useSearchParams()
@@ -152,11 +152,13 @@ function SideBar() {
       setLoading(true)
       getMenu(userId, activeModuleId, activeRoleId)
         .then((res) => {
-          if (res.data.status != "1") {
-            return window.Swal.fire("Kesalahan", res.data.message, "error")
+          // if (res.data.status != "1") {
+          //   return window.Swal.fire("Kesalahan", res.data.message, "error")
+          // }
+          if (res.data.status == "1") {
+            setMenu(res.data.data)
+            dispatch(setMenuSidebarSlice(res.data.data))
           }
-          setMenu(res.data)
-          dispatch(setMenuSidebarSlice(res.data.data))
         })
         .catch((e) => window.Swal.fire("Kesalahan", e.message, "error"))
         .finally(() => setLoading(false))
@@ -166,13 +168,13 @@ function SideBar() {
   const filteredMenu = useMemo(() => {
     if (menu) {
       // get parent menu by searched value
-      const parentMenu = menu.data.filter((data) => {
+      const parentMenu = menu.filter((data) => {
         const menuLower = data.menuDesc.toLowerCase()
         const searchedValueLower = searchSidebarValue.toLowerCase()
         return menuLower.includes(searchedValueLower)
       })
       // get child menu by searched value
-      const childMenu = menu.data.filter((data) => {
+      const childMenu = menu.filter((data) => {
         const searchedValueLower = searchSidebarValue.toLowerCase()
         if (data.child) {
           return data.child.some((child) =>
