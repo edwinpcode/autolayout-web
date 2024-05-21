@@ -13,7 +13,7 @@ import TopAction from "./Table/TopAction"
 import { getFieldByFieldId } from "Utils/FieldReferenceUtils"
 // import TableComponent from "./Table/TableComponent"
 
-const TableComponent = lazy(() => import("./Table/IndeterminateCheckbox"))
+const TableComponent = lazy(() => import("./Table/TableComponent"))
 
 const Inbox = ({
   getValues,
@@ -209,13 +209,13 @@ const Inbox = ({
           </div>
         </div>
         {loading ? (
-          <div className="card-body" id="inboxBody">
+          <div className="card-body" id="">
             <div>Loading...</div>
           </div>
         ) : (
-          <div className="card-body" id="inboxBody">
+          <div className="card-body" id="">
             {type == "inbox" ? (
-              <div className="row">
+              <div className="row" id="inbox">
                 <div className="col-12">
                   {structures?.topAction?.length > 0 && (
                     <TopAction
@@ -367,7 +367,7 @@ const Inbox = ({
               </div>
             ) : (
               <Suspense fallback={<span>Loading...</span>}>
-                <div>
+                <div id="table">
                   <TableComponent
                     dataQuery={dataQuery}
                     pageIndex={pageIndex}
