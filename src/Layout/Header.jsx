@@ -385,7 +385,7 @@ function Header() {
               </div>
             </div>
           </li> */}
-          {/* <li className="nav-item mx-1">
+          <li className="nav-item mx-1">
             <a
               href="#"
               className="btn btn-sm btn-success"
@@ -394,7 +394,7 @@ function Header() {
             >
               Assistant
             </a>
-          </li> */}
+          </li>
           <li className="nav-item">
             {/* <div
               className="input-group"

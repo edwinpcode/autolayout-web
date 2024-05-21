@@ -1,4 +1,5 @@
 import VoiceAssistant from "Components/Voice/VoiceAssistant"
+import VoiceChat from "Components/Voice/VoiceChat"
 import React from "react"
 import { useSelector } from "react-redux"
 
@@ -12,12 +13,11 @@ const SidebarRight = () => {
       }`}
       style={{
         bottom: 0,
+        // width: "25vw",
       }}
     >
-      <div className="control-sidebar-content p-3">
-        <div className="row">
-          {/* <VoiceAssistant className={"d-block"} /> */}
-        </div>
+      <div className="control-sidebar-content">
+        <VoiceChat />
       </div>
     </aside>
   )

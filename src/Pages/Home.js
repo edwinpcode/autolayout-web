@@ -67,9 +67,9 @@ function Home() {
           </div>
         </section>
       </div>
-      <Suspense>
+      {/* <Suspense>
         <BackTop />
-      </Suspense>
+      </Suspense> */}
       <SidebarRight />
       {/* <Footer /> */}
       {loader}
