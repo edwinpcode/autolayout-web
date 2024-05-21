@@ -261,6 +261,9 @@ function AutoLayout({ className, pageIndex, pageSize, fetchData }) {
               </div> */}
               </div>
               <div className="card-tools">
+                <button type="button" className="btn btn-tool" onClick={reset}>
+                  <i className="fa fa-redo" aria-hidden="true"></i>
+                </button>
                 <button
                   type="button"
                   className="btn btn-tool"

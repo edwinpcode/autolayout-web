@@ -170,9 +170,9 @@ const Inbox = ({
     }
   }
 
-  // useEffect(() => {
-  //   console.log(type)
-  // }, [type])
+  const refresh = () => {
+    fetchData(menu.activeMenuId, pageIndex, pageSize, filter)
+  }
 
   return (
     <div className={`${className} col-md-3`} id="inbox">
@@ -188,6 +188,9 @@ const Inbox = ({
             {structures.caption || menu.activeMenuDesc}
           </span>
           <div className="card-tools">
+            <button type="button" className="btn btn-tool" onClick={refresh}>
+              <i className="fa fa-redo" aria-hidden="true"></i>
+            </button>
             <button
               type="button"
               className="btn btn-tool"
