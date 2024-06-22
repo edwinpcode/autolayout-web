@@ -59,8 +59,7 @@ function Login() {
   ]
 
   const handleCanvas = () => {
-    var charsArray =
-      '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'
+    var charsArray = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ'
     var lengthOtp = 6
     var captcha = []
     for (var i = 0; i < lengthOtp; i++) {
@@ -144,7 +143,7 @@ function Login() {
         window.Swal.fire(
           'Peringatan',
           'Mohon maaf, sedang terjadi kendala koneksi pada sistem, silahkan coba kembali secara berkala',
-          'error',
+          'error'
         )
       })
   }

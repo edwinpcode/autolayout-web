@@ -27,6 +27,7 @@ function SideBar() {
   const [menu, setMenu] = useState()
   const [searchSidebarValue, setSearchSidebarValue] = useState('')
   const navigate = useNavigate()
+  const app = process.env.REACT_APP_ENV
 
   useEffect(() => {
     if (activeModuleId && activeRoleId) {
@@ -89,7 +90,7 @@ function SideBar() {
     <aside className="main-sidebar elevation-4 sidebar-light-danger">
       <a href="/" className="brand-link">
         <img
-          src="/images/logo_sidebar.png"
+          src={`/images/${app}/logo_sidebar.png`}
           alt="App Logo"
           className="brand-image"
         />

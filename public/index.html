@@ -3,16 +3,15 @@
   <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <title>LOS</title>
+    <title>BSG</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="application-name" content="BANK SULUTGO" />
     <meta name="login-application-name" content="Digital Lending" />
 
-    <link rel="icon" href="%PUBLIC_URL%/images/logo_favicon.svg" />
-    <meta name="description" content="Autolayout Cloufina - 1UP" />
+    <meta name="description" content="Autolayout Cloufina - BSG" />
     <meta name="theme-color" content="#000000" />
-    <link rel="icon" href="%PUBLIC_URL%/images/logo_sidebar.png" />
-    <link rel="apple-touch-icon" href="./images/logo_sidebar.png" />
+    <link rel="icon" href="%PUBLIC_URL%/images/bsg/logo" />
+    <link rel="apple-touch-icon" href="./images/bsg/logo" />
     <link rel="manifest" href="./manifest.json" />
     <link
       rel="stylesheet"
@@ -73,9 +72,12 @@
     <script src="%PUBLIC_URL%/plugins/bootstrap-select/js/bootstrap-select.min.js"></script>
     <script src="%PUBLIC_URL%/custom/js/custom.js" type="text/babel"></script>
     <script>
-      if('serviceWorker' in navigator){
+      if ('serviceWorker' in navigator) {
         window.addEventListener('load', () => {
-          navigator.serviceWorker.register('./serviceWorker.js').then((reg) => console.log('Success', reg.scope)).catch(err => console.log('Failure', err))
+          navigator.serviceWorker
+            .register('./serviceWorker.js')
+            .then((reg) => console.log('Success', reg.scope))
+            .catch((err) => console.log('Failure', err))
         })
       }
     </script>
