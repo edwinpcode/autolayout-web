@@ -1,0 +1,12 @@
+version: "3.8"
+services:
+  bsg:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: always
+    ports:
+      - "3003:8080"
+    network_mode: bridge
+    extra_hosts:
+      - "host.docker.internal:host-gateway"

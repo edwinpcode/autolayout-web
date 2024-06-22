@@ -11,7 +11,7 @@ export default function InputRadio({
   data,
   register,
   condition,
-  defaultValue,
+  defaultValue = [],
   setValue,
   panel = [],
   isReadOnly,
@@ -24,9 +24,9 @@ export default function InputRadio({
 
   useEffect(() => {
     //set value
-    if (defaultValue[0].selected === 'true') {
+    if (defaultValue.length && defaultValue[0].selected === 'true') {
       setValue(id, defaultValue[0].dataId)
-    } else if (defaultValue[1].selected === 'true') {
+    } else if (defaultValue.length > 1 && defaultValue[1].selected === 'true') {
       setValue(id, defaultValue[1].dataId)
     }
 
@@ -42,10 +42,13 @@ export default function InputRadio({
       // }
 
       // on first load
-      if (defaultValue[0].selected === 'true') {
+      if (defaultValue.length && defaultValue[0].selected === 'true') {
         const currentValue = defaultValue.length ? defaultValue[0].dataId : ''
         handleConditionValue(currentValue, panel, condition, dispatch, setValue)
-      } else if (defaultValue[1].selected === 'true') {
+      } else if (
+        defaultValue.length > 1 &&
+        defaultValue[1].selected === 'true'
+      ) {
         const currentValue = defaultValue.length ? defaultValue[1].dataId : ''
         handleConditionValue(currentValue, panel, condition, dispatch, setValue)
       }

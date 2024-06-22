@@ -27,7 +27,7 @@ function Header() {
         return window.Swal.fire('Kesalahan', res.data.message, 'error')
       }
       hideLoader()
-      localStorage.clear('token')
+      localStorage.clear()
       window.location.replace('/login')
     })
   }
@@ -128,7 +128,7 @@ function Header() {
           <li className="nav-item dropdown">
             <a className="nav-link" href="#" data-toggle="dropdown">
               <img
-                src="https://adminlte.io/themes/v3/dist/img/user2-160x160.jpg"
+                src="/images/user2-160x160.jpg"
                 className="img-circle"
                 style={{ height: 35, position: 'relative', top: '-7px' }}
                 alt="User..."

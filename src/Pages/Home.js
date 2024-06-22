@@ -1,18 +1,22 @@
-import React, { useEffect, useState } from 'react'
+import React, { Suspense, lazy, useEffect, useState } from 'react'
 import { Outlet, useNavigate } from 'react-router-dom'
 import { useSelector } from 'react-redux'
-import Header from '../Layout/Header'
-import SideBar from '../Layout/SideBar'
+// import Header from '../Layout/Header'
+// import SideBar from '../Layout/SideBar'
 import AuthStepperContent from '../Components/Stepper/AuthStepperContent'
-import BackTop from './BackTop'
+// import BackTop from './BackTop'
 import Load from '../Pages/FullLoad'
+
+const Header = lazy(() => import('../Layout/Header'))
+const Sidebar = lazy(() => import('../Layout/SideBar'))
+const BackTop = lazy(() => import('./BackTop'))
 
 function Home() {
   const navigate = useNavigate()
 
   const menu = useSelector((state) => state.menu)
 
-  const tokenLogout = localStorage.getItem('token')
+  const tokenLogout = localStorage.getItem('accessToken')
 
   // loading
   const [loader, showLoader, hideLoader] = Load()
@@ -32,8 +36,10 @@ function Home() {
 
   return (
     <div className="wrapper">
-      <Header />
-      <SideBar />
+      <Suspense fallback={<span>Loading....</span>}>
+        <Header />
+        <Sidebar />
+      </Suspense>
       <div className="content-wrapper">
         <div className="content-header pb-0">
           <div className="container-fluid">
@@ -48,12 +54,16 @@ function Home() {
           <div className="container-fluid">
             <div className="card">
               <div className="card-body" style={{ minHeight: '80vh' }}>
-                <Outlet />
+                <Suspense fallback={<h1>Loading...</h1>}>
+                  <Outlet />
+                </Suspense>
               </div>
             </div>
           </div>
         </section>
-        <BackTop />
+        <Suspense>
+          <BackTop />
+        </Suspense>
         <div
           className="modal fade"
           id="authStepperModal"

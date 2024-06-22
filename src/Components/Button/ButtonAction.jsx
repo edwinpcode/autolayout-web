@@ -34,14 +34,14 @@ const openMaps = (longlat) => {
     window.Swal.fire(
       'Gagal',
       'Gagal Membuka Maps, Pastika Longitude dan Latitude sudah benar',
-      'error'
+      'error',
     )
     return
   }
   window.open(
     'https://www.google.com/maps/search/?api=1&query=' + longlat,
     '_blank',
-    'noreferrer'
+    'noreferrer',
   )
 }
 
@@ -469,11 +469,11 @@ function ButtonAction({
     if (actionItem.flagType === 'change') {
       const hashedPassword = CryptoJS.TripleDES.encrypt(
         'plos1234',
-        'Monday-2023-04-10-11'
+        'Monday-2023-04-10-11',
       )
       const decryptPass = CryptoJS.TripleDES.decrypt(
         hashedPassword,
-        'Monday-2023-04-10-11'
+        'Monday-2023-04-10-11',
       )
       console.log(hashedPassword)
       console.log(decryptPass)
@@ -498,6 +498,7 @@ function ButtonAction({
 
   const confirmButtonClick = (data, alert) => {
     // handle need confirm
+    // console.log(actionItem)
     if (actionItem?.needConfirm === '1') {
       confirmSwal(handleButtonClick, data, actionItem?.label, alert)
     } else {
@@ -513,7 +514,7 @@ function ButtonAction({
           onClick={
             handleSubmit
               ? handleSubmit((data) =>
-                  confirmButtonClick(data, actionItem.alert)
+                  confirmButtonClick(data, actionItem.alert),
                 )
               : confirmButtonClick
           }
@@ -547,7 +548,7 @@ function ButtonAction({
             onClick={() =>
               openMaps(
                 document.querySelector('#' + actionItem.reference.parent[0])
-                  .value
+                  .value,
               )
             }
             className="btn btn-xs btn-danger form-control"

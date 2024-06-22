@@ -1,6 +1,6 @@
 import { ErrorMessage } from '@hookform/error-message'
 import moment from 'moment'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useRef } from 'react'
 import { useForm } from 'react-hook-form'
 import { useNavigate } from 'react-router-dom'
 import { AuthLogin } from '../Services/AuthService'
@@ -8,6 +8,12 @@ import { encryptAES } from '../Utils/EncryptUtils'
 import Logo from './Logo'
 import { useDispatch } from 'react-redux'
 import { setUser, setUserId } from '../Store/User/userSlice'
+// import {
+//   loadCaptchaEnginge,
+//   LoadCanvasTemplate,
+//   LoadCanvasTemplateNoReload,
+//   validateCaptcha,
+// } from 'react-simple-captcha'
 
 const metaTags = document.getElementsByTagName('meta')
 const metaTagsArray = Array.from(metaTags)
@@ -26,15 +32,72 @@ function Login() {
   const togglePasswordVisiblity = () => {
     setPasswordShown(passwordShown ? false : true)
   }
+  const canvasRef = useRef(null)
+  const [compareCaptcha, setCompareCaptcha] = useState('')
+  const [devMode, setDevMode] = useState(false)
 
   const navigate = useNavigate()
   const {
+    reset,
+    setValue,
     register,
     handleSubmit,
     formState: { errors },
+    setError,
   } = useForm({ mode: 'onChange' })
 
   const dispatch = useDispatch()
+
+  const listFont = [
+    'Georgia',
+    // 'Times New Roman',
+    // 'Arial',
+    // 'Verdana',
+    'Courier New',
+    // 'serif',
+    // 'sans-serif',
+  ]
+
+  const handleCanvas = () => {
+    var charsArray = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+    var lengthOtp = 6
+    var captcha = []
+    for (var i = 0; i < lengthOtp; i++) {
+      //below code will not allow Repetition of Characters
+      var index = Math.floor(Math.random() * charsArray.length + 1) //get the next character from the array
+      if (captcha.indexOf(charsArray[index]) == -1)
+        captcha.push(charsArray[index])
+      else i--
+    }
+    const random = Math.floor(Math.random() * listFont.length)
+    const selectFont = listFont[random]
+    if (canvasRef.current) {
+      const ctx = canvasRef.current.getContext('2d')
+      const cap = captcha.join('')
+      ctx.font = `30px ${selectFont}`
+      ctx.strokeText(cap, 5, 30)
+      setCompareCaptcha(cap)
+    }
+  }
+
+  useEffect(() => {
+    if (process.env.NODE_ENV == 'development') {
+      setDevMode(true)
+    }
+  }, [])
+
+  useEffect(() => {
+    handleCanvas()
+  }, [])
+
+  const resetCanvas = () => {
+    setValue('captcha', '')
+    if (canvasRef.current) {
+      const context = canvasRef.current.getContext('2d')
+      context.clearRect(0, 0, canvasRef.current.width, canvasRef.current.height)
+      handleCanvas()
+    }
+  }
 
   const getSecretKeyByDate = () => {
     const currentDate = moment().locale('en')
@@ -42,22 +105,40 @@ function Login() {
     return formattedDate + '00000'
   }
 
-  const handleLogin = ({ userId, password }) => {
+  const handleLogin = ({ userId, password, captcha }) => {
+    // if (!validateCaptcha(captcha)) {
+    //   return window.Swal.fire('Error', 'Wrong captcha', 'error')
+    // }
+    // console.log(captcha, compareCaptcha)
+    if (captcha != compareCaptcha && !devMode) {
+      setError('captcha', {
+        type: 'value',
+        message: 'Captcha Salah',
+      })
+      resetCanvas()
+      return
+      // return window.Swal.fire('Error', 'Wrong captcha', 'error')
+    }
     setLoading(true)
     const secret = getSecretKeyByDate()
     const encrypted = encryptAES(password, secret)
     AuthLogin(userId, encrypted)
       .then((res) => {
         if (res.response.status == 1) {
-          localStorage.setItem('token', res.response.accessToken)
+          localStorage.setItem('accessToken', res.response.accessToken)
+          localStorage.setItem('refreshToken', res.response.refreshToken)
+          localStorage.setItem('expiredIn', res.response.expiredIn)
+          localStorage.setItem('userId', res.response.userId)
           window.location = '/auth'
           dispatch(setUserId(res.response.userId))
         } else {
+          resetCanvas()
           setLoading(false)
           window.Swal.fire('Kesalahan', res.response.message, 'error')
         }
       })
       .catch((err) => {
+        resetCanvas()
         setLoading(false)
         window.Swal.fire(
           'Peringatan',
@@ -65,6 +146,18 @@ function Login() {
           'error'
         )
       })
+  }
+
+  useEffect(() => {
+    // loadCaptchaEnginge(6)
+  }, [])
+
+  const handleFailure = () => {
+    window.Swal.fire('Error', 'Wrong Captcha', 'error')
+  }
+
+  const handleSuccess = () => {
+    window.Swal.fire('Success', '', 'success')
   }
 
   return (
@@ -90,7 +183,11 @@ function Login() {
                     className="form-control"
                     placeholder="Nama Pengguna"
                     {...register('userId', {
-                      required: 'User ID required',
+                      required: 'Username required',
+                      minLength: {
+                        value: 4,
+                        message: 'Username length minimum 4',
+                      },
                     })}
                     autoComplete="off"
                   />
@@ -114,6 +211,10 @@ function Login() {
                     placeholder="Kata Sandi"
                     {...register('password', {
                       required: 'Password required',
+                      minLength: {
+                        value: 8,
+                        message: 'password length minimum 8',
+                      },
                     })}
                   />
                   <div className="input-group-append">
@@ -139,6 +240,44 @@ function Login() {
                   as={<span className="text-danger text-xs"></span>}
                 />
               </div>
+              {/* <LoadCanvasTemplate /> */}
+              {!devMode && (
+                <div className="d-flex">
+                  <canvas
+                    ref={canvasRef}
+                    height={50}
+                    width={150}
+                    className="pr-3"
+                  />
+                  <button
+                    type="button"
+                    className="btn btn-sm btn-secondary"
+                    onClick={resetCanvas}
+                  >
+                    Reload
+                  </button>
+                </div>
+              )}
+              {!devMode && (
+                <div className="mb-3 mt-3">
+                  <div className="form-group">
+                    <input
+                      type="text"
+                      className="form-control"
+                      id="captcha"
+                      {...register('captcha', {
+                        required: 'Captcha Required',
+                      })}
+                      autoComplete="off"
+                    />
+                  </div>
+                  <ErrorMessage
+                    errors={errors}
+                    name="captcha"
+                    as={<span className="text-danger text-xs"></span>}
+                  />
+                </div>
+              )}
               <div className="row float-right">
                 <div className="col-12 float-end">
                   {!isLoading && (

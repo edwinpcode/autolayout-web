@@ -20,7 +20,7 @@ function Auth() {
     AuthLogout(userId, activeModuleId, activeRoleId).then((response) => {
       if (response.data.response.status == '1') {
         // window.Swal.fire('Error', response.data.response.msg, 'error')
-        localStorage.clear('token')
+        localStorage.clear()
         navigate('/login')
         hideLoader()
       }

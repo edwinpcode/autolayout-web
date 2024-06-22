@@ -42,35 +42,37 @@ const InputTextboxWithButton = ({
     dispatch(setFormAction([]))
     dispatch(setLoadingField(true))
     dispatch(setLoadingSpin(true))
-    const payload = {
-      type: button[0].id,
-      tabId: menu.activeTabId,
-      tc: menu.activeTrackId,
-      userId: userId,
-      param: [{ id: fieldItem.id, value: getValues(fieldItem.id) }],
+    if (button.length) {
+      const payload = {
+        type: button[0].id,
+        tabId: menu.activeTabId,
+        tc: menu.activeTrackId,
+        userId: userId,
+        param: [{ id: fieldItem.id, value: getValues(fieldItem.id) }],
+      }
+      await getDataActionWithButton(button[0].path, payload).then((res) => {
+        dispatch(setLoadingSpin(false))
+        dispatch(setLoadingField(false))
+        // nik baru (tidak ditemukan)
+        if (res.data.status == '0') {
+          navigate('/form', { state: { param: [] } })
+          dispatch(setFormPanel(res.data.panel))
+          dispatch(setFormAction(res.data.action))
+          return window.Swal.fire('', res.data.message, 'warning')
+        }
+        // nik ditemukan
+        if (res.data.status == '1') {
+          dispatch(setFormPanel(res.data.panel))
+          dispatch(setFormAction(res.data.action))
+          return window.Swal.fire('', res.data.message, 'success')
+        }
+        // nik dalam pengajuan
+        if (res.data.status == '2') {
+          navigate('/')
+          return window.Swal.fire('', res.data.message, 'warning')
+        }
+      })
     }
-    await getDataActionWithButton(button[0].path, payload).then((res) => {
-      dispatch(setLoadingSpin(false))
-      dispatch(setLoadingField(false))
-      // nik baru (tidak ditemukan)
-      if (res.data.status == '0') {
-        navigate('/form', { state: { param: [] } })
-        dispatch(setFormPanel(res.data.panel))
-        dispatch(setFormAction(res.data.action))
-        return window.Swal.fire('', res.data.message, 'warning')
-      }
-      // nik ditemukan
-      if (res.data.status == '1') {
-        dispatch(setFormPanel(res.data.panel))
-        dispatch(setFormAction(res.data.action))
-        return window.Swal.fire('', res.data.message, 'success')
-      }
-      // nik dalam pengajuan
-      if (res.data.status == '2') {
-        navigate('/')
-        return window.Swal.fire('', res.data.message, 'warning')
-      }
-    })
   }
 
   return (
@@ -104,7 +106,7 @@ const InputTextboxWithButton = ({
             className="btn btn-danger"
             onClick={handleSubmit(onClick)}
           >
-            {button[0].label}
+            {button.length && button[0].label}
           </button>
         </span>
       </div>

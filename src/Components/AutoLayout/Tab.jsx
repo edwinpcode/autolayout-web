@@ -57,7 +57,7 @@ export default function Tabw({ data, activeTabId, setActiveTabId, reset }) {
                 ) : null
               }
               onClick={() => {
-                reset()
+                reset && reset()
                 if (activeTabId !== item.id) {
                   dispatch(setFormPanel([]))
                   dispatch(resetHiddenField())
